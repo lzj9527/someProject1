@@ -1,0 +1,4 @@
+#Wed Nov 21 16:39:08 CST 2018
+base.0=D\:\\TryApp2ForShop-master_test\\tryApp2ForShop\\build\\intermediates\\transforms\\dexMerger\\release\\0
+path.0=classes.dex
+renamed.0=classes.dex

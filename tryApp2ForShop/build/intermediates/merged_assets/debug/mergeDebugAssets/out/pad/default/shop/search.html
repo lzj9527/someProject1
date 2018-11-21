@@ -1,0 +1,155 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>搜索</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,maximum-scale=1.0,minimum-scale=1.0, initial-scale=1.0 user-scalable=no">
+    <meta name="format-detection" content="telephone=no" />
+    <!-- bootstrap start -->
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/css/bootstrap-theme.min.css">
+    <script src="../static/js/jquery-3.0.0.js"></script>
+    <script src="../static/js/bootstrap.min.js"></script>
+    <!-- bootstrap end -->
+
+    <script type="text/javascript" src="../static/js/config.js"></script>
+    <script type="text/javascript" src="../static/js/function.js"></script>
+    <script type="text/javascript" src="../static/js/androidJSInterface.js"></script>
+    <script src="../static/js/touch.js"></script>
+    <link rel="stylesheet" type="text/css" href="../static/css/ui-box.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/ui-base.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/ui-color.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/ui-control.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/ui-icon.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/ui-my.css">
+
+</head>
+
+<body class="um-vp" ontouchstart>
+
+    <div id="page_1" class="up ub" tabindex="0">
+        <div class="ub ub-fh">
+            <div id="content" class="ub ub-f1">
+                <div class="ub  ub-f1"></div>
+                <div class="ub   ub-f4 ub-ver" style="margin-top:4em">
+                    <div class="row">
+                        <div class="col-sm-2 text-left" style="color:#b1001d;font-family: '微软雅黑';font-weight:800; margin:0em;padding:1em;width:6em;"
+                            id="goods" onclick="good(this)">搜索产品</div>
+                        <div class="col-sm-1 text-left" style="color:#ccc;margin:0em;padding:1em;width:1em">|</div>
+                        <div class="col-sm-9 text-left" style="color:#888;margin:0em;padding:1em;width:6em;font-family:'微软雅黑';font-weight:800; "
+                            id="checks" onclick="check(this)">证书查询</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12" style="width:100%;height:0.5em;background-color:#E2CCB4;"></div>
+                    </div>
+
+                    <form class="form-search  ub-con " style="margin-top:3em;height:auto;" id="one">
+                        <div class="ub ub-f1 content ">
+                            <div class="ub ub-f1  has-feedback">
+                                <input class="form-control  ub ub-f1  keywords productKeywords" style="border:0px; background-color:#f0efef;font-family:'微软雅黑';font-weight:800;"
+                                    placeholder="&nbsp;&nbsp;搜索产品">
+                                <a class="glyphicon glyphicon-remove btn form-control-feedback  bc-text-c1 btnclear hide " style="pointer-events: auto; line-height: 24px;"></a>
+                            </div>
+                            <div class="ub col-sm-2"> <span class="form-control ub ub-f1  uinn ub-pc submit productSubmit" style="background-color:#b1001d; color:#fff;border:0px;font-family:'微软雅黑';font-weight:800;">搜 索</span></div>
+                        </div>
+                    </form>
+
+                    <!-- =================== -->
+                    <!--    <div class="row clearfix" style="margin-top:10em;">
+                              <div class="col-sm-2 text-left" style="color:#888;font-family: '微软雅黑';font-weight:800; margin:0em;padding:1em;width:6em;">搜索产品</div>
+                              <div class="col-sm-1 text-left" style="color:#ccc;margin:0em;padding:1em;width:1em">|</div>
+                              <div class="col-sm-9 text-left" style="color:#b1001d;margin:0em;padding:1em;width:6em;font-family:'微软雅黑';font-weight:800; " >证书查询</div>
+                          </div>
+
+                          <div class="row">
+                              <div class="col-12" style="width:100%;height:0.5em;background-color:#E2CCB4;"></div>
+                          </div> -->
+
+                    <form class="form-search  ub-con " style="margin-top:3em;height:auto;display:none;" id="two">
+                        <div class="ub ub-f1 content ">
+                            <div class="ub col-sm-3" style="margin:0em 1em;padding:0em;margin-left:0em;vertical-align:middle;">
+                                <select class="form-control  ub ub-f1  keywords" style="background:#f0efef;">
+                                            <option value="" style="color:#888;font-family:'微软雅黑';font-weight:800;" >GIA证书查询</option>
+                                        </select>
+                                <div class="" style="display:inline-block;position:absolute;right:0.3em;top:0.5em;"><img src="../static/images/arrow_down.png" class="img-responsive" alt="Responsive image"
+                                        width="20em" style="display: inline-block;"></div>
+                            </div>
+                            <div class="ub ub-f1  has-feedback">
+                                <input class="form-control  ub ub-f1  keywords certnumber" style="border:0px; background-color:#f0efef;font-family:'微软雅黑';font-weight:800;">
+                                <a class="glyphicon glyphicon-remove btn form-control-feedback  bc-text-c1 btnclear hide " style="pointer-events: auto; line-height: 24px;"></a>
+                            </div>
+                            <div class="ub col-sm-2"> <span class="form-control ub ub-f1  uinn ub-pc submit certsearch" style="background-color:#b1001d; color:#fff;border:0px;font-family:'微软雅黑';font-weight:800;">查 询</span></div>
+                        </div>
+                    </form>
+
+                    <script type="text/javascript">
+                        var one = document.getElementById('one'),
+                            two = document.getElementById('two'),
+                            checks = document.getElementById('checks'),
+                            goodss = document.getElementById('goods');
+
+                        function good() {
+
+                            goodss.style.color = "#b1001d";
+                            checks.style.color = "#888";
+                            one.style.display = "block";
+                            two.style.display = "none";
+                        }
+
+                        function check() {
+                            checks.style.color = "#b1001d";
+                            goodss.style.color = "#ccc";
+                            one.style.display = "none";
+                            two.style.display = "block";
+                        }
+                    </script>
+
+                </div>
+                <div class="ub  ub-f1"></div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+<script>
+    $(function () {
+
+        touch.on('.productSubmit', 'tap', function (ev) {
+            var keywords = $('.productKeywords').val();
+            searchGoods(keywords);
+        });
+
+        touch.on('.certsearch', 'tap', function (ev) {
+            var keywords = $('.certnumber').val();
+
+            var reg = /^(\d{8}|\d{10})$/;
+            var key = getUrlParam("key");
+            if(reg.test(keywords)) {
+                downloadGIACer(keywords, appUrl+'/addons/ewei_shop/api/pdf.php?gia=' +
+                keywords + '&key=' + key);
+
+            } else {
+                showToast('请输入正确的证书号码');
+            }
+            
+        });
+
+        $('.keywords').change(function (ev) {
+            if ($(this).val()) {
+                $('.btnclear').removeClass('hide');
+            } else {
+                $('.btnclear').addClass('hide');
+            }
+        })
+
+        touch.on('.btnclear', 'tap', function (ev) {
+            $('.keywords').val('');
+            $('.btnclear').addClass('hide');
+        })
+
+    })
+</script>
+
+</html>

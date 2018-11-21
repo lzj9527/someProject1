@@ -1,0 +1,7 @@
+.RU-pagebar{ font-family:Verdana; font-size:13px;width: 450px;  margin: 0 auto;padding-top:24px;  text-align: center;}
+.RU-pagebar a,.RU-pagebar span{ padding:5px 8px; border:1px solid #ddd; background:#ebebeb; margin-right:10px; text-decoration:none; color:#f65959;}
+
+
+.RU-pagebar .RU-pagenow{ padding:5px 8px; border:1px solid #cdb590; margin-right:10px; background:#cdb590; color:#fff;}
+.RU-pagebar .RU-pagedisabled{ color:#bbb; background:#eee}
+.RU-pagebar a:hover{ background-color:#f65959;color:#fff;}

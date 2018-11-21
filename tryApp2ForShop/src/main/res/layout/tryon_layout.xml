@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white" >
+
+    <FrameLayout
+        android:id="@+id/unity_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+    </FrameLayout>
+
+    <View
+        android:id="@+id/fullscreen_mask"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent" >
+    </View>
+
+    <LinearLayout
+        android:id="@+id/toolbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="60px"
+        android:layout_marginTop="30px"
+        android:orientation="vertical" >
+
+        <android.extend.widget.ExtendImageView
+            android:id="@+id/homepage_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="centerCrop"
+            android:src="@drawable/homepage_button" />
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/min_hand_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="30px"
+        android:layout_marginLeft="40px" >
+
+        <LinearLayout
+            android:id="@+id/min_hand"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:visibility="visible" >
+
+            <ImageView
+                android:id="@+id/min_hand_sample1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="20px"
+                android:src="@drawable/selector_min_hand_sample1" />
+
+            <ImageView
+                android:id="@+id/min_hand_sample2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="20px"
+                android:src="@drawable/selector_min_hand_sample2" />
+
+            <ImageView
+                android:id="@+id/min_hand_sample3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="20px"
+                android:src="@drawable/selector_min_hand_sample3" />
+
+            <ImageView
+                android:id="@+id/min_hand_sample4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="20px"
+                android:src="@drawable/selector_min_hand_sample4" />
+
+            <ImageView
+                android:id="@+id/min_hand_sample5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="20px"
+                android:src="@drawable/selector_min_hand_sample5" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/min_hand_man"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:visibility="gone" >
+
+            <ImageView
+                android:id="@+id/min_hand_man_sample1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="20px"
+                android:src="@drawable/selector_min_hand_man_sample1" />
+
+            <ImageView
+                android:id="@+id/min_hand_man_sample2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="20px"
+                android:src="@drawable/selector_min_hand_man_sample2" />
+
+            <ImageView
+                android:id="@+id/min_hand_man_sample3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="20px"
+                android:src="@drawable/selector_min_hand_man_sample3" />
+
+            <ImageView
+                android:id="@+id/min_hand_man_sample4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="20px"
+                android:src="@drawable/selector_min_hand_man_sample4"
+                android:visibility="gone" />
+
+            <ImageView
+                android:id="@+id/min_hand_man_sample5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="20px"
+                android:src="@drawable/selector_min_hand_man_sample5"
+                android:visibility="gone" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/min_hand_two"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:visibility="gone" >
+
+            <ImageView
+                android:id="@+id/min_hand_two_sample1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="20px"
+                android:src="@drawable/selector_min_hand_two_sample1" />
+
+            <ImageView
+                android:id="@+id/min_hand_two_sample2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="20px"
+                android:src="@drawable/selector_min_hand_two_sample2" />
+
+            <ImageView
+                android:id="@+id/min_hand_two_sample3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="20px"
+                android:src="@drawable/selector_min_hand_two_sample3" />
+
+            <ImageView
+                android:id="@+id/min_hand_two_sample4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="20px"
+                android:src="@drawable/selector_min_hand_two_sample4" />
+
+            <ImageView
+                android:id="@+id/min_hand_two_sample5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="20px"
+                android:src="@drawable/selector_min_hand_two_sample5"
+                android:visibility="gone" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/min_necklace"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:visibility="gone" >
+
+            <ImageView
+                android:id="@+id/min_necklace_sample1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="20px"
+                android:src="@drawable/selector_min_necklace_sample1" />
+        </LinearLayout>
+    </FrameLayout>
+
+    <ImageView
+        android:id="@+id/product_details_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/min_hand_layout"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="60px"
+        android:src="@drawable/product_details_button" />
+
+    <ImageView
+        android:id="@+id/camera_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/product_details_button"
+        android:layout_alignLeft="@id/product_details_button"
+        android:layout_marginBottom="30px"
+        android:src="@drawable/tryon_camera_btn" />
+
+    <android.extend.widget.MenuBar
+        android:id="@+id/category_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="60px"
+        android:layout_marginTop="30px" >
+
+        <LinearLayout
+            android:id="@+id/menugroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <android.extend.widget.MenuView
+                android:id="@+id/category_women"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true" >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/selector_tryon_category_women" />
+            </android.extend.widget.MenuView>
+
+            <android.extend.widget.MenuView
+                android:id="@+id/category_man"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20px"
+                android:clickable="true" >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/selector_tryon_category_ring" />
+            </android.extend.widget.MenuView>
+
+            <android.extend.widget.MenuView
+                android:id="@+id/category_couplering"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20px"
+                android:clickable="true"
+                android:visibility="visible" >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/selector_tryon_category_couplering" />
+            </android.extend.widget.MenuView>
+
+            <android.extend.widget.MenuView
+                android:id="@+id/category_earring"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20px"
+                android:clickable="true"
+                android:visibility="gone" >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/selector_tryon_category_earring" />
+            </android.extend.widget.MenuView>
+
+            <android.extend.widget.MenuView
+                android:id="@+id/category_necklace"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20px"
+                android:clickable="true"
+                android:visibility="visible" >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/selector_tryon_category_necklace" />
+            </android.extend.widget.MenuView>
+
+            <android.extend.widget.MenuView
+                android:id="@+id/category_bracelet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20px"
+                android:clickable="true"
+                android:visibility="gone" >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/selector_tryon_category_bracelet" />
+            </android.extend.widget.MenuView>
+        </LinearLayout>
+    </android.extend.widget.MenuBar>
+
+    <FrameLayout
+        android:id="@+id/goodslist_layout"
+        android:layout_width="324px"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="-324px"
+        android:background="@drawable/tryon_goodslist_bg" >
+    </FrameLayout>
+
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="invisible"
+        layout="@layout/tryon_erase_layout" >
+    </include>
+
+    <ImageView
+        android:id="@+id/loading_indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:src="@drawable/anim_loading"
+        android:visibility="gone" />
+
+</RelativeLayout>

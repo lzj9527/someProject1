@@ -1,0 +1,702 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.extend.widget.ExtendLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="horizontal" >
+
+    <FrameLayout
+        android:id="@+id/product_photo"
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:layout_weight="8" >
+
+        <android.extend.widget.ExtendViewPager
+            android:id="@+id/select_item"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:scrollbars="none" >
+        </android.extend.widget.ExtendViewPager>
+
+        <LinearLayout
+            android:id="@+id/dot_container"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_marginBottom="30px"
+            android:gravity="center"
+            android:orientation="horizontal" >
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/arrow_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left|center_vertical"
+            android:padding="40px"
+            android:src="@drawable/arrow_left"
+            android:visibility="invisible" />
+
+        <ImageView
+            android:id="@+id/arrow_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center_vertical"
+            android:padding="40px"
+            android:src="@drawable/arrow_right"
+            android:visibility="invisible" />
+
+        <ImageView
+            android:id="@+id/middle_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="40px"
+            android:src="@drawable/btn_back" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:layout_weight="3"
+        android:background="@color/detail_right_background"
+        android:orientation="vertical"
+        android:padding="10px" >
+
+        <TextView
+            android:id="@+id/rings_name"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/product_name_background"
+            android:gravity="center"
+            android:maxLines="1"
+            android:text="-"
+            android:textColor="@color/detail_title_font"
+            android:textSize="48px" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="10px"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="10px" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:text="总价格: "
+                android:textColor="@color/detail_title_font"
+                android:textSize="32px" />
+
+            <TextView
+                android:id="@+id/product_pirce"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="left|center_vertical"
+                android:maxLines="1"
+                android:text="-"
+                android:textColor="@color/detail_price_font"
+                android:textSize="40px" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="10px"
+            android:background="@color/detail_paramsbox_background"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="10px" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:text="预计发货: "
+                android:textColor="@color/detail_title_font"
+                android:textSize="28px" />
+
+            <TextView
+                android:id="@+id/send_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:text="2~3天"
+                android:textColor="@color/detail_price_font"
+                android:textSize="28px" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10px"
+            android:background="@drawable/confirm_shop_details_ring_bg"
+            android:gravity="center_vertical" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="20px"
+                android:maxLines="1"
+                android:text="裸钻"
+                android:textColor="@color/detail_title_font"
+                android:textSize="32px" />
+
+            <TextView
+                android:id="@+id/rings_price_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="20px"
+                android:maxLines="1"
+                android:text="-"
+                android:textColor="@color/detail_text_font"
+                android:textSize="32px" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10px"
+            android:background="@color/detail_paramsbox_background"
+            android:orientation="vertical"
+            android:padding="40px" >
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:text="货号"
+                    android:textColor="@color/detail_title_font"
+                    android:textSize="28px" />
+
+                <TextView
+                    android:id="@+id/ring_sn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:text="-"
+                    android:textColor="@color/detail_text_font"
+                    android:textSize="28px" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:text="  |  "
+                    android:textColor="@color/detail_params_separator"
+                    android:textSize="28px" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:text="形状"
+                    android:textColor="@color/detail_title_font"
+                    android:textSize="28px" />
+
+                <TextView
+                    android:id="@+id/ring_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:text="-"
+                    android:textColor="@color/detail_text_font"
+                    android:textSize="28px" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:text="  |  "
+                    android:textColor="@color/detail_params_separator"
+                    android:textSize="28px" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:text="重量"
+                    android:textColor="@color/detail_title_font"
+                    android:textSize="28px" />
+
+                <TextView
+                    android:id="@+id/ring_weight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:text="-"
+                    android:textColor="@color/detail_text_font"
+                    android:textSize="28px" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:text="  |  "
+                    android:textColor="@color/detail_params_separator"
+                    android:textSize="28px" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10px"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:text="颜色"
+                    android:textColor="@color/detail_title_font"
+                    android:textSize="28px" />
+
+                <TextView
+                    android:id="@+id/ring_color"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:text="-"
+                    android:textColor="@color/detail_text_font"
+                    android:textSize="28px" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:text="  |  "
+                    android:textColor="@color/detail_params_separator"
+                    android:textSize="28px" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:text="净度"
+                    android:textColor="@color/detail_title_font"
+                    android:textSize="28px" />
+
+                <TextView
+                    android:id="@+id/ring_clarity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:text="-"
+                    android:textColor="@color/detail_text_font"
+                    android:textSize="28px" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:text="  |  "
+                    android:textColor="@color/detail_params_separator"
+                    android:textSize="28px" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:text="切工"
+                    android:textColor="@color/detail_title_font"
+                    android:textSize="28px" />
+
+                <TextView
+                    android:id="@+id/ring_cut"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:text="-"
+                    android:textColor="@color/detail_text_font"
+                    android:textSize="28px" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:text="  |  "
+                    android:textColor="@color/detail_params_separator"
+                    android:textSize="28px" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10px"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:text="抛光"
+                    android:textColor="@color/detail_title_font"
+                    android:textSize="28px" />
+
+                <TextView
+                    android:id="@+id/ring_polish"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:text="-"
+                    android:textColor="@color/detail_text_font"
+                    android:textSize="28px" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:text="  |  "
+                    android:textColor="@color/detail_params_separator"
+                    android:textSize="28px" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:text="对称"
+                    android:textColor="@color/detail_title_font"
+                    android:textSize="28px" />
+
+                <TextView
+                    android:id="@+id/ring_symmetry"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:text="-"
+                    android:textColor="@color/detail_text_font"
+                    android:textSize="28px" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:text="  |  "
+                    android:textColor="@color/detail_params_separator"
+                    android:textSize="28px" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:text="荧光"
+                    android:textColor="@color/detail_title_font"
+                    android:textSize="28px" />
+
+                <TextView
+                    android:id="@+id/ring_fluorescence"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:text="-"
+                    android:textColor="@color/detail_text_font"
+                    android:textSize="28px" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:text="  |  "
+                    android:textColor="@color/detail_params_separator"
+                    android:textSize="28px" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10px"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:text="证书"
+                    android:textColor="@color/detail_title_font"
+                    android:textSize="28px" />
+
+                <TextView
+                    android:id="@+id/ring_certtype"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:text="-"
+                    android:textColor="@color/detail_text_font"
+                    android:textSize="28px" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:text="  |  "
+                    android:textColor="@color/detail_params_separator"
+                    android:textSize="28px" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:text="证书号"
+                    android:textColor="@color/detail_title_font"
+                    android:textSize="28px" />
+
+                <TextView
+                    android:id="@+id/ring_certno"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:text="-"
+                    android:textColor="@color/detail_text_font"
+                    android:textSize="28px" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:text="  |  "
+                    android:textColor="@color/detail_params_separator"
+                    android:textSize="28px" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10px"
+            android:background="@drawable/confirm_shop_details_ring_bg"
+            android:gravity="center_vertical" >
+
+            <TextView
+                android:id="@+id/product_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="20px"
+                android:maxLines="1"
+                android:text="戒托"
+                android:textColor="@color/detail_title_font"
+                android:textSize="32px" />
+
+            <TextView
+                android:id="@+id/ring_price_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="20px"
+                android:maxLines="1"
+                android:text="-"
+                android:textColor="@color/detail_text_font"
+                android:textSize="32px" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10px"
+            android:background="@color/detail_paramsbox_background"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="left"
+                android:maxLines="1"
+                android:padding="10px"
+                android:text="产品货号:"
+                android:textColor="@color/detail_title_font"
+                android:textSize="28px" />
+
+            <TextView
+                android:id="@+id/product_number"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:gravity="left"
+                android:maxLines="1"
+                android:padding="10px"
+                android:text="-"
+                android:textColor="@color/detail_text_font"
+                android:textSize="28px" />
+        </LinearLayout>
+
+        <ScrollView
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="10px"
+            android:layout_weight="1"
+            android:scrollbars="none" >
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="10px"
+                android:paddingLeft="40px" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="left|top"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:maxLines="1"
+                        android:text="材质"
+                        android:textColor="@color/detail_title_font"
+                        android:textSize="28px" />
+
+                    <android.extend.widget.MenuBar
+                        android:id="@+id/product_material_menubar"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="40px" >
+
+                        <GridLayout
+                            android:id="@+id/menugroup"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:columnCount="2"
+                            android:gravity="left|top"
+                            android:rowCount="2" >
+
+                            <android.extend.widget.MenuView
+                                android:layout_width="200px"
+                                android:layout_height="60px"
+                                android:background="@drawable/selector_product_details_selectprice_bg"
+                                android:clickable="true" >
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:maxLines="1"
+                                    android:text="18K白"
+                                    android:textColor="@color/detail_text_font"
+                                    android:textSize="28px" />
+                            </android.extend.widget.MenuView>
+
+                            <android.extend.widget.MenuView
+                                android:layout_width="200px"
+                                android:layout_height="60px"
+                                android:layout_marginLeft="40px"
+                                android:background="@drawable/selector_product_details_selectprice_bg"
+                                android:clickable="true" >
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:maxLines="1"
+                                    android:text="18K黄"
+                                    android:textColor="@color/detail_text_font"
+                                    android:textSize="28px" />
+                            </android.extend.widget.MenuView>
+
+                            <android.extend.widget.MenuView
+                                android:layout_width="200px"
+                                android:layout_height="60px"
+                                android:layout_marginTop="20px"
+                                android:background="@drawable/selector_product_details_selectprice_bg"
+                                android:clickable="true" >
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:maxLines="1"
+                                    android:text="18K红"
+                                    android:textColor="@color/detail_text_font"
+                                    android:textSize="28px" />
+                            </android.extend.widget.MenuView>
+
+                            <android.extend.widget.MenuView
+                                android:layout_width="200px"
+                                android:layout_height="60px"
+                                android:layout_marginLeft="40px"
+                                android:layout_marginTop="20px"
+                                android:background="@drawable/selector_product_details_selectprice_bg"
+                                android:clickable="true" >
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:maxLines="1"
+                                    android:text="Pt950"
+                                    android:textColor="@color/detail_text_font"
+                                    android:textSize="28px" />
+                            </android.extend.widget.MenuView>
+                        </GridLayout>
+                    </android.extend.widget.MenuBar>
+                </LinearLayout>
+
+                <include
+                    android:id="@+id/ringsize_select_layout"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20px"
+                    layout="@layout/ringsize_select_layout" />
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20px"
+                    android:gravity="left|top"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:maxLines="1"
+                        android:text="刻字"
+                        android:textColor="@color/detail_title_font"
+                        android:textSize="28px" />
+
+                    <EditText
+                        android:id="@+id/lettering"
+                        android:layout_width="fill_parent"
+                        android:layout_height="60px"
+                        android:layout_marginLeft="40px"
+                        android:background="@drawable/product_name_background"
+                        android:gravity="left|center_vertical"
+                        android:hint="最多6个字符，限字母、数字、符号"
+                        android:inputType="text"
+                        android:maxLength="6"
+                        android:maxLines="1"
+                        android:textColor="@color/detail_edittext_font"
+                        android:textColorHint="@color/detail_edittext_hint"
+                        android:textSize="28px" />
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+
+        <TextView
+            android:id="@+id/place_order"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10px"
+            android:background="@color/rect_button_background"
+            android:gravity="center"
+            android:maxLines="1"
+            android:padding="30px"
+            android:text="加入购物车"
+            android:textColor="@color/rect_button_font"
+            android:textSize="32px" />
+    </LinearLayout>
+
+</android.extend.widget.ExtendLinearLayout>

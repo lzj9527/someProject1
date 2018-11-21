@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.extend.widget.ExtendLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical" >
+
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:visibility="visible" >
+
+        <android.extend.widget.ExtendViewPager
+            android:id="@+id/viewpager"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_gravity="center"
+            android:background="@android:color/transparent" >
+        </android.extend.widget.ExtendViewPager>
+
+        <LinearLayout
+            android:id="@+id/dot_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|bottom"
+            android:layout_marginBottom="40px"
+            android:background="@android:color/transparent" 
+            android:gravity="center"
+            android:orientation="horizontal" >
+        </LinearLayout>
+    </FrameLayout>
+
+
+    <android.extend.widget.adapter.HorizontalScrollListView
+        android:id="@+id/index_product"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="1"
+        android:scrollbars="none" >
+    </android.extend.widget.adapter.HorizontalScrollListView>
+
+     <!-- 
+    <FrameLayout
+        android:id="@+id/index_product_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="1"
+        android:scrollbars="none" />
+	-->
+</android.extend.widget.ExtendLinearLayout>

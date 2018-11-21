@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="left|top"
+    android:orientation="horizontal" >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:text="手寸"
+        android:textColor="@color/detail_title_font"
+        android:textSize="28px" />
+
+    <android.extend.widget.MenuBar
+        android:id="@+id/ringsize_menubar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40px" >
+
+        <android.extend.widget.FlowLayout
+            android:id="@+id/menugroup"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+        </android.extend.widget.FlowLayout>
+    </android.extend.widget.MenuBar>
+
+</LinearLayout>

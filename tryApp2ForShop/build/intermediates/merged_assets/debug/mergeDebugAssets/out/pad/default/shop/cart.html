@@ -1,0 +1,868 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>购物车</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,maximum-scale=1.0,minimum-scale=1.0, initial-scale=1.0 user-scalable=no">
+    <meta name="format-detection" content="telephone=no" />
+    <!-- bootstrap start -->
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/css/bootstrap-theme.min.css">
+    <script src="../static/js/jquery-3.0.0.js"></script>
+    <script src="../static/js/bootstrap.min.js"></script>
+    <!-- bootstrap end -->
+    <script type="text/javascript" src="../static/js/config.js"></script>
+    <script type="text/javascript" src="../static/js/function.js"></script>
+    <script type="text/javascript" src="../static/js/androidJSInterface.js"></script>
+    <script src="../static/js/touch.js"></script>
+    <link rel="stylesheet" type="text/css" href="../static/css/ui-box.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/ui-base.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/ui-color.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/ui-control.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/ui-icon.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/ui-my.css">
+    <script type="text/javascript">
+    </script>
+</head>
+
+<body class="um-vp" ontouchstart>
+    <div id="page_1" class="up ub" tabindex="0">
+        <div class="ub ub-fh">
+            <!--<div id="menu" class="ub sc-bg" style="width: 7em;">
+                <div id="btlist" class="ub ub-ver uinn-t">
+                    <div class="ub   bc-bg ub-ac ub-pc " style="height: 5em; width: 5em;  border-radius: 50%; margin:1em">头像</div>
+                    <div id="btCategory" class="ub  umar-t umar-b ub-ac ub-pc sc-btn" style="height: 7em; width: 7em;">分 类</div>
+                    <div id="btCat" class="ub  umar-t umar-b ub-ac ub-pc " style="height: 7em; width: 7em;">购物车</div>
+                    <div id="btSearch" class="ub  umar-t umar-b ub-ac ub-pc " style="height: 7em; width: 7em;">搜 索</div>
+                </div>
+            </div>-->
+            <div id="content" class="ub ub-f1">
+                <div class="ub umar-a  ub-f1 table-responsive" style="overflow:inherit;">
+                    <table class="table table-condensed " id="cartlist" style="font-size:16px;">
+                        <thead>
+                            <tr style="background-color:#f0efef;">
+                                <td colspan="7">
+                                    <input type="checkbox" class="ubi" value="1" checked id="selectAll" style="width:25px;height:25px;">                                    全选</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                        <tfoot>
+
+                        </tfoot>
+                    </table>
+                </div>
+
+                <div class="modal fade" id="mymodal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" style="top:-30%;">
+                    <div class="ub ub-con ub-pc ub-ac">
+                        <div class="ub uc-a1 bc-bg ub-ver" style="width:370px; height:370px;">
+                            <div class="ub ub-pe uinn umar">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-sm-9" style="width:25em;margin:0em;padding:0em;">
+                                            <h1 style="width:10em;color:#BC9C69;font-size:20px;font-weight:800;text-align:right;margin:1em 4.8em;letter-spacing:0.4em;">填写联系人信息</h1>
+                                        </div>
+                                        <div class="col-sm-3" style="width:4em;margin:0em;padding:0em;">
+                                            <button type="button" data-dismiss="modal" aria-label="Close" class="bc-bg" style="color:#ec3a49;width: 3em; height: 3em;line-height: 4em;border:none;position:relative;left:-2.7em ;top:0em ;"><span aria-hidden="true" style="font-size:50px;position:absolute;right:-0.1em;top:-0.1em;z-index:100;">
+                                                <img src="../static/images/check_negativebutton.png" class="img-responsive" alt="Responsive image" >
+                                             </span></button>
+                                            <div style="position:absolute;width:4em;height:4em;left:-3.2em;top:-0.1em;" class="bc-bg"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div style=" margin:1em auto;width:300px;height:300px;">
+                                <div class="container-fluid " style="margin:0px;padding:0px;">
+                                    <div class="col-sm-4 none-padding umh4 " style="line-height: 34px;font-size:1.6em;"> 联系人: </div>
+                                    <div class="col-sm-8 none-padding ">
+                                        <input type="ordername" class="form-control" id="ordername"> </div>
+                                </div>
+                                <div class="container-fluid " style="margin:16px 0px;padding:0px;">
+                                    <div class="col-sm-4 none-padding umh4 text-left" style="padding-right: 0px;line-height: 34px; font-size:1.6em;">联系电话: </div>
+                                    <div class="col-sm-8 none-padding ">
+                                        <input type="orderphone" class="form-control" id="orderphone"> </div>
+                                </div>
+                                <div class="container-fluid " style="margin:16px 0px;padding:0px;">
+                                    <div class="col-sm-4 none-padding umh4" style="line-height: 34px; font-size:1.6em;">备&nbsp;&nbsp;注: </div>
+                                    <div class="col-sm-8 none-padding ">
+                                        <!-- <input type="orderaddress" class="form-control" id="orderaddress">  -->
+                                        <textarea rows="2" cols="30" class="form-control" id="orderaddress" style="resize: none;"></textarea>
+                                    </div>
+                                </div>
+
+                                <div style=" margin:  2em auto;">
+                                    <div class="ub  sc-btn  ub-ac ub-pc ulev1 uinn bc-text-head text-center" onclick="showresult()" style="height:60px;background-color:#b1001d;font-size:18px;font-weight:800;vertical-align: middle;letter-spacing:0.5em;">提交订单</div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <div id="modal_test" class="modal fade" tabindex="-1" role="dialog">
+                    <div class="ub ub-con ub-pc ub-ac">
+                        <div class="ub uc-a1 bc-bg ub-ver" style="width:400px; height:400px;">
+                            <div class="ub ub-pe uinn umar">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-sm-8" style="width:25em;margin:0em;padding:0em;">
+                                            <h1 style="width:10em;color:#BC9C69;font-size:2em;font-weight:800;text-align:right;margin:1em auto;"></h1>
+                                        </div>
+                                        <div class="col-sm-4" style="width:4em;margin:0em;padding:0em;">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <h3 class="text-center" style="margin-top:2em;">
+                                成功提交订单！
+                            </h3>
+                            <div style=" margin:  7em 4em 4em 4em; ">
+                                <div class="span6 col-sm-6">
+                                    <div class="ub  sc-btn ub-ac ub-pc ulev1 uinn bc-text-head text-center" onclick="view_order()" style="background-color:#f65959;">查看订单</div>
+                                </div>
+                                <div class="span6  col-sm-6">
+                                    <div class="ub  sc-btn ub-ac ub-pc ulev1 uinn bc-text-head text-center" data-dismiss="modal" style="background-color:#b1001d;">继续逛逛</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    var storage = window.localStorage;
+    var key = getUrlParam("key");
+    var orderparam = "";
+    //点击图片
+    function product_onclick(id) {
+        $.ajax({
+            url: appUrl+'/app/index.php?i=2&c=entry&do=Goods_detail&m=test&id=' + id + '&key=' +
+                key,
+            type: "get",
+            dataType: 'jsonp',
+            success: function (data) {
+                if (data.resultCode == "0") {
+                    var tag = data.datas.tag;
+                    var isshop = '1';
+                    console.log(tag);
+                    if (tag == 'two') {
+                        openDetailWindowInCoupleRing(id, '', isshop);
+                    } else {
+                        openDetailWindow(id, '', isshop);
+                    }
+                } else {
+                    showToast(data.error);
+                }
+            },
+            error: function () {
+                //showToast("error!");
+            }
+        })
+
+    }
+
+
+    $(function () {
+
+        function show_list(data) {
+            //console.log(JSON.stringify(data));
+            var strHtml =
+                '<tr  style="border-bottom:0.2em #cdb590 solid;"><td colspan="7" style="height:0.4em; padding:0px;overflow:hidden;"></td></tr>';
+            //////console.log(data.datas.list.length);
+            for (var i = 0; i < data.datas.list.length; i++) {
+                //if (isDefine(data.datas.list[i].goods)) {             
+                //for (var k = 0; k < data.datas.list[i].order_goods.length; k++) {
+                console.log(data.datas);
+                strHtml += ' <tr  style="border-bottom:0.2em #cdb590 solid;"  id="tr_' + data.datas.list[i].id +
+                    '" data-goodnum="' + data.datas.list[i].total + '" data-goodsize="' + data.datas.list[i].size +
+                    '">';
+                strHtml +=
+                    '<td  style="padding:16px"><input type="checkbox" class="ubi selects"  data-cartid="' +
+                    data.datas.list[i].id + '" checked  style="width:25px;height:25px;"></td>';
+                if (isDefine(data.datas.list[i].goods)) {
+                    strHtml += '<td class="col-xs-3 col-sm-2 col-md-2 col-lg-2 "  style="border:0px" >' +
+                        '<div class="ub ub-f1 btn-pro imgProductClick">';
+                } else {
+                    strHtml += '<td class="col-xs-3 col-sm-2 col-md-2 col-lg-2 "  style="border:0px" >' +
+                        '<div class="ub ub-f1 btn-pro ">';
+                }
+
+
+                //图片
+                if (isDefine(data.datas.list[i].goods)) {
+                    if (isDefine(data.datas.list[i].goods.thumb)) {
+                        strHtml += '<div class="ub ubl ubr  bc-border-c4 imgProduct" style="position: relative;" data-goodid="' + data.datas
+                            .list[i].goods.id + '" ><img src="' + data.datas.list[i].goods.thumb.url +
+                            '" width="100" height="100" class="" data-goodid="' + data.datas.list[i].goods.id +
+                            '"/>';
+                        
+                        // 定制字样
+                        if(isDefine(data.datas.list[i].customization == 1)){
+                            
+                            strHtml += '<div style="width:100px;height:100px; position:absolute; left:0; top:0; background-image: url(../static/images/customization.png);background-size: cover;"></div>';
+
+                        }    
+                        strHtml += '</div>';
+                    } else {
+                        strHtml +=
+                            '<div class="ub ubl ubr  bc-border-c4"><img src="" width="100" height="100"/></div>';
+                    }
+
+                } else {
+                    strHtml +=
+                        '<div class="ub ubl ubr bc-border-c4" ><img src="../static/images/diamond.png" width="100" height="100"/></div>';
+                }
+
+                //名称
+                if (isDefine(data.datas.list[i].goods)) {
+                    strHtml +=
+                        '<div class="ub ub-f1  ub-pc uinn ub-ver" style="width:auto;"><div class="ub text">' +
+                        data.datas.list[i].goods.title +
+                        '</div><div class="ub  bc-text-c2" style="color:#BC9C69;">￥ ' + data.datas.list[i].marketprice +
+                        '</div></div>';
+                } else {
+                    //strHtml += '<div class="ub ub-f1  ub-pc uinn ub-ver" style="min-width:200px;"><div class="ub">裸钻</div></div>';
+                    strHtml +=
+                        '<div class="ub ub-f1  ub-pc uinn ub-ver" style="min-width:200px;"><div class="ub text">裸钻</div><div class="ub  bc-text-c2" style="color:#BC9C69;">￥ ' +
+                        data.datas.list[i].marketprice + '</div></div>';
+
+                }
+
+                strHtml += '</div></td>';
+                // console.log(data.datas.list[i].goods.title);
+
+
+                //手寸
+
+                strHtml +=
+                    '<td  class="textb" style="border:0px;padding-left:0px;padding-right:0px; min-width:10em;min-height:100px"><div class="ub ubl ubr ub-ver ub-pc ub-ac bc-border-c4  ">';
+
+                if (isDefine(data.datas.list[i].size)) {
+
+                    if (data.datas.list[i].size != '0') {
+
+                        // console.log(data.datas.list[i].size);
+                        strHtml += '<div class="ub uinn " >手寸</div><div class="textb bc-text-c2">';
+
+                        strHtml += '<span class="op_num1_left textb" data-goodid="' + data.datas.list[i].id +
+                            '">-</span><span class="op_num1">' + data.datas.list[i].size +
+                            '</span><span class="op_num1_right " data-goodid="' + data.datas.list[i].id +
+                            '">+</span></div><div class="ulev-2 uinn ">调整手寸金重微量变化</div>';
+                    }
+
+                    if (data.datas.list[i].size == '0' || data.datas.list[i].size == '') {
+
+                        strHtml += "";
+
+                    }
+
+                }
+
+                strHtml += '</div></td>';
+
+                //数量
+                // if (!isDefine(data.datas.list[i].goods)) {
+                strHtml +=
+                    '<td style="border:0px; padding-left:0px;padding-right:0px;min-width:8em"><div class="ub ubr ub-ver ub-pc ub-ac  bc-border-c4" style="min-height:100px"><div class="ub uinn ">数量</div><div class="  bc-text-c2" >' +
+                    data.datas.list[i].total + '</div></div></td>';
+                //}else{
+
+                //  strHtml +='<td style="border:0px; padding-left:0px;padding-right:0px;min-width:8em"><div class="ub ubr ub-ver ub-pc ub-ac  bc-border-c4" ><div class="ub uinn ">数量</div><div class="bc-text-c2"><span class="op_num2_left" data-goodid="' + data.datas.list[i].id + '">-</span><span class="op_num2">' + data.datas.list[i].total + '</span><span class="op_num2_right" data-goodid="' + data.datas.list[i].id + '">+</span></div></div></td>';
+
+                // }
+
+                //产品详情
+                strHtml +=
+                    '<td  style="border:0px; padding-left:0px;"> <div class=" ub ub-ver  ubr uinn ub-pc    bc-border-c4" style="min-height:100px;" >';
+
+                //裸钻
+                if (!isDefine(data.datas.list[i].goods)) {
+                    //裸钻
+                    if (isDefine(data.datas.list[i].gia) && data.datas.list[i].gia != '') {
+
+                        for (var key in data.datas.list[i].gia) {
+
+                            //alert('1');
+
+                            if (key == 'sn') {
+                                strHtml1 =
+                                    '<div class="ubi ufl bc-text-c2" style="color:#BC9C69;"><span class="bc-text-c2">货号:</span>' +
+                                    data.datas.list[i].gia[key] +
+                                    '</div><div class="ubi ufl bc-text-c3" style="margin:0 0.2em">|</div>';
+                            }
+
+                            if (key == 'style') {
+                                strHtml2 =
+                                    '<div class="ubi ufl  bc-text-c2" style="color:#BC9C69;"><span class="bc-text-c2">形状:' +
+                                    '</span>' + data.datas.list[i].gia[key] +
+                                    '</div><div class="ubi ufl bc-text-c3" style="margin:0 0.2em">|</div>';
+                            }
+
+                            if (key == 'weight') {
+                                strHtml3 =
+                                    '<div class="ubi ufl  bc-text-c2" style="color:#BC9C69;"><span class="bc-text-c2">重量:' +
+                                    '</span>' + data.datas.list[i].gia[key] +
+                                    '</div><div class="ubi ufl bc-text-c3" style="margin:0 0.2em">|</div>';
+                            }
+
+                            if (key == 'color') {
+                                strHtml4 =
+                                    '<div class="ubi ufl  bc-text-c2" style="color:#BC9C69;"><span class="bc-text-c2">颜色:' +
+                                    '</span>' + data.datas.list[i].gia[key] +
+                                    '</div><div class="ubi ufl bc-text-c3" style="margin:0 0.2em">|</div>';
+                            }
+
+                            if (key == 'clarity') {
+                                strHtml5 =
+                                    '<div class="ubi ufl  bc-text-c2" style="color:#BC9C69;"><span class="bc-text-c2">净度:' +
+                                    '</span>' + data.datas.list[i].gia[key] +
+                                    '</div><div class="ubi ufl bc-text-c3" style="margin:0 0.2em">|</div>';
+                            }
+
+                            if (key == 'cut') {
+                                strHtml6 =
+                                    '<div class="ubi ufl  bc-text-c2" style="color:#BC9C69;"><span class="bc-text-c2">切工:' +
+                                    '</span>' + data.datas.list[i].gia[key] +
+                                    '</div><div class="ubi ufl bc-text-c3" style="margin:0 0.2em">|</div>';
+                            }
+
+                            if (key == 'polish') {
+                                strHtml7 =
+                                    '<div class="ubi ufl  bc-text-c2" style="color:#BC9C69;"><span class="bc-text-c2">抛光:' +
+                                    '</span>' + data.datas.list[i].gia[key] +
+                                    '</div><div class="ubi ufl bc-text-c3" style="margin:0 0.2em">|</div>';
+                            }
+
+                            if (key == 'symmetry') {
+                                strHtml8 =
+                                    '<div class="ubi ufl  bc-text-c2" style="color:#BC9C69;"><span class="bc-text-c2">对称:' +
+                                    '</span>' + data.datas.list[i].gia[key] +
+                                    '</div><div class="ubi ufl bc-text-c3" style="margin:0 0.2em">|</div>';
+                            }
+
+                            if (key == 'fluorescence') {
+                                strHtml9 =
+                                    '<div class="ubi ufl  bc-text-c2" style="color:#BC9C69;"><span class="bc-text-c2">荧光:' +
+                                    '</span>' + data.datas.list[i].gia[key] +
+                                    '</div><div class="ubi ufl bc-text-c3" style="margin:0 0.2em">|</div>';
+                            }
+
+                            if (key == 'certtype') {
+                                strHtml10 =
+                                    '<div class="ubi ufl  bc-text-c2" style="color:#BC9C69;"><span class="bc-text-c2">证书:' +
+                                    '</span>' + data.datas.list[i].gia[key] +
+                                    '</div><div class="ubi ufl bc-text-c3" style="margin:0 0.2em">|</div>';
+                            }
+
+                            if (key == 'certno') {
+                                strHtml11 =
+                                    '<div class="ubi ufl  bc-text-c2" style="color:#BC9C69;"><span class="bc-text-c2">证书号:' +
+                                    '</span>' + data.datas.list[i].gia[key] + '</div>';
+                            }
+
+                            if (key == 'price') {
+                                var strHtml12 = data.datas.list[i].gia[key];
+                            }
+
+                        }
+
+
+                        strHtml += '<div class="ubi ufl">' + strHtml1 + strHtml2 + strHtml3 + strHtml4 +
+                            strHtml5 + strHtml6 + strHtml7 + strHtml8 + strHtml9 + strHtml10 + strHtml11 +
+                            '</div>';
+                    }
+
+
+                } else {
+
+                    //戒托
+
+                    // strHtml +='<div class="ubi  uinn">';
+                    // for (var j = 0; j < data.datas.list[i].param.length; j++) {
+
+                    // strHtml += '<div class="ubi ufl"><span class="bc-text-c1">'+data.datas.list[i].param[j].title + ':</span>' + data.datas.list[i].param[j].value + '</div>';
+
+                    // if (j>0){
+                    //   strHtml +='<div class="ubi ufl bc-text-c3" style="margin:0 0.2em">|</div>'; 
+                    // }
+
+                    // }
+
+                    // strHtml +='</div>';
+
+                    // GIA选钻数据    
+                    if (isDefine(data.datas.list[i].gia) && data.datas.list[i].gia != '' && (!isDefine(data.datas
+                            .list[i].erp))) {
+
+                        for (var key in data.datas.list[i].gia) {
+
+                            //alert('1');
+
+                            if (key == 'sn') {
+                                strHtml1 =
+                                    '<div class="ubi ufl bc-text-c2" style="color:#BC9C69;"><span class="bc-text-c2">货号:</span>' +
+                                    data.datas.list[i].gia[key] +
+                                    '</div><div class="ubi ufl bc-text-c3" style="margin:0 0.2em">|</div>';
+                            }
+
+                            if (key == 'style') {
+                                strHtml2 =
+                                    '<div class="ubi ufl  bc-text-c2" style="color:#BC9C69;"><span class="bc-text-c2">形状:' +
+                                    '</span>' + data.datas.list[i].gia[key] +
+                                    '</div><div class="ubi ufl bc-text-c3" style="margin:0 0.2em">|</div>';
+                            }
+
+                            if (key == 'weight') {
+                                strHtml3 =
+                                    '<div class="ubi ufl  bc-text-c2" style="color:#BC9C69;"><span class="bc-text-c2">重量:' +
+                                    '</span>' + data.datas.list[i].gia[key] +
+                                    '</div><div class="ubi ufl bc-text-c3" style="margin:0 0.2em">|</div>';
+                            }
+
+                            if (key == 'color') {
+                                strHtml4 =
+                                    '<div class="ubi ufl  bc-text-c2" style="color:#BC9C69;"><span class="bc-text-c2">颜色:' +
+                                    '</span>' + data.datas.list[i].gia[key] +
+                                    '</div><div class="ubi ufl bc-text-c3" style="margin:0 0.2em">|</div>';
+                            }
+
+                            if (key == 'clarity') {
+                                strHtml5 =
+                                    '<div class="ubi ufl  bc-text-c2" style="color:#BC9C69;"><span class="bc-text-c2">净度:' +
+                                    '</span>' + data.datas.list[i].gia[key] +
+                                    '</div><div class="ubi ufl bc-text-c3" style="margin:0 0.2em">|</div>';
+                            }
+
+                            if (key == 'cut') {
+                                strHtml6 =
+                                    '<div class="ubi ufl  bc-text-c2" style="color:#BC9C69;"><span class="bc-text-c2">切工:' +
+                                    '</span>' + data.datas.list[i].gia[key] +
+                                    '</div><div class="ubi ufl bc-text-c3" style="margin:0 0.2em">|</div>';
+                            }
+
+                            if (key == 'polish') {
+                                strHtml7 =
+                                    '<div class="ubi ufl  bc-text-c2" style="color:#BC9C69;"><span class="bc-text-c2">抛光:' +
+                                    '</span>' + data.datas.list[i].gia[key] +
+                                    '</div><div class="ubi ufl bc-text-c3" style="margin:0 0.2em">|</div>';
+                            }
+
+                            if (key == 'symmetry') {
+                                strHtml8 =
+                                    '<div class="ubi ufl  bc-text-c2" style="color:#BC9C69;"><span class="bc-text-c2">对称:' +
+                                    '</span>' + data.datas.list[i].gia[key] +
+                                    '</div><div class="ubi ufl bc-text-c3" style="margin:0 0.2em">|</div>';
+                            }
+
+                            if (key == 'fluorescence') {
+                                strHtml9 =
+                                    '<div class="ubi ufl  bc-text-c2" style="color:#BC9C69;"><span class="bc-text-c2">荧光:' +
+                                    '</span>' + data.datas.list[i].gia[key] +
+                                    '</div><div class="ubi ufl bc-text-c3" style="margin:0 0.2em">|</div>';
+                            }
+
+                            if (key == 'certtype') {
+                                strHtml10 =
+                                    '<div class="ubi ufl  bc-text-c2" style="color:#BC9C69;"><span class="bc-text-c2">证书:' +
+                                    '</span>' + data.datas.list[i].gia[key] +
+                                    '</div><div class="ubi ufl bc-text-c3" style="margin:0 0.2em">|</div>';
+                            }
+
+                            if (key == 'certno') {
+                                strHtml11 =
+                                    '<div class="ubi ufl  bc-text-c2" style="color:#BC9C69;"><span class="bc-text-c2">证书号:' +
+                                    '</span>' + data.datas.list[i].gia[key] + '</div>';
+                            }
+
+                            if (key == 'price') {
+                                var strHtml12 = data.datas.list[i].gia[key];
+                            }
+                            if (key == 'carematerial') {
+                                strHtml13 =
+                                    '<div class="ubi ufl  bc-text-c2" style="color:#BC9C69;"><span class="bc-text-c2">材质:' +
+                                    '</span>' + data.datas.list[i].gia[key] +
+                                    '</div><div class="ubi ufl bc-text-c3" style="margin:0 0.2em">|</div>';
+                            }
+                        }
+
+                        strHtml += '<div class="ubi ufl   uinn bc-border-c4">' + strHtml1 + strHtml2 + strHtml3 + strHtml13 +
+                            strHtml4 + strHtml5 + strHtml6 + strHtml7 + strHtml8 + strHtml9 + strHtml10 +
+                            strHtml11 + '</div>';
+
+
+                    } else {
+
+                        // ERP 数据
+                        if (isDefine(data.datas.list[i].erp)) {
+
+                            var erpHtml = '';
+                            //console.log('erp');
+
+                            if (isDefine(data.datas.list[i].erp)) {
+
+                                if (isDefine(data.datas.list[i].erp.erpid) & data.datas.list[i].erp.erpid != '') {
+
+                                    erpHtml +=
+                                        '<div class="ubi ufl size10 bc-text-c2" style="margin:0 0.1em">货号:</div> <div class="ubi ufl size10 bc-text-c2" style="color:#BC9C69;">' +
+                                        data.datas.list[i].erp.erpid +
+                                        '</div><div class="ubi ufl size10 bc-text-c2" style="margin:0 0.4em"> | </div>';
+                                }
+
+                                if (isDefine(data.datas.list[i].erp.p1) & data.datas.list[i].erp.p1 != '') {
+                                    erpHtml +=
+                                        '<div class="ubi ufl size10 bc-text-c2" style="margin:0 0.1em">金重:</div> <div class="ubi ufl size10 bc-text-c2 " style="color:#BC9C69;">' +
+                                        data.datas.list[i].erp.p1 +
+                                        '</div><div class="ubi ufl size10 bc-text-c2" style="margin:0 0.4em"> | </div>';
+                                }
+
+                                if (isDefine(data.datas.list[i].erp.p4) & data.datas.list[i].erp.p4 != '') {
+                                    erpHtml +=
+                                        '<div class="ubi ufl size10 bc-text-c2" style="margin:0 0.1em">材质:</div> <div class="ubi ufl size10 bc-text-c2" style="color:#BC9C69;">' +
+                                        data.datas.list[i].erp.p4 +
+                                        '</div><div class="ubi ufl size10 bc-text-c2" style="margin:0 0.4em"> | </div>';
+                                }
+
+                                if (isDefine(data.datas.list[i].erp.p7) & data.datas.list[i].erp.p7 != '') {
+                                    erpHtml +=
+                                        '<div class="ubi ufl size10 bc-text-c2" style="margin:0 0.1em">副石:</div> <div class="ubi ufl size10 bc-text-c2" style="color:#BC9C69;">' +
+                                        data.datas.list[i].erp.p7 +
+                                        '</div><div class="ubi ufl size10 bc-text-c2" style="margin:0 0.4em"> | </div>';
+                                }
+
+                                if (isDefine(data.datas.list[i].erp.p6) & data.datas.list[i].erp.p6 != '') {
+                                    erpHtml +=
+                                        '<div class="ubi ufl size10 bc-text-c2" style="margin:0 0.1em">主石</div> <div class="ubi ufl size10 bc-text-c2" style="color:#BC9C69;">' +
+                                        data.datas.list[i].erp.p6 +
+                                        '</div><div class="ubi ufl size10 bc-text-c2" style="margin:0 0.4em"> | </div>';
+                                }
+
+                                if (isDefine(data.datas.list[i].erp.p8) & data.datas.list[i].erp.p8 != '') {
+                                    erpHtml +=
+                                        '<div class="ubi ufl size10 bc-text-c2" style="margin:0 0.1em">形状:</div> <div class="ubi ufl size10 bc-text-c2" style="color:#BC9C69;">' +
+                                        data.datas.list[i].erp.p8 +
+                                        '</div><div class="ubi ufl size10 bc-text-c2" style="margin:0 0.4em"> | </div>';
+                                }
+
+                                if (isDefine(data.datas.list[i].erp.p2) & data.datas.list[i].erp.p2 != '') {
+                                    erpHtml +=
+                                        '<div class="ubi ufl size10 bc-text-c2" style="margin:0 0.1em">净度:</div> <div class="ubi ufl size10 bc-text-c2" style="color:#BC9C69;">' +
+                                        data.datas.list[i].erp.p2 +
+                                        '</div><div class="ubi ufl size10 bc-text-c2" style="margin:0 0.4em"> | </div>';
+                                }
+
+                                if (isDefine(data.datas.list[i].erp.p3) & data.datas.list[i].erp.p3 != '') {
+                                    erpHtml +=
+                                        '<div class="ubi ufl size10 bc-text-c2" style="margin:0 0.1em">颜色:</div> <div class="ubi ufl size10 bc-text-c2" style="color:#BC9C69;">' +
+                                        data.datas.list[i].erp.p3.replace('<', '&lt;') +
+                                        '</div><div class="ubi ufl size10 bc-text-c2" style="margin:0 0.4em"> | </div>';
+                                }
+                            }
+                            ////console.log(erpHtml);
+                            strHtml += '<div class="ubi  uinn  bc-border-c4">' + erpHtml + '</div>';
+                        }
+                    }
+                }
+
+                strHtml += '</div></td>' +
+                    '<td class="col-sm-1"  style="padding:1px">' +
+                    '<div class="ub ub-f1">                                        ' +
+                    '<div class="ub ub-f1 sc-btn ub-ac ub-pc bc-text-head umar-a" style="background-color:#fff;border:0.1em solid #BC9C69;color:#000;width:61px;height:28px;vertical-align:top;line-height:28px;font-size:1.2em;" onclick="del_cart(' +
+                    data.datas.list[i].id + ')">删除</div>' +
+                    '</div>' +
+                    '</td>' +
+
+                    ' </tr>';
+
+                //}
+
+                // }
+
+                // strHtml += '<tr><td colspan="5"><div class="ubi ufl">订单编号:'+data.datas.list[i].ordersn+'    &nbsp;&nbsp;&nbsp;&nbsp;订单时间:'+data.datas.list[i].createtime+'</div><div class="ubi ufr">共<span style="font-size:1.5em">'+data.datas.list[i].count+'</span>件，总金额: <span style="font-size:1.5em">￥'+data.datas.list[i].price+'</span></div></td></tr>';
+
+            }
+
+
+            ////console.log(strHtml);
+            $("#cartlist tbody").html(strHtml);
+
+
+            if (data.datas.list.length > 0) {
+
+                $("#cartlist tfoot").html('<tr>' +
+                    '<td colspan="7">' +
+                    '<div class="ub ub-f1 ub-pe">' +
+                    '<div class="ub ub-ac umar-r uhide">共5件,总金额 ￥99999</div>' +
+                    '<div class="ub uinl sc-btn ub-ac ub-pc btn-search uinn bc-text-head umar-a text-center" style="background-color:#b1001d;width:128px;height:40px;font-size:1.2em;font-weight:800;line-height:20px;cursor:pointer;"  data-toggle="modal"   data-target="#mymodal" > 提交订单 </div>' +
+                    '</div>' + '</td>' + '</tr>');
+            }
+
+            $('#selectAll').on('change', function (evt) {
+                if (this.checked) {
+                    //alert('1');
+                    $('.selects').each(function () {
+
+                        if (!$(this).is(":checked")) {
+                            $(this).prop('checked', true);
+                        }
+                    })
+                } else {
+
+                    $('.selects').each(function () {
+                        if ($(this).is(":checked")) {
+                            $(this).prop('checked', false);
+                        }
+                    })
+                }
+
+            });
+
+            $('.op_num1_left').each(function () {
+                $(this).on('click', function (evt) {
+                    var goodid = $(this).data("goodid");
+                    op_goods('sub', 'size', goodid);
+
+                });
+            })
+
+            $('.op_num1_right').each(function () {
+                $(this).on('click', function (evt) {
+                    var goodid = $(this).data("goodid");
+                    op_goods('add', 'size', goodid);
+                });
+            })
+
+
+            $('.op_num2_left').each(function () {
+                $(this).on('click', function (evt) {
+                    var goodid = $(this).data("goodid");
+                    op_goods('sub', 'num', goodid);
+                });
+            })
+
+            $('.op_num2_right').each(function () {
+                $(this).on('click', function (evt) {
+                    var goodid = $(this).data("goodid");
+                    op_goods('add', 'num', goodid);
+                });
+            })
+            $('.imgProductClick').on('tap', function (e) {
+                var id = $(this).children('.imgProduct').attr("data-goodid");
+                product_onclick(id);
+                console.log(id);
+            });
+        }
+
+        $.ajax({
+            url: appUrl+'/app/index.php?i=2&c=entry&do=cartlist&m=test&psize=9999&key=' +
+                key,
+            type: "get",
+            dataType: 'jsonp',
+            success: function (data) {
+
+                if (data.resultCode == "0") {
+                    show_list(data);
+                } else {
+                    // showToast(data.error);
+                    $("#cartlist tbody").html(
+                        '<div class="ub ub-pc ub-ac" style="text-align:center; margin-top:10%;"><img src="../static/images/empty.jpg"></div>'
+                    );
+
+                }
+            },
+            error: function () {
+                //showToast("error!");
+            }
+        });
+    })
+
+
+
+
+
+    function load_data() {
+        //console.log('http://www.zsmtvip.com/app/index.php?i=2&c=entry&do=cartlist&m=test&key=' + key);
+        $.ajax({
+            url: appUrl+'/app/index.php?i=2&c=entry&do=cartlist&m=test&psize=9999&key=' + key,
+            type: "get",
+            dataType: 'jsonp',
+            success: function (data) {
+
+                if (data.resultCode == "0") {
+
+                    ////console.log('loaddata');
+                    show_list(data);
+
+                } else {
+                    $("#cartlist tbody").html(
+                        '<div class="ub ub-pc ub-ac" style="text-align:center; margin-top:10%;"><img src="../static/images/empty.jpg"></div>'
+                    );
+                    $("#cartlist tfoot").html('');
+                }
+            },
+            error: function () {
+                //showToast("error!");
+            }
+        })
+    }
+    // $('#mymodal').modal('show');
+
+
+
+    function showresult() {
+
+        var address = $("#ordername").val();
+        var mobile = $("#orderphone").val();
+        var bztext = $("#orderaddress").val();
+        var orderparam = '';
+        $('.selects').each(function () {
+            if ($(this).is(":checked")) {
+                if (orderparam == '') {
+                    orderparam = $(this).data("cartid") + "|1";
+                } else {
+                    orderparam = orderparam + ',' + $(this).data("cartid") + "|1";
+                }
+            }
+        })
+
+        console.log(appUrl+'/app/index.php?i=2&c=entry&do=userbuy&m=test&cart_id=' + orderparam +
+            '&address=' + address + '&mobile=' + mobile + '&bztext=' + bztext + '&key=' + key);
+        if (orderparam != '') {
+            $.ajax({
+                url: appUrl+'/app/index.php?i=2&c=entry&do=userbuy&m=test&cart_id=' + orderparam +
+                    '&address=' + address + '&mobile=' + mobile + '&bztext=' + bztext + '&key=' + key,
+                type: "get",
+                dataType: 'jsonp',
+                success: function (data) {
+                    console.log(data);
+                    if (data.resultCode == "0") {
+                        $('#mymodal').modal('hide');
+                        load_data();
+                        $('#modal_test').modal();
+                    } else {
+                        showToast(data.error);
+                    }
+                },
+                error: function () {
+                    //showToast("error!");
+                }
+            })
+        }
+    }
+
+    function view_order() {
+
+        //alert('1');
+
+        openWindow(18, '订单列表', appUrl+'/addons/ewei_shop/template/pad/default/shop/order.html');
+
+    }
+
+    function del_cart(strid) {
+
+        $.ajax({
+            url: appUrl+'/app/index.php?i=2&c=entry&do=cartdel&m=test&id=' + strid + '&key=' +
+                key,
+            type: "get",
+            dataType: 'jsonp',
+            success: function (data) {
+
+                if (data.resultCode == "0") {
+
+                    $("#tr_" + strid).remove();
+                    if($("tbody").children().length === 1){
+                        $('.btn-search').addClass('uhide');
+                    }
+                    refresh();
+                    load_data();
+                    onDeleteShoppingCartSucceed();
+                } else {
+                    refresh();
+                    //showToast(data.error);
+                }
+            },
+            error: function () {
+                //showToast("error!");
+                refresh();
+            }
+        })
+
+    }
+
+    function op_goods(op, type, goodid) {
+        var cur_size = $("#tr_" + goodid).data("goodsize");
+        var cur_num = $("#tr_" + goodid).data("goodnum");
+        cur_num = 1;
+        if (op == 'sub') {
+            if (type == 'size') {
+                if (parseInt(cur_size) > 7 && parseInt(cur_size) <= 25) {
+                    cur_size = parseInt(cur_size) - 1;
+                    good_ajax(goodid, cur_size, cur_num)
+                }
+
+            } else {
+                if (parseInt(cur_num) > 7 && parseInt(cur_size) <= 25) {
+                    cur_num = parseInt(cur_num) - 1;
+                    good_ajax(goodid, cur_size, cur_num)
+                }
+            }
+
+        } else {
+
+
+            if (type == 'size') {
+                if (parseInt(cur_size) < 25) {
+                    cur_size = parseInt(cur_size) + 1;
+                    good_ajax(goodid, cur_size, cur_num)
+                }
+
+            } else {
+
+                cur_num = parseInt(cur_num) + 1;
+                good_ajax(goodid, cur_size, cur_num)
+
+
+            }
+
+        }
+    }
+
+    function good_ajax(goodid, cur_size, cur_num) {
+
+
+        //console.log('http://www.zsmtvip.com/app/index.php?i=2&c=entry&do=editcart&m=test&icz=' + goodid + '|' + cur_num + '|' + cur_size + '&key=' + key);
+        $.ajax({
+            url: appUrl+'/app/index.php?i=2&c=entry&do=editcart&m=test&icz=' + goodid + '|' +
+                cur_num + '|' + cur_size + '&key=' + key,
+            type: "get",
+            dataType: 'jsonp',
+            success: function (data) {
+
+                if (data.resultCode == "0") {
+
+                    $("#tr_" + goodid).find('.op_num1').html(cur_size);
+                    $("#tr_" + goodid).find('.op_num2').html(cur_num);
+                    $("#tr_" + goodid).data("goodsize", cur_size);
+                    $("#tr_" + goodid).data("goodnum", cur_num);
+
+                } else {
+                    showToast(data.error);
+                }
+            },
+            error: function () {
+                //showToast("error!");
+            }
+        })
+
+    }
+</script>
+
+
+
+</html>

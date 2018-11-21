@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.extend.widget.ExtendLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:id="@+id/middle_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="40px"
+            android:src="@drawable/btn_back" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" />
+
+        <LinearLayout
+            android:id="@+id/condition_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/condition_style"
+                android:layout_width="300px"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="40px"
+                android:background="@drawable/shape_list_conditionbox_bg"
+                android:drawablePadding="10px"
+                android:drawableRight="@drawable/arrow_down"
+                android:gravity="left|center_vertical"
+                android:maxLines="1"
+                android:padding="30px"
+                android:text="款式风格"
+                android:textColor="@color/list_condition_font"
+                android:textSize="40px" />
+
+            <TextView
+                android:id="@+id/condition_weight"
+                android:layout_width="300px"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="40px"
+                android:background="@drawable/shape_list_conditionbox_bg"
+                android:drawablePadding="10px"
+                android:drawableRight="@drawable/arrow_down"
+                android:gravity="left|center_vertical"
+                android:maxLines="1"
+                android:padding="30px"
+                android:text="钻石分数"
+                android:textColor="@color/list_condition_font"
+                android:textSize="40px" />
+
+            <TextView
+                android:id="@+id/condition_price"
+                android:layout_width="300px"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="140px"
+                android:background="@drawable/shape_list_conditionbox_bg"
+                android:drawablePadding="10px"
+                android:drawableRight="@drawable/arrow_down"
+                android:gravity="left|center_vertical"
+                android:maxLines="1"
+                android:padding="30px"
+                android:text="价    格"
+                android:textColor="@color/list_condition_font"
+                android:textSize="40px" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/goodslist_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:paddingBottom="40px"
+        android:paddingLeft="140px"
+        android:paddingRight="140px" >
+    </FrameLayout>
+
+</android.extend.widget.ExtendLinearLayout>

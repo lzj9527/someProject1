@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+<RelativeLayout
+    android:id="@+id/product_3d"
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="8"
+    android:background="@android:color/white" >
+
+    <FrameLayout
+        android:id="@+id/unity_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white" >
+    </FrameLayout>
+
+    <ImageView
+        android:id="@+id/loading_indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:src="@drawable/anim_loading"
+        android:visibility="gone" />
+
+    <FrameLayout
+        android:id="@+id/product_photo"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@android:color/white" >
+
+        <android.extend.widget.ExtendViewPager
+            android:id="@+id/select_item"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:background="@android:color/transparent"
+            android:scrollbars="none" >
+        </android.extend.widget.ExtendViewPager>
+
+        <LinearLayout
+            android:id="@+id/dot_container"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_marginBottom="30px"
+            android:gravity="center"
+            android:orientation="horizontal" >
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/arrow_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left|center_vertical"
+            android:padding="40px"
+            android:src="@drawable/arrow_left"
+            android:visibility="invisible" />
+
+        <ImageView
+            android:id="@+id/arrow_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center_vertical"
+            android:padding="40px"
+            android:src="@drawable/arrow_right"
+            android:visibility="invisible" />
+    </FrameLayout>
+
+    <ImageView
+        android:id="@+id/middle_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="40px"
+        android:src="@drawable/btn_back" />
+
+    <ImageView
+        android:id="@+id/product_details_tryon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@id/middle_back"
+        android:layout_marginRight="20px"
+        android:layout_marginTop="20px"
+        android:padding="20px"
+        android:src="@drawable/selector_product_details_tryon" />
+
+    <android.extend.widget.MenuBar
+        android:id="@+id/product_details_3d"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/product_details_tryon"
+        android:layout_toLeftOf="@id/product_details_tryon"
+        android:visibility="visible" >
+
+        <LinearLayout
+            android:id="@+id/menugroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="horizontal" >
+
+            <android.extend.widget.MenuView
+                android:id="@+id/material_white"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:padding="20px" >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/selector_product_details_3d_kwhite" />
+            </android.extend.widget.MenuView>
+
+            <android.extend.widget.MenuView
+                android:id="@+id/material_red"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:padding="20px" >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/selector_product_details_3d_kred" />
+            </android.extend.widget.MenuView>
+
+            <android.extend.widget.MenuView
+                android:id="@+id/material_yellow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:padding="20px" >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/selector_product_details_3d_kyellow" />
+            </android.extend.widget.MenuView>
+        </LinearLayout>
+    </android.extend.widget.MenuBar>
+
+    <!--<ImageView-->
+        <!--android:id="@+id/product_details_photo"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignTop="@id/product_details_3d"-->
+        <!--android:layout_toLeftOf="@id/product_details_3d"-->
+        <!--android:padding="20px"-->
+        <!--android:visibility="gone"-->
+        <!--android:src="@drawable/selector_product_details_photo" />-->
+
+</RelativeLayout>
+    <LinearLayout
+        android:id="@+id/photo_show"
+        android:layout_width="match_parent"
+        android:clipChildren="false"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        android:layout_marginTop="10dp"
+        android:layout_weight="3">
+        <android.extend.widget.ExtendViewPager
+            android:id="@+id/select_item2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:clipChildren="false"
+            android:background="@android:color/transparent"
+            android:scrollbars="none" >
+        </android.extend.widget.ExtendViewPager>
+    </LinearLayout>
+</LinearLayout>

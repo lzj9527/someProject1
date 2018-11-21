@@ -1,0 +1,4 @@
+#Tue Jun 26 01:19:17 CST 2018
+base.0=E\:\\project\\android\\as_project\\as\\TryApp2ForShop\\tryApp2ForShop\\build\\intermediates\\transforms\\dexMerger\\debug\\0
+path.0=classes.dex
+renamed.0=classes.dex

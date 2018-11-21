@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.extend.widget.ExtendLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/detail_right_background"
+    android:orientation="vertical"
+    android:padding="10px" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/couple_rings_name"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/product_name_background"
+            android:gravity="center"
+            android:maxLines="1"
+            android:text=""
+            android:textColor="@color/detail_title_font"
+            android:textSize="40px" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:maxLines="1"
+                android:paddingBottom="20px"
+                android:paddingTop="20px"
+                android:text="合计价格："
+                android:textColor="@color/detail_title_font"
+                android:textSize="32px" />
+
+            <TextView
+                android:id="@+id/couple_product_pirce"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:maxLines="1"
+                android:text="￥0"
+                android:textColor="@color/detail_price_font"
+                android:textSize="40px" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/product_kh"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:maxLines="1"
+                android:text="-"
+                android:textColor="@color/detail_title_font" />
+        </LinearLayout>
+
+        <android.extend.widget.MenuBar
+            android:id="@+id/menubar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <LinearLayout
+                android:id="@+id/menugroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <android.extend.widget.MenuView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/product_name_background"
+                    android:clickable="true"
+                    android:padding="1dp" >
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="@drawable/selector_couple_rings_tabtitle"
+                        android:gravity="center"
+                        android:orientation="horizontal" >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:maxLines="1"
+                            android:padding="20px"
+                            android:text="男戒"
+                            android:textColor="@color/detail_text_font"
+                            android:textSize="32px" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:maxLines="1"
+                            android:text="款号"
+                            android:textColor="@color/detail_title_font"
+                            android:textSize="24px" />
+
+                        <TextView
+                            android:id="@+id/menProductNumber"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:maxLines="1"
+                            android:padding="10px"
+                            android:text="-"
+                            android:textColor="@color/detail_title_font"
+                            android:textSize="24px" />
+                    </LinearLayout>
+                </android.extend.widget.MenuView>
+
+                <android.extend.widget.MenuView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/product_name_background"
+                    android:clickable="true"
+                    android:padding="1dp" >
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="@drawable/selector_couple_rings_tabtitle"
+                        android:gravity="center"
+                        android:orientation="horizontal" >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:maxLines="1"
+                            android:padding="20px"
+                            android:text="女戒"
+                            android:textColor="@color/detail_text_font"
+                            android:textSize="32px" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:maxLines="1"
+                            android:text="款号"
+                            android:textColor="@color/detail_title_font"
+                            android:textSize="24px" />
+
+                        <TextView
+                            android:id="@+id/wmenProductNumber"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:maxLines="1"
+                            android:padding="10px"
+                            android:text="-"
+                            android:textColor="@color/detail_title_font"
+                            android:textSize="24px" />
+                    </LinearLayout>
+                </android.extend.widget.MenuView>
+            </LinearLayout>
+        </android.extend.widget.MenuBar>
+
+        <include
+            android:id="@+id/men_product_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            layout="@layout/couple_rings_details_right_select_layout" />
+
+        <include
+            android:id="@+id/wmen_product_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            layout="@layout/couple_rings_details_right_select_layout"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/place_order"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10px"
+        android:background="@color/rect_button_background"
+        android:gravity="center"
+        android:maxLines="1"
+        android:padding="30px"
+        android:text="加入购物车"
+        android:textColor="@color/rect_button_font"
+        android:textSize="32px" />
+
+</android.extend.widget.ExtendLinearLayout>

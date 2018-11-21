@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#b2000000" >
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@color/dialog_background"
+        android:orientation="vertical"
+        android:padding="80px" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/boss_add_shopping_success" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:padding="10dp"
+                android:text="成功加入购物车"
+                android:textColor="@color/dialog_title_font"
+                android:textSize="40px" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="80px"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/look_shopping"
+                android:layout_width="360px"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:background="@color/dialog_positive_button_background"
+                android:gravity="center"
+                android:paddingBottom="30px"
+                android:paddingTop="30px"
+                android:text="立即下订"
+                android:textColor="@color/dialog_button_font"
+                android:textSize="36px" />
+
+            <TextView
+                android:id="@+id/leave"
+                android:layout_width="360px"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="20px"
+                android:layout_weight="1"
+                android:background="@color/dialog_negative_button_background"
+                android:gravity="center"
+                android:paddingBottom="30px"
+                android:paddingTop="30px"
+                android:text="继续逛逛"
+                android:textColor="@color/dialog_button_font"
+                android:textSize="36px" />
+        </LinearLayout>
+    </LinearLayout>
+
+</FrameLayout>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.extend.widget.MenuView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:clickable="true" >
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="80px"
+        android:layout_height="60px"
+        android:layout_gravity="center"
+        android:background="@drawable/selector_product_details_selectprice_bg"
+        android:gravity="center"
+        android:maxLines="1"
+        android:text="99号"
+        android:textColor="@color/detail_title_font"
+        android:textSize="28px" />
+
+</android.extend.widget.MenuView>

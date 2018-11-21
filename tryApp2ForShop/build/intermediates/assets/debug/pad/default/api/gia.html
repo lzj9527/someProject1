@@ -1,0 +1,1398 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+    <meta charset="UTF-8">
+    <title>裸钻</title>
+    <link href="GIA_files/main.css" type="text/css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../static/css/ui-box.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/ui-base.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/ui-color.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/ui-control.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/ui-icon.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/ui-my.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/jquery.range.css">
+    <script src="../static/js/config.js"></script>
+</head>
+<script type="text/javascript">
+</script>
+
+<body style="overflow-x:hidden">
+    <div class="page-box page-of-diamonds">
+        <div class="diamond-search-form container" id="diamond-search-form" dischange="true">
+            <form>
+                <div class="basic" style="width:100%">
+                    <div>
+                        <!-- 形狀選擇頭部 -->
+                        <div style="border-left: 1px solid #eaeaea;border-right: 1px solid #eaeaea;">
+                            <div class="item shape" style="border-bottom: 1px solid #eaeaea;padding:0.1rem 0;text-align:center;color:#be9d6a;">
+                                <div class="label " style="width:8%"></div>
+                                <div class="option radio active " style="width:10%;" data-value="1" data-class="1" data-flag="true">圆形</div>
+                                <div class="option radio " style="width:10%;" data-value="2" data-class="2" data-flag="false">公主方</div>
+                                <div class="option radio " style="width:10%;" data-value="8" data-class="8" data-flag="false">心形</div>
+                                <div class="option radio " style="width:10%;" data-value="10" data-class="10" data-flag="false">垫形</div>
+                                <div class="option radio " style="width:10%;" data-value="5" data-class="5" data-flag="false">椭圆</div>
+                                <div class="option radio " style="width:10%;" data-value="6" data-class="6" data-flag="false">梨形</div>
+                                <div class="option radio " style="width:10%;" data-value="4" data-class="4" data-flag="false">雷迪恩</div>
+                                <div class="option radio " style="width:10%;" data-value="3" data-class="3" data-flag="false">祖母绿</div>
+                                <div class="option radio " style="width:10%;" data-value="9" data-class="9" data-flag="false">三角形</div>
+                            </div>
+                            <!-- 選中區域 -->
+                            <div class="ub">
+                                <div class="ubi" style="width:100%;overflow:hidden;">
+                                    <!--重量  -->
+                                    <div class="item weight ub uinn umar-t" style="margin:1em;padding:0em;height:2.5em; ">
+                                        <div class="label">重量</div>
+                                        <!-- input -->
+                                        <div class="ub ub-f1 uinn ub-pc bc-text-b1 option " style="margin:0 auto; padding:0.05rem 0em;position: relative;color:#be9d6a;">
+                                            <div style="position: relative;top:-0.3em;color:#be9d6a;line-height:2.3em;left:0em;">
+                                                <input type="text" size="3" value="0.3" style="display:inline-block;border:1px solid #be9d6a;vertical-align:top;color:#be9d6a;width:4em;height:2.3em;padding-left:0.05rem;text-align:center;"
+                                                    id="weight01" placeholder="" />&nbsp;-&nbsp;
+                                                <input type="text" size="3" class="bc-text-b1 uinn3 " value="0.39" style="display:inline-block;border:1px solid #be9d6a;vertical-align:top;color:#be9d6a;width:4em;height:1.9em;padding-left:0.05rem;text-align:center;"
+                                                    id="weight02" placeholder="" />&nbsp;克拉
+                                            </div>
+                                        </div>
+
+                                        <div class="ub ub-f1 uinn ub-pc bc-text-b1 option " style="margin:0 auto; padding:0.05rem 0em;border-left:0px;position: relative;width:12em;">
+                                            <div style="display:inline-block;border:1px;vertical-align:top;color:#be9d6a;width:15em;height:2.4em;line-height:2.4em;position:relative;left:0em;opacity:0.7;top:-0.4em;right:0em;">&nbsp;&nbsp;范围
+                                                <img src="../static/images/arrow_down.png" class="img-responsive" alt="Responsive image" width="20em" style="display: inline-block;position:absolute;right:2.2em;top:0.3em;z-index: -2;">
+                                                <select class="" id="rangeselect" style="color:#be9d6a;;appearance:none; -moz-appearance:none; -webkit-appearance:none;width:8em;border:1px solid #be9d6a;padding-left:0.5em;z-index: 1;height:2.3em;">
+                                                    <option value="11" style="color:#be9d6a;" >&nbsp;请选择</option>
+                                                    <option value="1"  style="color:#be9d6a" >0.3-0.39</option>
+                                                    <option value="2"  style="color:#be9d6a" >0.4-0.49</option>
+                                                    <option value="3"  style="color:#be9d6a" >0.5-0.59</option>
+                                                    <option value="4"  style="color:#be9d6a" >0.6-0.69</option>
+                                                    <option value="5"  style="color:#be9d6a" >0.7-0.79</option>
+                                                    <option value="6"  style="color:#be9d6a" >0.8-0.89</option>
+                                                    <option value="7"  style="color:#be9d6a" >0.9-0.99</option>
+                                                    <option value="8"  style="color:#be9d6a" >1.0-1.09</option>
+                                                    <option value="9"  style="color:#be9d6a">1.1-1.49</option>
+                                                    <option value="10" style="color:#be9d6a" >1.5-1.99</option>
+                                                    <option value="12" style="color:#be9d6a" >2.0-2.99</option>
+                                                    <option value="13" style="color:#be9d6a" >3.0-3.99</option>
+                                                    <option value="14" style="color:#be9d6a" >4.0-4.99</option>
+                                                    <option value="15" style="color:#be9d6a" >5.0-5.99</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="ub ub-f1   uinn ub-pc bc-text-b1 option " style="margin:0 auto; padding:0.05rem 0em;border-left:0px;position: relative;">
+                                            <select class="" id="q_id_type" style="background:#fff;color:#be9d6a;width:1000%;appearance:none; -moz-appearance:none; -webkit-appearance:none;opacity:0.4;vertical-align:top;margin-top:-0.4em;height:2.5em;display:none;position: relative;">
+                                                        <option value="report_no" selected="selected" class="bc-text-b1" >&nbsp;货号</option>
+                                                        <option value="report_no" class="bc-text-b1"> &nbsp;证书号</option>
+                                                    </select>
+
+                                            <input type="text" size="3" id="q_id" name="agename" class="ub ub-f1 uinn ub-pc bc-text-b1 option" value="" style="display:inline-block;border:1px solid #be9d6a;vertical-align:middle;height:2.3em;margin-left:0.5em;margin-top:-0.0em;margin-right:0.5em;width:5em;position:relative;display:block;top:-0.4em;"
+                                                id="num" placeholder="点击输入GIA证书" />
+
+                                        </div>
+                                        <div class="ub ub-f1  uinn ub-pc bc-text-b1 option " style="margin:0 auto; padding:0.05rem 0em;border-left:0px;position: relative;">
+                                            <button class="button button-primary actions " id="btn_reset" style="background-color:#b1001d;text-align:center;width:4em;margin-top:-0.1em;position:relative;top:-0.3em;right:0em;">重置</button>
+
+                                        </div>
+                                        <div class="ub ub-f1  uinn ub-pc bc-text-b1 option " style="margin:0 auto; padding:0.05rem 0em;border-left:0px;position: relative;">
+                                            <button class="button button-primary actions " id="btn_search" style="background-color:#b1001d;text-align:center;width:4em;margin-top:-0.1em;position:relative;top:-0.3em;right:0em;">搜索</button>
+                                        </div>
+                                        <!-- </div> -->
+
+                                    </div>
+
+                                    <!-- 颜色 -->
+                                    <div class="item color ub uinn umar-t" style="margin:1em;padding:0em;" id="yanse">
+                                        <div class="label">颜色</div>
+                                        <div class="ub ub-f1 uba  uinn ub-pc bc-text-b1 option radioy" style="margin:0 auto; padding:0.05rem 0em;" data-value="2">D</div>
+                                        <div class="ub ub-f1 uba  uinn ub-pc bc-text-b1 option  radioy" style="margin:0 auto; padding:0.05rem 0em;border-left:0px;"
+                                            data-value="4">E</div>
+                                        <div class="ub ub-f1 uba  uinn ub-pc bc-text-b1 option  radioy" style="margin:0 auto; padding:0.05rem 0em;border-left:0px;"
+                                            data-value="8">F</div>
+                                        <div class="ub ub-f1 uba  uinn ub-pc bc-text-b1 option  radioy" style="margin:0 auto; padding:0.05rem 0em;border-left:0px;"
+                                            data-value="16">G</div>
+                                        <div class="ub ub-f1 uba  uinn ub-pc bc-text-b1 option  radioy" style="margin:0 auto; padding:0.05rem 0em;border-left:0px;"
+                                            data-value="32">H</div>
+                                        <div class="ub ub-f1 uba  uinn ub-pc bc-text-b1 option  radioy" style="margin:0 auto; padding:0.05rem 0em;border-left:0px;"
+                                            data-value="64">I</div>
+                                        <div class="ub ub-f1 uba  uinn ub-pc bc-text-b1 option  radioy" style="margin:0 auto; padding:0.05rem 0em;border-left:0px;"
+                                            data-value="128">J</div>
+                                        <div class="ub ub-f1 uba  uinn ub-pc bc-text-b1 option  radioy" style="margin:0 auto; padding:0.05rem 0em;border-left:0px;"
+                                            data-value="256">K</div>
+                                        <div class="ub ub-f1 uba  uinn ub-pc bc-text-b1 option  radioy" style="margin:0 auto; padding:0.05rem 0em;border-left:0px;"
+                                            data-value="512">L</div>
+                                        <div class="ub ub-f1 uba  uinn ub-pc bc-text-b1 option  radioy" style="margin:0 auto; padding:0.05rem 0em;border-left:0px;"
+                                            data-value="1024">M</div>
+                                    </div>
+                                    <!--净度  -->
+                                    <div class="item clarity ub uinn umar-t" style="margin:1em 1em 0.5em 1em;padding:0em;" id="jingdu">
+                                        <div class="label">净度</div>
+                                        <div class="ub ub-f1 uba  uinn ub-pc bc-text-b1 option radiod" style="margin:0 auto; padding:0.05rem 0em;" data-value="3">FL/IF</div>
+                                        <div class="ub ub-f1 uba  uinn ub-pc bc-text-b1 option  radiod" style="margin:0 auto; padding:0.05rem 0em;border-left:0px;"
+                                            data-value="4">VVS1</div>
+                                        <div class="ub ub-f1 uba  uinn ub-pc bc-text-b1 option  radiod" style="margin:0 auto; padding:0.05rem 0em;border-left:0px;"
+                                            data-value="8">VVS2</div>
+                                        <div class="ub ub-f1 uba  uinn ub-pc bc-text-b1 option  radiod" style="margin:0 auto; padding:0.05rem 0em;border-left:0px;"
+                                            data-value="16">VS1</div>
+                                        <div class="ub ub-f1 uba  uinn ub-pc bc-text-b1 option  radiod" style="margin:0 auto; padding:0.05rem 0em;border-left:0px;"
+                                            data-value="32">VS2</div>
+                                        <div class="ub ub-f1 uba  uinn ub-pc bc-text-b1 option  radiod" style="margin:0 auto; padding:0.05rem 0em;border-left:0px;"
+                                            data-value="64">SI1</div>
+                                        <div class="ub ub-f1 uba  uinn ub-pc bc-text-b1 option  radiod" style="margin:0 auto; padding:0.05rem 0em;border-left:0px;"
+                                            data-value="128">SI2</div>
+                                        <div class="ub ub-f1 uba  uinn ub-pc bc-text-b1 option  radiod" style="margin:0 auto; padding:0.05rem 0em;border-left:0px;"
+                                            data-value="512">I1</div>
+                                    </div>
+                                    <div class="ub " style="margin:0em;padding:0em;">
+                                        <div class="ubi" style="width:60%">
+                                            <!--切工  -->
+                                            <div class="item cut ex3 ub uinn umar-t" style="margin:1em;padding:0em;position:relative;" id="qiegong" dis="show">
+                                                <div class="label">切工</div>
+                                                <div class="ub ub-f1 uba  uhide uinn ub-pc bc-text-b1 option radioq " style="margin:0 auto; padding:0.05rem 0em;" data-value="1"
+                                                    data-class="1">3EX</div>
+                                                <div class="ub ub-f1 uba  uinn ub-pc bc-text-b1 option radioq" style="margin:0 auto; padding:0.05rem 0em;" data-value="2"
+                                                    data-class="2">EX完美</div>
+                                                <div class="ub ub-f1 uba  uinn ub-pc bc-text-b1 option radioq" style="margin:0 auto; padding:0.05rem 0em;border-left:0px;"
+                                                    data-value="4" data-class="3">VG很好</div>
+                                                <div class="ub ub-f1 uba  uinn ub-pc bc-text-b1 option radioq" style="margin:0 auto; padding:0.05rem 0em;border-left:0px;"
+                                                    data-value="8" data-class="4">GD好</div>
+                                            </div>
+
+                                            <!-- 抛光 -->
+                                            <div class="item polish ex3 ub uinn umar-t" style="margin:1em;padding:0em;">
+                                                <div class="label">抛光</div>
+                                                <div class="ub ub-f1 uba  uinn ub-pc bc-text-b1 option  radiop" style="margin:0 auto; padding:0.05rem 0em;" data-value="2">EX完美</div>
+                                                <div class="ub ub-f1 uba  uinn ub-pc bc-text-b1 option radiop" style="margin:0 auto; padding:0.05rem 0em;border-left:0px;"
+                                                    data-value="4">VG很好</div>
+                                                <div class="ub ub-f1 uba  uinn ub-pc bc-text-b1 option radiop" style="margin:0 auto; padding:0.05rem 0em;border-left:0px;"
+                                                    data-value="8">GD好</div>
+                                            </div>
+
+                                            <!-- 对称 -->
+                                            <div class="item symmetry ex3 ub uinn umar-t umar-b" style="margin:1em;padding:0em;">
+                                                <div class="label">对称</div>
+                                                <div class="ub ub-f1 uba  uinn ub-pc bc-text-b1 option radioch" style="margin:0 auto; padding:0.05rem 0em;" data-value="2">EX完美</div>
+                                                <div class="ub ub-f1 uba  uinn ub-pc bc-text-b1 option  radioch" style="margin:0 auto; padding:0.05rem 0em;border-left:0px;"
+                                                    data-value="4">VG很好</div>
+                                                <div class="ub ub-f1 uba  uinn ub-pc bc-text-b1 option  radioch" style="margin:0 auto; padding:0.05rem 0em;border-left:0px;"
+                                                    data-value="8">GD好</div>
+                                            </div>
+                                            <div class="ub " style="margin:0em;padding:0em;">
+                                                <div class="ubi" style="width:50%">
+                                                    <!-- 荧光 -->
+                                                    <div class="item fluorescence ex3 ub uinn umar-t" style="margin:0em 1em;padding:0em;margin-bottom:1em;" id="yingguan">
+                                                        <div class="label">荧光</div>
+                                                        <div class="ub ub-f1 uba  uinn ub-pc bc-text-b1 option radiog" style="margin:0 auto; padding:0.05rem 0em;" data-value="1">N无</div>
+                                                        <div class="ub ub-f1 uba  uinn ub-pc bc-text-b1 option radiog" style="margin:0 auto; padding:0.05rem 0em;border-left:0px"
+                                                            data-value="6">VSL/F轻</div>
+                                                        <div class="ub ub-f1 uba  uinn ub-pc bc-text-b1 option radiog" style="margin:0 auto; padding:0.05rem 0em;border-left:0px;"
+                                                            data-value="8">M中</div>
+                                                        <div class="ub ub-f1 uba  uinn ub-pc bc-text-b1 option radiog" style="margin:0 auto; padding:0.05rem 0em;border-left:0px;"
+                                                            data-value="16">S强</div>
+                                                        <!-- <div class="ub ub-f1 uba  uinn ub-pc bc-text-b1 option special" style="margin:0 auto; padding:0.05rem 0em;border-left:0px;color:#be9d6a;">3EX无荧光</div> -->
+                                                    </div>
+                                                </div>
+                                                <div class="ubi" style="width:50%">
+                                                    <!-- 奶咖 -->
+                                                    <div class="item q_no_milky_shade  ub  umar-t umar-b" style="margin:0em 1em;padding:0em;margin-bottom:1em;">
+                                                        <div class="label"> 奶 咖</div>
+                                                        <div class="ub ub-f1 uba  uinn ub-pc bc-text-b1 option radioj " style="margin:0 auto; padding:0.05rem 0em;" data-value="1">
+                                                            不奶不咖</div>
+                                                        <div class="ub ub-f1 uba  uinn ub-pc bc-text-b1 option radioj" style="margin:0 auto; padding:0.05rem 0em;border-left:0px;"
+                                                            data-value="2">不奶浅咖</div>
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+                                        <div class="ubi" style="width:40%">
+                                            <!-- 快速搜索 -->
+                                            <div class="ubi" style="width:100%;float:right;text-align: center;padding: 0 8px;">
+                                                <div class="btquick ubi ub-f1 ub-ver " style="background-color: #ffe9de;padding: 0">
+                                                    <div class="item  ub  umar-t" style="margin: 0.7em 0em;">
+
+                                                        <div class="ub ub-f1 ub-pc  bc-text-b1 " style="width:75%;font-size:0.12rem;margin:0.5em 1em;text-align:left;">
+                                                            快速搜索
+                                                        </div>
+
+                                                        <div class="ub uba ub-f1  ub-pc  bc-text-b1 option radiok btn-search" style="margin:0em 0.4em; padding:0.07rem;width:75%;"
+                                                            data-obj="3" data-v1="1.5" data-v2="1.99">1.5ct/G/VS1/VG</div>
+
+                                                    </div>
+
+                                                    <div class="item  ub  umar-t" style="margin: 0.7em 0em;">
+                                                        <div class="ub uba ub-f1  ub-pc  bc-text-b1 option radiok btn-search" style="margin:0em 0.4em; padding:0.07rem;width:75%;"
+                                                            data-obj="0" data-v1="0.3" data-v2="0.39">0.3ct/G/VS1/VG</div>
+                                                        <div class="ub uba ub-f1  ub-pc  bc-text-b1 option radiok btn-search" style="margin:0em 0.4em; padding:0.07rem;width:75%;"
+                                                            data-obj="4" data-v1="2.0" data-v2="2.99">2ct/G/VS1/VG</div>
+
+                                                    </div>
+
+                                                    <div class="item  ub  umar-t" style="margin: 0.7em 0em;">
+                                                        <div class="ub uba ub-f1  ub-pc  bc-text-b1 option radiok btn-search" style="margin:0em 0.4em; padding:0.07rem;width:75%;"
+                                                            data-obj="1" data-v1="0.5" data-v2="0.59">0.5ct/G/VS1/VG</div>
+                                                        <div class="ub uba ub-f1  ub-pc  bc-text-b1 option radiok btn-search" style="margin:0em 0.4em; padding:0.07rem;width:75%;"
+                                                            data-obj="4" data-v1="3.0" data-v2="3.99">3ct/G/VS1/VG</div>
+                                                    </div>
+
+                                                    <div class="item  ub  umar-t" style="margin: 0.7em 0em;">
+                                                        <div class="ub uba ub-f1  ub-pc  bc-text-b1 option radiok btn-search" style="margin:0em 0.4em; padding:0.07rem;width:75%;"
+                                                            data-obj="2" data-v1="1.0" data-v2="1.09">1ct/G/VS1/VG</div>
+                                                        <div class="ub uba ub-f1  ub-pc  bc-text-b1 option radiok btn-search" style="margin:0em 0.4em; padding:0.07rem;width:75%;"
+                                                            data-obj="4" data-v1="5.0" data-v2="5.99">5ct/G/VS1/VG</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row uhide" style="padding:0rem 0.2rem 0.2rem 0.2rem">
+                                        <div class="item" style="width:100%">
+                                            <div class="label bc-text-b1 " style="float:left; height:32px; display:block; line-height:32px; font-size:14px;  ">每页：</div>
+                                            <div class="option" style="float:left;width:200px;">
+                                                <select class="select uba bc-text-b1 " id="q_perpage" style="width:200px;">
+                                            <option value="10" class="uba bc-text-b1 uinn">10条</option>
+                                            <option value="25"  class="uba bc-text-b1 uinn" selected="selected">25条</option>
+                                            <option value="50"  class="uba bc-text-b1 uinn">50条</option>
+                                            <option value="100"  class="uba bc-text-b1 uinn">100条</option>
+                                        </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="clear:both"></div>
+                            </div>
+                            <!-- 高级搜索 -->
+                            <div class="ub  extradiv uhide" style="border-top: 1px solid #eaeaea;">
+                                <div class="clear:both"></div>
+                            </div>
+                            <div class="ub">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="extra uhide">
+                    <div class="row">
+                        <div style="float:right;display:none">汇率：6.6</div>
+                    </div>
+                    <div class="row" style="display:none">
+                        <div class="item area">
+                            <div class="label">地 点：</div>
+                            <div class="option"><label class="checkbox"><input name="q_is_outside" id="q_is_outside" type="checkbox"><i class="icon icon-checkbox"></i><span class="text">国外</span></label>
+                                <label class="checkbox"><input name="q_is_inside" id="q_is_inside" type="checkbox"><i class="icon icon-checkbox"></i>
+                                    <span
+                                        class="text">港深</span>
+                                        </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <!--  <div class="ub ub-pc" style="clear:both" ><span class="ub uba uc-b uinn  btmore" data-flag='0'  style="margin-top:-1px; border-color:#eaeaea; border-top:0px;background-color:#fff">显示高级搜索</span></div> -->
+        <div class="data-box container">
+            <div class="pagination" id="pagination-top">
+                <div class="data-total">当前裸钻数量：<span id="total_diamonds">0</span>颗 / 显示<span id="total">0</span>颗</div>
+                <div class="pager">
+                    <a class="prev page-button"></a>
+                    <span class="paging">0 / 0</span>
+                    <a class="next page-button"></a>
+                    <input class="ipt-jump" type="text">
+                    <a class="btn-jump page-button">跳转</a>
+                </div>
+            </div>
+
+            <table class="table zebra" id="diamond-data-table" cellpadding="0" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th>货号</th>
+                        <!--保留-->
+                        <th>形状</th>
+                        <!--保留-->
+                        <th><a href="javascript:" class="sortable" id="order-by-carat-link">重量</a></th>
+                        <!--保留-->
+                        <th>颜色</th>
+                        <!--保留-->
+                        <th>净度</th>
+                        <!--保留-->
+                        <th>切工</th>
+                        <!--保留-->
+                        <th>抛光</th>
+                        <!--保留-->
+                        <th>对称</th>
+                        <!--保留-->
+                        <th>荧光</th>
+                        <!--保留-->
+                        <th>直径</th>
+                        <th>咖色奶色</th>
+                        <th>证书</th>
+                        <!--保留-->
+                        <th>证书号</th>
+                        <!--保留-->
+
+                        <th style="display:none">图片</th>
+                        <th style="display:none">视频</th>
+                        <!-- 如果是万宝二级的零售模式下的会员,则不展示国际美金-->
+                        <!--<th>国际美金</th>-->
+                        <th style="display:none"><a href="javascript:" class="sortable" id="order-by-discount-link">折扣</a></th>
+                        <th><a href="javascript:" class="sortable" id="order-by-price-link">RMB/粒</a></th>
+                        <th style="display:none">原折扣</th>
+                        <th> 选 择 </th>
+                    </tr>
+                </thead>
+                <tbody id="diamond-list">
+                </tbody>
+            </table>
+        </div>
+        <div class="pagination" id="pagination-bottom">
+            <div class="pager">
+                <a class="prev page-button"></a>
+                <span class="paging">0 / 0</span>
+                <a class="next page-button"></a>
+                <input class="ipt-jump" type="text">
+                <a class="btn-jump page-button">跳转</a>
+            </div>
+        </div>
+    </div>
+    <script type="text/x-handlebars-template" id="tpl-image">
+        <div style="text-align:center; padding-top:10px;">
+            <img src="<%= src %>" height="490">
+        </div>
+    </script>
+
+    <script type="text/x-handlebars-template" id="tpl-movie">
+        <iframe src="<%= url %>" frameborder="0" marginwidth="0" marginheight="0" width="100%" height="100%" scrolling="yes"></iframe>
+    </script>
+    <script type="text/x-handlebars-template" id="tpl-diamond-list">
+        <% _.each(data.list,function(n){ %>
+        <tr data-diamond-id="<%= n.dia_id %>">
+            <td class="first-td<% if(n.dia_is_stock){ %> is_stock<% } %>">
+                <div class="product-no1">
+                    <%= n[0] %>
+                </div>
+            </td>
+            <td class="product-style"><%= n[1] %></td>
+            <td class="product-weight"><%= n[2] %></td>
+            <td class="product-color"><%= n[3] %></td>
+            <td class="product-clarity"><%= n[4] %></td>
+            <td class="product-cut"><%= n[5] %></td>
+            <td class="product-polish"><%= n[6] %></td>
+            <td class="product-symmetry"><%= n[7] %></td>
+            <td class="product-fluorescence"><%= n[8] %></td>
+            <td ><%= n[9] %></td>
+            <td class="caffeine"><%= n[10] %> <%= n[11] %></td>
+            <td class="product-cert"><%= n[12] %></td>
+            <td >
+                <% if (n[13]!='-'){ %>
+                <a herf="javascript:void()" style="text-decoration:underline" onclick="btnDownloadGIACer('<%= n[13] %>')" class="product-cert-no"><%= n[13] %></a>
+                <%}else{%>
+
+                <div class="product-cert-no"><%= n[13] %></div>
+
+                <%}%>
+            </td>
+            <td style="display:none"><% if(n[14] != '无'){ %><a class="icon-img" href="<%= n.dia_image %>"></a><% } else {%>无<% } %></td>
+            <td style="display:none"><% if(n[15] != '无'){ %><a class="icon-video" href="<%= n.dia_movie %>"></a><% } else {%>无<% } %></td>
+            <!-- <a class="report-link" href="<%= n.dia_report_link %>" target="_blank"  style="display:none"></a>-->
+            <!-- 如果是万宝二级的零售模式下的会员,则不展示国际美金-->
+            <td style="display:none"><%= (n[16] - 0).toFixed(2) %></td>
+            <td  style="display:none"><%= n[17] %></td>
+            <!--<td  class="product-money" data-money="<%=n[18]%>"><%= ((n[18] - 0)*xs_gia).toFixed(2) %></td> &lt;!&ndash; 测试 裸石价格 使用新的接口进行填充数据 不再需要乘系数&ndash;&gt;-->
+            <td  class="product-money" data-money="<%=n[18]%>"><%= ((n[18] - 0)).toFixed(2) %></td> <!-- 测试 裸石价格 使用新的接口进行填充数据 不再需要乘系数-->
+            <td style="display:none"><%= n[19] %></td>
+            <td style=""> <!--<a  class="icon-tobuy" style="background-color:#ceb692;color:#fff;height:32px; line-height:32px; padding:12px"> 前去选款 </a>-->  <div  class="icon-buying" style="background-color:#ce1d36;color:#fff;height:32px; line-height:32px; width:4em;padding:16px 6px; display:block;z-index:100"> 选定此钻 </div>
+            </td>
+            <% })%>
+    </script>
+    <script type="text/x-handlebars-template" id="tpl-reporter">
+    <iframe src="<%= url %>" frameborder="0" marginwidth="0" marginheight="0" width="100%" height="100%" scrolling="yes"></iframe>
+    </script>
+    <script src="GIA_files/jquery-1.js"></script>
+    <script src="../static/js/bootstrap.min.js"></script>
+    <!-- bootstrap end -->
+    <script src="../static/js/touch.js"></script>
+    <script src="../static/js/config.js"></script>
+    <script src="../static/js/function.js"></script>
+    <script src="../static/js/jquery.range.js"></script>
+    <script src="../static/js/androidJSInterface.js"></script>
+    <!--<script src="GIA_files/jquery-2.2.3.min.js"></script>-->
+    <script src="GIA_files/underscore-min.js"></script>
+    <script src="GIA_files/documentExternalClick.js"></script>
+    <script src="GIA_files/Basic.js"></script>
+    <script src="GIA_files/Checkbox.js"></script>
+    <script src="GIA_files/Popwin.js"></script>
+    <script src="GIA_files/Pagination.js"></script>
+    <script src="GIA_files/main.js"></script>
+
+    <script>
+
+
+        $(".radio").click(function () {
+            console.log($(this).text());
+            if($(this).text() != "圆形"){
+                $(".cut").hide()
+            }else{
+                $(".cut").show()
+            }
+        });
+        function getUrlParam(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) return unescape(r[2]);
+            return null;
+        }
+        $(document).ready(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <script>
+        var storage = window.localStorage;
+        var xs_gia;
+        var key = getUrlParam('key');
+//         key = '9f150b2f5e4fef5a8d7f558fe965c779'; // 测试 倍数 itb3
+//         key = '3f5093e26abcc1e5e93255b28aba940f'; // 测试 倍数 itb2
+
+        var dischange = true;
+        $(document).ready(function () {
+            if (getUrlParam('shape')) {
+                $(".shape .option").each(function () {
+                    if ($(this).data("value") == "1") {
+                        $(this).addClass("active");
+                    }
+                });
+                //$(".shape").hide();
+            }
+        });
+        storage["strdiamond"] = '';
+        var $doc = $(document);
+        var user_type = 1;
+        var is_bus_pifa = true;
+        var $form = $("#diamond-search-form");
+        var shapeFlag = false;
+        var shapeFlag1 = false;
+        if ($('.radio:eq(0)').is('.active')) {
+            // $('#yingguan').css("margin",'2em 1em');
+        }
+        /*形状选中*/
+        $('.radio').click(function () {
+
+
+            shapeFlag1 = $(this).data('flag');
+            console.log(shapeFlag1);
+
+            // 判断快速搜索是否清除；
+
+            $(this).toggleClass("active");
+            $(this).siblings().removeClass('active');
+            // $('.radioj:eq(0)').addClass('active').siblings().removeClass('active');
+            $('.radiok').removeClass('active');
+            var $radio = $(this).attr('data-class');
+            // 其他形状切工不选
+            console.log($radio);
+            if ($radio != 1) {
+                $('.radioq').removeClass('active');
+            }
+            $('#q_id').val('');
+
+        });
+        // 颜色选中
+        $('.radioy').click(function () {
+
+
+            $(this).toggleClass("active");
+            $('#q_id').val('');
+
+        });
+        // 净度选中
+        $('.radiod').click(function () {
+            $(this).toggleClass("active");
+            $('#q_id').val('');
+
+        });
+        // 切工选中
+        $('.radioq:gt(0)').click(function () {
+            $('#q_id').val('');
+
+            $(this).toggleClass("active");
+            $('.radio:eq(0)').addClass('active').siblings().removeClass('active');
+
+            // $(this).siblings().removeClass('active');
+            var $radioq = $(this).attr('data-class');
+
+            var thr_qie = $('.radioq:eq(0)').is('.active');
+            if (thr_qie) {
+                if ($radioq == 1) {
+                    $('.radioq:eq(1)').addClass('active');
+
+                    $('.radiop:eq(0),.radioch:eq(0)').addClass('active').siblings().removeClass('active');
+
+                }
+            } else {
+                if (!$('.radiop').is('.active')) {
+                    $('.radiop,.radioch').removeClass('active');
+                }
+
+            }
+            if ($('.radioq:eq(1)').is('.active')) {
+                nocheck();
+            }
+            if (!$('.radio:eq(1)').is('.active')) {
+                nocheck();
+            }
+
+        });
+        $('.radioq:eq(0)').click(function () {
+            $('#q_id').val('');
+            $(this).toggleClass("active");
+            if ($(this).is('.active')) {
+                $('.radioq:eq(1),.radiop:eq(0),.radioch:eq(0)').addClass('active');
+            } else {
+                $('.radioq:eq(1),.radiop:eq(0),.radioch:eq(0)').removeClass('active');
+            }
+        });
+
+        // 荧光选中
+        $('.radiog').click(function (e) {
+            e.preventDefault();
+            $('#q_id').val('');
+
+            $(this).toggleClass("active");
+
+        });
+        // 抛光选中
+        $('.radiop').click(function (e) {
+            e.preventDefault();
+            $('#q_id').val('');
+            $(this).toggleClass("active");
+            nocheck();
+        });
+        // 对称选中
+        $('.radioch').click(function (e) {
+            e.preventDefault();
+            $(this).toggleClass("active");
+            nocheck();
+            $('#q_id').val('');
+        });
+        //咖奶选中
+        $('.radioj').click(function (e) {
+            $('#q_id').val('');
+            e.preventDefault();
+            $(this).toggleClass("active").siblings().removeClass('active');
+
+
+        });
+        //快速搜索选中
+
+        touch.on('.radiok', 'tap', function (ev) {
+            ev.preventDefault();
+            $('#q_id').val('');
+            $('.radiok').not(this).removeClass('active');
+            var $rk = $(this).is('.active');
+            if ($rk) {
+                // $('.radiok').removeClass('active');
+                $(this).removeClass('active');
+                $('.radioy:eq(3),.radiod:eq(3),.radioq:eq(2),.radio').removeClass('active');
+            } else {
+                // $('.radiok').removeClass('active');
+                $(this).addClass('active');
+                $('.radioy:eq(3),.radiod:eq(3),.radioq:eq(2),.radio:eq(0)').addClass('active');
+                $('.radio:eq(0)').siblings().removeClass('active');
+                var k_obj = $(this).attr("data-obj");
+                var k_v1 = $(this).attr("data-v1");
+                var k_v2 = $(this).attr("data-v2");
+                quicksearch(k_obj, k_v1, k_v2);
+                search();
+            }
+        });
+
+
+        /*快速搜索*/
+        function quicksearch(obj, v1, v2) {
+            // console.log(obj);
+            // $('#qiegong').show();
+            $("#weight01").val(v1);
+            $("#weight02").val(v2);
+            var $weighor = parseInt(v1 * 100);
+            var $weighor2 = parseInt(v2 * 100);
+            if ($weighor < $weighor2) {
+                if ($weighor <= 40) {
+                    $('#rangeselect').val('1');
+                } else if ($weighor <= 60) {
+                    $('#rangeselect').val('3');
+                } else if ($weighor <= 110) {
+                    $('#rangeselect').val('8');
+                } else if ($weighor <= 200) {
+                    $('#rangeselect').val('10');
+                } else if ($weighor <= 300) {
+                    $('#rangeselect').val('12');
+                } else if ($weighor <= 400) {
+                    $('#rangeselect').val('14');
+                } else if ($weighor <= 600) {
+                    $('#rangeselect').val('15');
+                } else {
+                    $('#rangeselect').val('11');
+                }
+            }
+        }
+        //重量快捷选择层交互
+
+        //更改重量选择
+        $(function () {
+            $('#weight01').change(function () {
+                var $weighor = parseInt($('#weight01').val() * 100);
+                var $weighor2 = parseInt($('#weight02').val() * 100);
+                console.log($weighor);
+                //console.log($weighor2);
+                //if ($weighor < $weighor2) {
+                    if ($weighor < 40) {
+                        $('#rangeselect').val('1');
+                        $('#weight02').val('0.39');
+                    } else if ($weighor < 50) {
+                        $('#rangeselect').val('2');
+                        $('#weight02').val('0.49');
+                    } else if ($weighor < 60) {
+                        $('#rangeselect').val('3');
+                        $('#weight02').val('0.59');
+                    } else if ($weighor < 70) {
+                        $('#rangeselect').val('4');
+                        $('#weight02').val('0.69');
+                    } else if ($weighor < 80) {
+                        $('#rangeselect').val('5');
+                        $('#weight02').val('0.79');
+                    } else if ($weighor < 90) {
+                        $('#rangeselect').val('6');
+                        $('#weight02').val('0.89');
+                    } else if ($weighor < 100) {
+                        $('#rangeselect').val('7');
+                        $('#weight02').val('0.99');
+                    } else if ($weighor < 110) {
+                        $('#rangeselect').val('8');
+                        $('#weight02').val('1.09');
+                    } else if ($weighor < 150) {
+                        $('#rangeselect').val('9');
+                        $('#weight02').val('1.49');
+                    } else if ($weighor < 200) {
+                        $('#rangeselect').val('10');
+                        $('#weight02').val('1.99');
+                    } else if ($weighor < 300) {
+                        $('#rangeselect').val('12');
+                        $('#weight02').val('2.99');
+                    } else if ($weighor < 9900) {
+                        $('#rangeselect').val('13');
+                        $('#weight02').val('99');
+                    } else {
+                        $('#rangeselect').val('11');
+                    }
+               // }
+            });
+
+            $('#weight02').change(function () {
+                var $weighor = parseInt($('#weight01').val() * 100);
+                var $weighor2 = parseInt($('#weight02').val() * 100);
+                console.log($weighor2);
+                //console.log($weighor2);
+                if ($weighor > $weighor2) {
+                    if ($weighor < 40) {
+                        $('#rangeselect').val('1');
+                        $('#weight02').val('0.39');
+                    } else if ($weighor < 50) {
+                        $('#rangeselect').val('2');
+                        $('#weight02').val('0.49');
+                    } else if ($weighor < 60) {
+                        $('#rangeselect').val('3');
+                        $('#weight02').val('0.59');
+                    } else if ($weighor < 70) {
+                        $('#rangeselect').val('4');
+                        $('#weight02').val('0.69');
+                    } else if ($weighor < 80) {
+                        $('#rangeselect').val('5');
+                        $('#weight02').val('0.79');
+                    } else if ($weighor < 90) {
+                        $('#rangeselect').val('6');
+                        $('#weight02').val('0.89');
+                    } else if ($weighor < 100) {
+                        $('#rangeselect').val('7');
+                        $('#weight02').val('0.99');
+                    } else if ($weighor < 110) {
+                        $('#rangeselect').val('8');
+                        $('#weight02').val('1.09');
+                    } else if ($weighor < 150) {
+                        $('#rangeselect').val('9');
+                        $('#weight02').val('1.49');
+                    } else if ($weighor < 200) {
+                        $('#rangeselect').val('10');
+                        $('#weight02').val('1.99');
+                    } else if ($weighor < 300) {
+                        $('#rangeselect').val('12');
+                        $('#weight02').val('2.99');
+                    } else if ($weighor < 9900) {
+                        $('#rangeselect').val('13');
+                        $('#weight02').val('99');
+                    } else {
+                        $('#rangeselect').val('11');
+                    }
+               }
+            });
+    
+            $('#rangeselect').change(function () {
+                $('#q_id').val('');
+                selectChange();
+            });
+
+        });
+        //查询输入选中
+
+        $('#q_id_type').change(function () {
+
+            weightClean();
+            $('#q_id').val('');
+            var checkSelect = $('#q_id_type').val();
+            if (checkSelect == 'id') {
+                $('#q_id').attr('placeholder', '请输入货号号码!');
+            } else {
+                $('#q_id').attr('placeholder', '请输入证书号码!');
+            }
+
+        });
+        $('#q_id').change(function () {
+            //清空其他选项
+            // console.log('2222');
+            weightClean();
+            clean();
+        });
+
+        //美化checkbox
+        var syncCallback = function ($checkbox) {
+            var $label = this.getLabel();
+            if (this.isChecked()) {
+                $label.addClass("active");
+            } else {
+                $label.removeClass("active");
+            }
+        };
+        var checkboxSettings = {
+            onchange: syncCallback,
+            oninit: syncCallback
+        };
+        Checkbox.init("q_no_milky_shade", checkboxSettings); //不咖不奶
+        Checkbox.init("q_shade_milky_shade", checkboxSettings); //浅咖不奶
+        Checkbox.init("q_is_image", checkboxSettings); //有图
+        Checkbox.init("q_is_movie", checkboxSettings); //有视频
+        Checkbox.init("q_is_outside", checkboxSettings); //地区
+        Checkbox.init("q_is_inside", checkboxSettings); //地区
+        //ajax刷新数据列表
+        var handleSearchData = function (data) {
+
+            console.log(data);
+            $diamondList.html(diamondListTpl({
+                data: data
+            }));
+            $("#total_diamonds").text(data.total_diamonds);
+            $("#total").text(data.total);
+        };
+        var searchRequest = function (params, isSearch) { // 搜索 测试
+            //            var url = appUrl+'/addons/ewei_shop/padapi/gia.php'; // 旧接口
+            var giaLimtWeight = $("#weight01").val(),
+                reurl = 'http://' + 'www.zsagia.com' + '/diamond_new/' + params,
+                url = appUrl+'/addons/ewei_shop/padapi/gianew.php?key='+ key + "&weight=" + giaLimtWeight + "&reurl=" + reurl;
+
+            console.log(giaLimtWeight);
+            console.log(url);
+            console.log(reurl);
+
+            showLoadingIndicator(); //测试 的临时注释使用
+            $.ajax({
+                url: url,
+                type: "get",
+                data: {
+                    reurl: reurl
+                },
+                dataType: 'jsonp',
+                timeout: 30000,
+                success: function (data) {
+
+                    handleSearchData(data);
+                    if (isSearch) {
+                        topPagination.refresh(data.total_pages);
+                        bottomPagination.refresh(data.total_pages);
+                        clearSortStyle();
+                    } else {
+                        topPagination.updatePaging();
+                        bottomPagination.updatePaging();
+                    }
+                    if (user_type == 3) {
+                        $.getJSON('http://' + 'www.zsagia.com' + '/consumer/cart_new/', function (data) {
+                            parent.renderCart(data);
+                        });
+                    }
+                    hideLoadingIndicator(); // 测试
+                },
+                error: function (data2) {
+                    hideLoadingIndicator(); // 测试
+                    showToast("获取GIA数据失败，请重试"); // 测试
+
+                }
+            })
+        };
+        var pageChange = function () {
+            queryString = _.replaceParam(queryString, "page", this.current);
+            searchRequest(queryString, false);
+        };
+        var createPagination = function (id) {
+            return new Pagination({
+                $container: $("#" + id),
+                ajax: true,
+                current: 1,
+                pages: defPages,
+                onRefresh: function () {
+                    this.updatePaging();
+                },
+                onchange: function () {
+                    pageChange.call(this);
+                    if (topPagination == this) {
+                        bottomPagination.current = this.current;
+                        bottomPagination.updatePaging();
+                    } else {
+                        topPagination.current = this.current;
+                        topPagination.updatePaging();
+                    }
+                },
+                updatePaging: function () {
+                    this.$el.find(".paging").text(this.current + " / " + this.pages);
+                },
+                onShow: function () {
+                    this.updatePaging();
+                }
+            })
+        };
+        //分页组件
+        var queryString = ""; //数据请求参数
+        var defPages = 1;
+        var topPagination = createPagination("pagination-top");
+        var bottomPagination = createPagination("pagination-bottom");
+        topPagination.show();
+        bottomPagination.show();
+        //搜索
+        var diamondListTpl = _.getTemplateById("tpl-diamond-list");
+        var $diamondList = $("#diamond-list");
+
+        $("#btn_search").click(function (e) {
+            e.preventDefault();
+            search();
+
+        });
+
+        //重置
+        $("#btn_reset").click(function (e) {
+            e.preventDefault();
+            location.reload();
+        });
+        //选购
+        $doc.on("click", ".btn_buy", function () {
+            var dia_id = $(this).closest("td").data("id");
+            url = 'http://' + 'www.zsagia.com' + '/consumer/cart_new/add/' + dia_id;
+
+            $.getJSON(url, function (data) {
+                parent.renderCart(data);
+            });
+        });
+        if (user_type == 3) {
+            parent.queryCart();
+        }
+        //证书弹出窗
+        var $dataTable = $("#diamond-data-table");
+        var reporterWin = {};
+        $dataTable.on("click", ".report-link", function (e) {
+            e.preventDefault();
+            var $link = $(this);
+            var diamond_id = $link.closest("tr").data("diamond-id");
+            var url = $(this).attr("href");
+            url = 'http://' + 'www.zsagia.com' + url + '&js=' + Math.random();
+            var popwin = reporterWin[diamond_id];
+            // alert(url);
+            //if(!popwin){
+            popwin = reporterWin[diamond_id] = new Popwin({
+                data: {
+                    title: "钻石证书",
+                    html: _.renderTemplate("tpl-reporter", {
+                        url: url
+                    })
+                },
+                onShow: function () {}
+            });
+            popwin.theme("reporter-win");
+            //}
+            popwin.show();
+        });
+        //图片弹出窗
+        var imageWin = {};
+        $dataTable.on("click", ".icon-img", function (e) {
+            e.preventDefault();
+            var $tr = $(this).closest("tr");
+            var diamondId = $tr.data("diamond-id");
+            var src = $(this).attr("href");
+
+            if (!imageWin[diamondId]) {
+                imageWin[diamondId] = new Popwin({
+                    data: {
+                        title: "查看图片",
+                        html: _.renderTemplate("tpl-image", {
+                            src: src
+                        })
+                    }
+                });
+                //imageWin[diamondId].theme("diamond-image-win");
+                imageWin[diamondId].theme("image-win");
+            }
+            imageWin[diamondId].show();
+        });
+        //视频弹出窗
+        var movieWin = {};
+        $dataTable.on("click", ".icon-video", function (e) {
+            e.preventDefault();
+            var $link = $(this);
+            var diamond_id = $link.closest("tr").data("diamond-id");
+            var url = $(this).attr("href");
+            var popwin = movieWin[diamond_id];
+
+            if (!popwin) {
+                popwin = movieWin[diamond_id] = new Popwin({
+                    data: {
+                        title: "钻石视频",
+                        html: _.renderTemplate("tpl-movie", {
+                            url: url
+                        })
+                    },
+                    onShow: function () {
+                        //this.$el.find(".popwin-body").height(600);
+                    }
+                });
+                popwin.theme("video-win");
+            }
+
+            popwin.show();
+        });
+        //修改排序方式
+        var clearSortStyle = function () {
+            $dataTable.find(".sortable").removeClass("asc desc");
+        };
+
+        var orderBy = function (by) {
+            var _by = _.getQueryString("q_orderby", queryString);
+            var orderdir = _.getQueryString("q_orderdir", queryString);
+            var $link = $("#order-by-" + by + "-link");
+            clearSortStyle();
+            //当前是按其他方式排序
+            if (_by != by) {
+                queryString = _.replaceParam(queryString, "q_orderby", by);
+                queryString = _.replaceParam(queryString, "q_orderdir", "asc");
+                $link.addClass("asc");
+            } else {
+                if (orderdir == "asc") {
+                    queryString = _.replaceParam(queryString, "q_orderdir", "desc");
+                    $link.addClass("desc");
+                } else {
+                    queryString = _.replaceParam(queryString, "q_orderdir", "asc");
+                    $link.addClass("asc");
+                }
+            }
+            searchRequest(queryString, false);
+        };
+        //排序
+        var sortParam = ["carat", "price", "discount"];
+
+        _.each(sortParam, function (n, i) {
+            $doc.on("click", "#order-by-" + n + "-link", function () {
+                orderBy(n);
+            });
+        });
+        $dataTable.on("click", "tr", function (e) {
+            $("#diamond-list").find(".extra-info").css("display", "none");
+            var $obj = $(this);
+            var objtr = $obj.closest("tr");
+            var extrainfo = objtr.find(".extra-info");
+            if (extrainfo.css("display") == 'block') {
+                extrainfo.css("display", "none");
+            } else {
+                extrainfo.css("display", "block");
+            }
+        })
+        touch.on('.btmore', 'tap', function (ev) {
+            var flag = $(this).data("flag");
+
+            if (flag == 0) {
+                $('.extradiv').removeClass("uhide");
+                $('.btmore').html('收起高级搜索');
+                $(this).data("flag", "1");
+            } else {
+                $('.extradiv').addClass("uhide");
+                $('.btmore').html('显示高级搜索');
+                $(this).data("flag", "0");
+            }
+        })
+        $dataTable.on("click", ".icon-tobuy", function (e) {
+            e.preventDefault();
+            var $obj = $(this);
+            var objtr = $obj.closest("tr");
+            var productno = objtr.find('.product-no').html();
+            var caffeine = objtr.find(".caffeine").text();
+
+            caffeine = caffeine.replace(/\r\n/g,"");
+            caffeine = caffeine.replace(/\n/g,"");
+            caffeine = caffeine.replace(/\s/g,"");
+            ////console.log(productno);
+            productno = productno.substring(0, productno.indexOf('<')).trim();
+
+            //var strdiamond='{"code":200,"resultCode":0,"datas":{"sn":"12991963","style":"垫形","weight":"2.01","color":"G","clarity":"SI2","cut":"--","polish":"VG","symmetry":"GD","fluorescence":"N","certtype":"IGI","certno":"201627837","price":"38402.00"}}';
+
+            var strdiamond = '{"sn":"' + productno + '","style":"' + objtr.find('.product-style').html() +
+                '","weight":"' + objtr.find('.product-weight').html() + '","color":"' + objtr.find(
+                    '.product-color').html() + '","clarity":"' + objtr.find('.product-clarity').html() +
+                '","cut":"' + objtr.find('.product-cut').html() + '","polish":"' + objtr.find('.product-polish')
+                .html() + '","symmetry":"' + objtr.find('.product-symmetry').html() + '","fluorescence":"' +
+                objtr.find('.product-fluorescence').html() + '","certtype":"' + objtr.find('.product-cert').html() +
+                '","certno":"' + objtr.find('.product-cert-no').html() + '","price":"' + objtr.find(
+                    '.product-money').html() + '","caffeine":"'+ caffeine +'","diameter":"'+ objtr.find('.product-dia').text() +'"}';
+
+            nextstep(strdiamond);
+        });
+
+        $dataTable.on("click", ".icon-buying", function (e) {
+            e.preventDefault();
+            var urlparam = getUrlParam('shape');
+            var id = getUrlParam('id');
+            var $obj = $(this);
+            $obj.css("background-color", "#c6c6c6");
+            $obj.html("此钻已选");
+            $obj.attr("disabled", "false");
+            var objtr = $obj.closest("tr");
+            var productno = objtr.find('.product-no').html();
+            var productcert = objtr.find('.product-cert').html();
+            var caffeine = objtr.find(".caffeine").text();
+
+            caffeine = caffeine.replace(/\r\n/g,"");
+            caffeine = caffeine.replace(/\n/g,"");
+            caffeine = caffeine.replace(/\s/g,"");
+            if (productcert != '无') {
+                productcert = 'GIA';
+            }
+            ////console.log(productno);
+            productno = productno.substring(0, productno.indexOf('<')).trim();
+
+            //var strdiamond='{"code":200,"resultCode":0,"datas":{"sn":"12991963","style":"垫形","weight":"2.01","color":"G","clarity":"SI2","cut":"--","polish":"VG","symmetry":"GD","fluorescence":"N","certtype":"IGI","certno":"201627837","price":"38402.00"}}';
+
+            var strdiamond = '{"sn":"' + productno + '","style":"' + objtr.find('.product-style').html() +
+                '","weight":"' + objtr.find('.product-weight').html() + '","color":"' + objtr.find(
+                    '.product-color').html() + '","clarity":"' + objtr.find('.product-clarity').html() +
+                '","cut":"' + objtr.find('.product-cut').html() + '","polish":"' + objtr.find('.product-polish')
+                .html() + '","symmetry":"' + objtr.find('.product-symmetry').html() + '","fluorescence":"' +
+                objtr.find('.product-fluorescence').html() + '","certtype":"' + productcert + '","certno":"' +
+                objtr.find('.product-cert-no').html() + '","price":"' + objtr.find('.product-money').html() +
+                '","caffeine":"'+ caffeine +'","diameter":"'+ objtr.find('.product-dia').text() +'"}';
+            var changeprice = objtr.find('.product-money').data('money');
+            console.log(changeprice);
+
+            var strdiamonddz = '{"sn":"' + productno + '","style":"' + objtr.find('.product-style').html() +
+                '","weight":"' + objtr.find('.product-weight').html() + '","color":"' + objtr.find(
+                    '.product-color').html() + '","clarity":"' + objtr.find('.product-clarity').html() +
+                '","cut":"' + objtr.find('.product-cut').html() + '","polish":"' + objtr.find('.product-polish')
+                .html() + '","symmetry":"' + objtr.find('.product-symmetry').html() + '","fluorescence":"' +
+                objtr.find('.product-fluorescence').html() + '","certtype":"' + productcert + '","certno":"' +
+                objtr.find('.product-cert-no').html() + '","price":"' + objtr.find('.product-money').html() +
+                '","changeprice":"' + changeprice + '","caffeine":"'+ caffeine +'","diameter":"'+ objtr.find('.product-dia').text() +'"}';
+            console.log(strdiamonddz);
+            //console.log(strdiamond);
+            var strdiamond2 = JSON.parse(strdiamond);
+            //console.log(strdiamond2);
+            var giaprice = objtr.find('.product-money').html();
+            ////console.log(strdiamond);
+            if (urlparam) {
+                openDetailWindowFromJIA(id, '', strdiamonddz);
+            } else {
+                $.ajax({
+                    url: appUrl+'/app/index.php?i=2&c=entry&do=addcart&m=test&key=' +
+                        key,
+                    type: "post",
+                    data: {
+                        gia: strdiamond, // 裸石参数
+                        price: giaprice, // 裸石价格
+                        changeprice:giaprice // 批发价 测试
+                    },
+                    dataType: 'jsonp',
+                    success: function (data) {
+                        ////console.log(data);
+                        showToast("添加购物车成功!"); // 测试
+                        window.android.openWindow(4, '购物车列表', 'http://www.zsmtvip.com/addons/ewei_shop/template/pad/default/shop/cart.html');
+                    },
+                    error: function (data2) {
+                        //console.log(JSON.stringify(data2));
+                        showToast("添加购物车失败!");
+                    }
+                })
+            }
+        });
+
+        function nextstep(strdiamond) {
+            storage["strdiamond"] = strdiamond;
+            window.android.openWindow(6, '产品列表',
+                appUrl+'/addons/ewei_shop/template/pad/default/shop/list.html');
+        }
+
+        function btnDownloadGIACer(gianumber) {
+            downloadGIACer('' + gianumber + '', appUrl+'/addons/ewei_shop/api/pdf.php?gia=' + gianumber +
+                '&key=' + key);
+        }
+
+
+
+
+        function selectChange() {
+            var $selected = $('#rangeselect').val();
+            //console.log($selected);
+            if ($selected == 11) {
+                $('#weight01').val('');
+                $('#weight02').val('');
+            } else if ($selected == 1) {
+                $('#weight01').val('0.3');
+                $('#weight02').val('0.39');
+            } else if ($selected == 2) {
+                $('#weight01').val('0.4');
+                $('#weight02').val('0.49');
+            } else if ($selected == 3) {
+                $('#weight01').val('0.5');
+                $('#weight02').val('0.59');
+            } else if ($selected == 4) {
+                $('#weight01').val('0.6');
+                $('#weight02').val('0.69');
+            } else if ($selected == 5) {
+                $('#weight01').val('0.7');
+                $('#weight02').val('0.79');
+            } else if ($selected == 6) {
+                $('#weight01').val('0.8');
+                $('#weight02').val('0.89');
+            } else if ($selected == 7) {
+                $('#weight01').val('0.9');
+                $('#weight02').val('0.99');
+            } else if ($selected == 8) {
+                $('#weight01').val('1.0');
+                $('#weight02').val('1.09');
+            } else if ($selected == 9) {
+                $('#weight01').val('1.1');
+                $('#weight02').val('1.49');
+            } else if ($selected == 10) {
+                $('#weight01').val('1.5');
+                $('#weight02').val('1.99');
+            } else if ($selected == 12) {
+                $('#weight01').val('2.0');
+                $('#weight02').val('2.99');
+            } else if ($selected == 13) {
+                $('#weight01').val('3.0');
+                $('#weight02').val('3.99');
+            } else if ($selected == 14) {
+                $('#weight01').val('4.0');
+                $('#weight02').val('4.99');
+            } else if ($selected == 15) {
+                $('#weight01').val('5.0');
+                $('#weight02').val('5.99');
+            } else {
+                $('#weight01').val('');
+                $('#weight02').val('');
+            }
+        }
+        //查询clean
+        function clean() {
+            $('.radio,.radioy,.radiod,.radioq,.radiog,.radiop,.radioch,.radioj,.radiok').removeClass('active');
+            $('.btquick').attr('qukis', 'noactive');
+            $('#rangeselect').val('11');
+            selectChange();
+        }
+
+        //重量重置
+        function weightClean() {
+            $('#rangeselect').val('11');
+            selectChange();
+        }
+
+
+
+
+
+        function search() {
+            //全部参数数组
+            var params = [];
+            //形状参数
+            var $shape = $(".shape .option.active");
+            var param_shape = [];
+            $.each($shape, function () {
+                param_shape.push($(this).data('value'));
+                // param_shape.push($(this).attr('data-class'));
+            });
+            // console.log(param_shape);
+            param_shape = param_shape.join('-');
+            param_shape = param_shape ? param_shape : 0;
+            params.push(param_shape);
+            // console.log("形状"+params[param_shape]);
+            //获取参数和值函数
+            var getOptionValue = function ($obj) {
+                var param_value = [];
+                $.each($obj, function () {
+                    param_value.push($(this).data('value'));
+                });
+
+                param_value = eval(param_value.join('+'));
+                param_value = param_value ? param_value : 0;
+                return param_value;
+            };
+            //颜色参数
+            var $color = $(".color .option.active");
+            var param_color = getOptionValue($color);
+            params.push(param_color);
+            // //console.log("颜色"+params[param_color]);
+            //净度参数
+            var $clarity = $(".clarity .option.active");
+            var param_clarity = getOptionValue($clarity);
+            params.push(param_clarity);
+            // //console.log("净度"+params[param_clarity]);
+            //切工参数
+
+            var $cut = $(".cut .option.active");
+            var param_cut = getOptionValue($cut);
+            // console.log('qiegong:'+param_cut);
+            params.push(param_cut);
+            //抛光参数
+            var $polish = $(".polish .option.active");
+            var param_polish = getOptionValue($polish);
+            params.push(param_polish);
+            // //console.log("抛光"+params[param_polish]);
+            //对称参数
+            var $symmetry = $(".symmetry .option.active");
+            var param_symmetry = getOptionValue($symmetry);
+            params.push(param_symmetry);
+            // //console.log("对称"+params[param_symmetry]);
+
+            //证书参数
+            // 证书参数 永远搜索 0 是搜索多有证书, 1 是搜索GIA证书
+            // var $report = $(".report .option.active");
+            // var param_report = getOptionValue($report);
+            params.push(1);
+            // //console.log("证书"+params[param_report]);
+            //荧光参数
+            var $fluorescence = $(".fluorescence .option.active:not('.special')");
+            
+            var param_fluorescence = getOptionValue($fluorescence);
+            console.log(param_fluorescence);
+            params.push(param_fluorescence);
+            // //console.log("荧光"+params[param_fluorescence]);
+            // //console.log(params);
+            //alert(params);
+            //重量参数
+            var q_carat1 = $("#weight01").val();
+            var q_carat2 = $("#weight02").val();
+            //货号或证书号
+            var q_id_type = $("#q_id_type").val();
+            //console.log(q_id_type);
+            var q_id = $("#q_id").val();
+            //console.log(q_id);
+            //每页条数
+            var q_perpage = $("#q_perpage").val();
+            //咖奶
+            //var q_no_milky_shade = $("#q_no_milky_shade").prop("checked");
+            //var q_shade_milky_shade = $("#q_shade_milky_shade").prop("checked");
+            var q_no_milky_shade = false;
+            var q_shade_milky_shade = false;
+            var $t1 = $(".q_no_milky_shade .option.active");
+            var tv = getOptionValue($t1);
+            console.log(tv);
+            if (tv == '0') {
+                q_no_milky_shade = false;
+                q_shade_milky_shade = false;
+            } else if (tv == '1') {
+                q_no_milky_shade = true;
+                q_shade_milky_shade = false;
+            } else if (tv == '2') {
+                q_no_milky_shade = false;
+                q_shade_milky_shade = true;
+            } else {
+                q_no_milky_shade = true;
+                q_shade_milky_shade = true;
+            }
+            //图和视频
+            var q_is_image = $("#q_is_image").prop("checked");
+            var q_is_movie = $("#q_is_movie").prop("checked");
+
+            //国外、深港
+            var q_is_outside = $("#q_is_outside").prop("checked");
+            var q_is_inside = $("#q_is_inside").prop("checked");
+            
+
+            //组装url
+            var url = params.join("--") + '.html';
+            url = url + '?q_carat1=' + q_carat1 + '&q_carat2=' + q_carat2 + '&q_id=' + q_id + '&q_id_type=' + q_id_type +
+                '&q_perpage=' + q_perpage;
+
+            if (q_no_milky_shade) {
+                url = url + '&q_no_milky_shade=1';
+            }
+
+            if (q_shade_milky_shade) {
+                url = url + '&q_shade_milky_shade=1';
+            }
+
+            if (q_is_image) {
+                url = url + '&q_is_image=1';
+            }
+
+            if (q_is_movie) {
+                url = url + '&q_is_movie=1';
+            }
+
+            if (q_is_outside) {
+                url = url + '&q_is_outside=1';
+            }
+
+            if (q_is_inside) {
+                url = url + '&q_is_inside=1';
+            }
+
+            queryString = url;
+            //更新xs_gia (系数) // 根据2018最新接口文档 这个接口请求的 系数不再需要  测试
+            $.ajax({
+                url: appUrl+'/app/index.php?i=2&c=entry&do=logindata&m=test&id=2&key=' + key,
+                type: "get",
+                dataType: 'jsonp',
+                success: function (data) {
+                    if (data.resultCode == "0") {
+//                        xs_gia = data.datas.xs_gia; // 系数
+//                        console.log(xs_gia); // 系数
+                        searchRequest(queryString, true);
+                    } else {
+                        //console.log(data.error);
+                        showToast(data.error); // 测试
+                        console.log(data.error);
+                    }
+                },
+                error: function (data2) {
+                    showToast("获取价格失败"); //测试
+                }
+            })
+        }
+
+        //3EX的选中与不选中
+        function nocheck() {
+            // console.log('555');
+            var qienum = $('.radioq:eq(1)').is('.active');
+            var paonum = $('.radiop:eq(0)').is('.active');
+            var dchnum = $('.radioch:eq(0)').is('.active');
+            var qienums = qienum ? 1 : 0;
+            var paonums = paonum ? 1 : 0;
+            var dchnums = dchnum ? 1 : 0;
+            var sum = qienums + paonums + dchnums;
+            console.log(sum);
+            if (sum === 3) {
+                $('.radioq:eq(0)').addClass('active');
+            } else {
+                $('.radioq:eq(0)').removeClass('active');
+            }
+        }
+    </script>
+</body>
+
+</html>

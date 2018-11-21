@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.extend.widget.ExtendLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:paddingBottom="40px"
+    android:paddingLeft="140px"
+    android:paddingRight="140px" 
+    android:paddingTop="40px"
+    android:orientation="vertical">
+<!-- android:background="@android:colo/white" 
+
+    android:paddingBottom="40px"
+    android:paddingLeft="140px"
+    android:paddingRight="140px" -->
+    <android.extend.widget.adapter.ScrollGridView
+        android:id="@+id/index_container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:scrollbars="none" >
+    </android.extend.widget.adapter.ScrollGridView>
+
+</android.extend.widget.ExtendLinearLayout>

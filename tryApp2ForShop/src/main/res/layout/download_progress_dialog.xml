@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#b2000000" >
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@color/dialog_background"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="80px" >
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="title"
+            android:textColor="@color/dialog_title_font"
+            android:textSize="40px" />
+
+        <TextView
+            android:id="@+id/message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40px"
+            android:text="message"
+            android:textColor="@color/dialog_title_font"
+            android:textSize="32px"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/speed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="80px"
+            android:text="0k/s"
+            android:textColor="@color/dialog_title_font"
+            android:textSize="28px" />
+
+        <android.extend.widget.ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="600px"
+            android:layout_height="30px" >
+
+            <View
+                android:id="@+id/background"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/download_progress_background" />
+
+            <View
+                android:id="@+id/progress"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/download_progress" />
+
+            <TextView
+                android:id="@+id/percent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="100%"
+                android:textColor="@color/download_progress_font"
+                android:textSize="20px" />
+        </android.extend.widget.ProgressBar>
+
+        <TextView
+            android:id="@+id/cancel"
+            android:layout_width="300px"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="80px"
+            android:background="@color/dialog_negative_button_background"
+            android:gravity="center"
+            android:paddingBottom="30px"
+            android:paddingTop="30px"
+            android:text="取消"
+            android:textColor="@color/dialog_button_font"
+            android:textSize="32px"
+            android:visibility="gone" />
+    </LinearLayout>
+
+</FrameLayout>

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/delectprice"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/selector_product_details_selectprice_bg" >
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="10px" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="主石"
+            android:textColor="@color/detail_text_font"
+            android:textSize="28px" />
+
+        <TextView
+            android:id="@+id/product_main_stone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="-"
+            android:textColor="@color/detail_title_font"
+            android:textSize="28px" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" | "
+            android:textColor="@color/detail_params_separator"
+            android:textSize="28px" />
+
+        <TextView
+            android:id="@+id/product_main_stone_jingdu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="-"
+            android:textColor="@color/detail_title_font"
+            android:textSize="28px" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" | "
+            android:textColor="@color/detail_params_separator"
+            android:textSize="28px" />
+
+        <TextView
+            android:id="@+id/product_main_stone_color"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="-"
+            android:textColor="@color/detail_title_font"
+            android:textSize="28px" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" | "
+            android:textColor="@color/detail_params_separator"
+            android:textSize="28px" />
+
+        <TextView
+            android:id="@+id/product_main_stone_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="- "
+            android:textColor="@color/detail_title_font"
+            android:textSize="28px" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" | "
+            android:textColor="@color/detail_params_separator"
+            android:textSize="28px" />
+
+        <TextView
+            android:id="@+id/product_main_stone_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="￥0"
+            android:textColor="@color/detail_text_font"
+            android:textSize="28px" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/product_details_selectprice_true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right|center_vertical"
+        android:layout_marginRight="10px"
+        android:src="@drawable/product_details_selectprice_trye"
+        android:visibility="invisible" />
+
+</FrameLayout>

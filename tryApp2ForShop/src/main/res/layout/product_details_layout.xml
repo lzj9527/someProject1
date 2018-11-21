@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.extend.widget.ExtendLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@android:color/white"
+    android:orientation="horizontal" >
+
+    <include
+        android:id="@+id/details_middle_layout"
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:layout_weight="8"
+        layout="@layout/product_details_middle_layout"
+        android:background="@android:color/white"
+        android:visibility="visible" />
+
+    <FrameLayout
+        android:id="@+id/fragment_container6"
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:layout_weight="3"
+        android:clipChildren="false" >
+    </FrameLayout>
+
+</android.extend.widget.ExtendLinearLayout>

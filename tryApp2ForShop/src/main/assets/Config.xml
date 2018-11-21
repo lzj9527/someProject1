@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Config
+	DebugMode = "true"
+	LogToFile = "false"
+	UseUMengAnalytics = "true"
+	UMengDebugMode = "true"
+	UMengAppKey = "57ce225f67e58ee71c0014f2"
+	UMengChannel = "shiyou-android" />

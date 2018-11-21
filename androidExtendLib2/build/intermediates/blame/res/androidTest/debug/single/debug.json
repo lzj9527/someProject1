@@ -1,0 +1,166 @@
+[
+    {
+        "merged": "E:\\project\\android\\as_project\\as\\TryApp2ForShop\\androidExtendLib2\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4_rotate_refresh.png.flat",
+        "source": "E:\\project\\android\\as_project\\as\\TryApp2ForShop\\androidExtendLib2\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\rotate_refresh.png"
+    },
+    {
+        "merged": "E:\\project\\android\\as_project\\as\\TryApp2ForShop\\androidExtendLib2\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4_default_progress.9.png.flat",
+        "source": "E:\\project\\android\\as_project\\as\\TryApp2ForShop\\androidExtendLib2\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\default_progress.9.png"
+    },
+    {
+        "merged": "E:\\project\\android\\as_project\\as\\TryApp2ForShop\\androidExtendLib2\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout_pull_to_refresh_horizontalheader.xml.flat",
+        "source": "E:\\project\\android\\as_project\\as\\TryApp2ForShop\\androidExtendLib2\\build\\intermediates\\bundles\\debug\\res\\layout\\pull_to_refresh_horizontalheader.xml"
+    },
+    {
+        "merged": "E:\\project\\android\\as_project\\as\\TryApp2ForShop\\androidExtendLib2\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim_slide_in_up.xml.flat",
+        "source": "E:\\project\\android\\as_project\\as\\TryApp2ForShop\\androidExtendLib2\\build\\intermediates\\bundles\\debug\\res\\anim\\slide_in_up.xml"
+    },
+    {
+        "merged": "E:\\project\\android\\as_project\\as\\TryApp2ForShop\\androidExtendLib2\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout_pull_to_load_horizontalfooter.xml.flat",
+        "source": "E:\\project\\android\\as_project\\as\\TryApp2ForShop\\androidExtendLib2\\build\\intermediates\\bundles\\debug\\res\\layout\\pull_to_load_horizontalfooter.xml"
+    },
+    {
+        "merged": "E:\\project\\android\\as_project\\as\\TryApp2ForShop\\androidExtendLib2\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout_default_flipper_content.xml.flat",
+        "source": "E:\\project\\android\\as_project\\as\\TryApp2ForShop\\androidExtendLib2\\build\\intermediates\\bundles\\debug\\res\\layout\\default_flipper_content.xml"
+    },
+    {
+        "merged": "E:\\project\\android\\as_project\\as\\TryApp2ForShop\\androidExtendLib2\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim_grow_fade_in_from_bottom.xml.flat",
+        "source": "E:\\project\\android\\as_project\\as\\TryApp2ForShop\\androidExtendLib2\\build\\intermediates\\bundles\\debug\\res\\anim\\grow_fade_in_from_bottom.xml"
+    },
+    {
+        "merged": "E:\\project\\android\\as_project\\as\\TryApp2ForShop\\androidExtendLib2\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim_shrink_fade_out.xml.flat",
+        "source": "E:\\project\\android\\as_project\\as\\TryApp2ForShop\\androidExtendLib2\\build\\intermediates\\bundles\\debug\\res\\anim\\shrink_fade_out.xml"
+    },
+    {
+        "merged": "E:\\project\\android\\as_project\\as\\TryApp2ForShop\\androidExtendLib2\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout_default_frame_content.xml.flat",
+        "source": "E:\\project\\android\\as_project\\as\\TryApp2ForShop\\androidExtendLib2\\build\\intermediates\\bundles\\debug\\res\\layout\\default_frame_content.xml"
+    },
+    {
+        "merged": "E:\\project\\android\\as_project\\as\\TryApp2ForShop\\androidExtendLib2\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4_default_progress_bg.9.png.flat",
+        "source": "E:\\project\\android\\as_project\\as\\TryApp2ForShop\\androidExtendLib2\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\default_progress_bg.9.png"
+    },
+    {
+        "merged": "E:\\project\\android\\as_project\\as\\TryApp2ForShop\\androidExtendLib2\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout_default_frame_layout.xml.flat",
+        "source": "E:\\project\\android\\as_project\\as\\TryApp2ForShop\\androidExtendLib2\\build\\intermediates\\bundles\\debug\\res\\layout\\default_frame_layout.xml"
+    },
+    {
+        "merged": "E:\\project\\android\\as_project\\as\\TryApp2ForShop\\androidExtendLib2\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim_grow_fade_in_center.xml.flat",
+        "source": "E:\\project\\android\\as_project\\as\\TryApp2ForShop\\androidExtendLib2\\build\\intermediates\\bundles\\debug\\res\\anim\\grow_fade_in_center.xml"
+    },
+    {
+        "merged": "E:\\project\\android\\as_project\\as\\TryApp2ForShop\\androidExtendLib2\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout_pull_to_load_footer.xml.flat",
+        "source": "E:\\project\\android\\as_project\\as\\TryApp2ForShop\\androidExtendLib2\\build\\intermediates\\bundles\\debug\\res\\layout\\pull_to_load_footer.xml"
+    },
+    {
+        "merged": "E:\\project\\android\\as_project\\as\\TryApp2ForShop\\androidExtendLib2\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim_slide_out_down.xml.flat",
+        "source": "E:\\project\\android\\as_project\\as\\TryApp2ForShop\\androidExtendLib2\\build\\intermediates\\bundles\\debug\\res\\anim\\slide_out_down.xml"
+    },
+    {
+        "merged": "E:\\project\\android\\as_project\\as\\TryApp2ForShop\\androidExtendLib2\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout_default_loading_indicator.xml.flat",
+        "source": "E:\\project\\android\\as_project\\as\\TryApp2ForShop\\androidExtendLib2\\build\\intermediates\\bundles\\debug\\res\\layout\\default_loading_indicator.xml"
+    },
+    {
+        "merged": "E:\\project\\android\\as_project\\as\\TryApp2ForShop\\androidExtendLib2\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim_shrink_out_center.xml.flat",
+        "source": "E:\\project\\android\\as_project\\as\\TryApp2ForShop\\androidExtendLib2\\build\\intermediates\\bundles\\debug\\res\\anim\\shrink_out_center.xml"
+    },
+    {
+        "merged": "E:\\project\\android\\as_project\\as\\TryApp2ForShop\\androidExtendLib2\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim_shrink_fade_out_from_bottom.xml.flat",
+        "source": "E:\\project\\android\\as_project\\as\\TryApp2ForShop\\androidExtendLib2\\build\\intermediates\\bundles\\debug\\res\\anim\\shrink_fade_out_from_bottom.xml"
+    },
+    {
+        "merged": "E:\\project\\android\\as_project\\as\\TryApp2ForShop\\androidExtendLib2\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4_list_selector_bg_focus.9.png.flat",
+        "source": "E:\\project\\android\\as_project\\as\\TryApp2ForShop\\androidExtendLib2\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\list_selector_bg_focus.9.png"
+    },
+    {
+        "merged": "E:\\project\\android\\as_project\\as\\TryApp2ForShop\\androidExtendLib2\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim_slide_out_left.xml.flat",
+        "source": "E:\\project\\android\\as_project\\as\\TryApp2ForShop\\androidExtendLib2\\build\\intermediates\\bundles\\debug\\res\\anim\\slide_out_left.xml"
+    },
+    {
+        "merged": "E:\\project\\android\\as_project\\as\\TryApp2ForShop\\androidExtendLib2\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim_fade_out.xml.flat",
+        "source": "E:\\project\\android\\as_project\\as\\TryApp2ForShop\\androidExtendLib2\\build\\intermediates\\bundles\\debug\\res\\anim\\fade_out.xml"
+    },
+    {
+        "merged": "E:\\project\\android\\as_project\\as\\TryApp2ForShop\\androidExtendLib2\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim_slide_in_right.xml.flat",
+        "source": "E:\\project\\android\\as_project\\as\\TryApp2ForShop\\androidExtendLib2\\build\\intermediates\\bundles\\debug\\res\\anim\\slide_in_right.xml"
+    },
+    {
+        "merged": "E:\\project\\android\\as_project\\as\\TryApp2ForShop\\androidExtendLib2\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim_rotate_loading_anim.xml.flat",
+        "source": "E:\\project\\android\\as_project\\as\\TryApp2ForShop\\androidExtendLib2\\build\\intermediates\\bundles\\debug\\res\\anim\\rotate_loading_anim.xml"
+    },
+    {
+        "merged": "E:\\project\\android\\as_project\\as\\TryApp2ForShop\\androidExtendLib2\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim_shrink_fade_out_center.xml.flat",
+        "source": "E:\\project\\android\\as_project\\as\\TryApp2ForShop\\androidExtendLib2\\build\\intermediates\\bundles\\debug\\res\\anim\\shrink_fade_out_center.xml"
+    },
+    {
+        "merged": "E:\\project\\android\\as_project\\as\\TryApp2ForShop\\androidExtendLib2\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim_grow_in_center.xml.flat",
+        "source": "E:\\project\\android\\as_project\\as\\TryApp2ForShop\\androidExtendLib2\\build\\intermediates\\bundles\\debug\\res\\anim\\grow_in_center.xml"
+    },
+    {
+        "merged": "E:\\project\\android\\as_project\\as\\TryApp2ForShop\\androidExtendLib2\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim_pull_arrow_down.xml.flat",
+        "source": "E:\\project\\android\\as_project\\as\\TryApp2ForShop\\androidExtendLib2\\build\\intermediates\\bundles\\debug\\res\\anim\\pull_arrow_down.xml"
+    },
+    {
+        "merged": "E:\\project\\android\\as_project\\as\\TryApp2ForShop\\androidExtendLib2\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim_grow_fade_in.xml.flat",
+        "source": "E:\\project\\android\\as_project\\as\\TryApp2ForShop\\androidExtendLib2\\build\\intermediates\\bundles\\debug\\res\\anim\\grow_fade_in.xml"
+    },
+    {
+        "merged": "E:\\project\\android\\as_project\\as\\TryApp2ForShop\\androidExtendLib2\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout_default_fragment_layout.xml.flat",
+        "source": "E:\\project\\android\\as_project\\as\\TryApp2ForShop\\androidExtendLib2\\build\\intermediates\\bundles\\debug\\res\\layout\\default_fragment_layout.xml"
+    },
+    {
+        "merged": "E:\\project\\android\\as_project\\as\\TryApp2ForShop\\androidExtendLib2\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim_pull_arrow_up.xml.flat",
+        "source": "E:\\project\\android\\as_project\\as\\TryApp2ForShop\\androidExtendLib2\\build\\intermediates\\bundles\\debug\\res\\anim\\pull_arrow_up.xml"
+    },
+    {
+        "merged": "E:\\project\\android\\as_project\\as\\TryApp2ForShop\\androidExtendLib2\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout_default_swiperefresh_webview.xml.flat",
+        "source": "E:\\project\\android\\as_project\\as\\TryApp2ForShop\\androidExtendLib2\\build\\intermediates\\bundles\\debug\\res\\layout\\default_swiperefresh_webview.xml"
+    },
+    {
+        "merged": "E:\\project\\android\\as_project\\as\\TryApp2ForShop\\androidExtendLib2\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4_rotate_loading.png.flat",
+        "source": "E:\\project\\android\\as_project\\as\\TryApp2ForShop\\androidExtendLib2\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\rotate_loading.png"
+    },
+    {
+        "merged": "E:\\project\\android\\as_project\\as\\TryApp2ForShop\\androidExtendLib2\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim_slide_in_left.xml.flat",
+        "source": "E:\\project\\android\\as_project\\as\\TryApp2ForShop\\androidExtendLib2\\build\\intermediates\\bundles\\debug\\res\\anim\\slide_in_left.xml"
+    },
+    {
+        "merged": "E:\\project\\android\\as_project\\as\\TryApp2ForShop\\androidExtendLib2\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4_pull_arrow_down.png.flat",
+        "source": "E:\\project\\android\\as_project\\as\\TryApp2ForShop\\androidExtendLib2\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\pull_arrow_down.png"
+    },
+    {
+        "merged": "E:\\project\\android\\as_project\\as\\TryApp2ForShop\\androidExtendLib2\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout_default_titlebar.xml.flat",
+        "source": "E:\\project\\android\\as_project\\as\\TryApp2ForShop\\androidExtendLib2\\build\\intermediates\\bundles\\debug\\res\\layout\\default_titlebar.xml"
+    },
+    {
+        "merged": "E:\\project\\android\\as_project\\as\\TryApp2ForShop\\androidExtendLib2\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim_slide_in_down.xml.flat",
+        "source": "E:\\project\\android\\as_project\\as\\TryApp2ForShop\\androidExtendLib2\\build\\intermediates\\bundles\\debug\\res\\anim\\slide_in_down.xml"
+    },
+    {
+        "merged": "E:\\project\\android\\as_project\\as\\TryApp2ForShop\\androidExtendLib2\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout_default_tab_frame_content.xml.flat",
+        "source": "E:\\project\\android\\as_project\\as\\TryApp2ForShop\\androidExtendLib2\\build\\intermediates\\bundles\\debug\\res\\layout\\default_tab_frame_content.xml"
+    },
+    {
+        "merged": "E:\\project\\android\\as_project\\as\\TryApp2ForShop\\androidExtendLib2\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout_default_tab_content.xml.flat",
+        "source": "E:\\project\\android\\as_project\\as\\TryApp2ForShop\\androidExtendLib2\\build\\intermediates\\bundles\\debug\\res\\layout\\default_tab_content.xml"
+    },
+    {
+        "merged": "E:\\project\\android\\as_project\\as\\TryApp2ForShop\\androidExtendLib2\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim_slide_out_up.xml.flat",
+        "source": "E:\\project\\android\\as_project\\as\\TryApp2ForShop\\androidExtendLib2\\build\\intermediates\\bundles\\debug\\res\\anim\\slide_out_up.xml"
+    },
+    {
+        "merged": "E:\\project\\android\\as_project\\as\\TryApp2ForShop\\androidExtendLib2\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim_fade_in.xml.flat",
+        "source": "E:\\project\\android\\as_project\\as\\TryApp2ForShop\\androidExtendLib2\\build\\intermediates\\bundles\\debug\\res\\anim\\fade_in.xml"
+    },
+    {
+        "merged": "E:\\project\\android\\as_project\\as\\TryApp2ForShop\\androidExtendLib2\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim_slide_out_right.xml.flat",
+        "source": "E:\\project\\android\\as_project\\as\\TryApp2ForShop\\androidExtendLib2\\build\\intermediates\\bundles\\debug\\res\\anim\\slide_out_right.xml"
+    },
+    {
+        "merged": "E:\\project\\android\\as_project\\as\\TryApp2ForShop\\androidExtendLib2\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout_pull_to_refresh_header.xml.flat",
+        "source": "E:\\project\\android\\as_project\\as\\TryApp2ForShop\\androidExtendLib2\\build\\intermediates\\bundles\\debug\\res\\layout\\pull_to_refresh_header.xml"
+    },
+    {
+        "merged": "E:\\project\\android\\as_project\\as\\TryApp2ForShop\\androidExtendLib2\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4_default_progress_thumb.png.flat",
+        "source": "E:\\project\\android\\as_project\\as\\TryApp2ForShop\\androidExtendLib2\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\default_progress_thumb.png"
+    }
+]

@@ -1,0 +1,26 @@
+[
+    {
+        "merged": "E:\\project\\android\\as_project\\as\\TryApp2ForShop\\jPushSDK300\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout_jpush_webview_layout.xml.flat",
+        "source": "E:\\project\\android\\as_project\\as\\TryApp2ForShop\\jPushSDK300\\build\\intermediates\\bundles\\debug\\res\\layout\\jpush_webview_layout.xml"
+    },
+    {
+        "merged": "E:\\project\\android\\as_project\\as\\TryApp2ForShop\\jPushSDK300\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4_jpush_richpush_progressbar.xml.flat",
+        "source": "E:\\project\\android\\as_project\\as\\TryApp2ForShop\\jPushSDK300\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\jpush_richpush_progressbar.xml"
+    },
+    {
+        "merged": "E:\\project\\android\\as_project\\as\\TryApp2ForShop\\jPushSDK300\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4_jpush_richpush_btn_selector.xml.flat",
+        "source": "E:\\project\\android\\as_project\\as\\TryApp2ForShop\\jPushSDK300\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\jpush_richpush_btn_selector.xml"
+    },
+    {
+        "merged": "E:\\project\\android\\as_project\\as\\TryApp2ForShop\\jPushSDK300\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout_jpush_popwin_layout.xml.flat",
+        "source": "E:\\project\\android\\as_project\\as\\TryApp2ForShop\\jPushSDK300\\build\\intermediates\\bundles\\debug\\res\\layout\\jpush_popwin_layout.xml"
+    },
+    {
+        "merged": "E:\\project\\android\\as_project\\as\\TryApp2ForShop\\jPushSDK300\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4_jpush_ic_richpush_actionbar_divider.png.flat",
+        "source": "E:\\project\\android\\as_project\\as\\TryApp2ForShop\\jPushSDK300\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\jpush_ic_richpush_actionbar_divider.png"
+    },
+    {
+        "merged": "E:\\project\\android\\as_project\\as\\TryApp2ForShop\\jPushSDK300\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4_jpush_ic_richpush_actionbar_back.png.flat",
+        "source": "E:\\project\\android\\as_project\\as\\TryApp2ForShop\\jPushSDK300\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\jpush_ic_richpush_actionbar_back.png"
+    }
+]

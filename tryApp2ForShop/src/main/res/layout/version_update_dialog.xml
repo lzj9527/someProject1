@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#b2000000" >
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@color/dialog_background" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="80px" >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:orientation="horizontal" >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/boss_add_shopping_success" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="20px"
+                    android:text="有新版本可以更新"
+                    android:textColor="@color/dialog_title_font"
+                    android:textSize="40px" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/immediately_update"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="80px"
+                android:background="@color/dialog_positive_button_background"
+                android:gravity="center"
+                android:paddingBottom="30px"
+                android:paddingTop="30px"
+                android:text="立即更新"
+                android:textColor="@color/dialog_button_font"
+                android:textSize="32px" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/later_update"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|right"
+            android:layout_marginRight="20px"
+            android:padding="20px"
+            android:src="@drawable/btn_cancel_min" />
+    </FrameLayout>
+
+</FrameLayout>
