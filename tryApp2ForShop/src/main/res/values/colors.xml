@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <color name="base_background">#ffffff</color>
     <color name="rect_button_font">#f9eef2</color>
     <color name="rect_button_background">#b1001d</color>
@@ -17,7 +16,7 @@
     <color name="download_progress_background">#ff8a78</color>
     <color name="download_progress">#b1001d</color>
     <color name="download_progress_font">#f9eef2</color>
-    <color name="main_menubar_background">#b1001d</color>
+    <color name="main_menubar_background">#B1003D </color>
     <color name="main_menubar_badge_background">#ffffff</color>
     <color name="main_menubar_badge_border">#b1001d</color>
     <color name="main_menubar_badge_font">#b1001d</color>

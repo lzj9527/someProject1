@@ -671,7 +671,7 @@ public class MainActivity extends BaseAppActivity
 					@Override
 					public void onSystemUiVisibilityChange(int visibility)
 					{
-						LogUtil.v(TAG, "onSystemUiVisibilityChange: " + visibility);
+						LogUtil.v(TAG, "onSystemUiVisib  ilityChange: " + visibility);
 						setSystemUiVisibility();
 					}
 				});
@@ -2667,8 +2667,8 @@ public class MainActivity extends BaseAppActivity
 
 	/**
 	 * Unity通知平台Unity场景加载已完成
-	 * 
-	 * @param string scene 场景名称
+	 *
+//	 * @param string scene 场景名称
 	 */
 	public void onSceneStarted(String scene)
 	{
@@ -2921,8 +2921,8 @@ public class MainActivity extends BaseAppActivity
 	/**
 	 * Unity通知平台当前UI状态已改变
 	 * 
-	 * @param string
-	 *            state 状态定义见Consts类"UI状态定义"
+//	 * @param string state 状态定义见Consts类"UI状态定义"
+	 *
 	 */
 	public void onUIStateChanged(final String state)
 	{
@@ -2961,8 +2961,8 @@ public class MainActivity extends BaseAppActivity
 	/**
 	 * Unity通知平台全屏状态变化
 	 * 
-	 * @param bool
-	 *            fullScreen 是否全屏
+//	 * @param bool   fullScreen 是否全屏
+	 *
 	 */
 	public void onFullScreenChanged(boolean fullScreen)
 	{

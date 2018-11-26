@@ -3,6 +3,7 @@ package com.shiyou.tryapp2.app.product;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.annotation.SuppressLint;
 import android.extend.ErrorInfo;
 import android.extend.app.BaseFragment;
 import android.extend.loader.BaseParser.DataFrom;
@@ -40,6 +41,7 @@ import com.shiyou.tryapp2.data.response.GoodsDetailResponse;
 import com.shiyou.tryapp2.data.response.GoodsDetailResponse.ErpGoods;
 import com.shiyou.tryapp2.data.response.GoodsErpResponse;
 
+@SuppressLint("ValidFragment")
 public class ShopProductDetailsFragment extends BaseFragment
 {
 	private View mDetailRightLayout;
@@ -887,6 +889,7 @@ public class ShopProductDetailsFragment extends BaseFragment
 		{
 		}
 
+
 		@Override
 		public void onRecycleViewResource(View view, int position, ViewGroup parent)
 		{
@@ -925,6 +928,7 @@ public class ShopProductDetailsFragment extends BaseFragment
 			ViewTools.adapterAllTextViewTextSizeInChildren(view, MainActivity.fontScaled);
 
 			int selectId = ResourceUtil.getId(getContext(), "delectprice");
+
 			delectprice = view.findViewById(selectId);
 
 			int id = ResourceUtil.getId(getActivity(), "product_details_selectprice_true");

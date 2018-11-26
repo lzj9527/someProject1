@@ -155,15 +155,6 @@ public final class R {
      */
     public static final int imageShape=0x7f02000f;
     /**
-     * Class name of the Layout Manager to be used.
-     * <p/>
-     * The class must extend android.support.v7.widget.RecyclerView$LayoutManager
-     * and have either a default constructor or constructor with the signature
-     * (android.content.Context, android.util.AttributeSet, int, int).
-     * <p/>
-     * If the name starts with a '.', application package is prefixed.
-     * Else, if the name contains a '.', the classname is assumed to be a full class name.
-     * Else, the recycler view package name (android.support.v7.widget) is prefixed.
      * <p>May be a string value, using '\\;' to escape characters such as
      * '\\n' or '\\uxxxx' for a unicode character;
      */
@@ -1176,7 +1167,7 @@ public final class R {
      * <colgroup align="left" />
      * <tr><th>Attribute</th><th>Description</th></tr>
      * <tr><td><code>{@link #RecyclerView_android_orientation android:orientation}</code></td><td></td></tr>
-     * <tr><td><code>{@link #RecyclerView_layoutManager com.shiyou.tryapp2.shop.zsa:layoutManager}</code></td><td>Class name of the Layout Manager to be used.</td></tr>
+     * <tr><td><code>{@link #RecyclerView_layoutManager com.shiyou.tryapp2.shop.zsa:layoutManager}</code></td><td></td></tr>
      * <tr><td><code>{@link #RecyclerView_reverseLayout com.shiyou.tryapp2.shop.zsa:reverseLayout}</code></td><td></td></tr>
      * <tr><td><code>{@link #RecyclerView_spanCount com.shiyou.tryapp2.shop.zsa:spanCount}</code></td><td></td></tr>
      * <tr><td><code>{@link #RecyclerView_stackFromEnd com.shiyou.tryapp2.shop.zsa:stackFromEnd}</code></td><td></td></tr>
@@ -1209,17 +1200,8 @@ public final class R {
      */
     public static final int RecyclerView_android_orientation=0;
     /**
-     * <p>
-     * @attr description
-     * Class name of the Layout Manager to be used.
-     * <p/>
-     * The class must extend android.support.v7.widget.RecyclerView$LayoutManager
-     * and have either a default constructor or constructor with the signature
-     * (android.content.Context, android.util.AttributeSet, int, int).
-     * <p/>
-     * If the name starts with a '.', application package is prefixed.
-     * Else, if the name contains a '.', the classname is assumed to be a full class name.
-     * Else, the recycler view package name (android.support.v7.widget) is prefixed.
+     * <p>This symbol is the offset where the {@link com.shiyou.tryapp2.shop.zsa.R.attr#layoutManager}
+     * attribute's value can be found in the {@link #RecyclerView} array.
      *
      * <p>May be a string value, using '\\;' to escape characters such as
      * '\\n' or '\\uxxxx' for a unicode character;
