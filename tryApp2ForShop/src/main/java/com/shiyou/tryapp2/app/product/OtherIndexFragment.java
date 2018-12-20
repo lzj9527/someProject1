@@ -18,6 +18,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView.ScaleType;
 
 import com.shiyou.tryapp2.Config;
@@ -34,7 +36,8 @@ import com.shiyou.tryapp2.shop.zsa.R;
 public class OtherIndexFragment extends BaseFragment
 {
 	private BaseGridAdapter<AbsAdapterItem> mAdapter;
-
+	private Button product_search;
+	private EditText product_search_number;
 	@Override
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
 	{
@@ -50,12 +53,14 @@ public class OtherIndexFragment extends BaseFragment
 		index_container.setHorizontalDividerHeight(space);
 		mAdapter = new BaseGridAdapter<AbsAdapterItem>();
 		index_container.setAdapter(mAdapter);
-
+		id=ResourceUtil.getId(getContext(),"product_search");
+		product_search= (Button)view.findViewById(id);
+		id=ResourceUtil.getId(getContext(),"product_search_number");
+		product_search_number= (EditText)view.findViewById(id);
 		loadGoodsCategory();
 
 		return view;
 	}
-
 	private void loadGoodsCategory()
 	{
 		RequestManager.loadGoodsCategorys(getActivity(), new RequestCallback()
@@ -91,7 +96,7 @@ public class OtherIndexFragment extends BaseFragment
 	{
 		CategoryItem mCategoryItem;
 
-		// GoodsCategoryResponse mGoodsCategoryResponse;
+		// GoodsCategoryResponse mGoodsCategory Response;
 
 		public CategoryAdapterItem(CategoryItem categoryItem)
 		{

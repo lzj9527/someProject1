@@ -14,6 +14,7 @@ import android.extend.util.LogUtil;
 import android.extend.util.ResourceUtil;
 import android.extend.util.ViewTools;
 import android.extend.widget.ExtendImageView;
+import android.extend.widget.FragmentContainer;
 import android.extend.widget.MenuBar;
 import android.extend.widget.MenuBar.OnMenuListener;
 import android.extend.widget.MenuView;
@@ -23,6 +24,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -67,7 +69,8 @@ public class ProductDetailsFragment extends BaseFragment implements OnModelLoadL
 
 	private View mProductDetails;
 	private View mDetailMiddleLayout;
-	// private View mDetailRightLayout;
+	 private View mDetailRightLayout;
+
 
 	View product_photo;
 	View arrow_left;
@@ -258,6 +261,10 @@ public class ProductDetailsFragment extends BaseFragment implements OnModelLoadL
 
 		fragmentC6ID = ResourceUtil.getId(getContext(), "fragment_container6");
 		fragmentC6 = mProductDetails.findViewById(fragmentC6ID);
+
+
+
+//		replace(instance,ResourceUtil.getId(getContext(),"product_details_attribute"),new MainWebFragment("http://www.zsa888.com/addons/ewei_shop/template/pad/default/shop/new-singleGoodsDetail.html",0),false);
 
 		ensureDetailsMiddle();
 		ensureUnityPlayer();

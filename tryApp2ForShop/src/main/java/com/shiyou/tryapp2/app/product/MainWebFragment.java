@@ -31,6 +31,7 @@ public class MainWebFragment extends WebViewFragment
 		this.index = index;
 	}
 
+
 	public MainWebFragment(String firstUrl, int index)
 	{
 		super(firstUrl);
@@ -102,4 +103,5 @@ public class MainWebFragment extends WebViewFragment
 		// }
 		return false;
 	}
+
 }

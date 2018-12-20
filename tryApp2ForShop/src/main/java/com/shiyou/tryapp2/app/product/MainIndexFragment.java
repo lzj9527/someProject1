@@ -428,13 +428,14 @@ public class MainIndexFragment extends BaseFragment
 				{
 					GoodsCategorysResponse mGoodsCategoryResponse = (GoodsCategorysResponse)response;
 					indexProductAdapter.clear();
-					indexProductAdapter.addItem(new CategoryAdapterItem(1));
 					indexProductAdapter.addItem(new CategoryAdapterItem(0));
 					for (CategoryItem mCategoryItem : mGoodsCategoryResponse.findZuanShiCategoryList())
 					{
 						indexProductAdapter.addItem(new CategoryAdapterItem(mCategoryItem));
 					}
+					indexProductAdapter.addItem(new CategoryAdapterItem(1));
 				}
+
 				else
 				{
 					showToast(response.error);
@@ -547,8 +548,10 @@ public class MainIndexFragment extends BaseFragment
 				// url = Config.WebGems + "?key=" + LoginHelper.getUserKey(getContext());
 				// break;
 					case 0:
-						url = Config.WebGIADiamonds + "?key=" + LoginHelper.getUserKey(getContext());
+//						url = Config.WebGIADiamonds + "?key=" + LoginHelper.getUserKey(getContext());
+						url="http://www.zsa888.com/addons/ewei_shop/template/pad/default/api/new-gia.html";
 						break;
+
 
 					case 1:
 						url = "http://119.23.150.98/web/index.php?c=article&a=notice-show&do=detail&id=1";

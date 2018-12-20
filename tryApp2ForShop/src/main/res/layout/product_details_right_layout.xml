@@ -9,6 +9,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:visibility="gone"
         android:layout_weight="1"
         android:orientation="vertical" >
 
@@ -368,10 +369,11 @@
                     android:text="-"
                     android:textColor="@color/detail_text_font"
                     android:textSize="28px" />
-            </LinearLayout>            
+            </LinearLayout>
         </LinearLayout>
 
         <FrameLayout
+            android:visibility="gone"
             android:id="@+id/select_layout"
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
@@ -427,6 +429,11 @@
             </LinearLayout>
         </FrameLayout>
     </LinearLayout>
+<android.extend.widget.FragmentContainer
+    android:id="@+id/product_details_attribute"
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="1"/>
 
     <TextView
         android:id="@+id/place_order"
@@ -437,6 +444,7 @@
         android:gravity="center"
         android:maxLines="1"
         android:padding="30px"
+        android:visibility="gone"
         android:text="加入购物车"
         android:textColor="@color/rect_button_font"
         android:textSize="32px" />
@@ -444,7 +452,7 @@
     <LinearLayout
         android:id="@+id/customize_layout"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginTop="10px"
         android:background="@color/rect_button_background"
         android:orientation="vertical"
@@ -569,11 +577,12 @@
         <TextView
             android:id="@+id/select_ring"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:gravity="center"
             android:maxLines="1"
             android:padding="26px"
             android:text="进入定制"
+            android:visibility="gone"
             android:textColor="@color/rect_button_font"
             android:textSize="32px" />
     </LinearLayout>

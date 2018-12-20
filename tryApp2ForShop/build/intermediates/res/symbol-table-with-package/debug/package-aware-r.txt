@@ -217,6 +217,7 @@ drawable product_new
 drawable pull_arrow_down
 drawable rotate_loading
 drawable rotate_refresh
+drawable search_all
 drawable selector_couple_rings_tabtitle
 drawable selector_main_history
 drawable selector_main_menuitem
@@ -437,11 +438,13 @@ id place_order
 id popLayoutId
 id position
 id product_3d
+id product_all_number
 id product_deputy_color
 id product_deputy_jingdu
 id product_deputy_number
 id product_deputy_weight
 id product_details_3d
+id product_details_attribute
 id product_details_button
 id product_details_selectprice_true
 id product_details_tryon
@@ -464,6 +467,8 @@ id product_name
 id product_number
 id product_photo
 id product_pirce
+id product_search
+id product_search_number
 id product_type
 id product_zs
 id progress

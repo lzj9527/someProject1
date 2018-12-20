@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Mon Nov 19 15:57:23 CST 2018
+#Tue Nov 27 15:06:29 CST 2018
 20.base=D\:\\TryApp2ForShop-master_test\\tryApp2ForShop\\build\\intermediates\\merged_assets\\debug\\mergeDebugAssets\\out
 143.base=D\:\\TryApp2ForShop-master_test\\tryApp2ForShop\\build\\intermediates\\merged_assets\\debug\\mergeDebugAssets\\out
 237.path=pose_two3.json

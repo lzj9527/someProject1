@@ -12,6 +12,7 @@ import android.extend.util.LogUtil;
 import android.extend.util.ResourceUtil;
 import android.extend.util.ViewTools;
 import android.extend.widget.ExtendDialog;
+import android.extend.widget.FragmentContainer;
 import android.extend.widget.adapter.AbsAdapterItem;
 import android.extend.widget.adapter.BaseAdapter;
 import android.extend.widget.adapter.BasePagerAdapter;
@@ -49,6 +50,8 @@ public class ShopProductDetailsFragment extends BaseFragment
 	private boolean isShop;
 	private float[] weightRange;
 	private int[] priceRange;
+
+	private FragmentContainer product_attribute;
 	// 添加购物车
 	String productID = null;
 	String erp_id = null;
@@ -138,11 +141,16 @@ public class ShopProductDetailsFragment extends BaseFragment
 		mDetailRightLayout = super.onCreateView(inflater, container, savedInstanceState);
 		((android.extend.widget.ExtendLinearLayout)mDetailRightLayout).setInterceptTouchEventToDownward(true);
 
+		int id=ResourceUtil.getId(getContext(),"product_details_attribute");
+		product_attribute= (FragmentContainer) mDetailRightLayout.findViewById(id);
+
+		replace(getActivity(),ResourceUtil.getId(getContext(),"product_details_attribute"),new MainWebFragment("http://www.zsa888.com/addons/ewei_shop/template/pad/default/shop/new-singleGoodsDetail.html",0),false);
+
 		ViewTools.adapterAllViewMarginInChildren(mDetailRightLayout, MainActivity.scaled);
 		ViewTools.adapterAllViewPaddingInChildren(mDetailRightLayout, MainActivity.scaled);
 		ViewTools.adapterAllTextViewTextSizeInChildren(mDetailRightLayout, MainActivity.fontScaled);
 
-		int id = ResourceUtil.getId(getContext(), "product_name");
+		id = ResourceUtil.getId(getContext(), "product_name");
 		productName = (TextView)mDetailRightLayout.findViewById(id);
 
 		id = ResourceUtil.getId(getContext(), "product_kh");

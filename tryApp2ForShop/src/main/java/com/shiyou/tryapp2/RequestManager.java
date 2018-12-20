@@ -556,6 +556,7 @@ public class RequestManager
 						ShoppingcartListResponse.class), CacheMode.NO_CACHE);
 	}
 
+
 	/**
 	 * 获取GIA发货时间
 	 * */

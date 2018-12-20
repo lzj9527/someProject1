@@ -5,19 +5,86 @@
     android:background="@android:color/white"
     android:paddingBottom="40px"
     android:paddingLeft="140px"
-    android:paddingRight="140px" 
+    android:paddingRight="140px"
     android:paddingTop="40px"
     android:orientation="vertical">
 <!-- android:background="@android:colo/white" 
-
     android:paddingBottom="40px"
     android:paddingLeft="140px"
     android:paddingRight="140px" -->
+    <android.extend.widget.ExtendLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+       <android.extend.widget.ExtendLinearLayout
+           android:gravity="center"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content">
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="产品总库存:   "
+               android:textColor="@color/main_menubar_background"
+               android:textSize="25dp"/>
+           <TextView
+               android:id="@+id/product_all_number"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:textSize="25dp"
+               android:textColor="@color/main_menubar_background"
+               android:text="货数"/>
+       </android.extend.widget.ExtendLinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginTop="5dp"
+                android:text="现货预计1-3天到货"
+                android:textSize="15dp"/>
+
+        <LinearLayout
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="5dp"
+            android:layout_gravity="center"
+            android:gravity="center">
+
+        <FrameLayout
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:background="#C98A76"
+            >
+
+            <EditText
+                android:id="@+id/product_search_number"
+                android:layout_width="249dp"
+                android:layout_height="49dp"
+                android:hint="            款号或名称"
+                android:background="#fff"
+                android:layout_marginLeft="0.5dp"
+                android:layout_marginTop="0.5dp"
+                />
+                <Button
+                    android:id="@+id/product_search"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="200dp"
+                    android:gravity="center"
+                    android:background="@drawable/search_all"
+                    android:layout_marginTop="10dp"
+                    />
+
+        </FrameLayout>
+        </LinearLayout>
+    </android.extend.widget.ExtendLinearLayout>
+
     <android.extend.widget.adapter.ScrollGridView
         android:id="@+id/index_container"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_weight="5"
         android:scrollbars="none" >
     </android.extend.widget.adapter.ScrollGridView>
 
