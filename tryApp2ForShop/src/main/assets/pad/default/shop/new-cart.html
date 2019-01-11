@@ -1,0 +1,1308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no"/>
+    <title>购物车</title>
+
+    <link rel="stylesheet" href="https://at.alicdn.com/t/font_941616_ue74brist8o.css">
+    <link rel="stylesheet" href="../static/css/reset.css">
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/css/new-cart.css">
+
+</head>
+<body>
+
+<div id="cartPageBox" class="cartPageBox" @touchstart="touchS" @touchmove="touchM" @touchend="touchE">
+    <!-- 全选与删除 -->
+    <header class="chooseAllAndTrash">
+        <div class="chooseAll" @click="chooseAllFn()">
+            <input type="checkbox" v-model="chooseAll" @click.stop="chooseAllFn()">
+            <span>全选</span>
+        </div>
+        <div class="trash" @click="trashClickFn()">
+<span class="trashIcon">
+    <img src="../static/images/trashIcon.png">
+</span>
+            <!--<span>删除</span>-->
+        </div>
+    </header>
+
+    <!-- 购物车列表 -->
+    <section class="cartListBox">
+
+        <div class="cartItemBox" v-for="(item,index) in cartListArray" :key="item.index" :data-index="index"
+             :class="item.status === -1 ?'isSold':''">
+            <input class="itemCheckbox" :class="item.status === -1 ?'isSold':''" type="checkbox" v-model="item.choose"
+                   :data-index="index" @click="goodsItemClickFn(index)">
+
+            <div class="itemDetailBox" :data-index="index" @click="goodsItemClickFn(index)">
+
+                <p class="identification customization" v-if="item.customization === 1">GIA 定制</p>
+                <p class="identification specialProcess" v-if="item.specialProcess === 1">特殊工艺</p>
+
+                <div class="itemDetailLeft">
+                    <div class="imgBox" @click.stop="goodsItemImgFn(index)">
+                        <img :src="item.thumb">
+                    </div>
+
+                    <!-- GIA  裸石 -->
+                    <div class="itemGiaParameter" v-if="item.isGIA === 1">
+                        <p>
+                            <span>货号 : {{item.gia.stock}}</span>
+                            <span>证书号 : {{item.gia.certNo}}</span>
+                        </p>
+                        <p>
+                            <span>形状 : {{item.gia.shape}}</span>
+                            <span>重量 : {{item.gia.weight}} ct</span>
+                            <span>颜色 : {{item.gia.color}}</span>
+                        </p>
+                        <p>
+                            <span>净度 : {{item.gia.clarity}}</span>
+                            <span>切工 : {{item.gia.cut}}</span>
+                            <span>抛光 : {{item.gia.polish}}</span>
+                        </p>
+                        <p>
+                            <span>对称 : {{item.gia.symmetry}}</span>
+                            <span>荧光 : {{item.gia.fluorescence}}</span>
+                            <span>奶咖 : {{item.gia.milk}} {{item.gia.coffee}}</span>
+                        </p>
+                    </div>
+
+                    <!-- 定制 -->
+                    <div class="itemCustomizedParameter" v-if="item.customization === 1">
+                        <p>
+                            <span>名称 : {{item.title}}</span>
+                            <span>款号 : {{item.erp.sku}}</span>
+                            <span>产品材质 : {{item.erp.goldType}}</span>
+                        </p>
+
+                        <p>
+                            <span>预估金重 : {{item.erp.totalWeight}}</span>
+                            <span>空托估价 : <em class="price">￥{{item.erp.price}}</em></span>
+                        </p>
+                        <!-- 分割 -->
+                        <div class="middle">
+                            <p>
+                                <span>货号 : {{item.gia.stock}}</span>
+                                <span>证书号 : {{item.gia.certNo}}</span>
+                            </p>
+                            <p>
+                                <span>主石重量 : {{item.gia.weight}} ct</span>
+                                <span>主石颜色 : {{item.gia.color}}</span>
+                                <span>主石净度 : {{item.gia.clarity}}</span>
+                            </p>
+                            <p>
+                                <span>切工 : {{item.gia.cut}}</span>
+                                <span>抛光 : {{item.gia.polish}}</span>
+                                <span>对称 : {{item.gia.symmetry}}</span>
+                            </p>
+                            <p>
+                                <span>荧光 : {{item.gia.fluorescence}}</span>
+                                <span>奶咖 : {{item.gia.milk}} {{item.gia.coffee}}</span>
+                                <span>裸石价格 : <em class="price">￥{{item.gia.price}}</em></span>
+                            </p>
+                        </div>
+                        <!-- 分割 -->
+                        <p class="bottom">
+                            <span>刻字 : {{item.lettering}}</span>
+                            <span class="remarks">备注 : {{item.remarks}}</span>
+                        </p>
+                    </div>
+
+                    <!-- 特殊工艺 等待后台-->
+                    <div class="specialProcessParameter" v-if="item.specialProcess === 1">
+                        <p>
+                            <span>名称 : {{item.title}}</span>
+                            <span>款号 : {{item.sku}}</span>
+                            <span>产品材质 : {{item.goldType}}</span>
+                        </p>
+
+                        <div class="middle">
+                            <div class="handSizeMBox">
+                                <span class="handSizeText">男款手寸 : </span>
+                                <span class="iconfont icon-jian" @click.stop="specialManReduceFn(index)"></span>
+                                <span class="handSizeNum"
+                                      @click.stop="handSizeNumManClickFn(index)">{{item.sizeM}}</span>
+                                <span class="iconfont icon-jia" @click.stop="specialManPlusFn(index)"></span>
+
+                            </div>
+
+                            <div class="handSizeWBox">
+                                <span class="handSizeText">女款手寸 :</span>
+                                <span class="iconfont icon-jian" @click.stop="specialWomReduceFn(index)"></span>
+                                <span class="handSizeNum"
+                                      @click.stop="handSizeNumWomClickFn(index)">{{item.sizeW}}</span>
+                                <span class="iconfont icon-jia" @click.stop="specialWomPlusFn(index)"></span>
+                            </div>
+                        </div>
+
+                        <p class="bottom">
+                            <span>男款刻字 : {{item.letteringM}}</span>
+                            <span>女款刻字 : {{item.letteringW}}</span>
+                            <span>备注 : {{item.remarks}}</span>
+                        </p>
+
+                    </div>
+
+                    <!-- 单品(包括对戒) -->
+                    <div class="itemOtherParameter"
+                         v-if="item.isGIA === 0 && item.customization !== 1 && item.specialProcess === 0">
+                        <div style="margin-bottom:0.2rem;">
+                            <p>
+                                <span>名称 : {{item.title}}</span>
+                                <span>款号 : {{item.erp.sku}}</span>
+                                <span>产品材质 : {{item.erp.goldType}}</span>
+                            </p>
+                            <p>
+                                <span>产品金重 : {{item.erp.totalWeight}}</span>
+                            </p>
+                        </div>
+
+                        <!-- 分割 -->
+                        <p>
+                            <span>主石货号 : {{item.erp.erp_id}}</span>
+                            <span>证书号 : {{item.erp.certNo}}</span>
+                        </p>
+                        <p>
+                            <span>主石重量 : {{item.erp.mainStoneWeight}}</span>
+                            <span>主石颜色 : {{item.erp.stoneColor}}</span>
+                            <span>主石净度 : {{item.erp.stoneClarity}}</span>
+                        </p>
+                        <p class="sideStoneNumAndWeight">
+                            <span>副石粒数 : {{item.erp.sideStoneNum}}</span>
+                            <span>副石重量 : {{item.erp.sideStoneWeight}}</span>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="itemDetailRight">
+                    <!-- GIA 与 特殊工艺 只显示价格 -->
+                    <p class="priceBox">
+                        <span class="priceText" v-if="item.customization !== 1">价格 : </span>
+                        <span class="priceText" v-else>预估价格 : </span>
+                        <span class="priceNum">￥{{item.price}}</span>
+                    </p>
+
+                    <!-- 手寸 (剔除特殊工艺 与 GIA) -->
+                    <p class="handSizeBox"
+                       v-if="item.isGIA === 0 && item.size != 0 && item.status !== -1 && item.specialProcess === 0">
+                        <span class="iconfont icon-jian" @click.stop="reduceFn(index)"></span>
+                        <span class="handSizeNum" @click.stop="handSizeNumClickFn(index)">{{item.erp.handSize}}</span>
+                        <span class="iconfont icon-jia" @click.stop="plusFn(index)"></span>
+                    </p>
+                </div>
+
+                <!-- 如果卖掉了就启用这层东西 -->
+                <div class="isSoldOutSideBox" :data-index="index" v-if="item.status === -1 && item.isSoldMask === true">
+                    <div class="isSoldMask" @click.stop="isSoldMaskClickFn(index)">
+                        <div class="isSoldInSideBox">
+                            <span class="isSoldText">已 售 出</span>
+                            <p>
+                    <span class="isSoldBtn reChooseBtn" @click.stop="reChooseGoodsFn(index)">
+                        重新选购
+                    </span>
+                                <span class="isSoldBtn deleteBtn" @click.stop="deleteGoodsFn(index)">
+                        删除商品
+                    </span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+    </section>
+
+    <div class="addOrderBtnBox">
+        <!--<span style="display: inline-block; margin:0 1%; width: 2%;"></span>-->
+        <span class="totalPrice">总价: ￥{{totalPrice}}</span>
+        <span class="addOrderBtn" @click="addOrderBtnFn()">提 交 订 单（{{totalChooseGoodsNum}}）</span>
+    </div>
+
+    <!-- 手寸蒙版 -->
+    <div class="handSizeSelectOutSideBox" @click="handSizeSelectOutSideBoxClickFn()">
+        <div class="handSizeSelectInSideBox">
+            <ul>
+                <li v-for="(item,index) in handSizeSelectArray" :key="item.index" :data-index="index"
+                    @click.stop="selectItemClickFn(index)" :class="item.choose === true?'isChooseSelect':''">
+                    {{item.size}}
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 购买信息 -->
+    <div class="buyMessageOutsideBox" @click="outMessageBox()">
+        <div class="buyMessageInsideBox" @click.stop="stopBubbles()">
+            <div class="messageHead">
+                <span>填写联系人信息</span>
+                <span class="iconfont icon-shanchuguanbicha" @click.stop="outMessageBox()"></span>
+            </div>
+            <div class="messageBox" @click.stop="stopBubbles()">
+                <form>
+                    <label class="contactsBox">
+                        <span class="contacts">联系人:</span>
+                        <input type="text" class="contactsText">
+                    </label>
+                    <label class="contactsTel">
+                        <span class="tel">联系电话:</span>
+                        <input type="tel" class="telText">
+                    </label>
+                    <label class="contactsRemarks">
+                        <span class="remarks">备注:</span>
+                        <textarea></textarea>
+                    </label>
+                </form>
+                <span class="submitBtn" @click="confirmAddOrderFn()">提交</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 删除 蒙版 -->
+    <div class="deleteOutsideBox">
+        <div class="deleteMaskBox" @click.stop="cancelDeleteFn()">
+            <div class="deleteInsideBox" @click.stop="stopPreFn()">
+                <p>删除所选商品?</p>
+                <div class="cancelAndConfirmBox">
+                    <span class="cancel" @click.stop="cancelDeleteFn()"> 取 消 </span>
+                    <span class="confirm" @click.stop="confirmDeleteFn()"> 确 定 </span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- 删除进行时的蒙版 -->
+    <div class="deleteLoadingBox" v-if="deleteLoading === true">
+        <div class="deleteLoadingInsideBox">
+            <span class="iconfont icon-shanchuguanbicha"></span>
+            <p>删 除 中</p>
+        </div>
+    </div>
+
+    <!-- 购物车加载中 -->
+    <div class="cartIsLoading" v-if="showLoading === true">
+        <span class="iconfont icon-85"></span>
+        <p>加载中...</p>
+    </div>
+
+    <!-- 购物车为空的时候 -->
+    <div class="isEmpty" v-if="cartListArray.length === 0 && showLoading === false">
+        <span class="iconfont icon-meiyoushangpin"></span>
+        <p>购物车空空如也</p>
+    </div>
+</div>
+
+<script src="../static/js/config.js"></script>
+<script src="../static/js/jquery-3.0.0.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+<script src="../static/js/androidJSInterface.js"></script>
+<script src="../static/js/function.js"></script>
+<script src="../static/js/showToast.js"></script>
+
+<script>
+    let vm = new Vue({
+        el: '#cartPageBox',// 选项
+        data() {
+            return {
+                deleteLoading:false, // 删除中的显示
+                showLoading:true,
+                isReachTop: true,
+                isReachBottom: false,
+                chooseAll: true,
+                curItemIndex: 0,
+                totalPrice: 0,
+                totalChooseGoodsNum: 0,
+
+                isSpecialMan: false,
+                isSpecialWom: false,
+                handSizeArray: {
+                    usual: [],
+                    customized: [],
+                },
+                handSizeSelectArray: [],
+                cartListArray: [],
+                // cartListArray: [
+                //     {
+                //         gcate: "定制",
+                //         goodsIndex: 1,
+                //         goods_id: 2494,
+                //         id: 442,
+                //         customization: 1,
+                //         isGIA: 0,
+                //         specialProcess: 0,
+                //         lettering: "这是刻字测试测试",
+                //         remarks: "这是备注备注备注备注",
+                //         price: "6000",
+                //         size: "14.0",
+                //         status: 1,
+                //         thumb: "http://images.zsa888.cn/Vm784TtG5N4e75V0eVJ7bTh0B8JeGQ.jpg",
+                //         title: "18K豪华钻石女戒",
+                //         erp: {
+                //             certNo: "P1803012851",
+                //             erp_id: "00988148",
+                //             goldType: "18K金",
+                //             handSize: 14,
+                //             mainStoneNum: 1,
+                //             mainStoneWeight: "0.043ct",
+                //             sideStoneNum: 5,
+                //             sideStoneWeight: "0.013ct",
+                //             sku: "C10473W",
+                //             stoneClarity: "SI",
+                //             stoneColor: "F-G",
+                //             totalWeight: "2.370g",
+                //             price: '1000'
+                //         },
+                //         gia: {
+                //             area: "SZ",
+                //             certNo: "7306336726",
+                //             certType: "GIA",
+                //             clarity: "SI1",
+                //             coffee: "不咖",
+                //             color: "M",
+                //             cut: "VG",
+                //             deliveryTime: "3",
+                //             diameter: "4.22-4.2*2.71",
+                //             fluorescence: "F",
+                //             isClick: true,
+                //             is_spot: true,
+                //             milk: "不奶",
+                //             polish: "EX",
+                //             shape: "圆形",
+                //             stock: "ZM34302036",
+                //             symmetry: "EX",
+                //             weight: "0.3",
+                //             price: '5000'
+                //         }
+                //     },
+                //     {
+                //         borderColor: "",
+                //         cert: "7306336726",
+                //         erp: "",
+                //         erp_id: "",
+                //         gcate: null,
+                //         customization: 0,
+                //         isGIA: 1,
+                //         specialProcess: 0,
+                //         gia: {
+                //             area: "SZ",
+                //             certNo: "7306336726",
+                //             certType: "GIA",
+                //             clarity: "SI1",
+                //             coffee: "不咖",
+                //             color: "M",
+                //             cut: "VG",
+                //             deliveryTime: "3",
+                //             diameter: "4.22-4.2*2.71",
+                //             fluorescence: "F",
+                //             isClick: true,
+                //             is_spot: true,
+                //             milk: "不奶",
+                //             polish: "EX",
+                //             shape: "圆形",
+                //             stock: "ZM34302036",
+                //             symmetry: "EX",
+                //             weight: "0.3"
+                //         },
+                //         goodsIndex: 0,
+                //         goods_id: 0,
+                //         id: 443,
+                //         lettering: "",
+                //         price: "1486.00",
+                //         size: "0.0",
+                //         status: 1,
+                //         thumb: "http://admin.zsa888.cn/images/diamond.png",
+                //         title: "裸钻"
+                //     },
+                //     {
+                //         gcate: 2,
+                //         goodsIndex: 1,
+                //         goods_id: 2794,
+                //         id: 444,
+                //         customization: 0,
+                //         isGIA: 0,
+                //         specialProcess: 0,
+                //         price: "3000",
+                //         size: "14.0",
+                //         status: 1,
+                //         thumb: "http://images.zsa888.cn/a2s00OqBHSoiRohSbVRsDhHBGHbSBR.jpg",
+                //         title: "18K钻石女戒",
+                //         erp: {
+                //             certNo: "P1803012851",
+                //             erp_id: "00988148",
+                //             goldType: "18K金",
+                //             handSize: 14,
+                //             mainStoneNum: 1,
+                //             mainStoneWeight: "0.043ct",
+                //             sideStoneNum: 5,
+                //             sideStoneWeight: "0.013ct",
+                //             sku: "C10473W",
+                //             stoneClarity: "SI",
+                //             stoneColor: "F-G",
+                //             totalWeight: "2.370g",
+                //         },
+                //     },
+                //     {
+                //         gcate: 2,
+                //         goodsIndex: 1,
+                //         goods_id: 2795,
+                //         id: 445,
+                //         customization: 0,
+                //         isGIA: 0,
+                //         specialProcess: 0,
+                //         price: "3000",
+                //         size: "14.0",
+                //         status: -1,
+                //         thumb: "http://images.zsa888.cn/d22uF1OU8JRJoT1MfhmfffD8J5fumU.jpg",
+                //         title: "18K钻石情侣对戒",
+                //         erp: {
+                //             certNo: "P1803012851",
+                //             erp_id: "00988148",
+                //             goldType: "18K金",
+                //             handSize: 14,
+                //             mainStoneNum: 1,
+                //             mainStoneWeight: "0.043ct",
+                //             sideStoneNum: 5,
+                //             sideStoneWeight: "0.013ct",
+                //             sku: "C10473W",
+                //             stoneClarity: "SI",
+                //             stoneColor: "F-G",
+                //             totalWeight: "2.370g",
+                //         },
+                //     },
+                //     {
+                //         gcate: 2,
+                //         goodsIndex: 1,
+                //         goods_id: 2795,
+                //         id: 445,
+                //         customization: 0,
+                //         isGIA: 0,
+                //         specialProcess: 0,
+                //         price: "3000",
+                //         size: "14.0",
+                //         status: -1,
+                //         thumb: "http://images.zsa888.cn/d22uF1OU8JRJoT1MfhmfffD8J5fumU.jpg",
+                //         title: "18K钻石情侣对戒",
+                //         erp: {
+                //             certNo: "P1803012851",
+                //             erp_id: "00988148",
+                //             goldType: "18K金",
+                //             handSize: 14,
+                //             mainStoneNum: 1,
+                //             mainStoneWeight: "0.043ct",
+                //             sideStoneNum: 5,
+                //             sideStoneWeight: "0.013ct",
+                //             sku: "C10473W",
+                //             stoneClarity: "SI",
+                //             stoneColor: "F-G",
+                //             totalWeight: "2.370g",
+                //         },
+                //     },
+                //     {
+                //         gcate: "特殊工艺",
+                //         goodsIndex: 1,
+                //         goods_id: 110,
+                //         id: 446,
+                //         customization: 0,
+                //         isGIA: 0,
+                //         specialProcess: 1,
+                //         sku: "23333",
+                //         goldType: "22K黄",
+                //         price: "6000",
+                //         sizeM: 14,
+                //         sizeW: 12,
+                //         goldWeightM: 2.24,
+                //         goldWeightW: 2.24,
+                //         letteringM: "男&女",
+                //         letteringW: "女&男",
+                //         remarks: "当然是哈哈哈哈哈哈哈哈哈额",
+                //         status: 1,
+                //         thumb: "http://images.zsa888.cn/d22uF1OU8JRJoT1MfhmfffD8J5fumU.jpg",
+                //         title: "特殊工艺对戒",
+                //
+                //     },
+                // ],
+            }
+        },
+        beforeCreate() {
+            console.group('------beforeCreate创建前状态------');
+            console.log("%c%s", "color:red", "el     : " + this.$el); //undefined
+            console.log("%c%s", "color:red", "data   : " + this.$data); //undefined
+            console.log("%c%s", "color:red", "message: " + this.message);
+        },
+        created() {
+            console.group('------created创建完毕状态------');
+            console.log("%c%s", "color:red", "el     : " + this.$el); //undefined
+            console.log("%c%s", "color:red", "data   : " + this.$data); //已被初始化
+            console.log("%c%s", "color:red", "message: " + this.message); //已被初始化
+        },
+        beforeMount() {
+            console.group('------beforeMount挂载前状态------');
+            let vm = this,
+                handSizeArray = vm.handSizeArray,
+                cartListArray = vm.cartListArray;
+
+            vm.handSizeUsual(handSizeArray);
+            vm.handSizeArray.usual = handSizeArray.usual.slice(handSizeArray);
+            vm.handSizeCustomized(handSizeArray);
+            vm.handSizeArray.customized = handSizeArray.customized.slice(handSizeArray);
+        },
+        mounted() {
+            let vm = this,
+                cartListArray = vm.cartListArray;
+
+//          初始请求购物车列表应该在这执行
+            vm.requestCartFn(vm, cartListArray);
+
+            console.group('------mounted挂载完成状态------');
+            console.log(vm.handSizeArray);
+
+//          监听页面滚动
+            window.onscroll = function () {
+                vm.isReachTop = true;
+                vm.isReachBottom = false;
+                //监听事件内容
+                if (getDocumentScrollTop() + getWindowClientHeight() >= getScrollHeight()) {
+                    console.log("触底了");
+                    vm.isReachBottom = true
+                }
+                if (getDocumentScrollTop() <= 0) {
+                    console.log("触顶了");
+                    vm.isReachTop = true;
+                }
+
+//                console.log("是否到达顶部------" + vm.isReachTop);
+//                console.log("是否到达底部------" + vm.isReachBottom);
+            };
+
+            //        字体自适应
+            function fixRem() {
+                let windowWidth = document.documentElement.clientWidth || window.innerWidth || document.body.clientWidth;
+                // windowWidth = windowWidth > 750 ? 750 : windowWidth;
+                let rootSize = 28 * (windowWidth / 375);
+                let htmlNode = document.getElementsByTagName("html")[0];
+                htmlNode.style.fontSize = rootSize + 'px';
+            }
+
+            fixRem();
+            window.addEventListener('resize', fixRem, false);
+
+        },
+        updated: function () {
+            let vm = this,
+                cartListArray = vm.cartListArray;
+            // 计算总价
+            vm.totalPrice = vm.totalPriceFn(cartListArray);
+
+            // 统计选中商品的数量
+            vm.totalChooseGoodsFn(cartListArray);
+            // console.log(cartListArray);
+
+            console.group('updated 更新完成状态===============》');
+        },
+        methods: {
+//          阻止页面缩放
+            touchS(e) {
+                if (e.touches.length > 1) {
+                    e.preventDefault();
+                }
+            },
+            touchM(e) {
+                if (e.touches.length > 1) {
+                    e.preventDefault();
+                }
+            },
+            touchE(e) {
+                if (e.touches.length > 1) {
+                    e.preventDefault();
+                }
+            },
+
+//          全选
+            chooseAllFn() {
+                let vm = this,
+                    cartListArray = vm.cartListArray;
+                vm.chooseAll = !vm.chooseAll;
+                vm.initChoose(cartListArray, vm.chooseAll);
+            },
+//          垃圾桶点击(批量删除，需要获取选中商品的index)
+            trashClickFn() {
+                $(".deleteOutsideBox").fadeIn(0);
+            },
+//          阻止冒泡
+            stopPreFn() {
+            },
+//          取消删除
+            cancelDeleteFn() {
+                $(".deleteOutsideBox").fadeOut(0);
+            },
+//          确认删除
+            confirmDeleteFn() {
+                let vm = this,
+                    trashArray = [],
+                    trashItemIndexArray = [],
+                    trashItemId,
+                    cartListArray = vm.cartListArray;
+                console.log(cartListArray);
+                for (let i = 0, len = cartListArray.length; i < len; i++) {
+                    if (cartListArray[i].choose === true) {
+                        trashArray.push(cartListArray[i].id);
+                        trashItemIndexArray.push(cartListArray[i].index)
+                    }
+                }
+                trashItemId = trashArray.join(",");
+                console.log(trashItemId);
+                console.log(trashItemIndexArray);
+
+                vm.deleteLoading = true;
+                vm.deleteGoodsRequestFn(vm, trashItemId, cartListArray);
+            },
+
+//          已售出蒙版点击
+            isSoldMaskClickFn(index) {
+                console.log(index);
+                let vm = this,
+                    cartListArray = vm.cartListArray;
+                if (vm.cartListArray[index].status === -1) {
+//                    showToast("此商品已售");
+                    cartListArray[index].isSoldMask = false;
+                }
+                vm.cartListArray[index].choose = !vm.cartListArray[index].choose;
+                vm.cartListArray = cartListArray.slice(cartListArray);
+
+                console.log(vm.cartListArray);
+            },
+//          重新选购
+            reChooseGoodsFn(index) {
+//                 除了定制都能重新选购
+                let vm = this,
+                    curGoodsId,
+                    cartListArray = vm.cartListArray;
+                curGoodsId = cartListArray[index].goods_id;
+                console.log(curGoodsId);
+            },
+//          删除商品(单件删除)
+            deleteGoodsFn(index) {
+                let vm = this,
+                    curItemId,
+                    cartListArray = vm.cartListArray;
+                curItemId = cartListArray[index].id;
+                console.log(curItemId);
+                $(".deleteOutsideBox").fadeIn(0);
+            },
+//          商品点击
+            goodsItemClickFn(index) {
+                let vm = this,
+                    cartListArray = vm.cartListArray;
+                vm.cartListArray[index].choose = !vm.cartListArray[index].choose;
+
+                if (vm.cartListArray[index].status === -1) {
+                    vm.cartListArray[index].isSoldMask = true
+                }
+
+                vm.cartListArray = cartListArray.slice(cartListArray);
+                console.log(vm.cartListArray);
+
+            },
+//          商品图片点击
+            goodsItemImgFn(index) {
+                console.log(index);
+            },
+//          提交订单 按钮(这里需要监测商品的状态是否已售)
+            addOrderBtnFn() {
+                let vm = this,
+                    cartListArray = vm.cartListArray;
+
+                console.log(cartListArray);
+//                应该请求一下列表，刷新商品 status
+                for (let i = 0, len = cartListArray.length; i < len; i++) {
+                    if (cartListArray[i].status === -1 && cartListArray[i].choose === true) {
+                        showToast("无法购买,已售出商品");
+                        vm.cartListArray[i].choose = false;
+                    }
+                }
+                vm.cartListArray = cartListArray.slice(cartListArray);
+                if (vm.totalChooseGoodsNum === 0) {
+                    showToast("请 选 购 商 品");
+                    return false;
+                }
+
+                $(".buyMessageOutsideBox").fadeIn(200);
+            },
+//          关闭蒙版阻止冒泡
+            stopBubbles() {
+            },
+//          关闭填写信息蒙版
+            outMessageBox(event) {
+                $(".buyMessageOutsideBox").fadeOut(200);
+            },
+//          提交按钮 填写好地址之后的提交(这里需要再次监测商品状态)
+            confirmAddOrderFn() {
+                let vm = this,
+                    telRegex = /^1(?:3\d|4[4-9]|5[0-35-9]|6[67]|7[013-8]|8\d|9\d)\d{8}$/,
+                    contacts = $(".contactsText").val(),
+                    tel = $(".telText").val(),
+                    toOrderArray = [],
+                    cartId = "";
+
+                for (let i = 0, len = vm.cartListArray.length; i < len; i++) {
+                    if (vm.cartListArray[i].choose === true) {
+                        toOrderArray.push(vm.cartListArray[i].id + "|" + vm.cartListArray[i].size)
+                    }
+                }
+                cartId = toOrderArray.join(",");
+
+                if (contacts === "" && tel === "") {
+                    showToast("请填写联系人 及 联系电话")
+                } else if (contacts === "") {
+                    showToast("请填写联系人");
+                } else if (tel === "") {
+                    showToast("请填写联系电话");
+                } else {
+                    if (!telRegex.test(tel)) {
+                        showToast("请输入正确的手机号码")
+                    } else {
+                        $(".buyMessageOutsideBox").fadeOut(200);
+                        // 作提交操作
+                        console.log(cartId);
+                        let requestUrl = newAppUrl + '/orders/add';
+                        $.ajax({
+                            headers:{
+                                Accept:shopHeaders
+                            },
+                            data:{
+                                token:token,
+                                cart_id:cartId,
+                            },
+                            url:requestUrl,
+                            type:'POST',
+                            success:function (res) {
+                                console.log(res);
+                                vm.requestCartFn(vm, vm.cartListArray);
+                            },
+                            fail:function (error) {
+                                showToast(error);
+                            }
+                        })
+
+                    }
+                }
+
+            },
+//          手寸操作(剔除特殊工艺)
+            reduceFn(index) {
+//                减
+                let vm = this,
+                    maxHandSizeIndex,
+                    minHandSize = 7,
+                    handSizeArray = vm.handSizeArray,
+                    cartListArray = vm.cartListArray,
+                    curHandSize = vm.cartListArray[index].erp.handSize;
+
+                if (cartListArray[index].customization === 1) {
+                    maxHandSizeIndex = handSizeArray.customized.length - 1;
+                    if (curHandSize <= minHandSize) {
+                        showToast("已是最小手寸");
+                    } else {
+                        cartListArray[index].erp.handSize = Number(curHandSize) - 0.5;
+                        cartListArray[index].size = Number(curHandSize) - 0.5;
+                    }
+                } else {
+                    maxHandSizeIndex = handSizeArray.customized.length - 1;
+                    if (curHandSize <= minHandSize) {
+                        showToast("已是最小手寸");
+                    } else {
+                        cartListArray[index].erp.handSize = Number(curHandSize) - 1;
+                        cartListArray[index].size = Number(curHandSize) - 1;
+                    }
+                }
+
+                // vue需要使用数组的原生方法才能进行响应
+                cartListArray = cartListArray.slice(cartListArray);
+
+            },
+            plusFn(index) {
+//                加
+                let vm = this,
+                    maxHandSizeIndex,
+                    maxHandSize,
+                    handSizeArray = vm.handSizeArray,
+                    cartListArray = vm.cartListArray,
+                    curHandSize = vm.cartListArray[index].erp.handSize;
+
+                if (cartListArray[index].customization === 1) {
+                    maxHandSizeIndex = handSizeArray.customized.length - 1;
+                    maxHandSize = 25.5;
+                    if (curHandSize >= maxHandSize) {
+                        showToast("已是最大手寸");
+                    } else {
+                        cartListArray[index].erp.handSize = Number(curHandSize) + 0.5;
+                        cartListArray[index].size = Number(curHandSize) + 0.5;
+                    }
+                } else {
+                    maxHandSizeIndex = handSizeArray.customized.length - 1;
+                    maxHandSize = 25;
+                    if (curHandSize >= maxHandSize) {
+                        showToast("已是最大手寸");
+                    } else {
+                        cartListArray[index].erp.handSize = Number(curHandSize) + 1;
+                        cartListArray[index].size = Number(curHandSize) + 1;
+                    }
+                }
+                // vue需要使用数组的原生方法才能进行响应
+                cartListArray = cartListArray.slice(cartListArray);
+
+            },
+            handSizeNumClickFn(index) {
+                $(".handSizeSelectOutSideBox").fadeIn();
+                setTimeout(function () {
+                    $(".handSizeSelectInSideBox").slideDown();
+                }, 100);
+
+                $(".handSizeSelectInSideBox ul").animate({scrollTop: 0}, 100);
+
+                let vm = this,
+                    defaultHandSize = vm.cartListArray[index].erp.handSize,
+                    cartListArray = vm.cartListArray,
+                    handSizeArray = vm.handSizeArray,
+                    handSizeSelectArray = [],
+                    forSelectChooseArray = [];
+
+                console.log($(".handSizeSelectInSideBox"));
+
+                vm.curItemIndex = index;
+
+                if (cartListArray[index].customization === 1 || cartListArray[index].specialProcess === 1) {
+                    handSizeSelectArray.push(...handSizeArray.customized)
+                } else {
+                    handSizeSelectArray.push(...handSizeArray.usual)
+                }
+
+                for (let i = 0, len = handSizeSelectArray.length; i < len; i++) {
+                    forSelectChooseArray.push(handSizeSelectArray[i].size)
+                }
+                let defaultHandSizeIndex = forSelectChooseArray.indexOf(defaultHandSize);
+                for (let i = 0, len = handSizeSelectArray.length; i < len; i++) {
+                    handSizeSelectArray[i].choose = false
+                }
+                handSizeSelectArray[defaultHandSizeIndex].choose = true;
+
+                cartListArray = cartListArray.slice(cartListArray);
+                vm.handSizeSelectArray = handSizeSelectArray.slice(handSizeSelectArray);
+
+            },
+//          特殊工艺的手寸操作
+            specialManReduceFn(index) {
+//                减
+                let vm = this,
+                    minHandSize = 7,
+                    cartListArray = vm.cartListArray,
+                    curHandSizeM = cartListArray[index].sizeM;
+
+                if (curHandSizeM <= minHandSize) {
+                    showToast("已是最小手寸");
+                } else {
+                    cartListArray[index].sizeM = Number(curHandSizeM) - 0.5;
+                }
+
+                cartListArray = cartListArray.slice(cartListArray);
+
+            },
+            specialWomReduceFn(index) {
+//                减
+                let vm = this,
+                    minHandSize = 7,
+                    cartListArray = vm.cartListArray,
+                    curHandSizeM = cartListArray[index].sizeW;
+
+                if (curHandSizeM <= minHandSize) {
+                    showToast("已是最小手寸");
+                } else {
+                    cartListArray[index].sizeW = Number(curHandSizeM) - 0.5;
+                }
+
+                cartListArray = cartListArray.slice(cartListArray);
+
+            },
+            specialManPlusFn(index) {
+//                加
+                let vm = this,
+                    maxHandSize = 25.5,
+                    cartListArray = vm.cartListArray,
+                    curHandSizeM = cartListArray[index].sizeM;
+
+                if (curHandSizeM >= maxHandSize) {
+                    showToast("已是最大手寸");
+                } else {
+                    cartListArray[index].sizeM = Number(curHandSizeM) + 0.5;
+                }
+
+                cartListArray = cartListArray.slice(cartListArray);
+            },
+            specialWomPlusFn(index) {
+//                加
+                let vm = this,
+                    maxHandSize = 25.5,
+                    cartListArray = vm.cartListArray,
+                    curHandSizeM = cartListArray[index].sizeW;
+
+                if (curHandSizeM >= maxHandSize) {
+                    showToast("已是最大手寸");
+                } else {
+                    cartListArray[index].sizeW = Number(curHandSizeM) + 0.5;
+                }
+
+                cartListArray = cartListArray.slice(cartListArray);
+            },
+            handSizeNumManClickFn(index) {
+                $(".handSizeSelectOutSideBox").fadeIn();
+                setTimeout(function () {
+                    $(".handSizeSelectInSideBox").slideDown();
+                }, 100);
+
+                $(".handSizeSelectInSideBox ul").animate({scrollTop: 0}, 100);
+
+                let vm = this,
+                    defaultHandSizeIndex = vm.cartListArray[index].sizeM,
+                    cartListArray = vm.cartListArray,
+                    handSizeArray = vm.handSizeArray,
+                    handSizeSelectArray = [],
+                    forSelectChooseArray = [];
+
+                console.log($(".handSizeSelectInSideBox"));
+
+                vm.isSpecialMan = true;
+                vm.isSpecialWom = false;
+                vm.curItemIndex = index;
+
+                handSizeSelectArray.push(...handSizeArray.customized);
+
+                for (let i = 0, len = handSizeSelectArray.length; i < len; i++) {
+                    forSelectChooseArray.push(handSizeSelectArray[i].size)
+                }
+                defaultHandSizeIndex = forSelectChooseArray.indexOf(defaultHandSizeIndex);
+                for (let i = 0, len = handSizeSelectArray.length; i < len; i++) {
+                    handSizeSelectArray[i].choose = false
+                }
+                handSizeSelectArray[defaultHandSizeIndex].choose = true;
+
+                cartListArray = cartListArray.slice(cartListArray);
+                vm.handSizeSelectArray = handSizeSelectArray.slice(handSizeSelectArray);
+            },
+            handSizeNumWomClickFn(index) {
+                $(".handSizeSelectOutSideBox").fadeIn();
+                setTimeout(function () {
+                    $(".handSizeSelectInSideBox").slideDown();
+                }, 100);
+
+                $(".handSizeSelectInSideBox ul").animate({scrollTop: 0}, 100);
+
+                let vm = this,
+                    defaultHandSizeIndex = vm.cartListArray[index].sizeW,
+                    cartListArray = vm.cartListArray,
+                    handSizeArray = vm.handSizeArray,
+                    handSizeSelectArray = [],
+                    forSelectChooseArray = [];
+
+                console.log($(".handSizeSelectInSideBox"));
+
+                vm.isSpecialMan = false;
+                vm.isSpecialWom = true;
+                vm.curItemIndex = index;
+
+                handSizeSelectArray.push(...handSizeArray.customized);
+
+                for (let i = 0, len = handSizeSelectArray.length; i < len; i++) {
+                    forSelectChooseArray.push(handSizeSelectArray[i].size)
+                }
+                defaultHandSizeIndex = forSelectChooseArray.indexOf(defaultHandSizeIndex);
+                for (let i = 0, len = handSizeSelectArray.length; i < len; i++) {
+                    handSizeSelectArray[i].choose = false
+                }
+                handSizeSelectArray[defaultHandSizeIndex].choose = true;
+
+                cartListArray = cartListArray.slice(cartListArray);
+                vm.handSizeSelectArray = handSizeSelectArray.slice(handSizeSelectArray);
+            },
+//          手寸 select 与 蒙版 操作
+            handSizeSelectOutSideBoxClickFn() {
+                $(".handSizeSelectInSideBox").slideUp();
+                setTimeout(function () {
+                    $(".handSizeSelectOutSideBox").fadeOut();
+                }, 300);
+            },
+            selectItemClickFn(index) {
+                let vm = this,
+                    cartListArray = vm.cartListArray,
+                    handSizeSelectArray = vm.handSizeSelectArray,
+                    curItemIndex = vm.curItemIndex;
+
+//                console.log("当前操作商品下标为-----" + curItemIndex);
+//                console.log("当前选中的手寸下标为-----" + index);
+
+                for (let i = 0, len = handSizeSelectArray.length; i < len; i++) {
+                    handSizeSelectArray[i].choose = false
+                }
+                handSizeSelectArray[index].choose = true;
+
+                if (cartListArray[curItemIndex].specialProcess === 0) {
+                    cartListArray[curItemIndex].erp.handSize = handSizeSelectArray[index].size;
+                    cartListArray[curItemIndex].size = handSizeSelectArray[index].size;
+                } else {
+                    if (vm.isSpecialMan === true) {
+                        cartListArray[curItemIndex].sizeM = handSizeSelectArray[index].size;
+                    }
+                    if (vm.isSpecialWom === true) {
+                        cartListArray[curItemIndex].sizeW = handSizeSelectArray[index].size;
+                    }
+                }
+
+                cartListArray = cartListArray.slice(cartListArray);
+
+                $(".handSizeSelectInSideBox").slideUp();
+                setTimeout(function () {
+                    $(".handSizeSelectOutSideBox").fadeOut();
+                }, 300);
+            },
+
+
+//          购物车请求
+            requestCartFn(vm, cartListArray) {
+                let requestUrl = newAppUrl + '/carts/list?' + 'token=' + token;
+                console.log(token);
+                console.log(requestUrl);
+                $.ajax({
+                    headers: {
+                        Accept: shopHeaders
+                    },
+                    url: requestUrl,
+                    type: 'GET',
+                    // dataType: 'jsonp',
+                    success: function (res) {
+                        console.log(res);
+                        cartListArray = res.data;
+                        vm.cartListArray = cartListArray.slice(cartListArray);
+                        vm.initChoose(vm.cartListArray, vm.chooseAll);
+                        vm.initIsSoldMaskFn(vm.cartListArray);
+                        vm.showLoading = false;
+                        vm.deleteLoading = false;
+                        console.log(vm.cartListArray);
+                    },
+                    fail: function (error) {
+                        showToast(error);
+                    }
+                });
+            },
+//          商品删除请求
+            deleteGoodsRequestFn(vm, trashItemId, cartListArray) {
+                let token = localStorage.getItem("token"),
+                    requestUrl = newAppUrl + '/carts/delete';
+                $.ajax({
+                    headers: {
+                        Accept: shopHeaders
+                    },
+                    data: {
+                        token: token,
+                        id: trashItemId
+                    },
+                    url: requestUrl,
+                    type: 'POST',
+                    success: function () {
+                        $(".deleteOutsideBox").fadeOut(0);
+                        $(".isSoldOutSideBox").fadeOut();
+                        vm.requestCartFn(vm, cartListArray);
+                    },
+                    fail: function (error) {
+                        showToast(error);
+                    }
+                });
+            },
+//          手寸（7-25）
+            handSizeUsual(array) {
+                console.log(array);
+                for (let i = 7, len = 26; i < len; i++) {
+                    let sizeSelect =
+                        {
+                            size: i,
+                            choose: false
+                        };
+                    array.usual.push(sizeSelect)
+                }
+
+            },
+//          手寸(7.5-25.5)
+            handSizeCustomized(array) {
+                for (let i = 7, len = 26; i < len; i += 0.5) {
+//            array.customized.push(i);
+                    let sizeSelect =
+                        {
+                            size: i,
+                            choose: false
+                        };
+                    array.customized.push(sizeSelect)
+                }
+                // this.array.customized = array.customized.slice(array);
+            },
+//          筛选条件添加默认条件 判断如果 status !== -1 就 choose:true
+            initChoose(array, chooseAll) {
+                if (chooseAll === true) {
+                    for (let i = 0, len = array.length; i < len; i++) {
+                        array[i].choose = true;
+                        // 这项开了就是全选不能选中 售出的商品
+                        // if (array[i].status === -1) {
+                        //     array[i].choose = false;
+                        // }
+                    }
+                }
+                if (chooseAll === false) {
+                    for (let i = 0, len = array.length; i < len; i++) {
+                        array[i].choose = false
+                    }
+                }
+                this.array = array.slice(array);
+            },
+//          添加控制已售出的蒙版 isSoldMask === true 显示 ，false 隐藏
+            initIsSoldMaskFn(array) {
+                for (let i = 0, len = array.length; i < len; i++) {
+                    array[i].isSoldMask = false;
+                }
+                this.array = array.slice(array);
+            },
+//          计算价格的方法
+            totalPriceFn(array) {
+                let vm = this,
+                    priceArray = [],
+                    totalPriceNum;
+                for (let i = 0, len = array.length; i < len; i++) {
+                    if (array[i].choose === true) {
+                        priceArray.push(parseInt(array[i].price))
+                    }
+                }
+                totalPriceNum = vm.sum(priceArray);
+                return totalPriceNum
+            },
+//          统计选中商品数量
+            totalChooseGoodsFn(array) {
+                let vm = this,
+                    totalChooseGoodsNumArray = [];
+                for (let i = 0, len = array.length; i < len; i++) {
+                    if (array[i].choose === true) {
+                        totalChooseGoodsNumArray.push(parseInt(array[i].price))
+                    }
+                }
+                vm.totalChooseGoodsNum = totalChooseGoodsNumArray.length;
+            },
+//          求和
+            sum(arr) {
+                let s = 0;
+                for (let i = arr.length - 1; i >= 0; i--) {
+                    s += arr[i];
+                }
+                return s;
+            },
+
+        },
+        computed: {
+            /* 只适用简单的计算然后进行返回
+            *  例如：
+            *       html
+            *       <div>{{test}}</div>
+            *
+            *       js
+            *       var object = "这是一个测试";
+            *       test:function(){
+            *         return object
+            *       }
+            */
+
+        },
+        watch: {}
+    });
+
+
+    /** 监听页面滚动 ********** Start *******/
+//文档高度
+    function getDocumentScrollTop() {
+        let scrollTop = 0, bodyScrollTop = 0, documentScrollTop = 0;
+        if (document.body) {
+            bodyScrollTop = document.body.scrollTop;
+        }
+        if (document.documentElement) {
+            documentScrollTop = document.documentElement.scrollTop;
+        }
+        scrollTop = (bodyScrollTop - documentScrollTop > 0) ? bodyScrollTop : documentScrollTop;
+//        console.log(scrollTop);
+        return scrollTop;
+    }
+
+    //可视窗口高度
+    function getWindowClientHeight() {
+        let windowHeight = 0;
+        if (document.compatMode == "CSS1Compat") {
+            windowHeight = document.documentElement.clientHeight;
+        } else {
+            windowHeight = document.body.clientHeight;
+        }
+//        console.log(windowHeight);
+        return windowHeight;
+    }
+
+    //滚动条滚动高度
+    function getScrollHeight() {
+        let scrollHeight = 0, bodyScrollHeight = 0, documentScrollHeight = 0;
+        if (document.body) {
+            bodyScrollHeight = document.body.scrollHeight;
+        }
+        if (document.documentElement) {
+            documentScrollHeight = document.documentElement.scrollHeight;
+        }
+        scrollHeight = (bodyScrollHeight - documentScrollHeight > 0) ? bodyScrollHeight : documentScrollHeight;
+//        console.log(scrollHeight);
+        return scrollHeight;
+    }
+
+    /** 监听页面滚动 ********** End *******/
+
+</script>
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

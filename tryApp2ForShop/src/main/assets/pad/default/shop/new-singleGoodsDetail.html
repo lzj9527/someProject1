@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no"/>
+    <title>单品详情</title>
+
+    <link rel="stylesheet" href="https://at.alicdn.com/t/font_941616_wdr3e332oq.css"><!-- icon -->
+    <link rel="stylesheet" href="../static/css/reset.css">
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/css/new-singleGoodsDetail.css">
+    <script src="../static/js/config.js"></script>
+    <script src="../static/js/jquery-3.0.0.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+    <script src="../static/js/androidJSInterface.js"></script>
+    <script src="../static/js/function.js"></script>
+    <script src="../static/js/showToast.js"></script>
+</head>
+<body>
+
+<div id="singleGoodsDetailPageBox" @touchstart="touchS" @touchmove="touchM" @touchend="touchE">
+    <!-- 这只是一个占位盒子 -->
+    <!--<div class="imageArea"></div>-->
+
+    <section class="goodsDetailBox" v-for="(item,index) in goodsDetailArray">
+        <header>
+            <div class="left">
+                <p class="styleNum">款号: {{item.sku1}}</p>
+                <p v-if="item.erp.length > 0" class="stockNum">此产品总库存: {{item.erp.length}} 件</p>
+            </div>
+            <div class="right">
+                <span class="iconfont icon-heart-b"></span>
+                <!--<span class="iconfont icon-heart-br"></span>-->
+            </div>
+        </header>
+
+        <div class="allGoodsItemBox">
+            <section class="goodsItemOutSideBox" v-for="(item,index) in item.erp" :data-index="index">
+                <div class="goodsItemInSideBox">
+                    <div class="goodsDetail_left">
+                        <span class="erp_id">货号：{{item.erp_id}}</span>
+                        <span class="goldType">产品材质：{{item.goldType}}</span>
+                        <span class="mainStoneNum">主石粒数：{{item.mainStoneNum}}</span>
+                        <span class="stoneColor">主石颜色：{{item.stoneColor}}</span>
+                        <span class="sideStoneNum">副石粒数：{{item.sideStoneNum}}</span>
+                        <span class="handSize">产品手寸：{{item.handSize}}</span>
+                    </div>
+                    <div class="goodsDetail_right">
+                        <span class="certNo">证书号：{{item.certNo}}</span>
+                        <span class="totalWeight">产品金重：{{item.totalWeight}}</span>
+                        <span class="mainStoneWeight">主石重量：{{item.mainStoneWeight}}</span>
+                        <span class="stoneClarity">主石净度：{{item.stoneClarity}}</span>
+                        <span class="sideStoneWeight">副石重量：{{item.sideStoneWeight}}</span>
+                        <span class="price">价格：<b>￥{{item.price}}</b></span>
+                    </div>
+                </div>
+
+                <div class="btnBox">
+                    <span class="addCartBtn" @click="addCartBtnFn(index)">加入购物车</span>
+                    <span class="orderBtn" @click="orderBtnFn(index)">立即下订</span>
+                </div>
+            </section>
+        </div>
+
+    </section>
+
+    <!-- 购买信息 -->
+    <!-- 此页面的购买信息只需要调用 原生方法就可以了 -->
+
+</div>
+
+<script>
+    let vm = new Vue({
+        el: '#singleGoodsDetailPageBox',// 选项
+        data(){
+            return {
+                isReachTop: true,
+                isReachBottom: false,
+                goodsDetailArray: [],
+            }
+        },
+        beforeCreate () {
+            console.group('------beforeCreate创建前状态------');
+            console.log("%c%s", "color:red", "el     : " + this.singleGoods); //undefined
+            console.log("%c%s", "color:red", "data   : " + this.singleGoods); //undefined
+            console.log("%c%s", "color:red", "message: " + this.message);
+        },
+        created() {
+            console.group('------created创建完毕状态------');
+            console.log("%c%s", "color:red", "el     : " + this.singleGoods); //undefined
+            console.log("%c%s", "color:red", "data   : " + this.singleGoods); //已被初始化
+            console.log("%c%s", "color:red", "message: " + this.message); //已被初始化
+        },
+        beforeMount() {
+            console.group('------beforeMount挂载前状态------');
+            let vm = this,
+                goodsDetailArray = vm.goodsDetailArray;
+
+            vm.requestGoodsFn(vm, goodsDetailArray);
+
+        },
+        mounted(){
+            let vm = this;
+            console.group('------beforeMount挂载完成状态------');
+
+            // let user = 'itb',
+            // paw = 111111;
+            // getToken(user,paw);
+
+//          监听页面滚动
+            window.onscroll = function () {
+                vm.isReachTop = true;
+                vm.isReachBottom = false;
+                //监听事件内容
+                if (getDocumentScrollTop() + getWindowClientHeight() >= getScrollHeight()) {
+                    console.log("触底了");
+                    vm.isReachBottom = true
+                }
+                if (getDocumentScrollTop() <= 0) {
+                    console.log("触顶了");
+                    vm.isReachTop = true;
+                }
+
+//                console.log("是否到达顶部------" + vm.isReachTop);
+//                console.log("是否到达底部------" + vm.isReachBottom);
+            };
+
+            //        字体自适应
+            function fixRem() {
+                let windowWidth = document.documentElement.clientWidth || window.innerWidth || document.body.clientWidth;
+                // windowWidth = windowWidth > 750 ? 750 : windowWidth;
+                let rootSize = 28 * (windowWidth / 375);
+                let htmlNode = document.getElementsByTagName("html")[0];
+                htmlNode.style.fontSize = rootSize + 'px';
+            }
+
+            fixRem();
+            window.addEventListener('resize', fixRem, false);
+        },
+        updated: function () {
+            console.group('updated 更新完成状态===============》');
+        },
+        methods: {
+//          阻止页面缩放
+            touchS(e){
+                if (e.touches.length > 1) {
+                    e.preventDefault();
+                }
+            },
+            touchM(e){
+                if (e.touches.length > 1) {
+                    e.preventDefault();
+                }
+            },
+            touchE(e){
+                if (e.touches.length > 1) {
+                    e.preventDefault();
+                }
+            },
+
+//          产品详情请求
+            requestGoodsFn(vm, goodsDetailArray){
+
+//                假数据
+                goodsDetailArray = [
+                    {
+                        ccate: 25,
+                        erp: [
+                            {
+                                certNo: "P1804011679",
+                                erp_id: "01035490",
+                                goldType: "18K金",
+                                handSize: 15,
+                                itemIsChoose: false,
+                                mainStoneNum: 1,
+                                mainStoneWeight: "1.012ct",
+                                price: "14811.00",
+                                sideStoneNum: 0,
+                                sideStoneWeight: "0.000ct",
+                                sku: "W1-030",
+                                stoneClarity: "SI",
+                                stoneColor: "M-N",
+                                totalWeight: "2.480g",
+                            },
+                            {
+                                certNo: "P1804011321",
+                                erp_id: "01035490",
+                                goldType: "18K金",
+                                handSize: 15,
+                                itemIsChoose: false,
+                                mainStoneNum: 1,
+                                mainStoneWeight: "1.012ct",
+                                price: "14811.00",
+                                sideStoneNum: 0,
+                                sideStoneWeight: "0.000ct",
+                                sku: "W1-030",
+                                stoneClarity: "SI",
+                                stoneColor: "M-N",
+                                totalWeight: "2.480g",
+                            },
+                            {
+                                certNo: "P1804014478",
+                                erp_id: "01035490",
+                                goldType: "18K金",
+                                handSize: 15,
+                                itemIsChoose: false,
+                                mainStoneNum: 1,
+                                mainStoneWeight: "1.012ct",
+                                price: "14811.00",
+                                sideStoneNum: 0,
+                                sideStoneWeight: "0.000ct",
+                                sku: "W1-030",
+                                stoneClarity: "SI",
+                                stoneColor: "M-N",
+                                totalWeight: "2.480g",
+                            },
+                            {
+                                certNo: "P1804032687",
+                                erp_id: "01035490",
+                                goldType: "18K金",
+                                handSize: 15,
+                                itemIsChoose: false,
+                                mainStoneNum: 1,
+                                mainStoneWeight: "1.012ct",
+                                price: "14811.00",
+                                sideStoneNum: 0,
+                                sideStoneWeight: "0.000ct",
+                                sku: "W1-030",
+                                stoneClarity: "SI",
+                                stoneColor: "M-N",
+                                totalWeight: "2.480g",
+                            }
+                        ],
+                        gcate: 1,
+                        id: 2835,
+                        sku1: 'A17-115',
+                        sku2: '',
+                        skus: '',
+                        title: '18K钻石女戒',
+                    }
+                ];
+
+                vm.goodsDetailArray = goodsDetailArray.slice(goodsDetailArray);
+                console.log(vm.goodsDetailArray);
+            },
+
+/*
+ 添加购物车 /carts/add
+ 成品
+     {
+        token:token,
+        id:goodsId, // 成品id
+        erp_id:erpId|手寸,
+     }
+
+ 裸石
+     {
+        token:token,
+        gia:字符串类型的json,
+     }
+*/
+        addCartBtnFn(index){
+            let vm = this,
+            goodsDetailArray = vm.goodsDetailArray;
+            console.log(goodsDetailArray[0].erp[index]);
+        },
+
+/*
+ 立即下订  /orders/immediacy
+ 成品
+     {
+        token:token,
+     }
+
+ 裸石
+     {
+        token:token,
+     }
+*/
+        orderBtnFn(index){
+            let vm = this,
+            goodsDetailArray = vm.goodsDetailArray;
+//                通知原生这边是什么东西 什么个 id 需要立即下下订
+
+
+        },
+
+
+        },
+        computed: {},
+        watch: {}
+    });
+
+    /** 监听页面滚动 ********** Start *******/
+    //文档高度
+    function getDocumentScrollTop() {
+        let scrollTop = 0, bodyScrollTop = 0, documentScrollTop = 0;
+        if (document.body) {
+            bodyScrollTop = document.body.scrollTop;
+        }
+        if (document.documentElement) {
+            documentScrollTop = document.documentElement.scrollTop;
+        }
+        scrollTop = (bodyScrollTop - documentScrollTop > 0) ? bodyScrollTop : documentScrollTop;
+//        console.log(scrollTop);
+        return scrollTop;
+    }
+
+    //可视窗口高度
+    function getWindowClientHeight() {
+        let windowHeight = 0;
+        if (document.compatMode == "CSS1Compat") {
+            windowHeight = document.documentElement.clientHeight;
+        } else {
+            windowHeight = document.body.clientHeight;
+        }
+//        console.log(windowHeight);
+        return windowHeight;
+    }
+
+    //滚动条滚动高度
+    function getScrollHeight() {
+        let scrollHeight = 0, bodyScrollHeight = 0, documentScrollHeight = 0;
+        if (document.body) {
+            bodyScrollHeight = document.body.scrollHeight;
+        }
+        if (document.documentElement) {
+            documentScrollHeight = document.documentElement.scrollHeight;
+        }
+        scrollHeight = (bodyScrollHeight - documentScrollHeight > 0) ? bodyScrollHeight : documentScrollHeight;
+//        console.log(scrollHeight);
+        return scrollHeight;
+    }
+    /** 监听页面滚动 ********** End *******/
+
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

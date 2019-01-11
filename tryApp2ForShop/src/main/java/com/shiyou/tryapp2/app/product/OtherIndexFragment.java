@@ -180,7 +180,7 @@ public class OtherIndexFragment extends BaseFragment
 			if (mCategoryItem != null)
 			{
 				// MainFragment.instance.setCurrentFragmentToProductList(mCategoryItem.id, false);
-				MainFragment.instance.addFragmentToCurrent(new ProductListFragment(mCategoryItem.id, false), false);
+				MainFragment.instance.addFragmentToCurrent(new ProductListFragment(mCategoryItem.id, false,"spot",mCategoryItem.id,1), false);
 			}
 			else
 			{

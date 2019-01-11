@@ -418,7 +418,7 @@ public class MainIndexFragment extends BaseFragment
 	}
 
 	private void loadGoodsCategorys()
-	{	
+	{
 		RequestManager.loadGoodsCategorys(getActivity(), new RequestCallback()
 		{
 			@Override
@@ -502,9 +502,9 @@ public class MainIndexFragment extends BaseFragment
 			{
 				switch (mIndex)
 				{
-				// case 1:
-				// image.setImageResource(R.drawable.gem);
-				// break;
+					// case 1:
+					// image.setImageResource(R.drawable.gem);
+					// break;
 					case 0:
 						image.setImageResource(R.drawable.gia);
 						break;
@@ -537,19 +537,19 @@ public class MainIndexFragment extends BaseFragment
 			if (mCategoryItem != null)
 			{
 				// MainFragment.instance.setCurrentFragmentToProductList(mCategoryItem.id, true);
-				MainFragment.instance.addFragmentToCurrent(new ProductListFragment(mCategoryItem.id, true), false);
+				MainFragment.instance.addFragmentToCurrent(new ProductListFragment(mCategoryItem.id, true,"order",mCategoryItem.id,0), false);
 			}
 			else
 			{
 				String url="";
 				switch (mIndex)
 				{
-				// case 1:
-				// url = Config.WebGems + "?key=" + LoginHelper.getUserKey(getContext());
-				// break;
+					// case 1:
+					// url = Config.WebGems + "?key=" + LoginHelper.getUserKey(getContext());
+					// break;
 					case 0:
 //						url = Config.WebGIADiamonds + "?key=" + LoginHelper.getUserKey(getContext());
-						url="http://www.zsa888.com/addons/ewei_shop/template/pad/default/api/new-gia.html";
+						url="http://www.zsa888.com/addons/ewei_shop/template/pad/default/api/new-gia.html?isFromOrder=false";
 						break;
 
 

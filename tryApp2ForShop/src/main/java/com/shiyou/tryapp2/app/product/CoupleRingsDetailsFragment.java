@@ -23,6 +23,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -155,6 +156,7 @@ public class CoupleRingsDetailsFragment extends BaseFragment
 	@Override
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
 	{
+		Log.d(TAG, "onCreateView: tagname="+mCoupleRingDetailResponse.datas.tagname);
 		mLayoutResID = ResourceUtil.getLayoutId(getContext(), "couple_rings_details_right_layout");
 		mDetailRightLayout = super.onCreateView(inflater, container, savedInstanceState);
 		((android.extend.widget.ExtendLinearLayout)mDetailRightLayout).setInterceptTouchEventToDownward(true);
@@ -200,16 +202,21 @@ public class CoupleRingsDetailsFragment extends BaseFragment
 				switch (menuIndex)
 				{
 					case 0:
+						Log.d(TAG, "onMenuSelected: menuIndex="+menuIndex);
+						replace(getActivity(),ResourceUtil.getId(getContext(),"product_couple_details_attribute"),new MainWebFragment("http://www.zsa888.com/addons/ewei_shop/template/pad/default/shop/new-doubleRingDetail.html",0),false);
 						men_product_layout.setVisibility(View.VISIBLE);
 						wmen_product_layout.setVisibility(View.GONE);
 						break;
 					case 1:
+						Log.d(TAG, "onMenuSelected: menuIndex="+menuIndex);
+						replace(getActivity(),ResourceUtil.getId(getContext(),"product_couple_details_attribute"),new MainWebFragment("http://www.zsa888.com/addons/ewei_shop/template/pad/default/shop/new-specialDoubleRingDetail.html",0),false);
 						men_product_layout.setVisibility(View.GONE);
 						wmen_product_layout.setVisibility(View.VISIBLE);
 						break;
 				}
 			}
 		});
+
 		menubar.setCurrentMenu(0);
 
 		ensureMenProductLayout();
@@ -1299,6 +1306,7 @@ public class CoupleRingsDetailsFragment extends BaseFragment
 				{
 					erpId[0] = menErpGoods.erpid;
 					productSize[0] = Integer.parseInt(menproductHText);
+
 				}
 			}
 

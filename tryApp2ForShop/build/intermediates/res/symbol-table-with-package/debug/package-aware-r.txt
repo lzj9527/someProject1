@@ -438,7 +438,9 @@ id place_order
 id popLayoutId
 id position
 id product_3d
+id product_HadGia
 id product_all_number
+id product_couple_details_attribute
 id product_deputy_color
 id product_deputy_jingdu
 id product_deputy_number

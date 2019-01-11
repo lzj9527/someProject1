@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0"/>
+    <title>产品列表</title>
+
+    <link rel="stylesheet" href="https://at.alicdn.com/t/font_941616_ue74brist8o.css">
+    <link rel="stylesheet" href="../static/css/reset.css">
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/css/new-list.css">
+    <script src="../static/js/config.js"></script>
+    <script src="../static/js/jquery-3.0.0.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+    <script src="../static/js/androidJSInterface.js"></script>
+    <script src="../static/js/function.js"></script>
+    <script src="../static/js/showToast.js"></script>
+</head>
+<body>
+
+<section id="goodsListPageBox" class="goodsListPageBox" @click="goodsListPageBoxTapFn()">
+
+    <!-- 筛选的标识  在配货里面才显示-->
+    <section class="selectChooseBox" v-if="curGoodsType === 'spot'">
+        <p v-if="showSelectBox == false" @click="selectChooseOpenFn()">
+            <span class="selectChooseText">筛选</span>
+            <span class="iconfont icon-xia"></span>
+        </p>
+        <p v-else @click="selectChooseCloseFn()">
+            <span class="selectChooseText">筛选</span>
+            <span class="iconfont icon-shang"></span>
+        </p>
+    </section>
+
+    <!-- 筛选项  在配货里面才显示-->
+    <section class="selectOutSideBox" v-if="curGoodsType === 'spot'">
+
+        <div class="selectBox">
+            <span class="selectTitle">款式风格 :</span>
+            <div class="selectItemBox">
+                <span class="selectItem" v-for="(item,index) in allSelectItemArray.style" :data-index="index"
+                      :key="item.index" @click="styleChooseFn(index)" :data-choose="item.choose"
+                      :class="item.choose !== false?'isChooseActive':''">
+                    {{item.select}}
+                </span>
+            </div>
+        </div>
+        <div class="selectBox">
+            <span class="selectTitle">现货价格 :</span>
+            <div class="selectItemBox">
+                <span class="selectItem" v-for="(item,index) in allSelectItemArray.price" :data-index="index"
+                      :key="item.index" @click="priceChooseFn(index)" :class="item.choose === true?'isChooseActive':''">
+                    {{item.select}}
+                </span>
+            </div>
+        </div>
+        <div class="selectBox">
+            <span class="selectTitle">主石重量 :</span>
+            <div class="selectItemBox">
+                <span class="selectItem" v-for="(item,index) in allSelectItemArray.weight" :data-index="index"
+                      :key="item.index" @click="weightChooseFn(index)"
+                      :class="item.choose === true?'isChooseActive':''">
+                    {{item.select}}
+                </span>
+            </div>
+        </div>
+        <div class="selectBox">
+            <span class="selectTitle">主石颜色 :</span>
+            <div class="selectItemBox">
+                <span class="selectItem" v-for="(item,index) in allSelectItemArray.color" :data-index="index"
+                      :key="item.index" @click="colorChooseFn(index)" :class="item.choose === true?'isChooseActive':''">
+                    {{item.select}}
+                </span>
+            </div>
+        </div>
+        <div class="selectBox">
+            <span class="selectTitle">主石净度 :</span>
+            <div class="selectItemBox">
+                <span class="selectItem" v-for="(item,index) in allSelectItemArray.cleanliness" :data-index="index"
+                      :key="item.index" @click="cleanlinessChooseFn(index)"
+                      :class="item.choose === true?'isChooseActive':''">
+                    {{item.select}}
+                </span>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- 搜索 与 镶口 在定制里面出现的-->
+    <section class="searchAndSelectBox" v-if="curGoodsType === 'order'">
+        <div class="leftBox"></div>
+        <div class="rightBox">
+            <div class="searchBox">
+                <input type="text" placeholder="款号">
+                <span class="iconfont icon-sousuo"></span>
+            </div>
+
+            <div class="rabbetSelectBox" @click.stop="rabbetSelectBoxTapFn()">
+                <p>
+                    <strong>{{curRabbetText}}</strong>
+                    <span class="iconfont icon-xia" v-if="rabbetShow === false"></span>
+                    <span class="iconfont icon-shang" v-if="rabbetShow === true"></span>
+                </p>
+                <ul v-if="rabbetShow === true">
+                    <li v-for="(item,index) in rabbetArray" @click.stop="rabbetSelectTapFn(index)"
+                        :class="item.choose === true?'isChooseActive':''">{{item.text}}
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- 产品展示列表 -->
+    <section class="goodsListArrayBox" @touchstart="touchS" @touchmove="touchM" @touchend="touchE">
+
+        <ul>
+            <li class="goodsItemLi" v-for="(item,index) in goodsListArray" :key="item.index" :data-index="index"
+                :data-id="item.id">
+                <div class="goodsItemBox">
+                    <div class="goodsItemImgBox"
+                         :style="{ 'background-image': 'url(' + item.thumb + ')','background-repeat':'no-repeat','background-size':'cover' }"
+                         @click.stop="goodsClickFn(index)">
+                        <!--<img src="http://images.zsa888.cn/Vm784TtG5N4e75V0eVJ7bTh0B8JeGQ.jpg">-->
+                        <div class="goodsImgMask"></div>
+                    </div>
+                    <p class="hotAndCollection">
+                        <span class="hot"><em class="iconfont icon-08"></em>999</span>
+
+                        <span class="collection" @click.stop="collectClickFn(index)"><em
+                                class="iconfont icon-heart-b"></em></span>
+                    </p>
+                    <p class="goodsName" @click.stop="goodsClickFn(index)">
+                        18K钻石女戒
+                    </p>
+                </div>
+            </li>
+        </ul>
+
+
+        <div style="clear: both;"></div>
+
+        <!-- 假设总页数大于1 -->
+        <div class="loadMoreBox" v-if="isLoadedAllList === false">
+            <div class="iconfont icon-85" :class="loadingMore === true?'showLoadingMore':''"></div>
+            <div class="loadMore">
+                <span>释放加载更多</span>
+            </div>
+        </div>
+
+        <p class="isLoadAll" v-if="isLoadedAllList === true">---------- ~(✿◡‿◡)~ 都被你看光了 ---------</p>
+
+    </section>
+
+</section>
+
+<script>
+    let vm = new Vue({
+        el: '#goodsListPageBox',// 选项
+        data() {
+            return {
+                rabbetShow: false, // 镶口的下拉显示与隐藏
+                curGoodsType: 'order', // 定制
+                // curGoodsType:'spot', // 配货
+                defaultRabbet: 'all',
+                curRabbetText: '全 部 镶 口',
+                rabbetArray: [
+                    {text: "全 部 镶 口", rabbet: 'all', choose: false},
+                    {text: "0.3ct 镶 口", rabbet: 0.3, choose: false},
+                    {text: "0.5ct 镶 口", rabbet: 0.5, choose: false},
+                    {text: "1ct 镶 口", rabbet: 1, choose: false},
+                ],
+
+                showSelectBox: false,
+                isReachTop: true,// 是否触顶
+                isReachBottom: false,// 是否触底
+                loadingMore: false,
+                touchSClientY: 0,
+                touchMClientY: 0,
+                moveVerticalDis: 0,
+                cid: 12, // 产品的分类的ID
+                curPage: 1, // 当前页
+                totalPage: 0,// 总页数
+                isLoadedAllList: false, // 是否已加载所有
+                styleValue: "",
+                minPriceValue: "",
+                maxPriceValue: "",
+                minWeightValue: "",
+                maxWeightValue: "",
+                colorValue: "",
+                cleanlinessValue: "",
+                allSelectItemArray: {
+                    style: [
+                        {select: "不限", forAjax: ""},
+                        {select: "有副石", forAjax: ""},
+                        {select: "直臂", forAjax: ""},
+                        {select: "扭臂", forAjax: ""},
+                        {select: "车花", forAjax: ""},
+                        {select: "牛头", forAjax: ""},
+                        {select: "四爪", forAjax: ""},
+                        {select: "六爪", forAjax: ""},
+                    ],
+                    price: [
+                        {select: "不限", minPrice: "", maxPrice: ""},
+                        {select: "1.5K以下", minPrice: "", maxPrice: "1500"},
+                        {select: "1.5K-3K", minPrice: "1500", maxPrice: "3000"},
+                        {select: "3K-5K", minPrice: "3001", maxPrice: "5000"},
+                        {select: "5K-8K", minPrice: "5001", maxPrice: "8000"},
+                        {select: "8K-1.2W", minPrice: "8001", maxPrice: "12000"},
+                        {select: "1.2W-2W", minPrice: "12001", maxPrice: "20000"},
+                        {select: "2W以上", minPrice: "20001", maxPrice: ""},
+                    ],
+                    weight: [
+                        {select: "不限", minWeight: "", maxWeight: ""},
+                        {select: "0.2ct以下", minWeight: "", maxWeight: "0.2"},
+                        {select: "0.2ct-0.29ct", minWeight: "0.2", maxWeight: "0.29"},
+                        {select: "0.3ct-0.39ct", minWeight: "0.3", maxWeight: "0.39"},
+                        {select: "0.4ct-0.49ct", minWeight: "0.4", maxWeight: "0.49"},
+                        {select: "0.5ct-0.59ct", minWeight: "0.5", maxWeight: "0.59"},
+                        {select: "0.6ct-0.99ct", minWeight: "0.6", maxWeight: "0.99"},
+                        {select: "1ct以上", minWeight: "1.0", maxWeight: ""},
+                    ],
+                    color: [
+                        {select: "不限"},
+                        {select: "D-E"},
+                        {select: "F-G"},
+                        {select: "H"},
+                        {select: "I-J"},
+                        {select: "M-N"},
+                        {select: "<N"},
+                        {select: ""},
+                    ],
+                    cleanliness: [
+                        {select: "不限"},
+                        {select: "VVS"},
+                        {select: "VS"},
+                        {select: "SI"},
+                        {select: "P"},
+                        {select: ""},
+                        {select: ""},
+                        {select: ""},
+                    ]
+                },
+                goodsListArray: [],
+                oldTimestamp: 0,
+                firstRequest: true,
+            }
+        },
+        beforeCreate() {
+            console.group('------beforeCreate创建前状态------');
+            console.log("%c%s", "color:red", "el     : " + this.$el); //undefined
+            console.log("%c%s", "color:red", "data   : " + this.$data); //undefined
+            console.log("%c%s", "color:red", "message: " + this.message);
+        },
+        created() {
+            console.group('------created创建完毕状态------');
+            console.log("%c%s", "color:red", "el     : " + this.$el); //undefined
+            console.log("%c%s", "color:red", "data   : " + this.$data); //已被初始化
+            console.log("%c%s", "color:red", "message: " + this.message); //已被初始化
+        },
+        beforeMount() {
+            console.group('------beforeMount挂载前状态------');
+            let vm = this,
+                styleArray = vm.allSelectItemArray.style,
+                priceArray = vm.allSelectItemArray.price,
+                weightArray = vm.allSelectItemArray.weight,
+                colorArray = vm.allSelectItemArray.color,
+                cleanlinessArray = vm.allSelectItemArray.cleanliness,
+
+                curPage = vm.curPage,
+                cid = vm.cid,
+                goodsListArray = vm.goodsListArray,
+                styleValue = vm.styleValue,
+                minPriceValue = vm.minPriceValue,
+                maxPriceValue = vm.maxPriceValue,
+                minWeightValue = vm.minWeightValue,
+                maxWeightValue = vm.maxWeightValue,
+                colorValue = vm.colorValue,
+                cleanlinessValue = vm.cleanlinessValue;
+
+            resetFn(styleArray, priceArray, weightArray, colorArray, cleanlinessArray);
+            vm.requestSpotGoodsFn(vm, curPage, cid, styleValue, minPriceValue, maxPriceValue, minWeightValue, maxWeightValue, colorValue, cleanlinessValue, goodsListArray);
+        },
+        mounted() {
+            let vm = this,
+                cid;
+            $(".selectOutSideBox").hide();
+            console.group('------beforeMount挂载完成状态------');
+            console.log(vm.allSelectItemArray);
+
+            //          预留截取
+            vm.curGoodsType = getUrlParam("goodsType");
+            vm.cid = "&cid=" + getUrlParam("cid"); // 产品的cid
+
+            /*
+            * 同时还需要判断当前是配货进来的，还是定制进来的
+            * vm.curGoodsType = "&curGoodsType=" + getUrlParam("curGoodsType");
+            */
+
+            $('html,body').animate({scrollTop: 0});
+
+//          监听页面滚动
+            window.onscroll = function () {
+                vm.isReachTop = false;
+                vm.isReachBottom = false;
+                //监听事件内容
+                if (getDocumentScrollTop() + getWindowClientHeight() >= getScrollHeight()) {
+                    console.log("触底了");
+                    vm.isReachBottom = true;
+                //          到达底部加载更多的动画效果
+                    vm.loadingMore = true;
+                    let firstRequest = vm.firstRequest,
+                        nowTime = new Date().getTime(),
+                        oldTimestamp = vm.oldTimestamp,
+                        curPage = vm.curPage + 1,
+                        cid = vm.cid,
+                        goodsListArray = vm.goodsListArray,
+                        styleValue = vm.styleValue,
+                        minPriceValue = vm.minPriceValue,
+                        maxPriceValue = vm.maxPriceValue,
+                        minWeightValue = vm.minWeightValue,
+                        maxWeightValue = vm.maxWeightValue,
+                        colorValue = vm.colorValue,
+                        cleanlinessValue = vm.cleanlinessValue;
+                    // 如果当前页大于等于当前的总页数
+                    //（注意回流与重构）为了更好的性能，选择另起 dom 树，
+                    // 思路: 1.将元素脱离文档流（） 2.对其进行修改 3.将元素带回文档中
+
+                    // showToast("请求新的一页");
+                    // console.log("当前的时间差" + (nowTime - oldTimestamp));
+                    if (nowTime - oldTimestamp < 500 && firstRequest === false) {
+                        vm.loadingMore = false;
+                        showToast("请不要操作过快")
+                    } else {
+                        if (vm.isLoadedAllList === false) {
+                            vm.requestSpotGoodsFn(vm, curPage, cid, styleValue, minPriceValue, maxPriceValue, minWeightValue, maxWeightValue, colorValue, cleanlinessValue, goodsListArray);
+                            vm.oldTimestamp = nowTime;
+                        } else {
+                            return false
+                        }
+                    }
+                }
+
+                if (getDocumentScrollTop() <= 0) {
+                    console.log("触顶了");
+                    vm.isReachTop = true;
+                }
+
+//                console.log("是否到达顶部------" + vm.isReachTop);
+//                console.log("是否到达底部------" + vm.isReachBottom);
+
+            };
+
+            //        字体自适应
+            function fixRem() {
+                let windowWidth = document.documentElement.clientWidth || window.innerWidth || document.body.clientWidth;
+                // windowWidth = windowWidth > 750 ? 750 : windowWidth;
+                let rootSize = 28 * (windowWidth / 375);
+                let htmlNode = document.getElementsByTagName("html")[0];
+                htmlNode.style.fontSize = rootSize + 'px';
+            }
+
+            fixRem();
+            window.addEventListener('resize', fixRem, false);
+        },
+        updated: function () {
+            console.group('updated 更新完成状态===============》');
+        },
+        methods: {
+//            盒子点击
+            goodsListPageBoxTapFn() {
+                let vm = this;
+                vm.rabbetShow = false;
+            },
+
+//            镶口盒子
+            rabbetSelectBoxTapFn() {
+                let vm = this,
+                    rabbetShow = vm.rabbetShow;
+                if (rabbetShow === true) {
+                    vm.rabbetShow = false
+                } else {
+                    vm.rabbetShow = true
+                }
+            },
+//            镶口select
+            rabbetSelectTapFn(index) {
+                let vm = this,
+                    rabbetArray = vm.rabbetArray;
+
+                for (let i = 0, len = rabbetArray.length; i < len; i++) {
+                    rabbetArray[i].choose = false
+                }
+                rabbetArray[index].choose = true;
+                vm.curRabbetText = rabbetArray[index].text;
+                vm.rabbetArray = rabbetArray.slice(rabbetArray);
+                vm.rabbetShow = false
+
+            },
+
+
+//            展示筛选项
+            selectChooseOpenFn() {
+                $(".selectOutSideBox").slideDown(200);
+                this.showSelectBox = true
+            },
+//            隐藏筛选项
+            selectChooseCloseFn() {
+                $(".selectOutSideBox").stop().slideUp(200);
+                this.showSelectBox = false
+            },
+
+//            款式风格
+            styleChooseFn(index) {
+                let vm = this,
+                    cid = vm.cid,
+                    curIndex = index,
+                    curPage = 1,
+                    styleArray = vm.allSelectItemArray.style,
+
+                    chooseStyleArray = [],
+                    styleValue,
+                    minPriceValue = vm.minPriceValue,
+                    maxPriceValue = vm.maxPriceValue,
+                    minWeightValue = vm.minWeightValue,
+                    maxWeightValue = vm.maxWeightValue,
+                    colorValue = vm.colorValue,
+                    cleanlinessValue = vm.cleanlinessValue;
+
+                styleArray[curIndex].choose = !styleArray[curIndex].choose;
+
+                multipleSelectFn(curIndex, styleArray, chooseStyleArray);
+
+                vm.allSelectItemArray.style = styleArray.slice(styleArray);
+
+                vm.styleValue = chooseStyleArray.join(",");
+                styleValue = vm.styleValue;
+                console.log(styleValue);
+
+                vm.requestSpotGoodsFn(vm, curPage, cid, styleValue, minPriceValue, maxPriceValue, minWeightValue, maxWeightValue, colorValue, cleanlinessValue)
+
+            },
+//            现货价格(单)
+            priceChooseFn(index) {
+                let vm = this,
+                    cid = vm.cid,
+                    curPage = 1,
+                    priceArray = vm.allSelectItemArray.price,
+
+                    styleValue = vm.styleValue,
+                    minPriceValue,
+                    maxPriceValue,
+                    minWeightValue = vm.minWeightValue,
+                    maxWeightValue = vm.maxWeightValue,
+                    colorValue = vm.colorValue,
+                    cleanlinessValue = vm.cleanlinessValue;
+
+                singleSelectFn(index, priceArray);
+
+                for (let i = 0, len = priceArray.length; i < len; i++) {
+                    if (priceArray[i].choose === true) {
+                        minPriceValue = priceArray[i].minPrice;
+                        maxPriceValue = priceArray[i].maxPrice;
+                        break
+                    }
+                }
+                if (minPriceValue == null || maxPriceValue == null) {
+                    minPriceValue = "";
+                    maxPriceValue = "";
+                }
+
+                vm.minPriceValue = minPriceValue;
+                vm.maxPriceValue = maxPriceValue;
+                vm.allSelectItemArray.price = priceArray.slice(priceArray);
+
+                console.log("价格下限-------," + minPriceValue);
+                console.log("价格上限-------," + maxPriceValue);
+
+                vm.requestSpotGoodsFn(vm, curPage, cid, styleValue, minPriceValue, maxPriceValue, minWeightValue, maxWeightValue, colorValue, cleanlinessValue)
+
+            },
+//            主石重量(单)
+            weightChooseFn(index) {
+                let vm = this,
+                    cid = vm.cid,
+                    curPage = 1,
+                    weightArray = vm.allSelectItemArray.weight,
+
+                    styleValue = vm.styleValue,
+                    minPriceValue = vm.minPriceValue,
+                    maxPriceValue = vm.maxPriceValue,
+                    minWeightValue,
+                    maxWeightValue,
+                    colorValue = vm.colorValue,
+                    cleanlinessValue = vm.cleanlinessValue;
+
+                singleSelectFn(index, weightArray);
+
+                for (let i = 0, len = weightArray.length; i < len; i++) {
+                    if (weightArray[i].choose === true) {
+                        minWeightValue = weightArray[i].minWeight;
+                        maxWeightValue = weightArray[i].maxWeight;
+                        break
+                    }
+                }
+                if (minWeightValue == null || maxWeightValue == null) {
+                    minWeightValue = "";
+                    maxWeightValue = "";
+                }
+
+                vm.minWeightValue = minWeightValue;
+                vm.maxWeightValue = maxWeightValue;
+                vm.allSelectItemArray.weight = weightArray.slice(weightArray);
+
+                console.log("重量下限-------," + minWeightValue);
+                console.log("重量上限-------," + maxWeightValue);
+
+                vm.requestSpotGoodsFn(vm, curPage, cid, styleValue, minPriceValue, maxPriceValue, minWeightValue, maxWeightValue, colorValue, cleanlinessValue)
+            },
+//            主石颜色
+            colorChooseFn(index) {
+                let vm = this,
+                    cid = vm.cid,
+                    curIndex = index,
+                    curPage = vm.curPage,
+                    colorArray = vm.allSelectItemArray.color,
+
+                    chooseColorArray = [],
+                    styleValue = vm.styleValue,
+                    minPriceValue = vm.minPriceValue,
+                    maxPriceValue = vm.maxPriceValue,
+                    minWeightValue = vm.minWeightValue,
+                    maxWeightValue = vm.maxWeightValue,
+                    colorValue,
+                    cleanlinessValue = vm.cleanlinessValue;
+
+                colorArray[curIndex].choose = !colorArray[curIndex].choose;
+
+                multipleSelectFn(curIndex, colorArray, chooseColorArray);
+
+                vm.allSelectItemArray.color = colorArray.slice(colorArray);
+
+                vm.colorValue = chooseColorArray.join(",");
+                colorValue = vm.colorValue;
+                console.log(colorValue);
+                vm.requestSpotGoodsFn(vm, curPage, cid, styleValue, minPriceValue, maxPriceValue, minWeightValue, maxWeightValue, colorValue, cleanlinessValue);
+
+            },
+//            主石净度
+            cleanlinessChooseFn(index) {
+                let vm = this,
+                    cid = vm.cid,
+                    curIndex = index,
+                    curPage = vm.curPage,
+                    cleanlinessArray = vm.allSelectItemArray.cleanliness,
+
+                    chooseCleanlinessArray = [],
+                    styleValue = vm.styleValue,
+                    minPriceValue = vm.minPriceValue,
+                    maxPriceValue = vm.maxPriceValue,
+                    minWeightValue = vm.minWeightValue,
+                    maxWeightValue = vm.maxWeightValue,
+                    colorValue = vm.colorValue,
+                    cleanlinessValue;
+
+                cleanlinessArray[curIndex].choose = !cleanlinessArray[curIndex].choose;
+
+                multipleSelectFn(curIndex, cleanlinessArray, chooseCleanlinessArray);
+
+                vm.allSelectItemArray.cleanliness = cleanlinessArray.slice(cleanlinessArray);
+
+                vm.cleanlinessValue = chooseCleanlinessArray.join(",");
+                cleanlinessValue = vm.cleanlinessValue;
+                console.log(cleanlinessValue);
+
+                vm.requestSpotGoodsFn(vm, curPage, cid, styleValue, minPriceValue, maxPriceValue, minWeightValue, maxWeightValue, colorValue, cleanlinessValue)
+            },
+
+//            产品点击
+            goodsClickFn(index) {
+                console.log(index);
+            },
+
+//            收藏
+            collectClickFn(index) {
+                console.log(index);
+
+            },
+
+//            操作手势
+            touchS(e) {
+                if (e.touches.length > 1) {
+                    e.preventDefault();
+                }
+                let
+                    vm = this;
+                vm.touchSClientY = e.changedTouches[0].clientY;
+                vm.rabbetShow = false;
+
+                console.log("--- 开始 Y----" + vm.touchSClientY);
+            },
+            touchM(e) {
+                if (e.touches.length > 1) {
+                    e.preventDefault();
+                }
+                let
+                    vm = this,
+                    isReachTop = vm.isReachTop,
+                    isReachBottom = vm.isReachBottom,
+                    touchSClientY = vm.touchSClientY,
+                    touchMClientY = e.changedTouches[0].clientY;
+
+                vm.moveVerticalDis = touchSClientY - touchMClientY;
+                console.log("--- 移动 Y ---" + vm.moveVerticalDis);
+                if (isReachTop === true) {
+                    console.log("是时候调用下拉 Move");
+                    $('.goodsListArrayBox').css({
+                        "transform": "translateY(" + -(vm.moveVerticalDis) + "px)",
+                        "transition": "all 0s"
+                    });
+                }
+
+            },
+            touchE(e) {
+                if (e.touches.length > 1) {
+                    e.preventDefault();
+                }
+                let
+                    vm = this,
+                    goodsListArray = vm.goodsListArray,
+                    touchSClientY = vm.touchSClientY,
+                    touchMClientY = vm.touchMClientY,
+                    touchEClientY = e.changedTouches[0].clientY,
+                    isReachTop = vm.isReachTop,
+                    isReachBottom = vm.isReachBottom,
+                    moveVerticalDis = vm.moveVerticalDis;
+
+
+//                $(".loadMore").hide();
+                $('.goodsListArrayBox').css({"transform": "translateY(0)", "transition": "all 0.5s"});
+
+                if (-moveVerticalDis > 100 && isReachTop === true) {
+                    $(".selectOutSideBox").slideDown(200);
+                    vm.showSelectBox = true
+                }
+
+            },
+
+            //    产品请求(需要区分请求的是 配货 还是 定制)
+            requestSpotGoodsFn(vm, curPage, cid, styleValue, minPriceValue, maxPriceValue, minWeightValue, maxWeightValue, colorValue, cleanlinessValue, goodsListArray) {
+
+                vm.curPage = curPage;
+
+                cid = "cid=12"; // 测试
+
+                let token = localStorage.getItem("token"),
+                    requestUrl = newAppUrl + "/goods/list?" + cid + "&style=" + styleValue + "&priceBegin=" + minPriceValue + "&priceEnd=" + maxPriceValue + "&weightBegin=" + minWeightValue + "&weightEnd=" + maxWeightValue + "&color=" + colorValue + "&clarity=" + cleanlinessValue + "&token=" + token + "&page=" + curPage;
+
+                console.log(requestUrl);
+
+                if (curPage > 2) {
+                    vm.firstRequest = false
+                }
+                // showToast(curPage);
+                // vm.goodsListArray = goodsListArray.slice(goodsListArray);
+
+                $.ajax({
+                    headers: {
+                        Accept: shopHeaders
+                    },
+                    url: requestUrl,
+                    type: 'GET',
+                    // dataType: 'jsonp',
+                    success: function (res) {
+                        console.log(res);
+                        let goodsJson = res.data.list,
+                            total_page = res.data.page_info.last_page;
+                        console.log("----- 当前页码 ------" + curPage);
+                        console.log("-----总页数------" + total_page);
+                        vm.totalPage = total_page;
+
+                        console.log(goodsJson);
+                        if (total_page > 0) {
+                            if (curPage >= total_page) {
+                                vm.isLoadedAllList = true
+                            } else {
+                                vm.isLoadedAllList = false
+                            }
+
+                            if (curPage > 1) {
+                                goodsListArray.push(...goodsJson);
+                                console.log(goodsListArray);
+                                vm.goodsListArray = goodsListArray;
+                                vm.curPage = curPage;
+                            } else {
+                                vm.goodsListArray = goodsJson;
+                                vm.curPage = curPage;
+                            }
+                        } else {
+                            showToast("找不到该货物")
+                        }
+                        vm.loadingMore = false;
+                    },
+                    fail: function (error) {
+                        showToast(error);
+                    }
+                });
+
+            },
+
+
+        },
+        computed: {},
+        watch: {}
+    });
+
+    /** 监听页面滚动 ********** Start *******/
+    //文档高度
+    function getDocumentScrollTop() {
+        let scrollTop = 0, bodyScrollTop = 0, documentScrollTop = 0;
+        if (document.body) {
+            bodyScrollTop = document.body.scrollTop;
+        }
+        if (document.documentElement) {
+            documentScrollTop = document.documentElement.scrollTop;
+        }
+        scrollTop = (bodyScrollTop - documentScrollTop > 0) ? bodyScrollTop : documentScrollTop;
+//        console.log(scrollTop);
+        return scrollTop;
+    }
+
+    //可视窗口高度
+    function getWindowClientHeight() {
+        let windowHeight = 0;
+        if (document.compatMode == "CSS1Compat") {
+            windowHeight = document.documentElement.clientHeight;
+        } else {
+            windowHeight = document.body.clientHeight;
+        }
+//        console.log(windowHeight);
+        return windowHeight;
+    }
+
+    //滚动条滚动高度
+    function getScrollHeight() {
+        let scrollHeight = 0, bodyScrollHeight = 0, documentScrollHeight = 0;
+        if (document.body) {
+            bodyScrollHeight = document.body.scrollHeight;
+        }
+        if (document.documentElement) {
+            documentScrollHeight = document.documentElement.scrollHeight;
+        }
+        scrollHeight = (bodyScrollHeight - documentScrollHeight > 0) ? bodyScrollHeight : documentScrollHeight;
+//        console.log(scrollHeight);
+        return scrollHeight;
+    }
+
+    /** 监听页面滚动 ********** End *******/
+
+    //    为筛选条件添加默认条件 choose:false
+    function initChoose(array) {
+        for (let i = 0, len = array.length; i < len; i++) {
+            array[i].choose = false
+        }
+        this.array = array.slice(array);
+    }
+
+    //    重置
+    function resetFn(styleArray, priceArray, weightArray, colorArray, cleanlinessArray) {
+        initChoose(priceArray);
+        initChoose(styleArray);
+        initChoose(weightArray);
+        initChoose(colorArray);
+        initChoose(cleanlinessArray);
+    }
+
+    //    多选的公有方法
+    function multipleSelectFn(curIndex, array, chooseArray) {
+        for (let i = 1, len = array.length; i < len; i++) {
+            if (curIndex === 0) {
+                array[i].choose = false;
+            }
+            if (curIndex !== 0 && array[i].choose === true) {
+                array[0].choose = false;
+                chooseArray.push(array[i].select)
+            }
+
+        }
+    }
+
+    //    单选的公有方法
+    function singleSelectFn(curIndex, array) {
+        if (array[curIndex].choose === true) {
+            array[curIndex].choose = false
+        } else {
+            for (let i = 0, len = array.length; i < len; i++) {
+                array[i].choose = false
+            }
+            array[curIndex].choose = !array[curIndex].choose;
+        }
+    }
+
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

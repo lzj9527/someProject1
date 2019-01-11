@@ -1,6 +1,8 @@
 package com.shiyou.tryapp2.app;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.extend.ErrorInfo;
 import android.extend.app.BaseFragment;
 import android.extend.loader.BaseParser.DataFrom;
@@ -16,6 +18,7 @@ import android.extend.widget.MenuView;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +27,7 @@ import android.widget.TextView;
 import com.shiyou.tryapp2.Config;
 import com.shiyou.tryapp2.RequestManager;
 import com.shiyou.tryapp2.RequestManager.RequestCallback;
+import com.shiyou.tryapp2.app.login.LoginFragment;
 import com.shiyou.tryapp2.app.login.LoginHelper;
 import com.shiyou.tryapp2.app.product.BrowseHistoryFragment;
 import com.shiyou.tryapp2.app.product.MainIndexFragment;
@@ -34,6 +38,9 @@ import com.shiyou.tryapp2.app.product.SettingFragment;
 import com.shiyou.tryapp2.data.response.BaseResponse;
 import com.shiyou.tryapp2.data.response.ShopLogoAndADResponse;
 import com.shiyou.tryapp2.data.response.ShoppingcartListResponse;
+
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 
 public class MainFragment extends BaseFragment {
 	public static MainFragment instance = null;
@@ -374,6 +381,7 @@ public class MainFragment extends BaseFragment {
 	// }
 	// }
 
+    private static long lastClickTime;
 	private void setCurrentMenuImpl(final int index) {
 		// fragmentC1.setVisibility(View.INVISIBLE);
 		// fragmentC2.setVisibility(View.INVISIBLE);
@@ -389,6 +397,15 @@ public class MainFragment extends BaseFragment {
 					return;
 				}
 				String url;
+                Log.d(TAG, "run: username="+LoginHelper.getUserName(getContext()));
+                Log.d(TAG, "run: password="+LoginHelper.getUserPassword(getContext()));
+//                long curClickTime = System.currentTimeMillis();
+//				if ((curClickTime - lastClickTime)>=72000000) {
+//					Log.d(TAG, "run: 执行 LastTime="+lastClickTime);
+//
+//					lastClickTime = curClickTime;
+//				}
+
 				switch (index) {
 					case 0:// 定制
 						// fragmentC1.setVisibility(View.VISIBLE);
@@ -404,18 +421,22 @@ public class MainFragment extends BaseFragment {
 						break;
 					case 2:// 购物车
 						// fragmentC.setVisibility(View.VISIBLE);
-						url = Config.WebShoppingCart + "?key=" + LoginHelper.getUserKey(getContext());
+//						url = Config.WebShoppingCart + "?key=" + LoginHelper.getUserKey(getContext());
+
+						url="http://www.zsa888.com/addons/ewei_shop/template/pad/default/shop/new-cart.html";
 						replace(instance, new MainWebFragment(url, 0), false);
 						updateShoppingcartNum();
 						break;
 					case 3:// 订单
 						// fragmentC.setVisibility(View.VISIBLE);
-						url = Config.WebOrder + "?key=" + LoginHelper.getUserKey(getContext());
+//						url = Config.WebOrder + "?key=" + LoginHelper.getUserKey(getContext());
+						url="http://www.zsa888.com/addons/ewei_shop/template/pad/default/shop/new-order.html";
 						replace(instance, new MainWebFragment(url, 0), false);
 						break;
 					case 4:// 收藏
 						// fragmentC3.setVisibility(View.VISIBLE);
-						url = Config.WebSearch + "?key=" + LoginHelper.getUserKey(getContext());
+//						url = Config.WebSearch + "?key=" + LoginHelper.getUserKey(getContext());
+						url="http://www.zsa888.com/addons/ewei_shop/template/pad/default/shop/new-collection.html";
 						replace(instance, new MainWebFragment(url, 0), false);
 						// ensureSearchFragment();
 						// fragment3.popBackStackInclusive();
@@ -425,6 +446,7 @@ public class MainFragment extends BaseFragment {
 						replace(instance, new BrowseHistoryFragment(), false);
 						break;
 				}
+
 				invalidateMenuBar();
 			}
 		});
@@ -837,7 +859,7 @@ public class MainFragment extends BaseFragment {
 			mGoodsTag = tag;
 		}
 		// mGoodsIsShop = isShop;
-		addFragmentToCurrent(new ProductDetailsFragment(tag, goodsId, isShop, hasModelInfo), backToRoot);
+		addFragmentToCurrent(new ProductDetailsFragment(tag, goodsId, isShop, hasModelInfo,0), backToRoot);
 	}
 
 	public void invalidateMenuBarOnce() {

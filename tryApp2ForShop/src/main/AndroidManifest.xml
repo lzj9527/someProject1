@@ -103,7 +103,7 @@
             android:configChanges="orientation|keyboardHidden"
             android:launchMode="standard"
             android:screenOrientation="sensorLandscape"
-            android:windowSoftInputMode="adjustPan" >
+            android:windowSoftInputMode="adjustPan">
         </activity>
         <activity
             android:name="com.shiyou.tryapp2.app.WebViewActivity"

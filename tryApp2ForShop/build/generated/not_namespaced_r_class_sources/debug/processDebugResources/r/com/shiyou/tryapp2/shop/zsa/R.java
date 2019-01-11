@@ -155,6 +155,15 @@ public final class R {
      */
     public static final int imageShape=0x7f02000f;
     /**
+     * Class name of the Layout Manager to be used.
+     * <p/>
+     * The class must extend android.support.v7.widget.RecyclerView$LayoutManager
+     * and have either a default constructor or constructor with the signature
+     * (android.content.Context, android.util.AttributeSet, int, int).
+     * <p/>
+     * If the name starts with a '.', application package is prefixed.
+     * Else, if the name contains a '.', the classname is assumed to be a full class name.
+     * Else, the recycler view package name (android.support.v7.widget) is prefixed.
      * <p>May be a string value, using '\\;' to escape characters such as
      * '\\n' or '\\uxxxx' for a unicode character;
      */
@@ -672,118 +681,120 @@ public final class R {
     public static final int popLayoutId=0x7f06008f;
     public static final int position=0x7f060090;
     public static final int product_3d=0x7f060091;
-    public static final int product_all_number=0x7f060092;
-    public static final int product_deputy_color=0x7f060093;
-    public static final int product_deputy_jingdu=0x7f060094;
-    public static final int product_deputy_number=0x7f060095;
-    public static final int product_deputy_weight=0x7f060096;
-    public static final int product_details_3d=0x7f060097;
-    public static final int product_details_attribute=0x7f060098;
-    public static final int product_details_button=0x7f060099;
-    public static final int product_details_selectprice_true=0x7f06009a;
-    public static final int product_details_tryon=0x7f06009b;
-    public static final int product_gold_weight=0x7f06009c;
-    public static final int product_hand=0x7f06009d;
-    public static final int product_kh=0x7f06009e;
-    public static final int product_list=0x7f06009f;
-    public static final int product_m=0x7f0600a0;
-    public static final int product_main_color=0x7f0600a1;
-    public static final int product_main_jingdu=0x7f0600a2;
-    public static final int product_main_stone=0x7f0600a3;
-    public static final int product_main_stone_color=0x7f0600a4;
-    public static final int product_main_stone_jingdu=0x7f0600a5;
-    public static final int product_main_stone_price=0x7f0600a6;
-    public static final int product_main_stone_title=0x7f0600a7;
-    public static final int product_main_weight=0x7f0600a8;
-    public static final int product_material=0x7f0600a9;
-    public static final int product_material_menubar=0x7f0600aa;
-    public static final int product_name=0x7f0600ab;
-    public static final int product_number=0x7f0600ac;
-    public static final int product_photo=0x7f0600ad;
-    public static final int product_pirce=0x7f0600ae;
-    public static final int product_search=0x7f0600af;
-    public static final int product_search_number=0x7f0600b0;
-    public static final int product_type=0x7f0600b1;
-    public static final int product_zs=0x7f0600b2;
-    public static final int progress=0x7f0600b3;
-    public static final int progressBar=0x7f0600b4;
-    public static final int pull=0x7f0600b5;
-    public static final int pull_out=0x7f0600b6;
-    public static final int pull_to_load_footer_content=0x7f0600b7;
-    public static final int pull_to_load_footer_hint_textview=0x7f0600b8;
-    public static final int pull_to_load_footer_progressbar=0x7f0600b9;
-    public static final int pull_to_refresh_header_arrow=0x7f0600ba;
-    public static final int pull_to_refresh_header_content=0x7f0600bb;
-    public static final int pull_to_refresh_header_hint_textview=0x7f0600bc;
-    public static final int pull_to_refresh_header_progressbar=0x7f0600bd;
-    public static final int pull_to_refresh_header_text=0x7f0600be;
-    public static final int pull_to_refresh_header_time=0x7f0600bf;
-    public static final int pull_to_refresh_last_update_time_text=0x7f0600c0;
-    public static final int pushPrograssBar=0x7f0600c1;
-    public static final int recycle=0x7f0600c2;
-    public static final int right=0x7f0600c3;
-    public static final int right_button=0x7f0600c4;
-    public static final int right_verticalbar=0x7f0600c5;
-    public static final int ring_certno=0x7f0600c6;
-    public static final int ring_certtype=0x7f0600c7;
-    public static final int ring_clarity=0x7f0600c8;
-    public static final int ring_color=0x7f0600c9;
-    public static final int ring_cut=0x7f0600ca;
-    public static final int ring_fluorescence=0x7f0600cb;
-    public static final int ring_polish=0x7f0600cc;
-    public static final int ring_price=0x7f0600cd;
-    public static final int ring_price_text=0x7f0600ce;
-    public static final int ring_sn=0x7f0600cf;
-    public static final int ring_style=0x7f0600d0;
-    public static final int ring_symmetry=0x7f0600d1;
-    public static final int ring_weight=0x7f0600d2;
-    public static final int rings_name=0x7f0600d3;
-    public static final int rings_price_text=0x7f0600d4;
-    public static final int ringsize_menubar=0x7f0600d5;
-    public static final int ringsize_select_layout=0x7f0600d6;
-    public static final int rlRichpushTitleBar=0x7f0600d7;
-    public static final int roundRect=0x7f0600d8;
-    public static final int select_item=0x7f0600d9;
-    public static final int select_item2=0x7f0600da;
-    public static final int select_layout=0x7f0600db;
-    public static final int select_price=0x7f0600dc;
-    public static final int select_ring=0x7f0600dd;
-    public static final int send_time=0x7f0600de;
-    public static final int setting=0x7f0600df;
-    public static final int shop_logo=0x7f0600e0;
-    public static final int shoppingcart_num=0x7f0600e1;
-    public static final int shutter_button=0x7f0600e2;
-    public static final int slide=0x7f0600e3;
-    public static final int slider=0x7f0600e4;
-    public static final int speed=0x7f0600e5;
-    public static final int splash_image=0x7f0600e6;
-    public static final int splash_layout=0x7f0600e7;
-    public static final int start=0x7f0600e8;
-    public static final int sub_titlebar=0x7f0600e9;
-    public static final int swipe_refresh=0x7f0600ea;
-    public static final int tag_new=0x7f0600eb;
-    public static final int text=0x7f0600ec;
-    public static final int textView=0x7f0600ed;
-    public static final int title=0x7f0600ee;
-    public static final int titlebar=0x7f0600ef;
-    public static final int toolbar=0x7f0600f0;
-    public static final int top=0x7f0600f1;
-    public static final int touch=0x7f0600f2;
-    public static final int tryon_layout=0x7f0600f3;
-    public static final int tvRichpushTitle=0x7f0600f4;
-    public static final int type=0x7f0600f5;
-    public static final int unity_container=0x7f0600f6;
-    public static final int update_response=0x7f0600f7;
-    public static final int update_version=0x7f0600f8;
-    public static final int version=0x7f0600f9;
-    public static final int vertical=0x7f0600fa;
-    public static final int viewpager=0x7f0600fb;
-    public static final int visible=0x7f0600fc;
-    public static final int waterfall=0x7f0600fd;
-    public static final int webview=0x7f0600fe;
-    public static final int wmenProductNumber=0x7f0600ff;
-    public static final int wmen_product_layout=0x7f060100;
-    public static final int wvPopwin=0x7f060101;
+    public static final int product_HadGia=0x7f060092;
+    public static final int product_all_number=0x7f060093;
+    public static final int product_couple_details_attribute=0x7f060094;
+    public static final int product_deputy_color=0x7f060095;
+    public static final int product_deputy_jingdu=0x7f060096;
+    public static final int product_deputy_number=0x7f060097;
+    public static final int product_deputy_weight=0x7f060098;
+    public static final int product_details_3d=0x7f060099;
+    public static final int product_details_attribute=0x7f06009a;
+    public static final int product_details_button=0x7f06009b;
+    public static final int product_details_selectprice_true=0x7f06009c;
+    public static final int product_details_tryon=0x7f06009d;
+    public static final int product_gold_weight=0x7f06009e;
+    public static final int product_hand=0x7f06009f;
+    public static final int product_kh=0x7f0600a0;
+    public static final int product_list=0x7f0600a1;
+    public static final int product_m=0x7f0600a2;
+    public static final int product_main_color=0x7f0600a3;
+    public static final int product_main_jingdu=0x7f0600a4;
+    public static final int product_main_stone=0x7f0600a5;
+    public static final int product_main_stone_color=0x7f0600a6;
+    public static final int product_main_stone_jingdu=0x7f0600a7;
+    public static final int product_main_stone_price=0x7f0600a8;
+    public static final int product_main_stone_title=0x7f0600a9;
+    public static final int product_main_weight=0x7f0600aa;
+    public static final int product_material=0x7f0600ab;
+    public static final int product_material_menubar=0x7f0600ac;
+    public static final int product_name=0x7f0600ad;
+    public static final int product_number=0x7f0600ae;
+    public static final int product_photo=0x7f0600af;
+    public static final int product_pirce=0x7f0600b0;
+    public static final int product_search=0x7f0600b1;
+    public static final int product_search_number=0x7f0600b2;
+    public static final int product_type=0x7f0600b3;
+    public static final int product_zs=0x7f0600b4;
+    public static final int progress=0x7f0600b5;
+    public static final int progressBar=0x7f0600b6;
+    public static final int pull=0x7f0600b7;
+    public static final int pull_out=0x7f0600b8;
+    public static final int pull_to_load_footer_content=0x7f0600b9;
+    public static final int pull_to_load_footer_hint_textview=0x7f0600ba;
+    public static final int pull_to_load_footer_progressbar=0x7f0600bb;
+    public static final int pull_to_refresh_header_arrow=0x7f0600bc;
+    public static final int pull_to_refresh_header_content=0x7f0600bd;
+    public static final int pull_to_refresh_header_hint_textview=0x7f0600be;
+    public static final int pull_to_refresh_header_progressbar=0x7f0600bf;
+    public static final int pull_to_refresh_header_text=0x7f0600c0;
+    public static final int pull_to_refresh_header_time=0x7f0600c1;
+    public static final int pull_to_refresh_last_update_time_text=0x7f0600c2;
+    public static final int pushPrograssBar=0x7f0600c3;
+    public static final int recycle=0x7f0600c4;
+    public static final int right=0x7f0600c5;
+    public static final int right_button=0x7f0600c6;
+    public static final int right_verticalbar=0x7f0600c7;
+    public static final int ring_certno=0x7f0600c8;
+    public static final int ring_certtype=0x7f0600c9;
+    public static final int ring_clarity=0x7f0600ca;
+    public static final int ring_color=0x7f0600cb;
+    public static final int ring_cut=0x7f0600cc;
+    public static final int ring_fluorescence=0x7f0600cd;
+    public static final int ring_polish=0x7f0600ce;
+    public static final int ring_price=0x7f0600cf;
+    public static final int ring_price_text=0x7f0600d0;
+    public static final int ring_sn=0x7f0600d1;
+    public static final int ring_style=0x7f0600d2;
+    public static final int ring_symmetry=0x7f0600d3;
+    public static final int ring_weight=0x7f0600d4;
+    public static final int rings_name=0x7f0600d5;
+    public static final int rings_price_text=0x7f0600d6;
+    public static final int ringsize_menubar=0x7f0600d7;
+    public static final int ringsize_select_layout=0x7f0600d8;
+    public static final int rlRichpushTitleBar=0x7f0600d9;
+    public static final int roundRect=0x7f0600da;
+    public static final int select_item=0x7f0600db;
+    public static final int select_item2=0x7f0600dc;
+    public static final int select_layout=0x7f0600dd;
+    public static final int select_price=0x7f0600de;
+    public static final int select_ring=0x7f0600df;
+    public static final int send_time=0x7f0600e0;
+    public static final int setting=0x7f0600e1;
+    public static final int shop_logo=0x7f0600e2;
+    public static final int shoppingcart_num=0x7f0600e3;
+    public static final int shutter_button=0x7f0600e4;
+    public static final int slide=0x7f0600e5;
+    public static final int slider=0x7f0600e6;
+    public static final int speed=0x7f0600e7;
+    public static final int splash_image=0x7f0600e8;
+    public static final int splash_layout=0x7f0600e9;
+    public static final int start=0x7f0600ea;
+    public static final int sub_titlebar=0x7f0600eb;
+    public static final int swipe_refresh=0x7f0600ec;
+    public static final int tag_new=0x7f0600ed;
+    public static final int text=0x7f0600ee;
+    public static final int textView=0x7f0600ef;
+    public static final int title=0x7f0600f0;
+    public static final int titlebar=0x7f0600f1;
+    public static final int toolbar=0x7f0600f2;
+    public static final int top=0x7f0600f3;
+    public static final int touch=0x7f0600f4;
+    public static final int tryon_layout=0x7f0600f5;
+    public static final int tvRichpushTitle=0x7f0600f6;
+    public static final int type=0x7f0600f7;
+    public static final int unity_container=0x7f0600f8;
+    public static final int update_response=0x7f0600f9;
+    public static final int update_version=0x7f0600fa;
+    public static final int version=0x7f0600fb;
+    public static final int vertical=0x7f0600fc;
+    public static final int viewpager=0x7f0600fd;
+    public static final int visible=0x7f0600fe;
+    public static final int waterfall=0x7f0600ff;
+    public static final int webview=0x7f060100;
+    public static final int wmenProductNumber=0x7f060101;
+    public static final int wmen_product_layout=0x7f060102;
+    public static final int wvPopwin=0x7f060103;
   }
   public static final class layout {
     public static final int add_shoppingcart_success_dialog=0x7f070000;
@@ -1172,7 +1183,7 @@ public final class R {
      * <colgroup align="left" />
      * <tr><th>Attribute</th><th>Description</th></tr>
      * <tr><td><code>{@link #RecyclerView_android_orientation android:orientation}</code></td><td></td></tr>
-     * <tr><td><code>{@link #RecyclerView_layoutManager com.shiyou.tryapp2.shop.zsa:layoutManager}</code></td><td></td></tr>
+     * <tr><td><code>{@link #RecyclerView_layoutManager com.shiyou.tryapp2.shop.zsa:layoutManager}</code></td><td>Class name of the Layout Manager to be used.</td></tr>
      * <tr><td><code>{@link #RecyclerView_reverseLayout com.shiyou.tryapp2.shop.zsa:reverseLayout}</code></td><td></td></tr>
      * <tr><td><code>{@link #RecyclerView_spanCount com.shiyou.tryapp2.shop.zsa:spanCount}</code></td><td></td></tr>
      * <tr><td><code>{@link #RecyclerView_stackFromEnd com.shiyou.tryapp2.shop.zsa:stackFromEnd}</code></td><td></td></tr>
@@ -1205,8 +1216,17 @@ public final class R {
      */
     public static final int RecyclerView_android_orientation=0;
     /**
-     * <p>This symbol is the offset where the {@link com.shiyou.tryapp2.shop.zsa.R.attr#layoutManager}
-     * attribute's value can be found in the {@link #RecyclerView} array.
+     * <p>
+     * @attr description
+     * Class name of the Layout Manager to be used.
+     * <p/>
+     * The class must extend android.support.v7.widget.RecyclerView$LayoutManager
+     * and have either a default constructor or constructor with the signature
+     * (android.content.Context, android.util.AttributeSet, int, int).
+     * <p/>
+     * If the name starts with a '.', application package is prefixed.
+     * Else, if the name contains a '.', the classname is assumed to be a full class name.
+     * Else, the recycler view package name (android.support.v7.widget) is prefixed.
      *
      * <p>May be a string value, using '\\;' to escape characters such as
      * '\\n' or '\\uxxxx' for a unicode character;

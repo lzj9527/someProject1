@@ -63,6 +63,7 @@ public class ProductDetailsFragment extends BaseFragment implements OnModelLoadL
 	// private String jiaJson;
 	private String tag = Define.TAG_RING;
 	private boolean isShop;
+	private int type;
 	private boolean hasModelInfo;
 	private float[] weightRange;
 	private int[] priceRange;
@@ -125,10 +126,30 @@ public class ProductDetailsFragment extends BaseFragment implements OnModelLoadL
 		this.weightRange = weightRange;
 		this.priceRange = priceRange;
 	}
+	public ProductDetailsFragment(String tag, String goodsId, boolean isShop, boolean hasModelInfo,
+								  float[] weightRange, int[] priceRange,int type)
+	{
+		LogUtil.d(TAG, "ProductDetailsFragment: " + tag + "; " + goodsId + "; " + isShop + "; " + hasModelInfo);
+		LogUtil.v(TAG, "ProductDetailsFragment weightRange: "
+				+ (weightRange == null ? "null" : (weightRange[0] + "-" + weightRange[1])));
+		LogUtil.v(TAG, "ProductDetailsFragment priceRange: "
+				+ (priceRange == null ? "null" : (priceRange[0] + "-" + priceRange[1])));
+		this.tag = tag;
+		this.goodsId = goodsId;
+		this.isShop = isShop;
+		this.hasModelInfo = hasModelInfo;
+		this.weightRange = weightRange;
+		this.priceRange = priceRange;
+		this.type=type;
+	}
 
 	public ProductDetailsFragment(String tag, String goodsId, boolean isShop, boolean hasModelInfo)
 	{
 		this(tag, goodsId, isShop, hasModelInfo, null, null);
+	}
+	public ProductDetailsFragment(String tag, String goodsId, boolean isShop, boolean hasModelInfo,int type)
+	{
+		this(tag, goodsId, isShop, hasModelInfo, null, null,type);
 	}
 
 	// public ProductDetailsFragment(int detailsIndex, String goosId, boolean flag) {
@@ -201,6 +222,12 @@ public class ProductDetailsFragment extends BaseFragment implements OnModelLoadL
 			}
 		});
 	}
+	private void showHadGia(){
+		int id=ResourceUtil.getId(getContext(),"product_HadGia");
+		FragmentContainer fragmentContainer= (FragmentContainer) mProductDetails.findViewById(id);
+		fragmentContainer.setVisibility(View.VISIBLE);
+		replace(getActivity(),ResourceUtil.getId(getContext(),"product_HadGia"),new MainWebFragment("http://www.zsa888.com/addons/ewei_shop/template/pad/default/shop/new-singleOrderGoodsDetail-hadGia.html",0),false);
+ 	}
 
 	private void ensureDots()
 	{
@@ -274,7 +301,6 @@ public class ProductDetailsFragment extends BaseFragment implements OnModelLoadL
 			ensureDetailRight(1);
 
 		loadProductDetailsData();
-
 		return mProductDetails;
 	}
 

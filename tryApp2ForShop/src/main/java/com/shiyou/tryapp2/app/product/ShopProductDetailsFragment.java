@@ -322,6 +322,7 @@ public class ShopProductDetailsFragment extends BaseFragment
 				}
 				String url = Config.WebGIADiamonds + "?id=" + productID + "&shape=1" + "&key="
 						+ LoginHelper.getUserKey(getContext());
+//				String url="http://www.zsa888.com/addons/ewei_shop/template/pad/default/shop/new-singleGoodsDetail.html";
 				// if (isShop)
 				MainFragment.instance.addWebFragmentToCurrent(url, false);
 				// else

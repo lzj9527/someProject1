@@ -11,7 +11,18 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:orientation="vertical" >
+        <include
+            android:id="@+id/men_product_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            layout="@layout/couple_rings_details_right_select_layout" />
 
+        <include
+            android:id="@+id/wmen_product_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            layout="@layout/couple_rings_details_right_select_layout"
+            android:visibility="gone" />
         <TextView
             android:id="@+id/couple_rings_name"
             android:layout_width="fill_parent"
@@ -23,48 +34,6 @@
             android:text=""
             android:textColor="@color/detail_title_font"
             android:textSize="40px" />
-
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal" >
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:maxLines="1"
-                android:paddingBottom="20px"
-                android:paddingTop="20px"
-                android:text="合计价格："
-                android:textColor="@color/detail_title_font"
-                android:textSize="32px" />
-
-            <TextView
-                android:id="@+id/couple_product_pirce"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:maxLines="1"
-                android:text="￥0"
-                android:textColor="@color/detail_price_font"
-                android:textSize="40px" />
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_weight="1" />
-
-            <TextView
-                android:id="@+id/product_kh"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:maxLines="1"
-                android:text="-"
-                android:textColor="@color/detail_title_font" />
-        </LinearLayout>
-
         <android.extend.widget.MenuBar
             android:id="@+id/menubar"
             android:layout_width="match_parent"
@@ -168,21 +137,54 @@
             </LinearLayout>
         </android.extend.widget.MenuBar>
 
-        <include
-            android:id="@+id/men_product_layout"
+        <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            layout="@layout/couple_rings_details_right_select_layout" />
+            android:orientation="horizontal" >
 
-        <include
-            android:id="@+id/wmen_product_layout"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            layout="@layout/couple_rings_details_right_select_layout"
-            android:visibility="gone" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:maxLines="1"
+                android:paddingBottom="20px"
+                android:paddingTop="20px"
+                android:text="合计价格："
+                android:textColor="@color/detail_title_font"
+                android:textSize="32px" />
+
+            <TextView
+                android:id="@+id/couple_product_pirce"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:maxLines="1"
+                android:text="￥0"
+                android:textColor="@color/detail_price_font"
+                android:textSize="40px" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/product_kh"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:maxLines="1"
+                android:text="-"
+                android:textColor="@color/detail_title_font" />
+        </LinearLayout>
+
+
+
+
     </LinearLayout>
 
     <TextView
+        android:visibility="gone"
         android:id="@+id/place_order"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"

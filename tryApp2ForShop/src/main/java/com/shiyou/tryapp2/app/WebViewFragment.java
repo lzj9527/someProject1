@@ -26,10 +26,12 @@ import android.extend.widget.ExtendWebView;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.JavascriptInterface;
+import android.webkit.ValueCallback;
 import android.webkit.WebSettings;
 
 import com.shiyou.tryapp2.Config;
@@ -176,6 +178,28 @@ public class WebViewFragment extends SwipeRefreshWebViewFragment
 			}
 		});
 	}
+	public void getToken(){
+		AndroidUtils.MainHandler.post(new Runnable()
+		{
+			@Override
+			public void run()
+			{
+//				getWebView().evaluateJavascript(" javascript:getToken(" + LoginHelper.getUserName(getContext()) + "," + LoginHelper.getUserPassword(getContext()) + ")", new ValueCallback<String>() {
+//                    @Override
+//                    public void onReceiveValue(String value) {
+//                        Log.d("ceshi", "onReceiveValue: 执行");
+//                    }
+//                });
+				getWebView().evaluateJavascript("javascript:getKey()", new ValueCallback<String>() {
+					@Override
+					public void onReceiveValue(String value) {
+						Log.d("ceshi", "onReceiveValue: 执行结果="+value);
+					}
+				});
+
+			}
+		});
+	}
 
 	// 门店价格设置保存
 	public void saveShopPrice()
@@ -310,6 +334,7 @@ public class WebViewFragment extends SwipeRefreshWebViewFragment
 					{
 						case 1:// 登录
 							replace(getActivity(), new LoginFragment(), false);
+							instance.getToken();
 							break;
 						case 4:// 选定此砖石
 								// if (ProductDetailsFragment.instance != null)
@@ -386,6 +411,8 @@ public class WebViewFragment extends SwipeRefreshWebViewFragment
 			else
 				MainFragment.instance.addProductDetailFragmentToCurrent(goodsId, Define.TAG_COUPLE, false, true, false);
 		}
+
+
 
 		// JIA选钻后打开详情页
 		@JavascriptInterface

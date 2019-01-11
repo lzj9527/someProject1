@@ -4,7 +4,14 @@
     android:layout_height="fill_parent"
     android:background="@android:color/white"
     android:orientation="horizontal" >
-
+<FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <android.extend.widget.ExtendLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@android:color/white"
+        android:orientation="horizontal" >
     <include
         android:id="@+id/details_middle_layout"
         android:layout_width="0dp"
@@ -21,4 +28,11 @@
         android:layout_weight="3"
         android:clipChildren="false" >
     </FrameLayout>
+    </android.extend.widget.ExtendLinearLayout>
+    <android.extend.widget.FragmentContainer
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:id="@+id/product_HadGia"></android.extend.widget.FragmentContainer>
+</FrameLayout>
 </android.extend.widget.ExtendLinearLayout>

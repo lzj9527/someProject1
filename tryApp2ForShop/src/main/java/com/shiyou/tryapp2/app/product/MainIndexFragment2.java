@@ -567,7 +567,7 @@ public class MainIndexFragment2 extends BaseFragment
 					if (mCategoryItem != null)
 						{
 							// MainFragment.instance.setCurrentFragmentToProductList(mCategoryItem.id, true);
-							MainFragment.instance.addFragmentToCurrent(new ProductListFragment(mCategoryItem.id, true), false);
+							MainFragment.instance.addFragmentToCurrent(new ProductListFragment(mCategoryItem.id, true,"order",mCategoryItem.id), false);
 						}
 						else
 						{

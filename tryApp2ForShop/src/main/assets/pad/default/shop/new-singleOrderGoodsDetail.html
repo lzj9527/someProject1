@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no"/>
+    <title>单品订制详情</title>
+
+    <link rel="stylesheet" href="https://at.alicdn.com/t/font_941616_wdr3e332oq.css"><!-- icon -->
+    <link rel="stylesheet" href="../static/css/reset.css">
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/css/new-singleOrderGoodsDetail.css">
+    <script src="../static/js/config.js"></script>
+    <script src="../static/js/jquery-3.0.0.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+    <script src="../static/js/androidJSInterface.js"></script>
+    <script src="../static/js/function.js"></script>
+    <script src="../static/js/showToast.js"></script>
+</head>
+<body>
+
+<div id="singleOrderGoodsDetailPageBox" @touchstart="touchS" @touchmove="touchM" @touchend="touchE">
+    <header>
+        <p class="titleAndCollect">
+            <span class="title">产品的名字</span>
+            <span class="iconfont icon-heart-b"></span>
+            <!--<span class="iconfont icon-heart-br"></span>-->
+        </p>
+        <section class="styleNumAndGoldWeight">
+            <p class="styleNum">
+                <span class="title">款号：</span>
+                <span>TZA-940504</span>
+            </p>
+            <div class="goldWeight">
+                <span class="title"> 预估金重：</span>
+                <p>
+                    <span>约 2 g</span>
+                    <small>(金重随手寸，镶口大小而变动)</small>
+                </p>
+            </div>
+        </section>
+    </header>
+
+    <section class="estimationPrice">
+        <span class="title"> 戒托预价：</span>
+        <p>
+            <small>约</small>
+            <span>￥4999</span>
+        </p>
+    </section>
+
+    <section class="materialBox">
+        <span class="title">材质：</span>
+        <div class="selectBox">
+            <span v-for="(item,index) in materialArray" :data-index="index" :key="item.index"
+                  @click="materialClickFn(index)"
+                  :class="item.choose === true?'isChooseActive':''">{{item.material}}</span>
+        </div>
+    </section>
+
+    <!-- 手寸参数不为0 才展示 -->
+    <section class="handSizeBox">
+        <span class="handSizeText">手寸: </span>
+        <span class="iconfont icon-jian" @click.stop="reduceFn()"></span>
+        <span class="handSizeNum" @click.stop="handSizeNumClickFn()"> {{curHandSize}} </span>
+        <span class="iconfont icon-jia" @click.stop="plusFn()"></span>
+    </section>
+
+    <!-- 手寸 selection -->
+    <div class="handSizeSelectOutSideBox" @click="handSizeSelectOutSideBoxClickFn()">
+        <div class="handSizeSelectInSideBox">
+            <ul>
+                <li v-for="(item,index) in handSizeSelectArray" :key="item.index" :data-index="index"
+                    @click.stop="selectItemClickFn(index)" :class="item.choose === true?'isChooseSelect':''">
+                    {{item.size}}
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <section class="letteringBox">
+        <span class="title">刻字：</span>
+        <textarea id="letter" v-model="letterText" cols="1" rows="1" maxlength="8" placeholder="Y&M"
+                  @click="inputFocus()"></textarea>
+        <span class="symbol" @click="fastAndBtn()">&</span>
+        <span class="symbol" @click="fastHeartBtn()">💗</span>
+    </section>
+
+    <section class="marksBox">
+        <span class="title">备注：</span>
+        <textarea cols="30" rows="10" @click="inputFocus()" id="remark" v-model="remarkText"></textarea>
+    </section>
+
+    <footer class="btnBox" @click="chooseGiaFn()">
+        <span class="chooseGiaBtn">选 钻 定 制</span>
+    </footer>
+
+    <!-- 为了输入的时候不被遮挡 -->
+    <div class="forInputBox"></div>
+
+</div>
+
+<script>
+    let vm = new Vue({
+        el: '#singleOrderGoodsDetailPageBox',// 选项
+        data() {
+            return {
+                isReachTop: true,
+                isReachBottom: false,
+                curHandSize: 12.5,
+                handSizeArray: [],
+                handSizeSelectArray: [],
+                materialArray: [
+                    {material: '18K白', choose: false},
+                    {material: '18K红', choose: false},
+                    {material: '18K黄', choose: false},
+                    {material: 'PT950', choose: false},
+                ],
+                letterText: "",
+                remarkText: ""
+            }
+        },
+        beforeCreate() {
+            console.group('------beforeCreate创建前状态------');
+            console.log("%c%s", "color:red", "el     : " + this.singleOrder); //undefined
+            console.log("%c%s", "color:red", "data   : " + this.singleOrder); //undefined
+            console.log("%c%s", "color:red", "message: " + this.message);
+        },
+        created() {
+            console.group('------created创建完毕状态------');
+            console.log("%c%s", "color:red", "el     : " + this.singleOrder); //undefined
+            console.log("%c%s", "color:red", "data   : " + this.singleOrder); //已被初始化
+            console.log("%c%s", "color:red", "message: " + this.message); //已被初始化
+        },
+        beforeMount() {
+            console.group('------beforeMount挂载前状态------');
+            let vm = this,
+                handSizeArray = vm.handSizeArray;
+            handSizeCustomized(handSizeArray);
+
+        },
+        mounted() {
+            let vm = this;
+            console.group('------beforeMount挂载完成状态------');
+
+            $(".forInputBox").hide();
+
+//          监听页面滚动
+            window.onscroll = function () {
+                vm.isReachTop = true;
+                vm.isReachBottom = false;
+                //监听事件内容
+                if (getDocumentScrollTop() + getWindowClientHeight() >= getScrollHeight()) {
+                    console.log("触底了");
+                    vm.isReachBottom = true
+                }
+                if (getDocumentScrollTop() <= 0) {
+                    console.log("触顶了");
+                    vm.isReachTop = true;
+                }
+
+//                console.log("是否到达顶部------" + vm.isReachTop);
+//                console.log("是否到达底部------" + vm.isReachBottom);
+            };
+
+            //        字体自适应
+            function fixRem() {
+                let windowWidth = document.documentElement.clientWidth || window.innerWidth || document.body.clientWidth;
+                // windowWidth = windowWidth > 750 ? 750 : windowWidth;
+                let rootSize = 28 * (windowWidth / 375);
+                let htmlNode = document.getElementsByTagName("html")[0];
+                htmlNode.style.fontSize = rootSize + 'px';
+            }
+
+            fixRem();
+            window.addEventListener('resize', fixRem, false);
+        },
+        updated: function () {
+            console.group('updated 更新完成状态===============》');
+        },
+        methods: {
+            //          阻止页面缩放
+            touchS(e) {
+                if (e.touches.length > 1) {
+                    e.preventDefault();
+                }
+            },
+            touchM(e) {
+                if (e.touches.length > 1) {
+                    e.preventDefault();
+                }
+            },
+            touchE(e) {
+                if (e.touches.length > 1) {
+                    e.preventDefault();
+                }
+            },
+
+
+//          材质选择
+            materialClickFn(index) {
+                let vm = this,
+                    materialArray = vm.materialArray;
+                for (let i = 0, len = materialArray.length; i < len; i++) {
+                    materialArray[i].choose = false
+                }
+                materialArray[index].choose = true;
+                vm.materialArray = materialArray.slice(materialArray);
+            },
+
+//          手寸操作(剔除特殊工艺)
+            reduceFn() {
+//                减
+                let vm = this,
+                    maxHandSizeIndex,
+                    minHandSize = 7,
+                    curHandSize = vm.curHandSize,
+                    handSizeArray = vm.handSizeArray;
+
+                maxHandSizeIndex = handSizeArray.length - 1;
+
+                if (curHandSize <= minHandSize) {
+                    showToast("已是最小手寸");
+                } else {
+                    vm.curHandSize = Number(curHandSize) - 0.5;
+                    vm.curHandSize = Number(curHandSize) - 0.5;
+                }
+
+            },
+            plusFn() {
+//                加
+                let vm = this,
+                    maxHandSizeIndex,
+                    maxHandSize = 25.5,
+                    curHandSize = vm.curHandSize,
+                    handSizeArray = vm.handSizeArray;
+
+                maxHandSizeIndex = handSizeArray.length - 1;
+
+                if (curHandSize >= maxHandSize) {
+                    showToast("已是最大手寸");
+                } else {
+                    vm.curHandSize = Number(curHandSize) + 0.5;
+                    vm.curHandSize = Number(curHandSize) + 0.5;
+                }
+
+            },
+            handSizeNumClickFn() {
+                $(".handSizeSelectOutSideBox").fadeIn();
+                setTimeout(function () {
+                    $(".handSizeSelectInSideBox").slideDown();
+                }, 100);
+
+                $(".handSizeSelectInSideBox ul").animate({scrollTop: 0}, 100);
+
+                let vm = this,
+                    defaultHandSize = vm.curHandSize,
+                    handSizeArray = vm.handSizeArray,
+                    handSizeSelectArray = [],
+                    forSelectChooseArray = [];
+
+                handSizeSelectArray.push(...handSizeArray);
+
+                for (let i = 0, len = handSizeSelectArray.length; i < len; i++) {
+                    forSelectChooseArray.push(handSizeSelectArray[i].size)
+                }
+                let defaultHandSizeIndex = forSelectChooseArray.indexOf(defaultHandSize);
+                for (let i = 0, len = handSizeSelectArray.length; i < len; i++) {
+                    handSizeSelectArray[i].choose = false
+                }
+                handSizeSelectArray[defaultHandSizeIndex].choose = true;
+
+                vm.handSizeSelectArray = handSizeSelectArray.slice(handSizeSelectArray);
+                console.log(vm.handSizeSelectArray);
+
+            },
+
+//          手寸 select 与 蒙版 操作
+            handSizeSelectOutSideBoxClickFn() {
+                $(".handSizeSelectInSideBox").slideUp();
+                setTimeout(function () {
+                    $(".handSizeSelectOutSideBox").fadeOut();
+                }, 300);
+            },
+            selectItemClickFn(index) {
+                let vm = this,
+                    handSizeSelectArray = vm.handSizeSelectArray;
+
+//                console.log("当前选中的手寸下标为-----" + index);
+
+                for (let i = 0, len = handSizeSelectArray.length; i < len; i++) {
+                    handSizeSelectArray[i].choose = false
+                }
+                handSizeSelectArray[index].choose = true;
+
+                vm.curHandSize = handSizeSelectArray[index].size;
+
+                $(".handSizeSelectInSideBox").slideUp();
+                setTimeout(function () {
+                    $(".handSizeSelectOutSideBox").fadeOut();
+                }, 300);
+            },
+
+//          快速输入
+            fastAndBtn() {
+                $("#letter").insertString("&");
+                // console.log($("#letter").val());
+            },
+            fastHeartBtn() {
+                $("#letter").insertString("💗");
+                // console.log($("#letter").val());
+            },
+
+//          输入框点击
+            inputFocus() {
+                $(".forInputBox").show();
+            },
+
+//          选钻定制
+            chooseGiaFn() {
+                let vm = this,
+                    materialArray = vm.materialArray,
+                    curHandSize = vm.curHandSize,
+                    letter = $("#letter").val(),
+                    remark = vm.remarkText;
+                for (let i = 0, len = materialArray.length; i < len; i++) {
+                    if(materialArray[i] !== true){
+                        showToast("请选择材质")
+                    }
+                }
+
+                console.log("手寸----,"+ curHandSize);
+                console.log("刻字----,"+ letter);
+                console.log("备注----,"+ remark);
+
+
+            },
+
+        },
+        computed: {},
+        watch: {
+            letterText(cur, old) {
+                console.log(cur);
+            },
+            remarkText(cur, old) {
+                console.log(cur);
+            },
+        }
+    });
+
+    /** 监听页面滚动 ********** Start *******/
+    //文档高度
+    function getDocumentScrollTop() {
+        let scrollTop = 0, bodyScrollTop = 0, documentScrollTop = 0;
+        if (document.body) {
+            bodyScrollTop = document.body.scrollTop;
+        }
+        if (document.documentElement) {
+            documentScrollTop = document.documentElement.scrollTop;
+        }
+        scrollTop = (bodyScrollTop - documentScrollTop > 0) ? bodyScrollTop : documentScrollTop;
+//        console.log(scrollTop);
+        return scrollTop;
+    }
+
+    //可视窗口高度
+    function getWindowClientHeight() {
+        let windowHeight = 0;
+        if (document.compatMode == "CSS1Compat") {
+            windowHeight = document.documentElement.clientHeight;
+        } else {
+            windowHeight = document.body.clientHeight;
+        }
+//        console.log(windowHeight);
+        return windowHeight;
+    }
+
+    //滚动条滚动高度
+    function getScrollHeight() {
+        let scrollHeight = 0, bodyScrollHeight = 0, documentScrollHeight = 0;
+        if (document.body) {
+            bodyScrollHeight = document.body.scrollHeight;
+        }
+        if (document.documentElement) {
+            documentScrollHeight = document.documentElement.scrollHeight;
+        }
+        scrollHeight = (bodyScrollHeight - documentScrollHeight > 0) ? bodyScrollHeight : documentScrollHeight;
+//        console.log(scrollHeight);
+        return scrollHeight;
+    }
+
+    /** 监听页面滚动 ********** End *******/
+
+    //    手寸(7.5-25.5)
+    function handSizeCustomized(array) {
+        for (let i = 7, len = 26; i < len; i += 0.5) {
+//            array.customized.push(i);
+            let sizeSelect =
+                {
+                    size: i,
+                    choose: false
+                };
+            array.push(sizeSelect)
+        }
+        this.array = array.slice(array);
+    }
+
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

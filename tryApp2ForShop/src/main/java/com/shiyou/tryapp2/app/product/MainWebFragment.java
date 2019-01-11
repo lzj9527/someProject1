@@ -9,6 +9,7 @@ import android.extend.util.ResourceUtil;
 import android.extend.util.ViewTools;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,7 +48,8 @@ public class MainWebFragment extends WebViewFragment
 		((android.extend.widget.ExtendFrameLayout)view).setInterceptTouchEventToDownward(true);
 		ViewTools.adapterAllViewMarginInChildren(view, MainActivity.scaled);
 		ViewTools.adapterAllViewPaddingInChildren(view, MainActivity.scaled);
-
+		Log.d(TAG, "onCreateView: 执行");
+		Log.d(TAG, "onCreateView: 执行完毕");
 		int id = ResourceUtil.getId(getActivity(), "middle_back");
 		View middle_back = view.findViewById(id);
 		switch (index)

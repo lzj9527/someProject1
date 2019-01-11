@@ -37,6 +37,7 @@ import com.shiyou.tryapp2.RequestManager;
 import com.shiyou.tryapp2.RequestManager.RequestCallback;
 import com.shiyou.tryapp2.app.MainActivity;
 import com.shiyou.tryapp2.app.MainFragment;
+import com.shiyou.tryapp2.app.WebViewFragment;
 import com.shiyou.tryapp2.app.login.LoginHelper;
 import com.shiyou.tryapp2.data.response.BaseResponse;
 import com.shiyou.tryapp2.data.response.GoodsListResponse;
@@ -54,6 +55,9 @@ public class ProductListFragment extends BaseFragment
 	private String ccate;
 	private boolean isShop;
 	private GoodsTagsResponse mGoodsTagsResponse;
+	private String goodstype;
+	private String category;
+	private int customization;
 
 	// 风格
 	private TextView condition_style;
@@ -79,6 +83,21 @@ public class ProductListFragment extends BaseFragment
 		this.ccate = ccate;
 		this.isShop = isShop;
 	}
+	public ProductListFragment(String ccate, boolean isShop,String goodstype,String category)
+	{
+		this.ccate = ccate;
+		this.isShop = isShop;
+		this.goodstype=goodstype;
+		this.category=category;
+	}
+	public ProductListFragment(String ccate, boolean isShop,String goodstype,String category,int customization)
+	{
+		this.ccate = ccate;
+		this.isShop = isShop;
+		this.goodstype=goodstype;
+		this.category=category;
+		this.customization=customization;
+	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
@@ -89,6 +108,8 @@ public class ProductListFragment extends BaseFragment
 		ViewTools.adapterAllViewMarginInChildren(view, MainActivity.scaled);
 		ViewTools.adapterAllViewPaddingInChildren(view, MainActivity.scaled);
 		ViewTools.adapterAllTextViewTextSizeInChildren(view, MainActivity.fontScaled);
+
+		replace(getActivity(),ResourceUtil.getId(getContext(),"product_list"),new MainWebFragment("http://www.zsa888.com/addons/ewei_shop/template/pad/default/shop/new-list.html?goodsType="+ goodstype+"&cid="+category+"&customization="+customization,0),false);
 
 		int id = ResourceUtil.getId(getActivity(), "middle_back");
 		View middle_back = view.findViewById(id);
@@ -410,7 +431,7 @@ public class ProductListFragment extends BaseFragment
 			{
 				@Override
 				public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop,
-						int oldRight, int oldBottom)
+										   int oldRight, int oldBottom)
 				{
 					LogUtil.v(TAG, "onLayoutChange: " + view.getWidth() + "x" + view.getHeight() + "; " + view);
 					if (view.getWidth() == 0 || view.getHeight() == 0

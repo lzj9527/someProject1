@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no"/>
+    <title>收藏列表</title>
+
+    <link rel="stylesheet" href="https://at.alicdn.com/t/font_941616_wdr3e332oq.css">
+    <link rel="stylesheet" href="../static/css/reset.css">
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/css/new-collection.css">
+    <script src="../static/js/config.js"></script>
+    <script src="../static/js/jquery-3.0.0.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+    <script src="../static/js/androidJSInterface.js"></script>
+    <script src="../static/js/function.js"></script>
+    <script src="../static/js/showToast.js"></script>
+</head>
+<body>
+
+<div id="collectionPageBox">
+
+    <p class="collectTotal">收藏总量：{{collectTotal}}</p>
+    <!-- 产品展示列表 -->
+    <section class="goodsListArrayBox" @touchstart="touchS" @touchmove="touchM" @touchend="touchE">
+
+        <ul>
+            <li class="goodsItemLi" v-for="(item,index) in collectListArray" :key="item.index" :data-index="index"
+                :data-id="item.id">
+                <div class="goodsItemBox">
+                    <div class="goodsItemImgBox"
+                         :style="{ 'background-image': 'url(' + item.thumb + ')','background-repeat':'no-repeat','background-size':'cover' }"
+                         @click.stop="goodsClickFn(index)">
+                        <!--<img src="http://images.zsa888.cn/Vm784TtG5N4e75V0eVJ7bTh0B8JeGQ.jpg">-->
+                        <div class="goodsImgMask"></div>
+
+                        <p class="identification customization" v-if="item.customization === 1">GIA 定制</p>
+                        <p class="identification specialProcess" v-if="item.specialProcess === true">特殊工艺</p>
+                    </div>
+                    <p class="hotAndCollection">
+                        <span class="hot"><em class="iconfont icon-08"></em>999</span>
+
+                        <span class="collection" @click.stop="collectClickFn(index)"><em
+                                class="iconfont icon-heart-br"></em></span>
+                    </p>
+                    <p class="goodsName" @click.stop="goodsClickFn(index)">
+                        18K钻石女戒
+                    </p>
+                </div>
+            </li>
+        </ul>
+
+
+        <div style="clear: both;"></div>
+
+        <!-- 假设总页数大于1 -->
+        <div class="loadMoreBox">
+            <div class="iconfont icon-85" :class="loadingMore === true?'showLoadingMore':''"></div>
+        </div>
+
+        <!--<p class="isLoadAll">&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45; ~(✿◡‿◡)~ 都被你看光了 -&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;</p>-->
+
+    </section>
+
+</div>
+
+<script>
+    let vm = new Vue({
+        el: '#collectionPageBox',// 选项
+        data() {
+            return {
+                curPage:1,
+                firstRequest:true,
+                oldTimestamp:0,
+                collectListArray:[],
+                isReachTop: true,
+                isReachBottom: false,
+                loadingMore: false,
+                touchSClientY: 0,
+                touchMClientY: 0,
+                moveVerticalDis: 0,
+                isLoadedAllList: false, // 是否已加载所有
+                totalPage: 0,// 总页数
+                collectTotal:99,
+
+            }
+        },
+        beforeCreate() {
+            console.group('------beforeCreate创建前状态------');
+            console.log("%c%s", "color:red", "el     : " + this.collection); //undefined
+            console.log("%c%s", "color:red", "data   : " + this.collection); //undefined
+            console.log("%c%s", "color:red", "message: " + this.message);
+        },
+        created() {
+            console.group('------created创建完毕状态------');
+            console.log("%c%s", "color:red", "el     : " + this.collection); //undefined
+            console.log("%c%s", "color:red", "data   : " + this.collection); //已被初始化
+            console.log("%c%s", "color:red", "message: " + this.message); //已被初始化
+        },
+        beforeMount() {
+            console.group('------beforeMount挂载前状态------');
+            let vm = this,
+                curPage = vm.curPage,
+                collectListArray = vm.collectListArray;
+            vm.requestCollectList(vm,curPage,collectListArray);
+
+        },
+        mounted() {
+            let vm = this;
+            console.group('------beforeMount挂载完成状态------');
+
+
+//          监听页面滚动
+            window.onscroll = function () {
+                vm.isReachTop = true;
+                vm.isReachBottom = false;
+                //监听事件内容
+                if (getDocumentScrollTop() + getWindowClientHeight() >= getScrollHeight()) {
+                    console.log("触底了");
+                    vm.isReachBottom = true;
+
+                    let firstRequest = vm.firstRequest,
+                        nowTime = new Date().getTime(),
+                        oldTimestamp = vm.oldTimestamp,
+                        curPage = vm.curPage + 1,
+                        collectListArray = vm.collectListArray;
+
+                    if (nowTime - oldTimestamp < 1000 && firstRequest === false) {
+                        showToast("请不要操作过快")
+                    } else {
+                        vm.requestCollectList(vm,curPage,collectListArray);
+                        vm.oldTimestamp = nowTime;
+                    }
+
+
+                }
+                if (getDocumentScrollTop() <= 0) {
+                    console.log("触顶了");
+                    vm.isReachTop = true;
+                }
+
+//                console.log("是否到达顶部------" + vm.isReachTop);
+//                console.log("是否到达底部------" + vm.isReachBottom);
+            };
+
+            //        字体自适应
+            function fixRem() {
+                let windowWidth = document.documentElement.clientWidth || window.innerWidth || document.body.clientWidth;
+                // windowWidth = windowWidth > 750 ? 750 : windowWidth;
+                let rootSize = 28 * (windowWidth / 375);
+                let htmlNode = document.getElementsByTagName("html")[0];
+                htmlNode.style.fontSize = rootSize + 'px';
+            }
+
+            fixRem();
+            window.addEventListener('resize', fixRem, false);
+        },
+        updated: function () {
+            console.group('updated 更新完成状态===============》');
+        },
+        methods: {
+//            请求收藏列表
+            requestCollectList(vm,curPage,collectListArray){
+                vm.curPage = curPage;
+                let requestUrl = appUrl + '/假设有路由?' + 'page=' + curPage;
+
+                console.log(requestUrl);
+
+                if(curPage > 2){
+                    vm.firstRequest = false
+                }
+                if(curPage > 1){
+                    let collectListArray = vm.collectListArray,
+                        newArray = [
+                            {
+                                id: 2839,
+                                ccate: 12,
+                                gcate: 1,
+                                title: "18K钻石女戒",
+                                thumb: "http://images.zsa888.cn/F7D77RE7ez9l77AZm0oOhP3LhADe3l.jpg"
+                            },
+                            {
+                                id: 2838,
+                                ccate: 12,
+                                gcate: 1,
+                                title: "18K钻石女戒",
+                                thumb: "http://images.zsa888.cn/fI6SmaaGM66Z6Msi6jld6M6idJ6a6g.jpg"
+                            },
+                            {
+                                id: 2839,
+                                ccate: 12,
+                                gcate: 1,
+                                title: "18K钻石女戒",
+                                thumb: "http://images.zsa888.cn/F7D77RE7ez9l77AZm0oOhP3LhADe3l.jpg"
+                            },
+                            {
+                                id: 2838,
+                                ccate: 12,
+                                gcate: 1,
+                                title: "18K钻石女戒",
+                                thumb: "http://images.zsa888.cn/fI6SmaaGM66Z6Msi6jld6M6idJ6a6g.jpg"
+                            },
+                            {
+                                id: 2839,
+                                ccate: 12,
+                                gcate: 1,
+                                title: "18K钻石女戒",
+                                thumb: "http://images.zsa888.cn/F7D77RE7ez9l77AZm0oOhP3LhADe3l.jpg"
+                            },
+                            {
+                                id: 2838,
+                                ccate: 12,
+                                gcate: 1,
+                                title: "18K钻石女戒",
+                                thumb: "http://images.zsa888.cn/fI6SmaaGM66Z6Msi6jld6M6idJ6a6g.jpg"
+                            },
+                            {
+                                id: 2839,
+                                ccate: 12,
+                                gcate: 1,
+                                title: "18K钻石女戒",
+                                thumb: "http://images.zsa888.cn/F7D77RE7ez9l77AZm0oOhP3LhADe3l.jpg"
+                            },
+                            {
+                                id: 2838,
+                                ccate: 12,
+                                gcate: 1,
+                                title: "18K钻石女戒",
+                                thumb: "http://images.zsa888.cn/fI6SmaaGM66Z6Msi6jld6M6idJ6a6g.jpg"
+                            },
+                        ];
+                    collectListArray.push(...newArray);
+                    vm.collectListArray = collectListArray.slice(collectListArray);
+
+                }else{
+                    collectListArray = [
+                        {
+                            id: 2843,
+                            ccate: 12,
+                            gcate: 1,
+                            title: "18K钻石女戒",
+                            thumb: "http://images.zsa888.cn/Vm784TtG5N4e75V0eVJ7bTh0B8JeGQ.jpg",
+                            customization:1,
+                        },
+                        {
+                            id: 2842,
+                            ccate: 12,
+                            gcate: 1,
+                            title: "18K钻石女戒",
+                            thumb: "http://images.zsa888.cn/oQ9qOE9vE936qqgOrZJ9ex3QZ6o6xQ.jpg",
+                            specialProcess:true,
+                        },
+                        {
+                            id: 2841,
+                            ccate: 12,
+                            gcate: 1,
+                            title: "18K钻石女戒",
+                            thumb: "http://images.zsa888.cn/t5KyY752258ZK0DLeWGYl8gGw907Ld.jpg"
+                        },
+                        {
+                            id: 2840,
+                            ccate: 12,
+                            gcate: 1,
+                            title: "18K钻石女戒",
+                            thumb: "http://images.zsa888.cn/ids0kv8dsdk8lpQE058L44wWVJZzlP.jpg"
+                        },
+                        {
+                            id: 2839,
+                            ccate: 12,
+                            gcate: 1,
+                            title: "18K钻石女戒",
+                            thumb: "http://images.zsa888.cn/F7D77RE7ez9l77AZm0oOhP3LhADe3l.jpg"
+                        },
+                        {
+                            id: 2838,
+                            ccate: 12,
+                            gcate: 1,
+                            title: "18K钻石女戒",
+                            thumb: "http://images.zsa888.cn/fI6SmaaGM66Z6Msi6jld6M6idJ6a6g.jpg"
+                        },
+                        {
+                            id: 2843,
+                            ccate: 12,
+                            gcate: 1,
+                            title: "18K钻石女戒",
+                            thumb: "http://images.zsa888.cn/Vm784TtG5N4e75V0eVJ7bTh0B8JeGQ.jpg"
+                        },
+                        {
+                            id: 2842,
+                            ccate: 12,
+                            gcate: 1,
+                            title: "18K钻石女戒",
+                            thumb: "http://images.zsa888.cn/oQ9qOE9vE936qqgOrZJ9ex3QZ6o6xQ.jpg"
+                        },
+                        {
+                            id: 2841,
+                            ccate: 12,
+                            gcate: 1,
+                            title: "18K钻石女戒",
+                            thumb: "http://images.zsa888.cn/t5KyY752258ZK0DLeWGYl8gGw907Ld.jpg"
+                        },
+                        {
+                            id: 2840,
+                            ccate: 12,
+                            gcate: 1,
+                            title: "18K钻石女戒",
+                            thumb: "http://images.zsa888.cn/ids0kv8dsdk8lpQE058L44wWVJZzlP.jpg"
+                        },
+                        {
+                            id: 2839,
+                            ccate: 12,
+                            gcate: 1,
+                            title: "18K钻石女戒",
+                            thumb: "http://images.zsa888.cn/F7D77RE7ez9l77AZm0oOhP3LhADe3l.jpg"
+                        },
+                        {
+                            id: 2838,
+                            ccate: 12,
+                            gcate: 1,
+                            title: "18K钻石女戒",
+                            thumb: "http://images.zsa888.cn/fI6SmaaGM66Z6Msi6jld6M6idJ6a6g.jpg"
+                        },
+                        {
+                            id: 2843,
+                            ccate: 12,
+                            gcate: 1,
+                            title: "18K钻石女戒",
+                            thumb: "http://images.zsa888.cn/Vm784TtG5N4e75V0eVJ7bTh0B8JeGQ.jpg"
+                        },
+                        {
+                            id: 2842,
+                            ccate: 12,
+                            gcate: 1,
+                            title: "18K钻石女戒",
+                            thumb: "http://images.zsa888.cn/oQ9qOE9vE936qqgOrZJ9ex3QZ6o6xQ.jpg"
+                        },
+                        {
+                            id: 2841,
+                            ccate: 12,
+                            gcate: 1,
+                            title: "18K钻石女戒",
+                            thumb: "http://images.zsa888.cn/t5KyY752258ZK0DLeWGYl8gGw907Ld.jpg"
+                        },
+                        {
+                            id: 2840,
+                            ccate: 12,
+                            gcate: 1,
+                            title: "18K钻石女戒",
+                            thumb: "http://images.zsa888.cn/ids0kv8dsdk8lpQE058L44wWVJZzlP.jpg"
+                        },
+                        {
+                            id: 2839,
+                            ccate: 12,
+                            gcate: 1,
+                            title: "18K钻石女戒",
+                            thumb: "http://images.zsa888.cn/F7D77RE7ez9l77AZm0oOhP3LhADe3l.jpg"
+                        },
+                        {
+                            id: 2838,
+                            ccate: 12,
+                            gcate: 1,
+                            title: "18K钻石女戒",
+                            thumb: "http://images.zsa888.cn/fI6SmaaGM66Z6Msi6jld6M6idJ6a6g.jpg"
+                        },
+                    ];
+                }
+                vm.collectListArray = collectListArray.slice(collectListArray);
+
+            },
+
+//            产品点击
+            goodsClickFn(index) {
+                console.log(index);
+            },
+
+//            收藏
+            collectClickFn(index) {
+                console.log(index);
+
+            },
+
+//            操作手势
+            touchS(e) {
+                if (e.touches.length > 1) {
+                    e.preventDefault();
+                }
+                let
+                    vm = this;
+                vm.touchSClientY = e.changedTouches[0].clientY;
+                vm.rabbetShow = false;
+
+                console.log("--- 开始 Y----" + vm.touchSClientY);
+            },
+            touchM(e) {
+                if (e.touches.length > 1) {
+                    e.preventDefault();
+                }
+
+            },
+            touchE(e) {
+                if (e.touches.length > 1) {
+                    e.preventDefault();
+                }
+            },
+        },
+        computed: {},
+        watch: {}
+    });
+
+    /** 监听页面滚动 ********** Start *******/
+    //文档高度
+    function getDocumentScrollTop() {
+        let scrollTop = 0, bodyScrollTop = 0, documentScrollTop = 0;
+        if (document.body) {
+            bodyScrollTop = document.body.scrollTop;
+        }
+        if (document.documentElement) {
+            documentScrollTop = document.documentElement.scrollTop;
+        }
+        scrollTop = (bodyScrollTop - documentScrollTop > 0) ? bodyScrollTop : documentScrollTop;
+//        console.log(scrollTop);
+        return scrollTop;
+    }
+
+    //可视窗口高度
+    function getWindowClientHeight() {
+        let windowHeight = 0;
+        if (document.compatMode == "CSS1Compat") {
+            windowHeight = document.documentElement.clientHeight;
+        } else {
+            windowHeight = document.body.clientHeight;
+        }
+//        console.log(windowHeight);
+        return windowHeight;
+    }
+
+    //滚动条滚动高度
+    function getScrollHeight() {
+        let scrollHeight = 0, bodyScrollHeight = 0, documentScrollHeight = 0;
+        if (document.body) {
+            bodyScrollHeight = document.body.scrollHeight;
+        }
+        if (document.documentElement) {
+            documentScrollHeight = document.documentElement.scrollHeight;
+        }
+        scrollHeight = (bodyScrollHeight - documentScrollHeight > 0) ? bodyScrollHeight : documentScrollHeight;
+//        console.log(scrollHeight);
+        return scrollHeight;
+    }
+
+    /** 监听页面滚动 ********** End *******/
+
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

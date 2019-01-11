@@ -1,0 +1,1169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no"/>
+    <title>订单</title>
+
+    <link rel="stylesheet" href="https://at.alicdn.com/t/font_941616_wdr3e332oq.css"><!-- icon -->
+    <link rel="stylesheet" href="../static/css/reset.css">
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/css/new-order.css">
+    <script src="../static/js/config.js"></script>
+    <script src="../static/js/jquery-3.0.0.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+    <script src="../static/js/androidJSInterface.js"></script>
+    <script src="../static/js/function.js"></script>
+    <script src="../static/js/showToast.js"></script>
+</head>
+<body>
+
+<div id="orderPageBox">
+    <!-- 订单状态 nav -->
+    <div class="navBox">
+        <div class="left">
+            <span class="status isChooseActive" @click="statusNavClickFn(0)">全部</span>
+            <span class="status" @click="statusNavClickFn(1)">待确认</span>
+            <span class="status" @click="statusNavClickFn(2)">确认中</span>
+            <span class="status" @click="statusNavClickFn(3)">下单成功</span>
+        </div>
+        <div class="right">
+            <span class="status" @click="statusNavClickFn(4)">已完成</span>
+            <span class="status" @click="statusNavClickFn(5)">已取消</span>
+        </div>
+    </div>
+
+    <div class="orderListBox">
+        <div class="reChoose">
+            <p>释放刷新 <span class="upArrow">↑</span></p>
+        </div>
+
+        <!-- 各个订单 -->
+        <section class="orderList" v-for="(item,index) in orderListArray" :key="item.index" :data-index="index"
+                 @touchstart="touchOrderS($event,index)" @touchmove="touchOrderM($event,index)"
+                 @touchend="touchOrderE($event,index)" :data-moveLeft="item.moveLeftDis">
+
+            <!-- 操作订单
+                1.待确认，确认中 可 取消 订单
+                2.已完成，已取消 可 删除 订单
+            -->
+            <div class="orderSideBtn" :data-status="item.status">
+                <span class="delete" v-if="item.status === -1 || item.status === 4" @click="deleteSideBtnFn(index)">删 除</span>
+                <span class="cancel" v-if="item.status ===  1 || item.status === 2" @click="cancelSideBtnFn(index)">取 消</span>
+                <span class="cannot" v-if="item.status ===  3">不能操作</span>
+            </div>
+
+            <!-- 订单状态 -->
+            <div class="orderStatusBox">
+                <div class="left">
+
+                    <!-- 待确认 -->
+                    <div class="orderTextBox" style="background-color:#f5a623;" :data-status="item.status"
+                         v-if="item.status === 1">
+                        <span class="orderText">待 确 认</span>
+                        <span class="orderHorn"
+                              style="background:url('../static/images/order_s1.png')no-repeat;"></span>
+                    </div>
+
+                    <!-- 确认中 -->
+                    <div class="orderTextBox" style="background-color:#ea6f08;" :data-status="item.status"
+                         v-if="item.status === 2">
+                        <span class="orderText">确 认 中</span>
+                        <span class="orderHorn"
+                              style="background:url('../static/images/order_s2.png')no-repeat;"></span>
+                    </div>
+
+                    <!-- 下单成功 -->
+                    <div class="orderTextBox" style="background-color:#e71c2a;" :data-status="item.status"
+                         v-if="item.status === 3">
+                        <span class="orderText">下 单 成 功</span>
+                        <span class="orderHorn"
+                              style="background:url('../static/images/order_s3.png')no-repeat;"></span>
+                    </div>
+
+                    <!-- 已完成 -->
+                    <div class="orderTextBox" style="background-color:#b1003d;" :data-status="item.status"
+                         v-if="item.status === 4">
+                        <span class="orderText">已 完 成</span>
+                        <span class="orderHorn"
+                              style="background:url('../static/images/order_s4.png')no-repeat;"></span>
+                    </div>
+
+                    <!-- 已取消 -->
+                    <div class="orderTextBox" style="background-color:#8a8888;" :data-status="item.status"
+                         v-if="item.status === -1">
+                        <span class="orderText">已 取 消</span>
+                        <span class="orderHorn"
+                              style="background:url('../static/images/order_s-1.png')no-repeat;"></span>
+                    </div>
+
+
+                    <span class="orderNum">订单号: {{item.ordersn}}</span>
+                </div>
+                <div class="right">
+                    <span class="orderTime">下单时间 : {{item.created_at}}</span>
+                </div>
+            </div>
+
+            <div class="orderItemBox" v-for="(item,index) in item.orderDetail" :key="item.id" :data-index="index">
+
+                <div class="itemDetailBox" :data-index="index">
+
+                    <p class="identification customization" v-if="item.customization === 1">GIA 定制</p>
+                    <p class="identification specialProcess" v-if="item.specialProcess === true">特殊工艺</p>
+
+                    <div class="itemDetailLeft">
+                        <div class="imgBox" @click.stop="goodsItemImgFn(index)">
+                            <img :src="item.thumb">
+                        </div>
+
+                        <!-- GIA  裸石 -->
+                        <div class="itemGiaParameter" v-if="item.isGIA === true">
+                            <p>
+                                <span>货号 : {{item.gia.stock}}</span>
+                                <span>证书号 : {{item.gia.certNo}}</span>
+                            </p>
+                            <p>
+                                <span>形状 : {{item.gia.shape}}</span>
+                                <span>重量 : {{item.gia.weight}} ct</span>
+                                <span>颜色 : {{item.gia.color}}</span>
+                            </p>
+                            <p>
+                                <span>净度 : {{item.gia.clarity}}</span>
+                                <span>切工 : {{item.gia.cut}}</span>
+                                <span>抛光 : {{item.gia.polish}}</span>
+                            </p>
+                            <p>
+                                <span>对称 : {{item.gia.symmetry}}</span>
+                                <span>荧光 : {{item.gia.fluorescence}}</span>
+                                <span>奶咖 : {{item.gia.milk}} {{item.gia.coffee}}</span>
+                            </p>
+                        </div>
+
+                        <!-- 定制 -->
+                        <div class="itemCustomizedParameter" v-if="item.customization === 1">
+                            <p>
+                                <span>名称 : {{item.title}}</span>
+                                <span>款号 : {{item.erp.sku}}</span>
+                                <span>产品材质 : {{item.erp.goldType}}</span>
+                            </p>
+
+                            <p>
+                                <span>预估金重 : {{item.erp.totalWeight}}</span>
+                                <span>空托估价 : <em class="price">￥{{item.erp.price}}</em></span>
+                            </p>
+                            <!-- 分割 -->
+                            <div class="middle">
+                                <p>
+                                    <span>货号 : {{item.gia.stock}}</span>
+                                    <span>证书号 : {{item.gia.certNo}}</span>
+                                </p>
+                                <p>
+                                    <span>主石重量 : {{item.gia.weight}} ct</span>
+                                    <span>主石颜色 : {{item.gia.color}}</span>
+                                    <span>主石净度 : {{item.gia.clarity}}</span>
+                                </p>
+                                <p>
+                                    <span>切工 : {{item.gia.cut}}</span>
+                                    <span>抛光 : {{item.gia.polish}}</span>
+                                    <span>对称 : {{item.gia.symmetry}}</span>
+                                </p>
+                                <p>
+                                    <span>荧光 : {{item.gia.fluorescence}}</span>
+                                    <span>奶咖 : {{item.gia.milk}} {{item.gia.coffee}}</span>
+                                    <span>裸石价格 : <em class="price">￥{{item.gia.price}}</em></span>
+                                </p>
+                            </div>
+                            <!-- 分割 -->
+                            <p class="bottom">
+                                <span>刻字 : {{item.lettering}}</span>
+                                <span class="remarks">备注 : {{item.remarks}}</span>
+                            </p>
+                        </div>
+
+                        <!-- 特殊工艺 等待后台-->
+                        <div class="specialProcessParameter" v-if="item.specialProcess === true">
+                            <p>
+                                <span>名称 : {{item.title}}</span>
+                                <span>款号 : {{item.sku}}</span>
+                                <span>产品材质 : {{item.goldType}}</span>
+                            </p>
+
+                            <div class="middle">
+                                <div class="handSizeMBox">
+                                    <span class="handSizeText">男款手寸 : </span>
+                                    <span class="handSizeNum">{{item.sizeM}}</span>
+                                </div>
+
+                                <div class="handSizeWBox">
+                                    <span class="handSizeText">女款手寸 :</span>
+                                    <span class="handSizeNum">{{item.sizeW}}</span>
+                                </div>
+                            </div>
+
+                            <p class="bottom">
+                                <span>男款刻字 : {{item.letteringM}}</span>
+                                <span>女款刻字 : {{item.letteringW}}</span>
+                                <span>备注 : {{item.remarks}}</span>
+                            </p>
+
+                        </div>
+
+
+                        <!-- 单品(包括对戒) -->
+                        <div class="itemOtherParameter"
+                             v-if="item.isGIA === false && item.customization !== 1 && item.specialProcess === false">
+                            <div style="margin-bottom:0.2rem;">
+                                <p>
+                                    <span>名称 : {{item.title}}</span>
+                                    <span>款号 : {{item.erp.sku}}</span>
+                                    <span>产品材质 : {{item.erp.goldType}}</span>
+                                </p>
+                                <p>
+                                    <span>产品金重 : {{item.erp.totalWeight}}</span>
+                                </p>
+                            </div>
+
+                            <!-- 分割 -->
+                            <p>
+                                <span>主石货号 : {{item.erp.erp_id}}</span>
+                                <span>证书号 : {{item.erp.certNo}}</span>
+                            </p>
+                            <p>
+                                <span>主石重量 : {{item.erp.mainStoneWeight}}</span>
+                                <span>主石颜色 : {{item.erp.stoneColor}}</span>
+                                <span>主石净度 : {{item.erp.stoneClarity}}</span>
+                            </p>
+                            <p class="sideStoneNumAndWeight">
+                                <span>副石粒数 : {{item.erp.sideStoneNum}}</span>
+                                <span>副石重量 : {{item.erp.sideStoneWeight}}</span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="itemDetailRight">
+                        <!-- GIA 与 特殊工艺 只显示价格 -->
+                        <p class="priceBox">
+                            <span class="priceText" v-if="item.customization !== 1">价格 : </span>
+                            <span class="priceText" v-else>预估价格 : </span>
+                            <span class="priceNum">￥{{item.price}}</span>
+                        </p>
+
+                        <!-- 手寸 (剔除特殊工艺 与 GIA) -->
+                        <p class="handSizeBox"
+                           v-if="item.isGIA === false && item.size != 0 && item.status !== -1 && item.specialProcess === false">
+                        <span style="margin-right: 0.1rem;">
+                            手寸 :
+                        </span>
+                            <span class="handSizeNum" @click.stop="handSizeNumClickFn(index)">
+                              {{item.erp.handSize}}
+                        </span>
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="orderFooterBox">
+                <div class="nickNameAndTelAndTotalPrice">
+                    <div class="left">
+                        <span class="nickName">联系人 : {{item.nickName}}</span>
+                        <span class="tel">联系电话 : {{item.tel}}</span>
+                    </div>
+                    <div class="right">
+                        <span>总额 : ￥</span>
+                        <span class="totalPrice">{{item.totalPrice}}</span>
+                    </div>
+                </div>
+
+                <div class="remarksAndTotalCount">
+                    <span class="remarks">备注 : {{item.remarks}}</span>
+                    <span class="totalCount">共 : N 件</span>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- 假设总页数大于1 -->
+        <div>
+            <div class="iconfont icon-85" :class="loadingMore === true?'showLoadingMore':''"></div>
+            <div class="loadMore">
+                <span>释放加载更多</span>
+            </div>
+        </div>
+        <!--<p class="isLoadAll">&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45; ~(✿◡‿◡)~ 都被你看光了 -&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;</p>-->
+    </div>
+
+    <!-- 删除 取消 蒙版 -->
+    <div class="deleteOutsideBox">
+        <div class="deleteMaskBox" @click.stop="cancelDeleteFn()">
+            <div class="deleteInsideBox">
+                <!-- 已完成 已取消 -->
+                <p v-if="nowDeleteMask === 'delete'">删 除 订单 ?</p>
+                <!-- 待确认 确认中 -->
+                <p v-if="nowDeleteMask === 'cancel'">取 消 订单 ?</p>
+                <div class="cancelAndConfirmBox">
+                    <span class="cancel" @click.stop="cancelDeleteFn()"> 取 消 </span>
+                    <span class="confirm" @click.stop="confirmDeleteFn()"> 确 定 </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    let vm = new Vue({
+        el: '#orderPageBox',// 选项
+        data(){
+            return {
+                nowDeleteMask:"",
+                windowWidth: 0,
+                isReachTop: true,
+                isReachBottom: false,
+                curPage: 1,
+                curOrderItemIndex: 0,
+                loadingMore: false,
+                touchSClientX: 0,// 操作单张订单 左滑 右滑
+                touchMClientX: 0,// 操作单张订单 左滑 右滑
+                touchSClientY: 0, // 操作所有订单 上拉 下拉
+                touchMClientY: 0, // 操作所有订单 上拉 下拉
+                firstRequest:true,
+                oldTimestamp:0,
+                moveVerticalDis: 0,
+                nowStatusText: '',
+                nowStatusBg: '',
+                nowStatusThumb: '',
+                statusNav: "",
+                orderStatus: [
+                    {statusText: "待确认", bgColor: "#f5a623", thumb: "../static/images/order_s1.png"},
+                    {statusText: "确认中", bgColor: "#ea6f08", thumb: "../static/images/order_s2.png"},
+                    {statusText: "下单成功", bgColor: "#e71c2a", thumb: "../static/images/order_s3.png"},
+                    {statusText: "已完成", bgColor: "#b1003d", thumb: "../static/images/order_s4.png"},
+                    {statusText: "已取消", bgColor: "#8a8888", thumb: "../static/images/order_s-1.png"},
+                ],
+                orderListArray: [],
+            }
+        },
+        beforeCreate () {
+            console.group('------beforeCreate创建前状态------');
+            console.log("%c%s", "color:red", "el     : " + this.order); //undefined
+            console.log("%c%s", "color:red", "data   : " + this.order); //undefined
+            console.log("%c%s", "color:red", "message: " + this.message);
+        },
+        created() {
+            console.group('------created创建完毕状态------');
+            console.log("%c%s", "color:red", "el     : " + this.order); //undefined
+            console.log("%c%s", "color:red", "data   : " + this.order); //已被初始化
+            console.log("%c%s", "color:red", "message: " + this.message); //已被初始化
+        },
+        beforeMount() {
+            console.group('------beforeMount挂载前状态------');
+            let vm = this,
+                status = "",
+                curPage = vm.curPage,
+                orderListArray = vm.orderListArray;
+            vm.requestOrderListFn(vm, status, curPage, orderListArray);
+
+        },
+        mounted(){
+//            let userName = "itb2",
+//                paw = 123456;
+//            getToken(userName, paw);
+
+            let vm = this,
+                orderListArray = vm.orderListArray;
+            console.log(orderListArray);
+            console.group('------beforeMount挂载完成状态------');
+
+            $('html,body').animate({scrollTop: 0});
+            //          到达底部加载更多的动画效果
+            vm.loadingMore = true;
+
+//          监听页面滚动
+            window.onscroll = function (e) {
+                e.preventDefault();
+                vm.isReachTop = false;
+                vm.isReachBottom = false;
+
+                //监听事件内容
+                if (getDocumentScrollTop() + getWindowClientHeight() >= getScrollHeight()) {
+                    let firstRequest = vm.firstRequest,
+                        nowTime = new Date().getTime(),
+                        oldTimestamp = vm.oldTimestamp,
+                        status = vm.status,
+                        curPage = vm.curPage + 1;
+                    vm.isReachBottom = true;
+
+                    // 如果当前页大于等于当前的总页数
+                    //（注意回流与重构）为了更好的性能，选择另起 dom 树，
+                    // 思路: 1.将元素脱离文档流（） 2.对其进行修改 3.将元素带回文档中
+
+                    if (nowTime - oldTimestamp < 1000 && firstRequest === false) {
+                        showToast("请不要操作过快");
+                    } else {
+                        vm.requestOrderListFn(vm, status, curPage, orderListArray);
+                        showToast("请求新的一页");
+                    vm.oldTimestamp = nowTime;
+                    }
+                }
+
+                if (getDocumentScrollTop() <= 0) {
+                    console.log("触顶了");
+                    vm.isReachTop = true;
+                }
+//                console.log("是否到达顶部------" + vm.isReachTop);
+//                console.log("是否到达底部------" + vm.isReachBottom);
+            };
+
+
+            //        字体自适应
+            function fixRem() {
+                let windowWidth = document.documentElement.clientWidth || window.innerWidth || document.body.clientWidth;
+                vm.windowWidth = windowWidth;
+                // windowWidth = windowWidth > 750 ? 750 : windowWidth;
+                let rootSize = 28 * (windowWidth / 375);
+                let htmlNode = document.getElementsByTagName("html")[0];
+                htmlNode.style.fontSize = rootSize + 'px';
+            }
+
+            fixRem();
+            window.addEventListener('resize', fixRem, false);
+        },
+        updated: function () {
+            console.group('updated 更新完成状态===============》');
+        },
+        methods: {
+
+//            订单状态点击
+            statusNavClickFn: (status) => {
+                $(".navBox span").removeClass("isChooseActive").eq(status).addClass("isChooseActive");
+                if (status === 0) {
+                    status = ""
+                }
+                if (status === vm.statusNav) {
+                    console.log("同一个东西不要再往下执行");
+                    return false
+                } else {
+                    vm.statusNav = status;
+                    console.log(status);
+//                    这里 订单请求
+                }
+
+            },
+
+//            订单图片点击
+            goodsItemImgFn(index){
+                console.log(index)
+            },
+
+//            操作订单
+            touchOrderS(e, index){
+//                尽量解决页面缩放问题
+                if (e.touches.length > 1) {
+                    e.preventDefault();
+                }
+                let
+                    vm = this,
+                    windowWidth = vm.windowWidth;
+                vm.touchSClientX = e.changedTouches[0].clientX;
+                vm.touchSClientY = e.changedTouches[0].clientY;
+                vm.curOrderItemIndex = index;
+                console.log(index);
+                console.log("--- 单个订单的开始 X----" + vm.touchSClientX);
+                console.log("--- 订单盒子的开始 Y----" + vm.touchSClientY);
+                console.log(windowWidth / 10);
+
+            },
+            touchOrderM(e, index){
+//                console.log(e);
+                if (e.touches.length > 1) {
+                    e.preventDefault();
+                    return false;
+                }
+
+                let
+                    vm = this,
+                    moveLeftDis,
+                    moveVerticalDis = vm.moveVerticalDis,
+                    isReachTop = vm.isReachTop,
+                    isReachBottom = vm.isReachBottom,
+                    orderListArray = vm.orderListArray,
+                    touchSClientX = vm.touchSClientX,
+                    touchSClientY = vm.touchSClientY,
+                    touchMClientX = e.changedTouches[0].clientX,
+                    touchMClientY = e.changedTouches[0].clientY;
+
+                moveLeftDis = touchSClientX - touchMClientX;
+                vm.moveVerticalDis = touchSClientY - touchMClientY;
+
+                orderListArray[index].moveLeftDis = moveLeftDis;
+                vm.orderListArray = orderListArray.slice(orderListArray);
+
+
+                /* 判断手势方向 水平 垂直*/
+//                 操作的对象 : orderList
+                if (Math.abs(moveLeftDis) > Math.abs(moveVerticalDis)) {
+//                    水平滑动
+                    if (moveLeftDis > 0) {
+                        console.log(moveLeftDis);
+//                        左滑
+                        $(".orderList").eq(index).css({
+                            "transform": "translateX(" + -(moveLeftDis) + "px)",
+                            "transition": "all 0s",
+                        });
+                    }
+                    if (moveLeftDis < 0) {
+                        console.log(-moveLeftDis);
+//                        右滑
+                        $(".orderList").eq(index).css({
+                            "transform": "translateX(" + 0 + "px)",
+                            "transition": "all 0.5s"
+                        });
+
+                    }
+                } else {
+//                    console.log(vm.moveVerticalDis);
+//                    console.log(vm.isReachTop);
+//                    console.log(vm.isReachBottom);
+
+                    console.log("isReachTop---" + isReachTop);
+                    console.log("isReachBottom---" + isReachBottom);
+
+//               垂直滑动
+                    if (isReachTop === true) {
+                        console.log("是时候调用下拉 Move");
+                        let rotateDeg;
+                        if (-(vm.moveVerticalDis) >= 180) {
+                            rotateDeg = 180 + "deg"
+                        } else {
+                            rotateDeg = -(vm.moveVerticalDis) + "deg"
+                        }
+                        $('.orderListBox').css({
+                            "transform": "translateY(" + -(vm.moveVerticalDis) + "px)",
+                            "transition": "all 0s"
+                        });
+                        $(".upArrow").css({"transform": "rotate(" + rotateDeg + ")", "transition": "all 0s"});
+                    }
+
+
+                }
+
+
+            },
+            touchOrderE(e, index){
+//                console.log(e)
+                let vm = this,
+                    windowWidth = vm.windowWidth,
+                    curOrderItemIndex = vm.curOrderItemIndex,
+                    orderListArray = vm.orderListArray,
+                    touchSClientY = vm.touchSClientY,
+                    touchMClientY = vm.touchMClientY,
+                    touchEClientY = e.changedTouches[0].clientY,
+                    isReachBottom = vm.isReachBottom,
+                    isReachTop = vm.isReachTop,
+                    moveVerticalDis = vm.moveVerticalDis;
+
+//                单个订单
+                if (orderListArray[index].moveLeftDis > (windowWidth / 30)) {
+                    $(".orderList").eq(index).css({
+                        "transform": "translateX(" + -(11) + "vw)",
+                        "transition": "all 0.5s"
+                    });
+                }
+
+                if (orderListArray[index].moveLeftDis < (windowWidth / 20)) {
+                    $(".orderList").eq(index).css({
+                        "transform": "translateX(" + 0 + "vw)",
+                        "transition": "all 0.5s"
+                    });
+                }
+
+//                垂直滑动
+                $('.orderListBox').css({"transform": "translateY(0)", "transition": "all 0.5s"});
+
+                $(".upArrow").css({"transform": "rotate(0deg)", "transition": "all 0.5s"});
+
+//                console.log(isReachTop);
+                if (-moveVerticalDis > 100 && isReachTop === true) {
+//                    $(".reChoose").hide();
+//                    执行刷新
+                    console.log("好，执行刷新");
+                    $('.orderListBox').css({"transform": "translateY(0)", "transition": "all 0.5s"});
+                }
+
+            },
+
+//            请求订单列表
+            requestOrderListFn (vm, status, curPage, orderListArray) {
+                vm.curPage = curPage;
+
+                if (curPage > 2) {
+                    vm.firstRequest = false
+                }
+
+                if (curPage > 1) {
+                    let newOrderListArray = [
+                        {
+                            id: 131,
+                            status: 3, // 下单成功
+                            ordersn: "18121015239728",
+                            created_at: "2018-12-13 15:23:54",
+                            nickName: "测试1",
+                            tel: '13047052078',
+                            remarks: "这是备注备注备注备注",
+                            totalPrice: "订单的总额",
+                            orderDetail: [
+                                {
+                                    gcate: "特殊工艺",
+                                    goodsIndex: 1,
+                                    goods_id: 110,
+                                    id: 447,
+                                    customization: 0,
+                                    isGIA: false,
+                                    specialProcess: true,
+                                    sku: "23333",
+                                    goldType: "22K黄",
+                                    price: "6000",
+                                    sizeM: 14,
+                                    sizeW: 12,
+                                    goldWeightM: 2.24,
+                                    goldWeightW: 2.24,
+                                    letteringM: "男&女",
+                                    letteringW: "女&男",
+                                    remarks: "当然是哈哈哈哈哈哈哈哈哈额",
+                                    status: 4,
+                                    thumb: "http://images.zsa888.cn/d22uF1OU8JRJoT1MfhmfffD8J5fumU.jpg",
+                                    title: "特殊工艺对戒",
+                                }
+                            ],
+
+
+                        },
+                        {
+                            id: 132,
+                            status: 4, // 已完成
+                            ordersn: "18121015239728",
+                            created_at: "2018-12-14 15:23:54",
+                            nickName: "测试1",
+                            tel: '13047052078',
+                            remarks: "这是备注备注备注备注",
+                            totalPrice: "订单的总额",
+                            orderDetail: [
+                                {
+                                    goodsIndex: 1,
+                                    goods_id: 110,
+                                    id: 447,
+                                    customization: 0,
+                                    isGIA: false,
+                                    specialProcess: true,
+                                    sku: "23333",
+                                    goldType: "22K黄",
+                                    price: "6000",
+                                    sizeM: 14,
+                                    sizeW: 12,
+                                    goldWeightM: 2.24,
+                                    goldWeightW: 2.24,
+                                    letteringM: "男&女",
+                                    letteringW: "女&男",
+                                    remarks: "当然是哈哈哈哈哈哈哈哈哈额",
+                                    status: 4,
+                                    thumb: "http://images.zsa888.cn/d22uF1OU8JRJoT1MfhmfffD8J5fumU.jpg",
+                                    title: "特殊工艺对戒",
+                                }
+                            ],
+
+
+                        },
+                        {
+                            id: 131,
+                            status: 3, // 下单成功
+                            ordersn: "18121015239728",
+                            created_at: "2018-12-13 15:23:54",
+                            nickName: "测试1",
+                            tel: '13047052078',
+                            remarks: "这是备注备注备注备注",
+                            totalPrice: "订单的总额",
+                            orderDetail: [
+                                {
+                                    gcate: "特殊工艺",
+                                    goodsIndex: 1,
+                                    goods_id: 110,
+                                    id: 447,
+                                    customization: 0,
+                                    isGIA: false,
+                                    specialProcess: true,
+                                    sku: "23333",
+                                    goldType: "22K黄",
+                                    price: "6000",
+                                    sizeM: 14,
+                                    sizeW: 12,
+                                    goldWeightM: 2.24,
+                                    goldWeightW: 2.24,
+                                    letteringM: "男&女",
+                                    letteringW: "女&男",
+                                    remarks: "当然是哈哈哈哈哈哈哈哈哈额",
+                                    status: 4,
+                                    thumb: "http://images.zsa888.cn/d22uF1OU8JRJoT1MfhmfffD8J5fumU.jpg",
+                                    title: "特殊工艺对戒",
+                                }
+                            ],
+
+
+                        },
+                        {
+                            id: 132,
+                            status: 4, // 已完成
+                            ordersn: "18121015239728",
+                            created_at: "2018-12-14 15:23:54",
+                            nickName: "测试1",
+                            tel: '13047052078',
+                            remarks: "这是备注备注备注备注",
+                            totalPrice: "订单的总额",
+                            orderDetail: [
+                                {
+                                    goodsIndex: 1,
+                                    goods_id: 110,
+                                    id: 447,
+                                    customization: 0,
+                                    isGIA: false,
+                                    specialProcess: true,
+                                    sku: "23333",
+                                    goldType: "22K黄",
+                                    price: "6000",
+                                    sizeM: 14,
+                                    sizeW: 12,
+                                    goldWeightM: 2.24,
+                                    goldWeightW: 2.24,
+                                    letteringM: "男&女",
+                                    letteringW: "女&男",
+                                    remarks: "当然是哈哈哈哈哈哈哈哈哈额",
+                                    status: 4,
+                                    thumb: "http://images.zsa888.cn/d22uF1OU8JRJoT1MfhmfffD8J5fumU.jpg",
+                                    title: "特殊工艺对戒",
+                                }
+                            ],
+
+
+                        },
+                    ];
+//                    initMoveLeftDis(newOrderListArray);
+                    initMoveLeftDis(newOrderListArray);
+                    console.log(newOrderListArray);
+                    for (let i = 0, len = newOrderListArray.length; i < len; i++) {
+                        orderListArray.push(newOrderListArray[i]);
+                    }
+                    this.orderListArray = orderListArray.slice(orderListArray);
+                    console.log(orderListArray);
+                } else {
+                    // 假数据
+                    orderListArray = [
+                        {
+                            id: 128,
+                            status: -1, // 已取消
+                            ordersn: "18121015239728",
+                            created_at: "2018-12-10 15:23:54",
+                            nickName: "测试1",
+                            tel: '13047052078',
+                            remarks: "这是备注备注备注备注",
+                            totalPrice: "订单的总额",
+                            orderDetail: [
+                                {
+                                    customization: 1,
+                                    isGIA: false,
+                                    specialProcess: false,
+                                    price: "6000",
+                                    size: "14.0",
+                                    lettering: "这是刻字测试测试",
+                                    thumb: "http://images.zsa888.cn/Vm784TtG5N4e75V0eVJ7bTh0B8JeGQ.jpg",
+                                    erp: {
+                                        certNo: "P1803012851",
+                                        erp_id: "00988148",
+                                        goldType: "18K金",
+                                        handSize: 14,
+                                        mainStoneNum: 1,
+                                        mainStoneWeight: "0.043ct",
+                                        sideStoneNum: 5,
+                                        sideStoneWeight: "0.013ct",
+                                        sku: "C10473W",
+                                        stoneClarity: "SI",
+                                        stoneColor: "F-G",
+                                        totalWeight: "2.370g",
+                                        price: '1000',
+                                        title: "18K豪华钻石女戒",
+                                        thumb: "http://images.zsa888.cn/Vm784TtG5N4e75V0eVJ7bTh0B8JeGQ.jpg",
+                                    },
+                                    gia: {
+                                        area: "SZ",
+                                        certNo: "7306336726",
+                                        certType: "GIA",
+                                        clarity: "SI1",
+                                        coffee: "不咖",
+                                        color: "M",
+                                        cut: "VG",
+                                        deliveryTime: "3",
+                                        diameter: "4.22-4.2*2.71",
+                                        fluorescence: "F",
+                                        isClick: true,
+                                        is_spot: true,
+                                        milk: "不奶",
+                                        polish: "EX",
+                                        shape: "圆形",
+                                        stock: "ZM34302036",
+                                        symmetry: "EX",
+                                        weight: "0.3",
+                                        price: '5000'
+                                    }
+                                },
+                                {
+                                    goods_id: 2794,
+                                    customization: 0,
+                                    isGIA: false,
+                                    specialProcess: false,
+                                    price: "3000",
+                                    size: "14.0",
+                                    status: 1,
+                                    thumb: "http://images.zsa888.cn/a2s00OqBHSoiRohSbVRsDhHBGHbSBR.jpg",
+                                    title: "18K钻石女戒",
+                                    erp: {
+                                        certNo: "P1803012851",
+                                        erp_id: "00988148",
+                                        goldType: "18K金",
+                                        handSize: 14,
+                                        mainStoneNum: 1,
+                                        mainStoneWeight: "0.043ct",
+                                        sideStoneNum: 5,
+                                        sideStoneWeight: "0.013ct",
+                                        sku: "C10473W",
+                                        stoneClarity: "SI",
+                                        stoneColor: "F-G",
+                                        totalWeight: "2.370g",
+                                    },
+                                },
+                            ],
+
+                        },
+                        {
+                            id: 129,
+                            status: 1, // 待确认
+                            ordersn: "18121015239728",
+                            created_at: "2018-12-11 15:23:54",
+                            nickName: "测试1",
+                            tel: '13047052078',
+                            totalPrice: "订单的总额",
+                            remarks: "这是订单的---备注备注备注备注",
+                            orderDetail: [
+                                {
+                                    customization: 0,
+                                    isGIA: true,
+                                    specialProcess: false,
+                                    price: "1486.00",
+                                    size: "0.0",
+                                    thumb: "http://admin.zsa888.cn/images/diamond.png",
+                                    remarks: "这是订单的---备注备注备注备注",
+                                    title: "裸钻",
+                                    gia: {
+                                        area: "SZ",
+                                        certNo: "7306336726",
+                                        certType: "GIA",
+                                        clarity: "SI1",
+                                        coffee: "不咖",
+                                        color: "M",
+                                        cut: "VG",
+                                        deliveryTime: "3",
+                                        diameter: "4.22-4.2*2.71",
+                                        fluorescence: "F",
+                                        isClick: true,
+                                        is_spot: true,
+                                        milk: "不奶",
+                                        polish: "EX",
+                                        shape: "圆形",
+                                        stock: "ZM34302036",
+                                        symmetry: "EX",
+                                        weight: "0.3"
+                                    },
+
+                                },
+                                {
+                                    goodsIndex: 1,
+                                    goods_id: 2795,
+                                    customization: 0,
+                                    isGIA: false,
+                                    specialProcess: false,
+                                    price: "3000",
+                                    size: "14.0",
+                                    status: 2,
+                                    thumb: "http://images.zsa888.cn/d22uF1OU8JRJoT1MfhmfffD8J5fumU.jpg",
+                                    title: "18K钻石情侣对戒",
+                                    erp: {
+                                        certNo: "P1803012851",
+                                        erp_id: "00988148",
+                                        goldType: "18K金",
+                                        handSize: 14,
+                                        mainStoneNum: 1,
+                                        mainStoneWeight: "0.043ct",
+                                        sideStoneNum: 5,
+                                        sideStoneWeight: "0.013ct",
+                                        sku: "C10473W",
+                                        stoneClarity: "SI",
+                                        stoneColor: "F-G",
+                                        totalWeight: "2.370g",
+                                    },
+                                },
+                            ],
+
+                        },
+                        {
+                            id: 130,
+                            status: 2, // 确认中
+                            ordersn: "18121015239728",
+                            created_at: "2018-12-12 15:23:54",
+                            nickName: "测试1",
+                            tel: '13047052078',
+                            remarks: "这是备注备注备注备注",
+                            totalPrice: "订单的总额",
+                            orderDetail: [
+                                {
+                                    gcate: "特殊工艺",
+                                    goodsIndex: 1,
+                                    goods_id: 110,
+                                    customization: 0,
+                                    isGIA: false,
+                                    specialProcess: true,
+                                    sku: "23333",
+                                    goldType: "22K黄",
+                                    price: "6000",
+                                    sizeM: 14,
+                                    sizeW: 12,
+                                    goldWeightM: 2.24,
+                                    goldWeightW: 2.24,
+                                    letteringM: "男&女",
+                                    letteringW: "女&男",
+                                    remarks: "当然是哈哈哈哈哈哈哈哈哈额",
+                                    status: 3,
+                                    thumb: "http://images.zsa888.cn/d22uF1OU8JRJoT1MfhmfffD8J5fumU.jpg",
+                                    title: "特殊工艺对戒",
+                                }
+                            ],
+                        },
+                        {
+                            id: 131,
+                            status: 3, // 下单成功
+                            ordersn: "18121015239728",
+                            created_at: "2018-12-13 15:23:54",
+                            nickName: "测试1",
+                            tel: '13047052078',
+                            remarks: "这是备注备注备注备注",
+                            totalPrice: "订单的总额",
+                            orderDetail: [
+                                {
+                                    gcate: "特殊工艺",
+                                    goodsIndex: 1,
+                                    goods_id: 110,
+                                    id: 447,
+                                    customization: 0,
+                                    isGIA: false,
+                                    specialProcess: true,
+                                    sku: "23333",
+                                    goldType: "22K黄",
+                                    price: "6000",
+                                    sizeM: 14,
+                                    sizeW: 12,
+                                    goldWeightM: 2.24,
+                                    goldWeightW: 2.24,
+                                    letteringM: "男&女",
+                                    letteringW: "女&男",
+                                    remarks: "当然是哈哈哈哈哈哈哈哈哈额",
+                                    status: 4,
+                                    thumb: "http://images.zsa888.cn/d22uF1OU8JRJoT1MfhmfffD8J5fumU.jpg",
+                                    title: "特殊工艺对戒",
+                                }
+                            ],
+
+
+                        },
+                        {
+                            id: 132,
+                            status: 4, // 已完成
+                            ordersn: "18121015239728",
+                            created_at: "2018-12-14 15:23:54",
+                            nickName: "测试1",
+                            tel: '13047052078',
+                            remarks: "这是备注备注备注备注",
+                            totalPrice: "订单的总额",
+                            orderDetail: [
+                                {
+                                    goodsIndex: 1,
+                                    goods_id: 110,
+                                    id: 447,
+                                    customization: 0,
+                                    isGIA: false,
+                                    specialProcess: true,
+                                    sku: "23333",
+                                    goldType: "22K黄",
+                                    price: "6000",
+                                    sizeM: 14,
+                                    sizeW: 12,
+                                    goldWeightM: 2.24,
+                                    goldWeightW: 2.24,
+                                    letteringM: "男&女",
+                                    letteringW: "女&男",
+                                    remarks: "当然是哈哈哈哈哈哈哈哈哈额",
+                                    status: 4,
+                                    thumb: "http://images.zsa888.cn/d22uF1OU8JRJoT1MfhmfffD8J5fumU.jpg",
+                                    title: "特殊工艺对戒",
+                                }
+                            ],
+
+
+                        },
+                    ];
+                    initMoveLeftDis(orderListArray);
+                    this.orderListArray = orderListArray.slice(orderListArray);
+                    console.log(orderListArray);
+                }
+
+
+//                showToast(curPage);
+
+//                首先获取本地保存的token
+//        let token = "";
+//        let requestUrl = appUrl + "/orders/list?" + "status=" + status + "&token=" + token + "&page=" + curPage;
+//        $.ajax({
+//            headers: {
+//                Accept: "application/vnd.zsmt.shop.v1+json"
+//            },
+//            url: requestUrl,
+//            type: 'GET',
+//            dataType: 'jsonp',
+//            success: function (res) {
+//                 orderListArray = res.data
+//            },
+//            fail: function () {
+//            }
+//        });
+
+
+            },
+
+//          删除 订单
+            deleteSideBtnFn(index){
+                let vm = this,
+                    orderListArray = vm.orderListArray;
+                vm.nowDeleteMask = "delete";
+                vm.curOrderItemIndex = index;
+                 $(".deleteOutsideBox").fadeIn(0);
+
+            },
+//          取消 订单
+            cancelSideBtnFn(index){
+                let vm = this,
+                    orderListArray = vm.orderListArray;
+                vm.nowDeleteMask = "cancel";
+                vm.curOrderItemIndex = index
+                 $(".deleteOutsideBox").fadeIn(0);
+
+            },
+//            取消删除
+            cancelDeleteFn(){
+                $(".deleteOutsideBox").fadeOut(0);
+            },
+//            确认删除
+            confirmDeleteFn(){
+                let vm = this,
+                    orderListArray = vm.orderListArray;
+
+            },
+        },
+        computed: {},
+        watch: {}
+    });
+
+    /** 监听页面滚动 ********** Start *******/
+    //文档高度
+    function getDocumentScrollTop() {
+        let scrollTop = 0, bodyScrollTop = 0, documentScrollTop = 0;
+        if (document.body) {
+            bodyScrollTop = document.body.scrollTop;
+        }
+        if (document.documentElement) {
+            documentScrollTop = document.documentElement.scrollTop;
+        }
+        scrollTop = (bodyScrollTop - documentScrollTop > 0) ? bodyScrollTop : documentScrollTop;
+//        console.log(scrollTop);
+        return scrollTop;
+    }
+
+    //可视窗口高度
+    function getWindowClientHeight() {
+        let windowHeight = 0;
+        if (document.compatMode == "CSS1Compat") {
+            windowHeight = document.documentElement.clientHeight;
+        } else {
+            windowHeight = document.body.clientHeight;
+        }
+//        console.log(windowHeight);
+        return windowHeight;
+    }
+
+    //滚动条滚动高度
+    function getScrollHeight() {
+        let scrollHeight = 0, bodyScrollHeight = 0, documentScrollHeight = 0;
+        if (document.body) {
+            bodyScrollHeight = document.body.scrollHeight;
+        }
+        if (document.documentElement) {
+            documentScrollHeight = document.documentElement.scrollHeight;
+        }
+        scrollHeight = (bodyScrollHeight - documentScrollHeight > 0) ? bodyScrollHeight : documentScrollHeight;
+//        console.log(scrollHeight);
+        return scrollHeight;
+    }
+    /** 监听页面滚动 ********** End *******/
+
+    //    为筛选条件添加默认条件 moveLeftDis:0
+    function initMoveLeftDis(array) {
+        console.log(array);
+        for (let i = 0, len = array.length; i < len; i++) {
+            array[i].moveLeftDis = 0
+        }
+    }
+
+
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

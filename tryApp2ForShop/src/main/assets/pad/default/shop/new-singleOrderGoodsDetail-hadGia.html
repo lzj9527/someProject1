@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no"/>
+    <title>确认定制信息</title>
+
+    <link rel="stylesheet" href="https://at.alicdn.com/t/font_941616_wdr3e332oq.css"> <!-- icon -->
+    <link rel="stylesheet" href="../static/css/reset.css">
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/css/new-singleOrderGoodsDetail-hadGia.css">
+    <script src="../static/js/config.js"></script>
+    <script src="../static/js/jquery-3.0.0.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+    <script src="../static/js/androidJSInterface.js"></script>
+    <script src="../static/js/function.js"></script>
+    <script src="../static/js/showToast.js"></script>
+</head>
+<body>
+
+<section id="new-singleOrderGoodsDetail-hadGia-PageBox" @touchstart="touchS" @touchmove="touchM" @touchend="touchE">
+    <section class="orderDetailMessageBox">
+        <header>
+            <p>订单信息</p>
+        </header>
+
+        <section class="main">
+            <!-- 戒托 -->
+            <div class="left">
+                <header>
+                    <img src="http://images.zsa888.cn/a2s00OqBHSoiRohSbVRsDhHBGHbSBR.jpg">
+                </header>
+                <p class="price">
+                    <span>戒托预价：</span>
+                    <small>约</small>
+                    <strong>￥5999</strong>
+                </p>
+
+                <div class="otherParameter">
+                    <div class="otherLeft">
+                        <span class="name">名称：花蕊</span>
+                        <span class="material">材质：18K五六七</span>
+                        <span class="letter">刻字：哦哦💗嗯嗯&嘿嘿</span>
+                    </div>
+                    <div class="otherRight">
+                        <span class="sku">款号：AZ9527</span>
+                        <span class="goldWeight">预估金重：约 2 g</span>
+                        <span class="handSize">手寸：15.5</span>
+                    </div>
+                </div>
+
+                <div class="remark">
+                    备注：克拉斯警方立刻撒旦就卢卡斯九零开始就分厘卡即使的课件撒框架安科技考拉
+                </div>
+
+            </div>
+
+            <!-- 裸石 -->
+            <div class="right">
+                <header>
+                    <img src="http://images.zsa888.cn/a2s00OqBHSoiRohSbVRsDhHBGHbSBR.jpg">
+                </header>
+                <p class="price">
+                    <span>裸石价格：</span>
+                    <strong>￥8999</strong>
+                </p>
+
+                <p class="certNo">
+                    <span>证书号：PC9527008007006</span>
+                </p>
+
+                <div class="otherParameter">
+                    <div class="otherLeft">
+                        <span class="stockNum">货号：32165498</span>
+                        <span class="totalWeight">重量：0.6ct</span>
+                        <span class="clarity">净度：VVS1</span>
+                        <span class="fluorescence">荧光：N</span>
+                    </div>
+                    <div class="otherRight">
+                        <span class="shape">形状：圆形</span>
+                        <span class="color">颜色：D</span>
+                        <span class="cut">切工：EX</span>
+                        <span class="milkAndCoffee">奶咖：不奶不咖</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="totalPrice">
+            <p>
+                <span>合计预价：</span>
+                <strong>￥14998</strong>
+                <small>(预计出货时间：8-10工作日)</small>
+            </p>
+        </section>
+
+        <section class="addCartAndOrderBtnBox">
+            <span class="addCartBtn" @click="addCartBtnFn()">加入购物车</span>
+            <span class="orderBtn" @click="addOrderBtnFn()">提交订单</span>
+        </section>
+
+    </section>
+
+    <!-- 购买信息 -->
+    <div class="buyMessageOutsideBox" @click="outMessageBox()">
+        <div class="buyMessageInsideBox" @click.stop="stopBubbles()">
+            <div class="messageHead">
+                <span>填写联系人信息</span>
+                <span class="iconfont icon-shanchuguanbicha" @click.stop="outMessageBox()"></span>
+            </div>
+            <div class="messageBox" @click.stop="stopBubbles()">
+                <form>
+                    <label class="contactsBox">
+                        <span class="contacts">联系人:</span>
+                        <input type="text">
+                    </label>
+                    <label class="contactsTel">
+                        <span class="tel">联系电话:</span>
+                        <input type="tel">
+                    </label>
+                    <label class="contactsRemarks">
+                        <span class="remarks">备注:</span>
+                        <textarea></textarea>
+                    </label>
+                </form>
+                <span class="sumbitBtn" @click="confirmAddOrderFn()">提交</span>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<script>
+    let vm = new Vue({
+        el: '#new-singleOrderGoodsDetail-hadGia-PageBox',// 选项
+        data() {
+            return {
+                isReachTop: true,
+                isReachBottom: false,
+            }
+        },
+        beforeCreate() {
+            console.group('------beforeCreate创建前状态------');
+        },
+        created() {
+            console.group('------created创建完毕状态------');
+        },
+        beforeMount() {
+            console.group('------beforeMount挂载前状态------');
+            let vm = this;
+
+
+        },
+        mounted() {
+            let vm = this;
+            console.group('------beforeMount挂载完成状态------');
+
+
+//          监听页面滚动
+            window.onscroll = function () {
+                vm.isReachTop = true;
+                vm.isReachBottom = false;
+                //监听事件内容
+                if (getDocumentScrollTop() + getWindowClientHeight() >= getScrollHeight()) {
+                    console.log("触底了");
+                    vm.isReachBottom = true
+                }
+                if (getDocumentScrollTop() <= 0) {
+                    console.log("触顶了");
+                    vm.isReachTop = true;
+                }
+
+//                console.log("是否到达顶部------" + vm.isReachTop);
+//                console.log("是否到达底部------" + vm.isReachBottom);
+            };
+
+            //        字体自适应
+            function fixRem() {
+                let windowWidth = document.documentElement.clientWidth || window.innerWidth || document.body.clientWidth;
+                // windowWidth = windowWidth > 750 ? 750 : windowWidth;
+                let rootSize = 28 * (windowWidth / 375);
+                let htmlNode = document.getElementsByTagName("html")[0];
+                htmlNode.style.fontSize = rootSize + 'px';
+            }
+
+            fixRem();
+            window.addEventListener('resize', fixRem, false);
+        },
+        updated: function () {
+            console.group('updated 更新完成状态===============》');
+        },
+        methods: {
+            //          阻止页面缩放
+            touchS(e) {
+                if (e.touches.length > 1) {
+                    e.preventDefault();
+                }
+            },
+            touchM(e) {
+                if (e.touches.length > 1) {
+                    e.preventDefault();
+                }
+            },
+            touchE(e) {
+                if (e.touches.length > 1) {
+                    e.preventDefault();
+                }
+            },
+
+//          添加购物车
+            addCartBtnFn(){
+
+            },
+
+//            提交订单(这里需要监测商品的状态是否已售)
+            addOrderBtnFn(){
+                let vm = this;
+                $(".buyMessageOutsideBox").fadeIn(200);
+            },
+
+//            关闭蒙版阻止冒泡
+            stopBubbles(){
+            },
+//            关闭填写信息蒙版
+            outMessageBox(event){
+                $(".buyMessageOutsideBox").fadeOut(200);
+            },
+//            填写好地址之后的提交(这里需要再次监测商品状态)
+            confirmAddOrderFn(){
+                let vm = this,
+                    toOrderArray = [],
+                    cartId = "";
+            },
+
+        },
+        computed: {},
+        watch: {}
+    });
+
+    /** 监听页面滚动 ********** Start *******/
+    //文档高度
+    function getDocumentScrollTop() {
+        let scrollTop = 0, bodyScrollTop = 0, documentScrollTop = 0;
+        if (document.body) {
+            bodyScrollTop = document.body.scrollTop;
+        }
+        if (document.documentElement) {
+            documentScrollTop = document.documentElement.scrollTop;
+        }
+        scrollTop = (bodyScrollTop - documentScrollTop > 0) ? bodyScrollTop : documentScrollTop;
+//        console.log(scrollTop);
+        return scrollTop;
+    }
+
+    //可视窗口高度
+    function getWindowClientHeight() {
+        let windowHeight = 0;
+        if (document.compatMode == "CSS1Compat") {
+            windowHeight = document.documentElement.clientHeight;
+        } else {
+            windowHeight = document.body.clientHeight;
+        }
+//        console.log(windowHeight);
+        return windowHeight;
+    }
+
+    //滚动条滚动高度
+    function getScrollHeight() {
+        let scrollHeight = 0, bodyScrollHeight = 0, documentScrollHeight = 0;
+        if (document.body) {
+            bodyScrollHeight = document.body.scrollHeight;
+        }
+        if (document.documentElement) {
+            documentScrollHeight = document.documentElement.scrollHeight;
+        }
+        scrollHeight = (bodyScrollHeight - documentScrollHeight > 0) ? bodyScrollHeight : documentScrollHeight;
+//        console.log(scrollHeight);
+        return scrollHeight;
+    }
+
+    /** 监听页面滚动 ********** End *******/
+
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

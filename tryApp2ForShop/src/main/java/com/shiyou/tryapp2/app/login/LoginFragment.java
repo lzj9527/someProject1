@@ -1,5 +1,8 @@
 package com.shiyou.tryapp2.app.login;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.extend.ErrorInfo;
 import android.extend.app.BaseFragment;
 import android.extend.loader.BaseParser.DataFrom;
@@ -11,6 +14,7 @@ import android.extend.util.ViewTools;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,11 +31,16 @@ import com.shiyou.tryapp2.ResourceHelper2;
 import com.shiyou.tryapp2.ResourceHelper2.OnResourceDownloadCallback;
 import com.shiyou.tryapp2.app.MainActivity;
 import com.shiyou.tryapp2.app.MainFragment;
+import com.shiyou.tryapp2.app.WebViewFragment;
 import com.shiyou.tryapp2.app.product.MainIndexFragment;
 import com.shiyou.tryapp2.data.response.BaseResponse;
 import com.shiyou.tryapp2.data.response.GoodsListResponse;
 import com.shiyou.tryapp2.data.response.GoodsListResponse.GoodsItem;
 import com.shiyou.tryapp2.data.response.LoginResponse;
+
+import java.io.FileOutputStream;
+
+import static android.os.ParcelFileDescriptor.MODE_APPEND;
 
 public class LoginFragment extends BaseFragment
 {
@@ -160,6 +169,8 @@ public class LoginFragment extends BaseFragment
 
 	public void onLoginFinished(final String userName, final String realName, final String userKey)
 	{
+		Log.d(TAG, "onLoginFinished: userName="+LoginHelper.getUserName(getContext()));
+		Log.d(TAG, "onLoginFinished: userPassword="+LoginHelper.getUserPassword(getContext()));
 		LogUtil.v(TAG, "onLoginFinished: " + userName + "; " + realName + "; " + userKey + "; " + mLoginFinished);
 		if (mLoginFinished)
 			return;
@@ -167,6 +178,9 @@ public class LoginFragment extends BaseFragment
 		LoginHelper.onLoginFinished(getActivity(), userName, realName, userKey);
 		if (getActivity() != MainActivity.instance)
 		{
+			Log.d(TAG, "onLoginFinished: 执行");
+
+			Log.d(TAG, "onLoginFinished: 执行完毕");
 			getActivity().finish();
 			if (MainFragment.instance != null)
 			{
@@ -178,6 +192,7 @@ public class LoginFragment extends BaseFragment
 		}
 		else
 		{
+
 //			new ResourceHelper2(getActivity(), userKey, false, false)               //171229 登录时不检查更新
 //					.checkAndDownloadResource(new OnResourceDownloadCallback()
 //					{

@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no"/>
+    <title>特殊工艺对戒</title>
+
+    <link rel="stylesheet" href="https://at.alicdn.com/t/font_941616_wdr3e332oq.css"><!-- icon -->
+    <link rel="stylesheet" href="../static/css/reset.css">
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/css/new-specialDoubleRingDetail.css">
+    <script src="../static/js/config.js"></script>
+    <script src="../static/js/jquery-3.0.0.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+    <script src="../static/js/androidJSInterface.js"></script>
+    <script src="../static/js/function.js"></script>
+    <script src="../static/js/showToast.js"></script>
+</head>
+<body>
+
+
+<div id="orderDoubleGoodsDetailPageBox" @touchstart="touchS" @touchmove="touchM" @touchend="touchE">
+
+    <header>
+        <p class="titleAndCollect">
+            <span class="title">特殊工艺对戒</span>
+            <span class="iconfont icon-heart-b"></span>
+            <!--<span class="iconfont icon-heart-br"></span>-->
+        </p>
+        <section class="styleNumAndGoldWeight">
+            <p class="styleNum">
+                <span class="title">款号：</span>
+                <span>TZA-940504</span>
+            </p>
+            <div class="goldWeight">
+                <span class="title"> 预估重量：</span>
+                <p>
+                    <span class="man">男戒约 6 g</span>
+                    <span class="wom">女戒约 6 g</span>
+                </p>
+            </div>
+        </section>
+    </header>
+
+    <section class="estimationPrice">
+        <span class="title"> 预估价格：</span>
+        <div class="price">
+            <p class="man">
+                <span>男款</span>
+                <small>约</small>
+                <strong>￥4999</strong>
+            </p>
+            <p class="wom">
+                <span>女款</span>
+                <small>约</small>
+                <strong>￥3888</strong>
+            </p>
+        </div>
+    </section>
+
+    <!-- 手寸 -->
+    <section class="handSizeBox">
+        <div class="handSizeMBox">
+            <span class="handSizeText">男款手寸: </span>
+            <span class="iconfont icon-jian" @click.stop="specialManReduceFn()"></span>
+            <span class="handSizeNum" @click.stop="handSizeNumManClickFn(sexMan)" :data-sex="sexMan"> {{curManSize}} </span>
+            <span class="iconfont icon-jia" @click.stop="specialManPlusFn()"></span>
+        </div>
+
+        <div class="handSizeWBox">
+            <span class="handSizeText">女款手寸:</span>
+            <span class="iconfont icon-jian" @click.stop="specialWomReduceFn()"></span>
+            <span class="handSizeNum" @click.stop="handSizeNumWomClickFn(sexWom)" :data-sex="sexWom"> {{curWomSize}} </span>
+            <span class="iconfont icon-jia" @click.stop="specialWomPlusFn()"></span>
+        </div>
+    </section>
+
+    <!-- 刻字 -->
+    <section class="letteringBox">
+        <div class="letterMan">
+            <span class="title">男款刻字: </span>
+            <textarea id="manLetter" cols="1" rows="1" maxlength="8" placeholder="Y&M" @click="inputFocus()"></textarea>
+            <span class="symbol" :data-sex="sexMan" @click="fastAndBtn(sexMan)" >&</span>
+            <span class="symbol" :data-sex="sexMan" @click="fastHeartBtn(sexMan)" >💗</span>
+        </div>
+
+        <div class="letterWom">
+            <span class="title">女款刻字:</span>
+            <textarea id="womLetter" cols="1" rows="1" maxlength="8" placeholder="Y&M" @click="inputFocus()"></textarea>
+            <span class="symbol" :data-sex="sexWom" @click="fastAndBtn(sexWom)" >&</span>
+            <span class="symbol" :data-sex="sexWom" @click="fastHeartBtn(sexWom)" >💗</span>
+        </div>
+    </section>
+
+    <!-- 备注 -->
+    <section class="marksBox">
+        <span class="title">备注：</span>
+        <textarea cols="30" rows="10" @click="inputFocus()"></textarea>
+    </section>
+
+    <!-- 提交购物车 -->
+    <footer class="btnBox">
+        <span class="addCartBtn">加入购物车</span>
+        <span class="orderBtn">立即下订</span>
+    </footer>
+
+    <!-- 手寸 selection -->
+    <div class="handSizeSelectOutSideBox" @click="handSizeSelectOutSideBoxClickFn()">
+        <div class="handSizeSelectInSideBox">
+            <ul>
+                <li v-for="(item,index) in handSizeSelectArray" :key="item.index" :data-index="index"
+                    @click.stop="selectItemClickFn(index)" :class="item.choose === true?'isChooseSelect':''">
+                    {{item.size}}
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 为了输入的时候不被遮挡 -->
+    <div class="forInputBox"></div>
+
+</div>
+
+<script>
+    let vm = new Vue({
+        el: '#orderDoubleGoodsDetailPageBox',// 选项
+        data() {
+            return {
+                isReachTop: true,
+                isReachBottom: false,
+                curManSize: 20,
+                curWomSize: 12,
+                sexMan:'man',
+                sexWom:'wom',
+                nowSex:'',
+                handSizeArray: [],
+                handSizeSelectArray:[],
+            }
+        },
+        beforeCreate() {
+            console.group('------beforeCreate创建前状态------');
+            console.log("%c%s", "color:red", "el     : " + this.orderDouble); //undefined
+            console.log("%c%s", "color:red", "data   : " + this.orderDouble); //undefined
+            console.log("%c%s", "color:red", "message: " + this.message);
+        },
+        created() {
+            console.group('------created创建完毕状态------');
+            console.log("%c%s", "color:red", "el     : " + this.orderDouble); //undefined
+            console.log("%c%s", "color:red", "data   : " + this.orderDouble); //已被初始化
+            console.log("%c%s", "color:red", "message: " + this.message); //已被初始化
+        },
+        beforeMount() {
+            console.group('------beforeMount挂载前状态------');
+            let vm = this,
+                handSizeArray = vm.handSizeArray;
+            handSizeCustomized(handSizeArray);
+
+        },
+        mounted() {
+            let vm = this;
+            console.group('------beforeMount挂载完成状态------');
+
+            $(".forInputBox").hide();
+
+//          监听页面滚动
+            window.onscroll = function () {
+                vm.isReachTop = true;
+                vm.isReachBottom = false;
+                //监听事件内容
+                if (getDocumentScrollTop() + getWindowClientHeight() >= getScrollHeight()) {
+                    console.log("触底了");
+                    vm.isReachBottom = true
+                }
+                if (getDocumentScrollTop() <= 0) {
+                    console.log("触顶了");
+                    vm.isReachTop = true;
+                }
+
+//                console.log("是否到达顶部------" + vm.isReachTop);
+//                console.log("是否到达底部------" + vm.isReachBottom);
+            };
+
+            //        字体自适应
+            function fixRem() {
+                let windowWidth = document.documentElement.clientWidth || window.innerWidth || document.body.clientWidth;
+                // windowWidth = windowWidth > 750 ? 750 : windowWidth;
+                let rootSize = 28 * (windowWidth / 375);
+                let htmlNode = document.getElementsByTagName("html")[0];
+                htmlNode.style.fontSize = rootSize + 'px';
+            }
+            fixRem();
+            window.addEventListener('resize', fixRem, false);
+        },
+        updated: function () {
+            console.group('updated 更新完成状态===============》');
+        },
+        methods: {
+            //          阻止页面缩放
+            touchS(e) {
+                if (e.touches.length > 1) {
+                    e.preventDefault();
+                }
+            },
+            touchM(e) {
+                if (e.touches.length > 1) {
+                    e.preventDefault();
+                }
+            },
+            touchE(e) {
+                if (e.touches.length > 1) {
+                    e.preventDefault();
+                }
+            },
+
+            //          特殊工艺的手寸操作
+            specialManReduceFn() {
+//                减
+                let vm = this,
+                    minHandSize = 7,
+                    curManSize = vm.curManSize;
+
+                if (curManSize <= minHandSize) {
+                    showToast("已是最小手寸");
+                } else {
+                    vm.curManSize = Number(curManSize) - 0.5;
+                }
+
+            },
+            specialWomReduceFn() {
+//                减
+                let vm = this,
+                    minHandSize = 7,
+                    curWomSize = vm.curWomSize;
+
+                if (curWomSize <= minHandSize) {
+                    showToast("已是最小手寸");
+                } else {
+                    vm.curWomSize = Number(curWomSize) - 0.5;
+                }
+
+            },
+            specialManPlusFn() {
+//                加
+                let vm = this,
+                    maxHandSize = 25.5,
+                    curManSize = vm.curManSize;
+
+                if (curManSize >= maxHandSize) {
+                    showToast("已是最大手寸");
+                } else {
+                    vm.curManSize = Number(curManSize) + 0.5;
+                }
+
+            },
+            specialWomPlusFn() {
+//                加
+                let vm = this,
+                    maxHandSize = 25.5,
+                    curWomSize = vm.curWomSize;
+
+                if (curWomSize >= maxHandSize) {
+                    showToast("已是最大手寸");
+                } else {
+                    vm.curWomSize = Number(curWomSize) + 0.5;
+                }
+            },
+
+            handSizeNumManClickFn(sex){
+                $(".handSizeSelectOutSideBox").fadeIn();
+                setTimeout(function () {
+                    $(".handSizeSelectInSideBox").slideDown();
+                }, 100);
+
+                $(".handSizeSelectInSideBox ul").animate({scrollTop: 0}, 100);
+
+                let vm = this,
+                    defaultHandSize = vm.curManSize,
+                    handSizeArray = vm.handSizeArray,
+                    handSizeSelectArray = [],
+                    forSelectChooseArray = [];
+
+                vm.nowSex = sex;
+                handSizeSelectArray.push(...handSizeArray);
+
+                for (let i = 0, len = handSizeSelectArray.length; i < len; i++) {
+                    forSelectChooseArray.push(handSizeSelectArray[i].size)
+                }
+                let defaultHandSizeIndex = forSelectChooseArray.indexOf(defaultHandSize);
+                for (let i = 0, len = handSizeSelectArray.length; i < len; i++) {
+                    handSizeSelectArray[i].choose = false
+                }
+                handSizeSelectArray[defaultHandSizeIndex].choose = true;
+
+                vm.handSizeSelectArray = handSizeSelectArray.slice(handSizeSelectArray);
+                console.log(vm.handSizeSelectArray);
+            },
+            handSizeNumWomClickFn(sex){
+                $(".handSizeSelectOutSideBox").fadeIn();
+                setTimeout(function () {
+                    $(".handSizeSelectInSideBox").slideDown();
+                }, 100);
+
+                $(".handSizeSelectInSideBox ul").animate({scrollTop: 0}, 100);
+
+                let vm = this,
+                    defaultHandSize = vm.curWomSize,
+                    handSizeArray = vm.handSizeArray,
+                    handSizeSelectArray = [],
+                    forSelectChooseArray = [];
+
+                vm.nowSex = sex;
+                handSizeSelectArray.push(...handSizeArray);
+
+                for (let i = 0, len = handSizeSelectArray.length; i < len; i++) {
+                    forSelectChooseArray.push(handSizeSelectArray[i].size)
+                }
+                let defaultHandSizeIndex = forSelectChooseArray.indexOf(defaultHandSize);
+                for (let i = 0, len = handSizeSelectArray.length; i < len; i++) {
+                    handSizeSelectArray[i].choose = false
+                }
+                handSizeSelectArray[defaultHandSizeIndex].choose = true;
+
+                vm.handSizeSelectArray = handSizeSelectArray.slice(handSizeSelectArray);
+                console.log(vm.handSizeSelectArray);
+            },
+//          手寸 select 与 蒙版 操作
+            handSizeSelectOutSideBoxClickFn(){
+                $(".handSizeSelectInSideBox").slideUp();
+                setTimeout(function () {
+                    $(".handSizeSelectOutSideBox").fadeOut();
+                }, 300);
+            },
+            selectItemClickFn(index){
+                let vm = this,
+                    handSizeSelectArray = vm.handSizeSelectArray;
+
+//                console.log("当前选中的手寸下标为-----" + index);
+
+                for (let i = 0, len = handSizeSelectArray.length; i < len; i++) {
+                    handSizeSelectArray[i].choose = false
+                }
+                handSizeSelectArray[index].choose = true;
+
+                if(vm.nowSex === 'man'){
+                    vm.curManSize = handSizeSelectArray[index].size;
+                }
+                if(vm.nowSex === 'wom'){
+                    vm.curWomSize = handSizeSelectArray[index].size;
+                }
+
+
+
+                $(".handSizeSelectInSideBox").slideUp();
+                setTimeout(function () {
+                    $(".handSizeSelectOutSideBox").fadeOut();
+                }, 300);
+
+            },
+
+            //    快速输入
+            fastAndBtn(sex) {
+                if (sex === 'man') {
+                    $("#manLetter").insertString("&");
+                }else{
+                    $("#womLetter").insertString("&");
+                }
+            },
+            fastHeartBtn(sex) {
+                if (sex === 'man') {
+                    $("#manLetter").insertString("💗");
+                }else{
+                    $("#womLetter").insertString("💗");
+                }
+            },
+
+            //          输入框点击
+            inputFocus(){
+                $(".forInputBox").show();
+            },
+
+        },
+        computed: {},
+        watch: {
+
+        }
+    });
+
+    /** 监听页面滚动 ********** Start *******/
+    //文档高度
+    function getDocumentScrollTop() {
+        let scrollTop = 0, bodyScrollTop = 0, documentScrollTop = 0;
+        if (document.body) {
+            bodyScrollTop = document.body.scrollTop;
+        }
+        if (document.documentElement) {
+            documentScrollTop = document.documentElement.scrollTop;
+        }
+        scrollTop = (bodyScrollTop - documentScrollTop > 0) ? bodyScrollTop : documentScrollTop;
+//        console.log(scrollTop);
+        return scrollTop;
+    }
+
+    //可视窗口高度
+    function getWindowClientHeight() {
+        let windowHeight = 0;
+        if (document.compatMode == "CSS1Compat") {
+            windowHeight = document.documentElement.clientHeight;
+        } else {
+            windowHeight = document.body.clientHeight;
+        }
+//        console.log(windowHeight);
+        return windowHeight;
+    }
+
+    //滚动条滚动高度
+    function getScrollHeight() {
+        let scrollHeight = 0, bodyScrollHeight = 0, documentScrollHeight = 0;
+        if (document.body) {
+            bodyScrollHeight = document.body.scrollHeight;
+        }
+        if (document.documentElement) {
+            documentScrollHeight = document.documentElement.scrollHeight;
+        }
+        scrollHeight = (bodyScrollHeight - documentScrollHeight > 0) ? bodyScrollHeight : documentScrollHeight;
+//        console.log(scrollHeight);
+        return scrollHeight;
+    }
+
+    /** 监听页面滚动 ********** End *******/
+
+
+    //    手寸(7.5-25.5)
+    function handSizeCustomized(array) {
+        for (let i = 7, len = 26; i < len; i += 0.5) {
+//            array.customized.push(i);
+            let sizeSelect =
+                {
+                    size: i,
+                    choose: false
+                };
+            array.push(sizeSelect)
+        }
+        this.array = array.slice(array);
+    }
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

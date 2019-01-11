@@ -180,14 +180,13 @@
     } else {
         keywords = '';
     }
+    console.log(keywords);
 
     if (storage["strdiamond"] != '' && (isDefine(storage["strdiamond"]))) {
         strdiamond = storage["strdiamond"];
     } else {
         strdiamond = '';
     }
-
-
 
     var ccate = '';
     ccate = getUrlParam("ccate");
@@ -197,13 +196,11 @@
         ccate = '';
     }
 
-
     var catename = '';
     catename = unescape(getUrlParam("catename"));
     strcatename = escape(getUrlParam("catename"));
     //console.log(strcatename);
     $("#catename").html(catename);
-
 
     $(function () {
 
@@ -252,12 +249,9 @@
             $("#btnList").removeClass("icon-list-act");
             $("#btnList").addClass("icon-list");
 
-
             openWindow(7, '产品列表',
                 'http://www.zsmtvip.com/addons/ewei_shop/template/pad/default/shop/list-ani.html?ccate=' +
                 getUrlParam("ccate") + '&catename=' + strcatename);
-
-
         });
 
 
@@ -336,12 +330,12 @@
 
         // }
 
-
         $.ajax({
             url: init_url,
             type: "get",
             dataType: 'jsonp',
             success: function (data) {
+                console.log(data);
                 //console.log('http://www.zsmtvip.com/app/index.php?i=2&c=entry&do=goods_list&psize=9999'+keywords+'&m=test'+ccate+'');
                 if (data.resultCode == "0") {
                     show_list(data);
@@ -356,9 +350,8 @@
         })
 
 
-    })
+    });
 
-    // 产品点击
     function product_onclick() {
         //console.log('here');
         touch.on('.btnProduct', 'tap', function (ev) {
@@ -377,21 +370,21 @@
 
             var tag = $(this).data("tag");
             var isshop = $(this).data("isnodiscount");
+            var id = $(this).data('values');
 
             if (isshop != '1') {
                 isshop = '0';
             }
 
-            ////console.log(isshop)
+//            console.log(id);
+//            console.log(tag);
+//            console.log(isshop);
 
-            if (tag == 'two') {
-                openDetailWindowInCoupleRing(id, '', 0);
+            if (tag == 'one') {
+                openDetailWindow(id, '', isshop);
             } else {
-                openDetailWindow(id, '', 0);
+                openDetailWindowInCoupleRing(id, '', isshop);
             }
-
-
-
         });
 
         $("div.lazy").lazyload({
@@ -410,22 +403,22 @@
                 ////console.log(data.datas.list[i].title);
                 //}
 
-                strHtml += '                            <div class="ub ub-ver col-md-3 col-sm-3 plist  ">';
+                strHtml += '<div class="ub ub-ver col-md-3 col-sm-3 plist  ">';
                 //strHtml+='                                <div class="ub-img ub-p-new"></div>';
                 strHtml +=
-                    '                                <div class="ub ub-img5  plistimg0902 btnProduct  lazy" data-isnodiscount="' +
+                    '<div class="ub ub-img5  plistimg0902 btnProduct  lazy" data-isnodiscount="' +
                     data.datas.list[i].isnodiscount + '"  data-tag="' + data.datas.list[i].tag + '" data-values="' +
                     data.datas.list[i].id + '"   data-original="' + data.datas.list[i].thumb.url +
                     '"    style="background-image: url(../static/images/grey.gif)"></div>';
-                strHtml += '                                <div class="ub ub-ver">';
+                strHtml += '<div class="ub ub-ver">';
                 strHtml +=
-                    '                                    <div class="ub ub-pc umar-t bc-text-c2 "  style="line-height:1.5em;height:3em; margin-bottom:1.5em; overflow:hidden;font-size:18px;">' +
+                    '<div class="ub ub-pc umar-t bc-text-c2 "  style="line-height:1.5em;height:3em; margin-bottom:1.5em; overflow:hidden;font-size:18px;">' +
                     data.datas.list[i].title + '</div>';
                 //if (data.datas.list[i].count>0){
                 //    strHtml+='                                    <div class="ub ub-pc bc-text-e1">共'+data.datas.list[i].count+'件</div>';
                 // }
-                strHtml += '                                </div>';
-                strHtml += '                            </div>';
+                strHtml += '</div>';
+                strHtml += '</div>';
             }
             ////console.log(strHtml);
             $("#htmlBox").html(strHtml);
@@ -435,10 +428,6 @@
 
         product_onclick();
     }
-
-
-
-
 
 
     function date_ajax(url) {

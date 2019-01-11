@@ -3,8 +3,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-
+    <android.extend.widget.FragmentContainer
+        android:id="@+id/product_couple_details_attribute"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"/>
     <LinearLayout
+        android:visibility="gone"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:background="@color/detail_paramsbox_background"
@@ -214,6 +219,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:visibility="gone"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -296,6 +302,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:visibility="gone"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal" >
@@ -324,6 +331,7 @@
     </LinearLayout>
 
     <FrameLayout
+        android:visibility="gone"
         android:layout_width="fill_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="10px"
@@ -335,12 +343,14 @@
             android:orientation="vertical" >
 
             <LinearLayout
+                android:visibility="gone"
                 android:layout_width="fill_parent"
                 android:layout_height="82px"
                 android:gravity="center_vertical"
                 android:orientation="horizontal" >
 
                 <TextView
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="40px"
@@ -368,6 +378,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:visibility="gone"
             android:id="@+id/dot_container"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

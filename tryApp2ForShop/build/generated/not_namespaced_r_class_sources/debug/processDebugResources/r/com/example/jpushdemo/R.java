@@ -25,10 +25,10 @@ public final class R {
         public static final int imgRichpushBtnBack = 0x7f060044;
         public static final int imgView = 0x7f060045;
         public static final int popLayoutId = 0x7f06008f;
-        public static final int pushPrograssBar = 0x7f0600c1;
-        public static final int rlRichpushTitleBar = 0x7f0600d7;
-        public static final int tvRichpushTitle = 0x7f0600f4;
-        public static final int wvPopwin = 0x7f060101;
+        public static final int pushPrograssBar = 0x7f0600c3;
+        public static final int rlRichpushTitleBar = 0x7f0600d9;
+        public static final int tvRichpushTitle = 0x7f0600f6;
+        public static final int wvPopwin = 0x7f060103;
     }
     public static final class layout {
         private layout() {}

@@ -503,6 +503,7 @@ public class LoginHelper
 					id = ResourceUtil.getId(mDownloadDialog.getContext(), "speed");
 					TextView speedText = (TextView)mDownloadDialog.findViewById(id);
 					speedText.setText((int)speed + "k/s");
+
 				}
 			}
 		});
