@@ -882,6 +882,16 @@ public class MainFragment extends BaseFragment {
 		addFragmentToCurrent(new ProductDetailsFragment(tag, goodsId, isShop, hasModelInfo,0), backToRoot);
 	}
 
+	public void addProductDetailFragmentToCurrent(String goodsId, String tag, boolean isShop, boolean hasModelInfo,
+												  boolean backToRoot,String url) {
+		if (isShop) {
+			mGoodsId = goodsId;
+			mGoodsTag = tag;
+		}
+		// mGoodsIsShop = isShop;
+		addFragmentToCurrent(new ProductDetailsFragment(tag, goodsId, isShop, hasModelInfo,url), backToRoot);
+	}
+
 	public void invalidateMenuBarOnce() {
 		AndroidUtils.MainHandler.post(new Runnable() {
 			@Override

@@ -5,24 +5,24 @@
     build-mode="COLD"
     density="xhdpi"
     format="10"
-    ir-eligibility="COMPATIBLE"
+    ir-eligibility="CLASS_ADDED"
     plugin-version="3.3.0"
-    timestamp="1547710189835"
+    timestamp="1547718506033"
     token="6906545537485903718"
     verifier="COLD_SWAP_REQUESTED" >
 
     <task
         name="javac"
-        duration="2499" />
+        duration="3853" />
     <task
         name="instant-run-dex"
         duration="0" />
     <task
         name="instant-run-transform"
-        duration="42" />
+        duration="79" />
     <task
         name="verifier"
-        duration="3" />
+        duration="39" />
 
     <artifact
         location="D:\TryApp2ForShop-master_test\tryApp2ForShop\build\intermediates\split-apk\debug\slices\slice_9.apk"
@@ -30,7 +30,7 @@
 
     <build
         build-mode="FULL"
-        timestamp="1547628423976"
+        timestamp="1547718114352"
         verifier="FULL_BUILD_REQUESTED" >
         <artifact
             location="D:\TryApp2ForShop-master_test\tryApp2ForShop\build\intermediates\resources\instant-run\debug\resources-debug.apk"
@@ -39,25 +39,25 @@
             location="D:\TryApp2ForShop-master_test\tryApp2ForShop\build\intermediates\split-apk\debug\dep\dependencies.apk"
             type="SPLIT" />
         <artifact
+            location="D:\TryApp2ForShop-master_test\tryApp2ForShop\build\intermediates\split-apk\debug\slices\slice_5.apk"
+            type="SPLIT" />
+        <artifact
             location="D:\TryApp2ForShop-master_test\tryApp2ForShop\build\intermediates\split-apk\debug\slices\slice_1.apk"
             type="SPLIT" />
         <artifact
             location="D:\TryApp2ForShop-master_test\tryApp2ForShop\build\intermediates\split-apk\debug\slices\slice_4.apk"
             type="SPLIT" />
         <artifact
-            location="D:\TryApp2ForShop-master_test\tryApp2ForShop\build\intermediates\split-apk\debug\slices\slice_0.apk"
+            location="D:\TryApp2ForShop-master_test\tryApp2ForShop\build\intermediates\split-apk\debug\slices\slice_6.apk"
             type="SPLIT" />
         <artifact
-            location="D:\TryApp2ForShop-master_test\tryApp2ForShop\build\intermediates\split-apk\debug\slices\slice_5.apk"
+            location="D:\TryApp2ForShop-master_test\tryApp2ForShop\build\intermediates\split-apk\debug\slices\slice_0.apk"
             type="SPLIT" />
         <artifact
             location="D:\TryApp2ForShop-master_test\tryApp2ForShop\build\intermediates\split-apk\debug\slices\slice_2.apk"
             type="SPLIT" />
         <artifact
             location="D:\TryApp2ForShop-master_test\tryApp2ForShop\build\intermediates\split-apk\debug\slices\slice_3.apk"
-            type="SPLIT" />
-        <artifact
-            location="D:\TryApp2ForShop-master_test\tryApp2ForShop\build\intermediates\split-apk\debug\slices\slice_6.apk"
             type="SPLIT" />
         <artifact
             location="D:\TryApp2ForShop-master_test\tryApp2ForShop\build\intermediates\split-apk\debug\slices\slice_8.apk"
@@ -74,17 +74,8 @@
     </build>
     <build
         build-mode="COLD"
-        ir-eligibility="COMPATIBLE"
-        timestamp="1547706902043"
-        verifier="COLD_SWAP_REQUESTED" >
-        <artifact
-            location="D:\TryApp2ForShop-master_test\tryApp2ForShop\build\intermediates\split-apk\debug\slices\slice_0.apk"
-            type="SPLIT" />
-    </build>
-    <build
-        build-mode="COLD"
-        ir-eligibility="COMPATIBLE"
-        timestamp="1547710189835"
+        ir-eligibility="CLASS_ADDED"
+        timestamp="1547718506033"
         verifier="COLD_SWAP_REQUESTED" >
         <artifact
             location="D:\TryApp2ForShop-master_test\tryApp2ForShop\build\intermediates\split-apk\debug\slices\slice_9.apk"

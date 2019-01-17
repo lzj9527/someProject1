@@ -316,56 +316,56 @@ public class WebViewFragment extends SwipeRefreshWebViewFragment
 	public class JavaScriptInterface extends Object
 	{
 		//get Token方法
-		String token;
-		@JavascriptInterface
-		public String  test2(){
-			Log.d(TAG, "test2: 执行");
-			FormBody formBody=new FormBody.Builder().add("username",LoginHelper.getUserName(getContext())).add("password",LoginHelper.getUserPassword(getContext())).build();
-			Request request=new Request.Builder().url("https://api.zsa888.cn/login").addHeader("accept","application/vnd.zsmt.shop.v1+json").post(formBody).build();
-			OkHttpClient okHttpClient=new OkHttpClient();
-			okHttpClient.newCall(request).enqueue(new Callback() {
-				@Override
-				public void onFailure(Call call, IOException e) {
-					System.out.println(e.getMessage());
-				}
-
-				@Override
-				public void onResponse(Call call, Response response) throws IOException {
-					String all = response.body().string();
-					int i = all.indexOf("access_token");
-					int j = all.indexOf("token_type");
-					Log.d(TAG, "onResponse: all=" + all);
-					Log.d(TAG, "onResponse: token=" + token);
-					Log.d(TAG, "onResponse: i=" + i);
-					Log.d(TAG, "onResponse: j=" + j);
-					try {
-						token = all.substring(i + 15, j - 3);
-						Log.d(TAG, "onResponse: token=" + token);
-					}catch (Exception e){
-						i=all.indexOf("data");
-						j=all.lastIndexOf("}");
-						token=all.substring(i+7,j-1);
-					}
-				}
-			});
-//			RequestManager.getToken(getContext(), LoginHelper.getUserName(getCo ntext()), LoginHelper.getUserPassword(getContext()), new RequestCallback() {
+//		String token;
+//		@JavascriptInterface
+//		public String  test2(){
+//			Log.d(TAG, "test2: 执行");
+//			FormBody formBody=new FormBody.Builder().add("username",LoginHelper.getUserName(getContext())).add("password",LoginHelper.getUserPassword(getContext())).build();
+//			Request request=new Request.Builder().url("https://api.zsa888.cn/login").addHeader("accept","application/vnd.zsmt.shop.v1+json").post(formBody).build();
+//			OkHttpClient okHttpClient=new OkHttpClient();
+//			okHttpClient.newCall(request).enqueue(new Callback() {
 //				@Override
-//				public void onRequestError(int requestCode, long taskId, ErrorInfo error) {
-//
-
+//				public void onFailure(Call call, IOException e) {
+//					System.out.println(e.getMessage());
 //				}
 //
 //				@Override
-//				public void onRequestResult(int requestCode, long taskId, BaseResponse response, DataFrom from) {
-//					TokenResponse tokenResponse=(TokenResponse)response;
-//					token=tokenResponse.tokenInfo.token;
-//
-//					Log.d(TAG, "onRequestResult: token="+token);
+//				public void onResponse(Call call, Response response) throws IOException {
+//					String all = response.body().string();
+//					int i = all.indexOf("access_token");
+//					int j = all.indexOf("token_type");
+//					Log.d(TAG, "onResponse: all=" + all);
+//					Log.d(TAG, "onResponse: token=" + token);
+//					Log.d(TAG, "onResponse: i=" + i);
+//					Log.d(TAG, "onResponse: j=" + j);
+//					try {
+//						token = all.substring(i + 15, j - 3);
+//						Log.d(TAG, "onResponse: token=" + token);
+//					}catch (Exception e){
+//						i=all.indexOf("data");
+//						j=all.lastIndexOf("}");
+//						token=all.substring(i+7,j-1);
+//					}
 //				}
 //			});
-			Log.d(TAG, "getToken: token="+token);
-			return  token;
-		}
+////			RequestManager.getToken(getContext(), LoginHelper.getUserName(getCo ntext()), LoginHelper.getUserPassword(getContext()), new RequestCallback() {
+////				@Override
+////				public void onRequestError(int requestCode, long taskId, ErrorInfo error) {
+////
+//
+////				}
+////
+////				@Override
+////				public void onRequestResult(int requestCode, long taskId, BaseResponse response, DataFrom from) {
+////					TokenResponse tokenResponse=(TokenResponse)response;
+////					token=tokenResponse.tokenInfo.token;
+////
+////					Log.d(TAG, "onRequestResult: token="+token);
+////				}
+////			});
+//			Log.d(TAG, "getToken: token="+token);
+//			return  token;
+//		}
 		// 打开新页面
 		@JavascriptInterface
 		public void openWindow(final int index, final String title, final String url)
@@ -455,6 +455,24 @@ public class WebViewFragment extends SwipeRefreshWebViewFragment
 				MainFragment.instance.addProductDetailFragmentToCurrent(goodsId, Define.TAG_RING, false, true, false);
 		}
 
+		@JavascriptInterface
+		public void openSingleDetail(final String goodsId, final String url){
+			LogUtil.v(TAG, "openDetailWindow: " + goodsId + "; " + url + "; " );
+			if (AndroidUtils.isFastClick())
+				return;
+			MainFragment.instance.addProductDetailFragmentToCurrent(goodsId, Define.TAG_RING, true, true, false,url);
+		}
+
+		@JavascriptInterface
+		public void openSingleOrderDetail(final String goodsId, final String url){
+			LogUtil.v(TAG, "openDetailWindow: " + goodsId + "; " + url + "; " );
+			if (AndroidUtils.isFastClick())
+				return;
+			MainFragment.instance.addProductDetailFragmentToCurrent(goodsId, Define.TAG_RING, true, true, false,url);
+
+		}
+
+
 		// 打开对戒详情页
 		@JavascriptInterface
 		public void openDetailWindowInCoupleRing(final String goodsId, final String url, final int isShop)
@@ -470,7 +488,21 @@ public class WebViewFragment extends SwipeRefreshWebViewFragment
 				MainFragment.instance.addProductDetailFragmentToCurrent(goodsId, Define.TAG_COUPLE, false, true, false);
 		}
 
+		@JavascriptInterface
+		public void openCoupleRingsDetail(final String goodsId, final String url){
+			if (AndroidUtils.isFastClick())
+				return;
+			LogUtil.v(TAG, "openDetailWindowInCoupleRing: " + goodsId + "; " + url + "; " );
+			MainFragment.instance.addProductDetailFragmentToCurrent(goodsId, Define.TAG_COUPLE, true, true, false,url);
+		}
 
+		@JavascriptInterface
+		public void openSpecialCoupleRingsDetail(final String goodsId, final String url){
+			if (AndroidUtils.isFastClick())
+				return;
+			LogUtil.v(TAG, "openDetailWindowInCoupleRing: " + goodsId + "; " + url + "; " );
+			MainFragment.instance.addProductDetailFragmentToCurrent(goodsId, Define.TAG_COUPLE, true, true, false,url);
+		}
 
 		// JIA选钻后打开详情页
 		@JavascriptInterface

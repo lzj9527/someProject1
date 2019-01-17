@@ -87,9 +87,6 @@ public class MainWebFragment extends WebViewFragment
 			}
 		});
 
-		Log.d(TAG, "onCreateView: 执行");
-		instance.getToken();
-		Log.d(TAG, "onCreateView: 执行完毕");
 		return view;
 	}
 

@@ -84,6 +84,7 @@ public class ProductDetailsFragment extends BaseFragment implements OnModelLoadL
 	MenuBar product_details_3d;
 	int mCurrentMenuIndex = -1;
 	String mSelectedMaterialTag;
+	String url;
 //	View product_details_photo;
 	// View product_details_3d_bt;
 	// View loading_indicator;
@@ -143,10 +144,34 @@ public class ProductDetailsFragment extends BaseFragment implements OnModelLoadL
 		this.type=type;
 	}
 
+
+	public ProductDetailsFragment(String tag, String goodsId, boolean isShop, boolean hasModelInfo,
+								  float[] weightRange, int[] priceRange,String url)
+	{
+		LogUtil.d(TAG, "ProductDetailsFragment: " + tag + "; " + goodsId + "; " + isShop + "; " + hasModelInfo);
+		LogUtil.v(TAG, "ProductDetailsFragment weightRange: "
+				+ (weightRange == null ? "null" : (weightRange[0] + "-" + weightRange[1])));
+		LogUtil.v(TAG, "ProductDetailsFragment priceRange: "
+				+ (priceRange == null ? "null" : (priceRange[0] + "-" + priceRange[1])));
+		this.tag = tag;
+		this.goodsId = goodsId;
+		this.isShop = isShop;
+		this.hasModelInfo = hasModelInfo;
+		this.weightRange = weightRange;
+		this.priceRange = priceRange;
+		this.url=url;
+	}
+
 	public ProductDetailsFragment(String tag, String goodsId, boolean isShop, boolean hasModelInfo)
 	{
 		this(tag, goodsId, isShop, hasModelInfo, null, null);
 	}
+
+	public ProductDetailsFragment(String tag, String goodsId, boolean isShop, boolean hasModelInfo,String url)
+	{
+		this(tag, goodsId, isShop, hasModelInfo, null, null,url);
+	}
+
 	public ProductDetailsFragment(String tag, String goodsId, boolean isShop, boolean hasModelInfo,int type)
 	{
 		this(tag, goodsId, isShop, hasModelInfo, null, null,type);
@@ -226,7 +251,7 @@ public class ProductDetailsFragment extends BaseFragment implements OnModelLoadL
 		int id=ResourceUtil.getId(getContext(),"product_HadGia");
 		FragmentContainer fragmentContainer= (FragmentContainer) mProductDetails.findViewById(id);
 		fragmentContainer.setVisibility(View.VISIBLE);
-		replace(getActivity(),ResourceUtil.getId(getContext(),"product_HadGia"),new MainWebFragment("http://www.zsa888.com/addons/ewei_shop/template/pad/default/shop/new-singleOrderGoodsDetail-hadGia.html",0),false);
+		replace(getActivity(),ResourceUtil.getId(getContext(),"product_HadGia"),new MainWebFragment(url,0),false);
  	}
 
 	private void ensureDots()
