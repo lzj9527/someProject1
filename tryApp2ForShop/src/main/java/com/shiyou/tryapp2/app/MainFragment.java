@@ -38,6 +38,7 @@ import com.shiyou.tryapp2.app.product.SettingFragment;
 import com.shiyou.tryapp2.data.response.BaseResponse;
 import com.shiyou.tryapp2.data.response.ShopLogoAndADResponse;
 import com.shiyou.tryapp2.data.response.ShoppingcartListResponse;
+import com.shiyou.tryapp2.data.response.TokenResponse;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -382,6 +383,7 @@ public class MainFragment extends BaseFragment {
 	// }
 
     private static long lastClickTime;
+	String token;
 	private void setCurrentMenuImpl(final int index) {
 		// fragmentC1.setVisibility(View.INVISIBLE);
 		// fragmentC2.setVisibility(View.INVISIBLE);
@@ -420,18 +422,36 @@ public class MainFragment extends BaseFragment {
 						replace(instance, new OtherIndexFragment(), false);
 						break;
 					case 2:// 购物车
-						// fragmentC.setVisibility(View.VISIBLE);
-//						url = Config.WebShoppingCart + "?key=" + LoginHelper.getUserKey(getContext());
+//						 fragmentC.setVisibility(View.VISIBLE);
+						url = Config.WebShoppingCart + "?key=" + LoginHelper.getUserKey(getContext());
 
 						url="http://www.zsa888.com/addons/ewei_shop/template/pad/default/shop/new-cart.html";
 						replace(instance, new MainWebFragment(url, 0), false);
 						updateShoppingcartNum();
+
+//						RequestManager.getToken(getContext(), LoginHelper.getUserName(getContext()), LoginHelper.getUserPassword(getContext()), new RequestCallback() {
+//							@Override
+//							public void onRequestError(int requestCode, long taskId, ErrorInfo error) {
+//
+//							}
+//
+//							@Override
+//							public void onRequestResult(int requestCode, long taskId, BaseResponse response, DataFrom from) {
+//								TokenResponse tokenResponse=(TokenResponse)response;
+//								 token=tokenResponse.tokenInfo.token;
+//								Log.d(TAG, "onRequestResult: 执行");
+//								Log.d(TAG, "onRequestResult: token="+token);
+//							}
+//						});
+//						WebViewFragment.instance.getToken();
+						Log.d(TAG, "run: 执行完毕");
 						break;
 					case 3:// 订单
 						// fragmentC.setVisibility(View.VISIBLE);
 //						url = Config.WebOrder + "?key=" + LoginHelper.getUserKey(getContext());
 						url="http://www.zsa888.com/addons/ewei_shop/template/pad/default/shop/new-order.html";
 						replace(instance, new MainWebFragment(url, 0), false);
+
 						break;
 					case 4:// 收藏
 						// fragmentC3.setVisibility(View.VISIBLE);

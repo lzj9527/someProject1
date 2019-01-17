@@ -29,5 +29,6 @@ dependencies {
     api project(':androidExtendLib2')
     api project(':jPushSDK300')
     api files('libs/unity-classes.jar')
-//    compile 'com.jwenfeng.pulltorefresh:library:1.0.3'
+    //    compile 'com.jwenfeng.pulltorefresh:library:1.0.3'
+    implementation 'com.squareup.okhttp3:okhttp:3.12.1'
 }

@@ -25,6 +25,7 @@ import android.text.TextUtils;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.shiyou.tryapp2.app.login.LoginHelper;
 import com.shiyou.tryapp2.data.response.BannerADListResponse;
 import com.shiyou.tryapp2.data.response.BaseResponse;
 import com.shiyou.tryapp2.data.response.CheckVersionResponse;
@@ -41,6 +42,7 @@ import com.shiyou.tryapp2.data.response.LoginResponse;
 import com.shiyou.tryapp2.data.response.ScreenSaversResponse;
 import com.shiyou.tryapp2.data.response.ShopLogoAndADResponse;
 import com.shiyou.tryapp2.data.response.ShoppingcartListResponse;
+import com.shiyou.tryapp2.data.response.TokenResponse;
 import com.shiyou.tryapp2.data.response.UploadFileResponse;
 
 public class RequestManager
@@ -69,6 +71,17 @@ public class RequestManager
 				new MyJsonParser<LoginResponse>(context, requestCode, callback, LoginResponse.class),
 				CacheMode.NO_CACHE);
 	}
+//	public static long getToken(Context context, String userName, String password,RequestCallback callback){
+//		int requestCode=RequestCode.token;
+//		String url="https://api.zsa888.cn/login";
+//		BasicHttpLoadParams params = new BasicHttpLoadParams(true);
+//		params.addRequestParam(new BasicNameValuePair("uname", userName));
+//		params.addRequestParam(new BasicNameValuePair("pwd", password));
+//		return UrlLoader.getDefault().startLoad(context, url, params,
+//				new RequestManager.MyJsonParser<TokenResponse>(context, requestCode, callback, TokenResponse.class),
+//				CacheMode.NO_CACHE);
+//	}
+
 
 	/**
 	 * 检查版本更新

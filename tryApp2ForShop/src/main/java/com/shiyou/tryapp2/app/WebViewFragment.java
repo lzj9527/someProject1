@@ -1,6 +1,7 @@
 package com.shiyou.tryapp2.app;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,8 +17,10 @@ import android.extend.app.BaseFragment;
 import android.extend.app.fragment.SwipeRefreshWebViewFragment;
 import android.extend.cache.FileCacheManager;
 import android.extend.loader.BaseParser.DataFrom;
+import android.extend.loader.BasicHttpLoadParams;
 import android.extend.loader.HttpLoader;
 import android.extend.loader.Loader.CacheMode;
+import android.extend.loader.UrlLoader;
 import android.extend.util.AndroidUtils;
 import android.extend.util.FileUtils;
 import android.extend.util.HttpUtils;
@@ -38,6 +41,7 @@ import com.shiyou.tryapp2.Config;
 import com.shiyou.tryapp2.Define;
 import com.shiyou.tryapp2.FileDownloadHelper;
 import com.shiyou.tryapp2.FileDownloadHelper.OnFileDownloadCallback;
+import com.shiyou.tryapp2.RequestCode;
 import com.shiyou.tryapp2.RequestManager;
 import com.shiyou.tryapp2.RequestManager.RequestCallback;
 import com.shiyou.tryapp2.ResourceHelper;
@@ -54,7 +58,16 @@ import com.shiyou.tryapp2.data.db.BrowseHistoryDBHelper;
 import com.shiyou.tryapp2.data.response.BaseResponse;
 import com.shiyou.tryapp2.data.response.GoodsListResponse;
 import com.shiyou.tryapp2.data.response.GoodsListResponse.GoodsItem;
+import com.shiyou.tryapp2.data.response.LoginResponse;
+import com.shiyou.tryapp2.data.response.TokenResponse;
 import com.unity3d.player.UnityPlayer;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class WebViewFragment extends SwipeRefreshWebViewFragment
 {
@@ -134,24 +147,24 @@ public class WebViewFragment extends SwipeRefreshWebViewFragment
 	private void initWebView()
 	{
 		getWebView().getSettings().setJavaScriptEnabled(true);
-		getWebView().addJavascriptInterface(new JavaScriptInterface(), "android");
+		getWebView().addJavascriptInterface(new JavaScriptInterface(), "testName");
 
 		String appCacheDirPath = getAppCacheDirectory(getActivity()).getAbsolutePath();
 		LogUtil.v(TAG, "appCacheDirPath=" + appCacheDirPath);
-		getWebView().getSettings().setCacheMode(WebSettings.LOAD_DEFAULT);
-		getWebView().getSettings().setDomStorageEnabled(true);
-		// getWebView().getSettings().setDatabasePath(databasePath);
-		getWebView().getSettings().setDatabaseEnabled(true);
-		getWebView().getSettings().setAppCachePath(appCacheDirPath);
-		getWebView().getSettings().setAppCacheEnabled(true);
-		getWebView().getSettings().setAllowContentAccess(true);
-		getWebView().getSettings().setAllowFileAccess(true);
-		getWebView().getSettings().setAllowFileAccessFromFileURLs(true);
-		getWebView().getSettings().setAllowUniversalAccessFromFileURLs(true);
-
-		// getWebView().getSettings().setBuiltInZoomControls(true);
-		getWebView().getSettings().setSupportZoom(false);
-		getWebView().getSettings().setUseWideViewPort(false);
+//		getWebView().getSettings().setCacheMode(WebSettings.LOAD_DEFAULT);
+//		getWebView().getSettings().setDomStorageEnabled(true);
+//		// getWebView().getSettings().setDatabasePath(databasePath);
+//		getWebView().getSettings().setDatabaseEnabled(true);
+//		getWebView().getSettings().setAppCachePath(appCacheDirPath);
+//		getWebView().getSettings().setAppCacheEnabled(true);
+//		getWebView().getSettings().setAllowContentAccess(true);
+//		getWebView().getSettings().setAllowFileAccess(true);
+//		getWebView().getSettings().setAllowFileAccessFromFileURLs(true);
+//		getWebView().getSettings().setAllowUniversalAccessFromFileURLs(true);
+//
+//		// getWebView().getSettings().setBuiltInZoomControls(true);
+//		getWebView().getSettings().setSupportZoom(false);
+//		getWebView().getSettings().setUseWideViewPort(false);
 		// getWebView().getSettings().setDisplayZoomControls(true);
 		// getWebView().getSettings().setLayoutAlgorithm(LayoutAlgorithm.NARROW_COLUMNS);
 
@@ -165,6 +178,22 @@ public class WebViewFragment extends SwipeRefreshWebViewFragment
 		getWebView().clearCache(true);
 		FileUtils.deleteDirectory(getAppCacheDirectory(getActivity()));
 	}
+	public void getToken(){
+		AndroidUtils.MainHandler.post(new Runnable()
+		{
+			@Override
+			public void run()
+			{
+				getWebView().evaluateJavascript("javascript:test1()", new ValueCallback<String>() {
+					@Override
+					public void onReceiveValue(String value) {
+						Log.d(TAG, "onReceiveValue: 此方法返回的值="+value);
+					}
+				});
+				Log.d(TAG, "run: 执行Token");
+			}
+		});
+	}
 
 	// 购物车删除
 	public void deleteShoppingCart()
@@ -175,28 +204,6 @@ public class WebViewFragment extends SwipeRefreshWebViewFragment
 			public void run()
 			{
 				getWebView().loadUrl("javascript:deleteShoppingCartFromNative()");
-			}
-		});
-	}
-	public void getToken(){
-		AndroidUtils.MainHandler.post(new Runnable()
-		{
-			@Override
-			public void run()
-			{
-//				getWebView().evaluateJavascript(" javascript:getToken(" + LoginHelper.getUserName(getContext()) + "," + LoginHelper.getUserPassword(getContext()) + ")", new ValueCallback<String>() {
-//                    @Override
-//                    public void onReceiveValue(String value) {
-//                        Log.d("ceshi", "onReceiveValue: 执行");
-//                    }
-//                });
-				getWebView().evaluateJavascript("javascript:getKey()", new ValueCallback<String>() {
-					@Override
-					public void onReceiveValue(String value) {
-						Log.d("ceshi", "onReceiveValue: 执行结果="+value);
-					}
-				});
-
 			}
 		});
 	}
@@ -306,8 +313,59 @@ public class WebViewFragment extends SwipeRefreshWebViewFragment
 		}, false);
 	}
 
-	public class JavaScriptInterface
+	public class JavaScriptInterface extends Object
 	{
+		//get Token方法
+		String token;
+		@JavascriptInterface
+		public String  test2(){
+			Log.d(TAG, "test2: 执行");
+			FormBody formBody=new FormBody.Builder().add("username",LoginHelper.getUserName(getContext())).add("password",LoginHelper.getUserPassword(getContext())).build();
+			Request request=new Request.Builder().url("https://api.zsa888.cn/login").addHeader("accept","application/vnd.zsmt.shop.v1+json").post(formBody).build();
+			OkHttpClient okHttpClient=new OkHttpClient();
+			okHttpClient.newCall(request).enqueue(new Callback() {
+				@Override
+				public void onFailure(Call call, IOException e) {
+					System.out.println(e.getMessage());
+				}
+
+				@Override
+				public void onResponse(Call call, Response response) throws IOException {
+					String all = response.body().string();
+					int i = all.indexOf("access_token");
+					int j = all.indexOf("token_type");
+					Log.d(TAG, "onResponse: all=" + all);
+					Log.d(TAG, "onResponse: token=" + token);
+					Log.d(TAG, "onResponse: i=" + i);
+					Log.d(TAG, "onResponse: j=" + j);
+					try {
+						token = all.substring(i + 15, j - 3);
+						Log.d(TAG, "onResponse: token=" + token);
+					}catch (Exception e){
+						i=all.indexOf("data");
+						j=all.lastIndexOf("}");
+						token=all.substring(i+7,j-1);
+					}
+				}
+			});
+//			RequestManager.getToken(getContext(), LoginHelper.getUserName(getCo ntext()), LoginHelper.getUserPassword(getContext()), new RequestCallback() {
+//				@Override
+//				public void onRequestError(int requestCode, long taskId, ErrorInfo error) {
+//
+
+//				}
+//
+//				@Override
+//				public void onRequestResult(int requestCode, long taskId, BaseResponse response, DataFrom from) {
+//					TokenResponse tokenResponse=(TokenResponse)response;
+//					token=tokenResponse.tokenInfo.token;
+//
+//					Log.d(TAG, "onRequestResult: token="+token);
+//				}
+//			});
+			Log.d(TAG, "getToken: token="+token);
+			return  token;
+		}
 		// 打开新页面
 		@JavascriptInterface
 		public void openWindow(final int index, final String title, final String url)
@@ -334,7 +392,7 @@ public class WebViewFragment extends SwipeRefreshWebViewFragment
 					{
 						case 1:// 登录
 							replace(getActivity(), new LoginFragment(), false);
-							instance.getToken();
+//							instance.getToken();
 							break;
 						case 4:// 选定此砖石
 								// if (ProductDetailsFragment.instance != null)

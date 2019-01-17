@@ -1,1 +1,1 @@
-[{"outputType":{"type":"INSTANT_RUN_PACKAGED_RESOURCES"},"apkInfo":{"type":"MAIN","splits":[],"versionCode":168},"path":"resources-debug.ir.ap_","properties":{"packageId":"com.shiyou.tryapp2.shop.zsa","split":"","minSdkVersion":"19"}}]
+[{"outputType":{"type":"INSTANT_RUN_PACKAGED_RESOURCES"},"apkInfo":{"type":"MAIN","splits":[],"versionCode":169,"versionName":"1.6.9","enabled":true,"outputFile":"tryApp2ForShop-debug.apk","fullName":"debug","baseName":"debug"},"path":"resources-debug.ir.ap_","properties":{}}]

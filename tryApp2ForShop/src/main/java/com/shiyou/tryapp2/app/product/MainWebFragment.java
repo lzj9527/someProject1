@@ -43,13 +43,12 @@ public class MainWebFragment extends WebViewFragment
 	@Override
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
 	{
+
 		mLayoutResID = ResourceUtil.getLayoutId(getContext(), "main_webview_layout");
 		View view = super.onCreateView(inflater, container, savedInstanceState);
 		((android.extend.widget.ExtendFrameLayout)view).setInterceptTouchEventToDownward(true);
 		ViewTools.adapterAllViewMarginInChildren(view, MainActivity.scaled);
 		ViewTools.adapterAllViewPaddingInChildren(view, MainActivity.scaled);
-		Log.d(TAG, "onCreateView: 执行");
-		Log.d(TAG, "onCreateView: 执行完毕");
 		int id = ResourceUtil.getId(getActivity(), "middle_back");
 		View middle_back = view.findViewById(id);
 		switch (index)
@@ -88,6 +87,9 @@ public class MainWebFragment extends WebViewFragment
 			}
 		});
 
+		Log.d(TAG, "onCreateView: 执行");
+		instance.getToken();
+		Log.d(TAG, "onCreateView: 执行完毕");
 		return view;
 	}
 

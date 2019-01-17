@@ -8,6 +8,7 @@ public class RequestCode
 	public static final int user_register = 1001;
 	/** 用户登录 */
 	public static final int user_login = 1002;
+
 	/** 用户重置密码 */
 	public static final int user_reset_password = 1003;
 	/** 用户修改信息 */
@@ -34,7 +35,8 @@ public class RequestCode
 	public static final int user_imtoken = 1014;
 	/** 用户退出登录 */
 	public static final int user_logout = 1015;
-
+	/** 获取token */
+	public static final int token=1016;
 	/** 品牌列表 */
 	public static final int brand_list = 2001;
 	/** 品牌首页 */
