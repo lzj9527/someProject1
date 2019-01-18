@@ -1,8 +1,6 @@
 package com.shiyou.tryapp2.app;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.extend.ErrorInfo;
 import android.extend.app.BaseFragment;
 import android.extend.loader.BaseParser.DataFrom;
@@ -27,7 +25,6 @@ import android.widget.TextView;
 import com.shiyou.tryapp2.Config;
 import com.shiyou.tryapp2.RequestManager;
 import com.shiyou.tryapp2.RequestManager.RequestCallback;
-import com.shiyou.tryapp2.app.login.LoginFragment;
 import com.shiyou.tryapp2.app.login.LoginHelper;
 import com.shiyou.tryapp2.app.product.BrowseHistoryFragment;
 import com.shiyou.tryapp2.app.product.MainIndexFragment;
@@ -38,10 +35,7 @@ import com.shiyou.tryapp2.app.product.SettingFragment;
 import com.shiyou.tryapp2.data.response.BaseResponse;
 import com.shiyou.tryapp2.data.response.ShopLogoAndADResponse;
 import com.shiyou.tryapp2.data.response.ShoppingcartListResponse;
-import com.shiyou.tryapp2.data.response.TokenResponse;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 
 public class MainFragment extends BaseFragment {
 	public static MainFragment instance = null;

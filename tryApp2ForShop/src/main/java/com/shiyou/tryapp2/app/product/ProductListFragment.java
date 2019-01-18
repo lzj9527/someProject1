@@ -102,6 +102,7 @@ public class ProductListFragment extends BaseFragment
 	@Override
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
 	{
+
 		mLayoutResID = ResourceUtil.getLayoutId(getContext(), "product_list_layout");
 		View view = super.onCreateView(inflater, container, savedInstanceState);
 		((android.extend.widget.ExtendLinearLayout)view).setInterceptTouchEventToDownward(true);
