@@ -160,7 +160,6 @@
             android:layout_marginBottom="10dp"
             android:src="@drawable/selector_main_set" />
     </LinearLayout>
-
     <android.extend.widget.FragmentContainer
         android:id="@+id/fragment_container"
         android:layout_width="fill_parent"

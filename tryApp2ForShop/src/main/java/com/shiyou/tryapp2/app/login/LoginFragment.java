@@ -20,6 +20,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
+import android.webkit.WebView;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -39,6 +40,14 @@ import com.shiyou.tryapp2.data.response.GoodsListResponse.GoodsItem;
 import com.shiyou.tryapp2.data.response.LoginResponse;
 
 import java.io.FileOutputStream;
+import java.io.IOException;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 import static android.os.ParcelFileDescriptor.MODE_APPEND;
 
@@ -263,6 +272,60 @@ public class LoginFragment extends BaseFragment
 //							});
 //						}
 //					});
+
 		}
+//		WebView webView=new WebView(getContext());
+//		webView.loadUrl("http://www.zsa888.com/addons/ewei_shop/template/pad/default/shop/getToken.html?&"+getToken());
+//		Log.d(TAG, "onLoginFinished: token="+getToken());
+	}
+
+	String token;
+	//获取toKen
+	public String getToken(){
+
+		Log.d(TAG, "test2: 执行");
+		FormBody formBody=new FormBody.Builder().add("username",LoginHelper.getUserName(getContext())).add("password",LoginHelper.getUserPassword(getContext())).build();
+		Request request=new Request.Builder().url("https://api.zsa888.cn/login").addHeader("accept","application/vnd.zsmt.shop.v1+json").post(formBody).build();
+		OkHttpClient okHttpClient=new OkHttpClient();
+		okHttpClient.newCall(request).enqueue(new Callback() {
+			@Override
+			public void onFailure(Call call, IOException e) {
+				System.out.println(e.getMessage());
+			}
+
+			@Override
+			public void onResponse(Call call, Response response) throws IOException {
+				String all = response.body().string();
+				int i = all.indexOf("access_token");
+				int j = all.indexOf("token_type");
+				Log.d(TAG, "onResponse: all=" + all);
+				Log.d(TAG, "onResponse: i=" + i);
+				Log.d(TAG, "onResponse: j=" + j);
+				try {
+					token = all.substring(i + 15, j - 3);
+				}catch (Exception e){
+					i=all.indexOf("data");
+					j=all.lastIndexOf("}");
+					token=all.substring(i+7,j-1);
+				}
+			}
+		});
+//			RequestManager.getToken(getContext(), LoginHelper.getUserName(getCo ntext()), LoginHelper.getUserPassword(getContext()), new RequestCallback() {
+//				@Override
+//				public void onRequestError(int requestCode, long taskId, ErrorInfo error) {
+//
+
+//				}
+//
+//				@Override
+//				public void onRequestResult(int requestCode, long taskId, BaseResponse response, DataFrom from) {
+//					TokenResponse tokenResponse=(TokenResponse)response;
+//					token=tokenResponse.tokenInfo.token;
+//
+//					Log.d(TAG, "onRequestResult: token="+token);
+//				}
+//			});
+		Log.d(TAG, "getToken: token="+token);
+		return  token;
 	}
 }

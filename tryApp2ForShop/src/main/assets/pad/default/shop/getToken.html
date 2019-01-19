@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0"/>
+    <title>获取token</title>
+</head>
+<body>
+<script src="../static/js/jquery-3.0.0.js"></script>
+<script src="../static/js/function.js"></script>
+<script>
+        let token = getUrlParam('token');
+        localStorage.setItem("token",token);
+        // document.write(token);
+        document.write(localStorage.getItem("token"));
+        // console.log(localStorage.getItem("token"));
+        // alert(localStorage.getItem("token"));
+</script>
+</body>
+</html>

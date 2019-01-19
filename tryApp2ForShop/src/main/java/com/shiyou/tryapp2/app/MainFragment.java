@@ -14,12 +14,16 @@ import android.extend.widget.MenuBar;
 import android.extend.widget.MenuBar.OnMenuListener;
 import android.extend.widget.MenuView;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.ValueCallback;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.TextView;
 
 import com.shiyou.tryapp2.Config;
@@ -35,6 +39,15 @@ import com.shiyou.tryapp2.app.product.SettingFragment;
 import com.shiyou.tryapp2.data.response.BaseResponse;
 import com.shiyou.tryapp2.data.response.ShopLogoAndADResponse;
 import com.shiyou.tryapp2.data.response.ShoppingcartListResponse;
+
+import java.io.IOException;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 
 public class MainFragment extends BaseFragment {
@@ -55,6 +68,7 @@ public class MainFragment extends BaseFragment {
 
 	private String mGoodsId;
 	private String mGoodsTag;
+	private String token;
 
 	// private boolean mGoodsIsShop;
 
@@ -375,9 +389,93 @@ public class MainFragment extends BaseFragment {
 	// });
 	// }
 	// }
+Handler handler;
+	//获取toKen
+	public String getToken(){
+		handler=new Handler();
+				FormBody formBody=new FormBody.Builder().add("username",LoginHelper.getUserName(getContext())).add("password",LoginHelper.getUserPassword(getContext())).build();
+				Request request=new Request.Builder().url("https://api.zsa888.cn/login").addHeader("accept","application/vnd.zsmt.shop.v1+json").post(formBody).build();
+				OkHttpClient okHttpClient=new OkHttpClient();
+				okHttpClient.newCall(request).enqueue(new Callback() {
+					private String token;
 
+					@Override
+					public void onFailure(Call call, IOException e) {
+						System.out.println(e.getMessage());
+					}
+
+					@Override
+					public void onResponse(Call call, Response response) throws IOException {
+						String all = response.body().string();
+						int i = all.indexOf("access_token");
+						int j = all.indexOf("token_type");
+						Log.d(TAG, "onResponse: all=" + all);
+						Log.d(TAG, "onResponse: i=" + i);
+						Log.d(TAG, "onResponse: j=" + j);
+						try {
+							token = all.substring(i + 15, j - 3);
+							handler.post(new Runnable() {
+                                @Override
+                                public void run() {
+
+									replace(instance, new MainWebFragment("http://www.zsa888.com/addons/ewei_shop/template/pad/default/shop/getToken.html?token="+token, 0), false);
+									replace(instance, new MainIndexFragment(), false);
+//                                	OkHttpClient okHttpClient1=new OkHttpClient();
+//									FormBody formBody=new FormBody.Builder().add("token",token).build();
+//									final Request request=new Request.Builder().url("http://www.zsa888.com/addons/ewei_shop/template/pad/default/shop/getToken.html").post(formBody).build();
+//									OkHttpClient okHttpClient=new OkHttpClient();
+//									okHttpClient.newCall(request).enqueue(new Callback() {
+//										@Override
+//										public void onFailure(Call call, IOException e) {
+//											Log.d(TAG, "onFailure: 222执行");
+//										}
+//
+//										@Override
+//										public void onResponse(Call call, Response response) throws IOException {
+//											String token=response.body().string();
+//
+//											Log.d(TAG, "onResponse: 222执行 token="+token);
+//										}
+//									});
+//                                    Log.d(TAG, "run: token222="+token);
+//									int id=ResourceUtil.getId(getContext(),"test_token");
+//									WebView webView= (WebView) getView().findViewById(id);
+//									webView.setWebViewClient(new WebViewClient());
+//									webView.evaluateJavascript("http://www.zsa888.com/addons/ewei_shop/template/pad/default/shop/getToken.html?token=" + token, new ValueCallback<String>() {
+//										@Override
+//										public void onReceiveValue(String value) {
+//											Log.d(TAG, "onReceiveValue: value="+value);
+//										}
+//									});
+                                }
+                            });
+						}catch (Exception e){
+							i=all.indexOf("data");
+							j=all.lastIndexOf("}");
+							token=all.substring(i+7,j-1);
+						}
+					}
+				});
+//			RequestManager.getToken(getContext(), LoginHelper.getUserName(getCo ntext()), LoginHelper.getUserPassword(getContext()), new RequestCallback() {
+//				@Override
+//				public void onRequestError(int requestCode, long taskId, ErrorInfo error) {
+//
+
+//				}
+//
+//				@Override
+//				public void onRequestResult(int requestCode, long taskId, BaseResponse response, DataFrom from) {
+//					TokenResponse tokenResponse=(TokenResponse)response;
+//					token=tokenResponse.tokenInfo.token;
+//
+//					Log.d(TAG, "onRequestResult: token="+token);
+//				}
+//			});
+		Log.d(TAG, "getToken1: token="+token);
+		return  token;
+	}
+	String url;
     private static long lastClickTime;
-	String token;
 	private void setCurrentMenuImpl(final int index) {
 		// fragmentC1.setVisibility(View.INVISIBLE);
 		// fragmentC2.setVisibility(View.INVISIBLE);
@@ -392,15 +490,16 @@ public class MainFragment extends BaseFragment {
 					AndroidUtils.MainHandler.postDelayed(this, 300L);
 					return;
 				}
-				String url;
-                Log.d(TAG, "run: username="+LoginHelper.getUserName(getContext()));
-                Log.d(TAG, "run: password="+LoginHelper.getUserPassword(getContext()));
-//                long curClickTime = System.currentTimeMillis();
-//				if ((curClickTime - lastClickTime)>=72000000) {
-//					Log.d(TAG, "run: 执行 LastTime="+lastClickTime);
-//
-//					lastClickTime = curClickTime;
-//				}
+                long curClickTime = System.currentTimeMillis();
+				Log.d(TAG, "run: curClickTime="+curClickTime);
+				Log.d(TAG, "run: lastClickTime="+lastClickTime);
+				if ((curClickTime - lastClickTime)>=72000000) {
+					Log.d(TAG, "run: 执行 LastTime="+lastClickTime);
+					getToken();
+
+					Log.d(TAG, "onLoginFinished: token="+getToken());
+					lastClickTime = curClickTime;
+				}
 
 				switch (index) {
 					case 0:// 定制
@@ -423,6 +522,9 @@ public class MainFragment extends BaseFragment {
 						replace(instance, new MainWebFragment(url, 0), false);
 						updateShoppingcartNum();
 
+//						int id=ResourceUtil.getId(getContext(),"test_token");
+//						WebView webView= (WebView) getView().findViewById(id);
+//						webView.setVisibility(View.VISIBLE);
 //						RequestManager.getToken(getContext(), LoginHelper.getUserName(getContext()), LoginHelper.getUserPassword(getContext()), new RequestCallback() {
 //							@Override
 //							public void onRequestError(int requestCode, long taskId, ErrorInfo error) {
@@ -445,7 +547,6 @@ public class MainFragment extends BaseFragment {
 //						url = Config.WebOrder + "?key=" + LoginHelper.getUserKey(getContext());
 						url="http://www.zsa888.com/addons/ewei_shop/template/pad/default/shop/new-order.html";
 						replace(instance, new MainWebFragment(url, 0), false);
-
 						break;
 					case 4:// 收藏
 						// fragmentC3.setVisibility(View.VISIBLE);
