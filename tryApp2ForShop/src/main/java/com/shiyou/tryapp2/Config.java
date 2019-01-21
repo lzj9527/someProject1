@@ -7,6 +7,7 @@ public class Config
 	public static final String TAG = "Config";
 
 	public static final String CLIENT = "android";
+	public static String token;
 	public static final int CHANNEL = 1;//  1：tryapp平台，2：91助手，3：安智市场，4：应用宝
 	public static final int PLATFORM = 1;// 1：AndriodPad 2：iso 3:AndriodBoss
 	public static final String ServicePhone = "020-39991116";// 客服电话

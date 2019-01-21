@@ -316,7 +316,7 @@ public class ProductDetailsFragment extends BaseFragment implements OnModelLoadL
 
 
 
-//		replace(instance,ResourceUtil.getId(getContext(),"product_details_attribute"),new MainWebFragment("http://www.zsa888.com/addons/ewei_shop/template/pad/default/shop/new-singleGoodsDetail.html",0),false);
+		replace(instance,ResourceUtil.getId(getContext(),"product_details_attribute"),new MainWebFragment(url,0),false);
 
 		ensureDetailsMiddle();
 		ensureUnityPlayer();

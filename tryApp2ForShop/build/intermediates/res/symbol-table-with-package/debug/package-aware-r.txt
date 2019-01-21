@@ -337,6 +337,7 @@ id data
 id date
 id delectprice
 id details_middle_layout
+id details_right_layout
 id divider
 id dot_container
 id drag_handle
@@ -350,7 +351,6 @@ id flingRemove
 id fling_handle
 id flipper
 id fragment_container
-id fragment_container6
 id frame_layout
 id fullWebView
 id fullscreen_mask
@@ -530,6 +530,7 @@ id start
 id sub_titlebar
 id swipe_refresh
 id tag_new
+id test_token
 id text
 id textView
 id title

@@ -7,6 +7,7 @@ import org.apache.http.NameValuePair;
 import android.extend.util.AndroidUtils;
 import android.extend.util.ResourceUtil;
 import android.extend.util.ViewTools;
+import android.extend.widget.ExtendWebView;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -14,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.shiyou.tryapp2.Config;
 import com.shiyou.tryapp2.app.MainActivity;
 import com.shiyou.tryapp2.app.MainFragment;
 import com.shiyou.tryapp2.app.WebViewFragment;
@@ -23,6 +25,8 @@ public class MainWebFragment extends WebViewFragment
 	public static MainWebFragment instance = null;
 
 	private int index;
+	private boolean isFirst;
+	private static long lastClickTime;
 
 	public MainWebFragment(String firstUrl, List<NameValuePair> firstRequestPairs,
 			List<NameValuePair> baseRequestPairs, int index)
@@ -38,6 +42,14 @@ public class MainWebFragment extends WebViewFragment
 		super(firstUrl);
 		instance = this;
 		this.index = index;
+	}
+
+	public MainWebFragment(String firstUrl, int index,boolean isFirst)
+	{
+		super(firstUrl);
+		instance = this;
+		this.index = index;
+		this.isFirst=isFirst;
 	}
 
 	@Override
@@ -86,7 +98,16 @@ public class MainWebFragment extends WebViewFragment
 				}
 			}
 		});
-
+//		id = ResourceUtil.getId(getActivity(), "test_token");
+//		ExtendWebView webView=(ExtendWebView) view.findViewById(id);
+//		id = ResourceUtil.getId(getActivity(), "webview");
+//		ExtendWebView webView2=(ExtendWebView) view.findViewById(id);
+//		long curClickTime = System.currentTimeMillis();
+//		if ((curClickTime - lastClickTime)>=72000000) {
+//			Log.d(TAG, "run: 执行 LastTime="+lastClickTime);
+//			webView.loadUrl("http://www.zsa888.com/addons/ewei_shop/template/pad/default/shop/getToken.html?token="+ Config.token);
+//			lastClickTime = curClickTime;
+//		}
 		return view;
 	}
 

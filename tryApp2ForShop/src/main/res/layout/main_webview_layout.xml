@@ -11,6 +11,13 @@
         android:layout_height="match_parent"
         android:clipChildren="false"
         android:scrollbars="none" />
+    <android.extend.widget.ExtendWebView
+        android:id="@+id/test_token"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:clipChildren="false"
+        android:visibility="gone"
+        android:scrollbars="none" />
 
     <!--
     <android.support.v4.widget.SwipeRefreshLayout

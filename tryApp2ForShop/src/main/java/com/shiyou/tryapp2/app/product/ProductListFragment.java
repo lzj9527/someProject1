@@ -110,7 +110,7 @@ public class ProductListFragment extends BaseFragment
 		ViewTools.adapterAllViewPaddingInChildren(view, MainActivity.scaled);
 		ViewTools.adapterAllTextViewTextSizeInChildren(view, MainActivity.fontScaled);
 
-		replace(getActivity(),ResourceUtil.getId(getContext(),"product_list"),new MainWebFragment("http://www.zsa888.com/addons/ewei_shop/template/pad/default/shop/new-list.html?goodsType="+ goodstype+"&cid="+category+"&customization="+customization,0),false);
+		replace(getActivity(),ResourceUtil.getId(getContext(),"product_list"),new MainWebFragment("http://www.zsa888.com/addons/ewei_shop/template/pad/default/shop/new-list.html?isSearch=false&sku=''&goodsType="+ goodstype+"&cid="+category+"&customization="+customization,0),false);
 
 		int id = ResourceUtil.getId(getActivity(), "middle_back");
 		View middle_back = view.findViewById(id);

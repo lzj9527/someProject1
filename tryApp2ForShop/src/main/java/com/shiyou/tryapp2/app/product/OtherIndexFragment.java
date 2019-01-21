@@ -14,6 +14,7 @@ import android.extend.widget.adapter.BaseGridAdapter;
 import android.extend.widget.adapter.ScrollGridView;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,8 +22,10 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView.ScaleType;
+import android.widget.TextView;
 
 import com.shiyou.tryapp2.Config;
+import com.shiyou.tryapp2.Define;
 import com.shiyou.tryapp2.RequestManager;
 import com.shiyou.tryapp2.RequestManager.RequestCallback;
 import com.shiyou.tryapp2.app.MainActivity;
@@ -57,6 +60,21 @@ public class OtherIndexFragment extends BaseFragment
 		product_search= (Button)view.findViewById(id);
 		id=ResourceUtil.getId(getContext(),"product_search_number");
 		product_search_number= (EditText)view.findViewById(id);
+		product_search.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				try {
+					String goodsId = product_search_number.getText().toString();
+					int id = ResourceUtil.getId(getContext(), "token");
+					TextView textView = (TextView) getView().findViewById(id);
+					MainFragment.instance.addProductDetailFragmentToCurrent(goodsId, Define.TAG_RING, true, true, false, "https://api.zsa888.cn/goods/search?token=" + textView.getText() + "&type=" + goodsId);
+
+				}catch (Exception e){
+					showToast("输入的款号有误");
+				}
+				}
+
+		});
 		loadGoodsCategory();
 
 		return view;

@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Fri Jan 18 17:01:26 CST 2019
+#Mon Jan 21 11:07:25 CST 2019
 20.base=D\:\\TryApp2ForShop-master_test\\tryApp2ForShop\\build\\intermediates\\transforms\\mergeJniLibs\\debug\\0
 143.base=D\:\\TryApp2ForShop-master_test\\tryApp2ForShop\\build\\intermediates\\merged_assets\\debug\\mergeDebugAssets\\out
 237.path=bin/Data/29832c83b6843c34eaaf576b95c1c78e
@@ -556,7 +556,7 @@
 32.path=bin/Data/59e8b331310e44848b84a8f32f844026
 335.path=pad/default/static/fonts/glyphicons-halflings-regular.eot
 241.base=D\:\\TryApp2ForShop-master_test\\tryApp2ForShop\\build\\intermediates\\merged_assets\\debug\\mergeDebugAssets\\out
-197.path=pad/default/static/css/bootstrap-theme.css
+197.path=pad/default/shop/getToken.html
 368.path=bin/Data/ed5591596df551e4c8f4b05ce88a7a07
 104.base=D\:\\TryApp2ForShop-master_test\\tryApp2ForShop\\build\\intermediates\\merged_assets\\debug\\mergeDebugAssets\\out
 83.set=ASSET
@@ -1545,7 +1545,7 @@ count=424
 33.path=bin/Data/c0cec06fa9b4be647afaee0e8bbfc2a1
 336.path=pad/default/api/GIA_files/Pagination.js
 242.base=D\:\\TryApp2ForShop-master_test\\tryApp2ForShop\\build\\intermediates\\merged_assets\\debug\\mergeDebugAssets\\out
-198.path=pad/default/shop/getToken.html
+198.path=pad/default/static/css/bootstrap-theme.css
 369.path=bin/Data/c6f11eb0ceeb5e044b3199208e1a99bf
 358.baseType=DIRECTORY
 105.base=D\:\\TryApp2ForShop-master_test\\tryApp2ForShop\\build\\intermediates\\merged_assets\\debug\\mergeDebugAssets\\out

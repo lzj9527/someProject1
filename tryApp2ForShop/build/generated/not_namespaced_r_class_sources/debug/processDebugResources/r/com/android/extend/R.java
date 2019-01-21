@@ -107,13 +107,13 @@ public final class R {
         public static final int content_container = 0x7f060024;
         public static final int content_layout = 0x7f060025;
         public static final int data = 0x7f060029;
-        public static final int divider = 0x7f06002d;
-        public static final int drag_handle = 0x7f06002f;
-        public static final int end = 0x7f060032;
-        public static final int flingRemove = 0x7f060036;
-        public static final int fling_handle = 0x7f060037;
-        public static final int flipper = 0x7f060038;
-        public static final int fragment_container = 0x7f060039;
+        public static final int divider = 0x7f06002e;
+        public static final int drag_handle = 0x7f060030;
+        public static final int end = 0x7f060033;
+        public static final int flingRemove = 0x7f060037;
+        public static final int fling_handle = 0x7f060038;
+        public static final int flipper = 0x7f060039;
+        public static final int fragment_container = 0x7f06003a;
         public static final int frame_layout = 0x7f06003b;
         public static final int grid = 0x7f060040;
         public static final int horizontal = 0x7f060042;
@@ -162,15 +162,15 @@ public final class R {
         public static final int start = 0x7f0600ea;
         public static final int sub_titlebar = 0x7f0600eb;
         public static final int swipe_refresh = 0x7f0600ec;
-        public static final int text = 0x7f0600ee;
-        public static final int title = 0x7f0600f0;
-        public static final int titlebar = 0x7f0600f1;
-        public static final int touch = 0x7f0600f4;
-        public static final int type = 0x7f0600f7;
-        public static final int vertical = 0x7f0600fc;
-        public static final int visible = 0x7f0600fe;
-        public static final int waterfall = 0x7f0600ff;
-        public static final int webview = 0x7f060100;
+        public static final int text = 0x7f0600ef;
+        public static final int title = 0x7f0600f1;
+        public static final int titlebar = 0x7f0600f2;
+        public static final int touch = 0x7f0600f5;
+        public static final int type = 0x7f0600f8;
+        public static final int vertical = 0x7f0600fd;
+        public static final int visible = 0x7f0600ff;
+        public static final int waterfall = 0x7f060100;
+        public static final int webview = 0x7f060101;
     }
     public static final class layout {
         private layout() {}

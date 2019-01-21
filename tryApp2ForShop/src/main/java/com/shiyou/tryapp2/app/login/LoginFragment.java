@@ -12,6 +12,7 @@ import android.extend.util.LogUtil;
 import android.extend.util.ResourceUtil;
 import android.extend.util.ViewTools;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
@@ -21,6 +22,7 @@ import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.webkit.WebView;
+import android.webkit.WebViewFragment;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -32,8 +34,8 @@ import com.shiyou.tryapp2.ResourceHelper2;
 import com.shiyou.tryapp2.ResourceHelper2.OnResourceDownloadCallback;
 import com.shiyou.tryapp2.app.MainActivity;
 import com.shiyou.tryapp2.app.MainFragment;
-import com.shiyou.tryapp2.app.WebViewFragment;
 import com.shiyou.tryapp2.app.product.MainIndexFragment;
+import com.shiyou.tryapp2.app.product.MainWebFragment;
 import com.shiyou.tryapp2.data.response.BaseResponse;
 import com.shiyou.tryapp2.data.response.GoodsListResponse;
 import com.shiyou.tryapp2.data.response.GoodsListResponse.GoodsItem;
@@ -157,6 +159,7 @@ public class LoginFragment extends BaseFragment
 				showToast("很难受，网络异常: " + error.errorCode);
 			}
 		});
+		getToken();
 	}
 
 	private void showBindHint()
@@ -178,6 +181,7 @@ public class LoginFragment extends BaseFragment
 
 	public void onLoginFinished(final String userName, final String realName, final String userKey)
 	{
+
 		Log.d(TAG, "onLoginFinished: userName="+LoginHelper.getUserName(getContext()));
 		Log.d(TAG, "onLoginFinished: userPassword="+LoginHelper.getUserPassword(getContext()));
 		LogUtil.v(TAG, "onLoginFinished: " + userName + "; " + realName + "; " + userKey + "; " + mLoginFinished);
@@ -187,13 +191,12 @@ public class LoginFragment extends BaseFragment
 		LoginHelper.onLoginFinished(getActivity(), userName, realName, userKey);
 		if (getActivity() != MainActivity.instance)
 		{
-			Log.d(TAG, "onLoginFinished: 执行");
 
-			Log.d(TAG, "onLoginFinished: 执行完毕");
 			getActivity().finish();
 			if (MainFragment.instance != null)
 			{
 				MainFragment.instance.backToHomepage();
+
 				MainFragment.instance.doRefresh();
 			}
 			if (MainIndexFragment.instance != null)
@@ -272,22 +275,32 @@ public class LoginFragment extends BaseFragment
 //							});
 //						}
 //					});
-
+//
+// replace(MainFragment.instance, new MainWebFragment("http://www.zsa888.com/addons/ewei_shop/template/pad/default/shop/getToken.html?token="+Config.token, 0,true), false);
+//			AndroidUtils.MainHandler.post(new Runnable()
+//			{
+//				@Override
+//				public void run()
+//				{
+//					WebViewFragment webViewFragment=new WebViewFragment();
+//					webViewFragment.getWebView().loadUrl("http://www.zsa888.com/addons/ewei_shop/template/pad/default/shop/getToken.html?token="+Config.token);
+//				}
+//			});
 		}
 //		WebView webView=new WebView(getContext());
 //		webView.loadUrl("http://www.zsa888.com/addons/ewei_shop/template/pad/default/shop/getToken.html?&"+getToken());
 //		Log.d(TAG, "onLoginFinished: token="+getToken());
 	}
-
-	String token;
 	//获取toKen
 	public String getToken(){
 
-		Log.d(TAG, "test2: 执行");
+
 		FormBody formBody=new FormBody.Builder().add("username",LoginHelper.getUserName(getContext())).add("password",LoginHelper.getUserPassword(getContext())).build();
 		Request request=new Request.Builder().url("https://api.zsa888.cn/login").addHeader("accept","application/vnd.zsmt.shop.v1+json").post(formBody).build();
 		OkHttpClient okHttpClient=new OkHttpClient();
 		okHttpClient.newCall(request).enqueue(new Callback() {
+			private String token;
+
 			@Override
 			public void onFailure(Call call, IOException e) {
 				System.out.println(e.getMessage());
@@ -303,6 +316,45 @@ public class LoginFragment extends BaseFragment
 				Log.d(TAG, "onResponse: j=" + j);
 				try {
 					token = all.substring(i + 15, j - 3);
+					AndroidUtils.MainHandler.post(new Runnable() {
+						@Override
+						public void run() {
+//									int id=ResourceUtil.getId(getContext(),"test_token");
+//									WebView webView=(WebView) getView().findViewById(id);
+//									webView.loadUrl("http://www.zsa888.com/addons/ewei_shop/template/pad/default/shop/getToken.html?token="+token);
+							Config.token=token;
+//									replace(instance, new MainWebFragment("http://www.zsa888.com/addons/ewei_shop/template/pad/default/shop/getToken.html?token="+token, 0,true), false);
+
+//									Log.d(TAG, "run: textToken="+textView.getText());
+//                                	OkHttpClient okHttpClient1=new OkHttpClient();
+//									FormBody formBody=new FormBody.Builder().add("token",token).build();
+//									final Request request=new Request.Builder().url("http://www.zsa888.com/addons/ewei_shop/template/pad/default/shop/getToken.html").post(formBody).build();
+//									OkHttpClient okHttpClient=new OkHttpClient();
+//									okHttpClient.newCall(request).enqueue(new Callback() {
+//										@Override
+//										public void onFailure(Call call, IOException e) {
+//											Log.d(TAG, "onFailure: 222执行");
+//										}
+//
+//										@Override
+//										public void onResponse(Call call, Response response) throws IOException {
+//											String token=response.body().string();
+//
+//											Log.d(TAG, "onResponse: 222执行 token="+token);
+//										}
+//									});
+//                                    Log.d(TAG, "run: token222="+token);
+//									int id=ResourceUtil.getId(getContext(),"test_token");
+//									WebView webView= (WebView) getView().findViewById(id);
+//									webView.setWebViewClient(new WebViewClient());
+//									webView.evaluateJavascript("http://www.zsa888.com/addons/ewei_shop/template/pad/default/shop/getToken.html?token=" + token, new ValueCallback<String>() {
+//										@Override
+//										public void onReceiveValue(String value) {
+//											Log.d(TAG, "onReceiveValue: value="+value);
+//										}
+//									});
+						}
+					});
 				}catch (Exception e){
 					i=all.indexOf("data");
 					j=all.lastIndexOf("}");
@@ -325,7 +377,6 @@ public class LoginFragment extends BaseFragment
 //					Log.d(TAG, "onRequestResult: token="+token);
 //				}
 //			});
-		Log.d(TAG, "getToken: token="+token);
-		return  token;
+		return  Config.token;
 	}
 }

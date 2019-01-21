@@ -22,6 +22,7 @@ public class ExtendWebViewFragment extends BaseFragment
 	protected List<NameValuePair> mBaseRequestPairs;
 	protected long mFirstDelay = 0L;
 	protected ExtendWebView mWebView;
+	protected ExtendWebView mWebView2;
 
 	public ExtendWebViewFragment(String firstUrl, List<NameValuePair> firstRequestPairs,
 			List<NameValuePair> baseRequestPairs, long firstDelay)
@@ -47,6 +48,10 @@ public class ExtendWebViewFragment extends BaseFragment
 	{
 		return mWebView;
 	}
+	public ExtendWebView getWebView2()
+	{
+		return mWebView2;
+	}
 
 	public void refresh()
 	{
@@ -66,6 +71,8 @@ public class ExtendWebViewFragment extends BaseFragment
 		{
 			int id = ResourceUtil.getId(getContext(), "webview");
 			mWebView = (ExtendWebView)view.findViewById(id);
+			id = ResourceUtil.getId(getContext(), "test_token");
+			mWebView2 = (ExtendWebView)view.findViewById(id);
 		}
 		if (mWebView == null)
 		{

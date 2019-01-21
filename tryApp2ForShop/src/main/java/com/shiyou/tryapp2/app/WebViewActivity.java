@@ -23,6 +23,7 @@ public class WebViewActivity extends BaseAppActivity
 	private static List<NameValuePair> mFirstRequestPairs;
 	private static List<NameValuePair> mBaseRequestPairs;
 
+
 	public static void launchMe(Activity activity, String firstUrl, List<NameValuePair> firstRequestPairs,
 			List<NameValuePair> baseRequestPairs)
 	{

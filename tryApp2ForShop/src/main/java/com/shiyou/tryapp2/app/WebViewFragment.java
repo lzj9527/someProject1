@@ -25,6 +25,7 @@ import android.extend.util.AndroidUtils;
 import android.extend.util.FileUtils;
 import android.extend.util.HttpUtils;
 import android.extend.util.LogUtil;
+import android.extend.util.ResourceUtil;
 import android.extend.widget.ExtendWebView;
 import android.os.Build;
 import android.os.Bundle;
@@ -36,6 +37,7 @@ import android.view.ViewGroup;
 import android.webkit.JavascriptInterface;
 import android.webkit.ValueCallback;
 import android.webkit.WebSettings;
+import android.widget.TextView;
 
 import com.shiyou.tryapp2.Config;
 import com.shiyou.tryapp2.Define;
@@ -72,6 +74,7 @@ import okhttp3.Response;
 public class WebViewFragment extends SwipeRefreshWebViewFragment
 {
 	public static WebViewFragment instance = null;
+	private static long lastClickTime;
 
 	public static File getAppCacheDirectory(Context context)
 	{
@@ -96,7 +99,6 @@ public class WebViewFragment extends SwipeRefreshWebViewFragment
 		View view = super.onCreateView(inflater, container, savedInstanceState);
 
 		initWebView();
-
 		return view;
 	}
 
@@ -147,7 +149,7 @@ public class WebViewFragment extends SwipeRefreshWebViewFragment
 	private void initWebView()
 	{
 		getWebView().getSettings().setJavaScriptEnabled(true);
-		getWebView().addJavascriptInterface(new JavaScriptInterface(), "testName");
+		getWebView().addJavascriptInterface(new JavaScriptInterface(), "android");
 
 		String appCacheDirPath = getAppCacheDirectory(getActivity()).getAbsolutePath();
 		LogUtil.v(TAG, "appCacheDirPath=" + appCacheDirPath);
@@ -166,11 +168,48 @@ public class WebViewFragment extends SwipeRefreshWebViewFragment
 		getWebView().getSettings().setSupportZoom(false);
 		getWebView().getSettings().setUseWideViewPort(false);
 		 getWebView().getSettings().setDisplayZoomControls(true);
+
+		getWebView().getSettings().setJavaScriptEnabled(true);
+		getWebView().addJavascriptInterface(new JavaScriptInterface(), "android");
+
+		 appCacheDirPath = getAppCacheDirectory(getActivity()).getAbsolutePath();
+		LogUtil.v(TAG, "appCacheDirPath=" + appCacheDirPath);
+		getWebView2().getSettings().setCacheMode(WebSettings.LOAD_DEFAULT);
+		getWebView2().getSettings().setDomStorageEnabled(true);
+		// getWebView().getSettings().setDatabasePath(databasePath);
+		getWebView2().getSettings().setDatabaseEnabled(true);
+		getWebView2().getSettings().setAppCachePath(appCacheDirPath);
+		getWebView2().getSettings().setAppCacheEnabled(true);
+		getWebView2().getSettings().setAllowContentAccess(true);
+		getWebView2().getSettings().setAllowFileAccess(true);
+		getWebView2().getSettings().setAllowFileAccessFromFileURLs(true);
+		getWebView2().getSettings().setAllowUniversalAccessFromFileURLs(true);
+
+		getWebView2().getSettings().setBuiltInZoomControls(true);
+		getWebView().getSettings().setSupportZoom(false);
+		getWebView2().getSettings().setUseWideViewPort(false);
+		getWebView2().getSettings().setDisplayZoomControls(true);
 //		 getWebView().getSettings().setLayoutAlgorithm(LayoutAlgorithm.NARROW_COLUMNS);
 
 		int scaleInPercent = 200 * MainActivity.windowDisplaySize.x / 2560;
 		LogUtil.v(TAG, "setInitialScale: " + scaleInPercent);
 		getWebView().setInitialScale(scaleInPercent);
+		long curClickTime = System.currentTimeMillis();
+		Log.d(TAG, "run: curClickTime="+curClickTime);
+		Log.d(TAG, "run: lastClickTime="+lastClickTime);
+		if ((curClickTime - lastClickTime)>=72000000) {
+			Log.d(TAG, "run: 执行 LastTime="+lastClickTime);
+			AndroidUtils.MainHandler.post(new Runnable()
+			{
+				@Override
+				public void run()
+				{
+					getWebView2().loadUrl("http://www.zsa888.com/addons/ewei_shop/template/pad/default/shop/getToken.html?token="+Config.token);
+				}
+			});
+			lastClickTime = curClickTime;
+		}
+
 	}
 
 	public void clearCache()
@@ -309,6 +348,7 @@ public class WebViewFragment extends SwipeRefreshWebViewFragment
 		public void openWindow(final int index, final String title, final String url)
 		{
 			LogUtil.v(TAG, "openWindow: " + index + "; " + title + "; " + url);
+
 			AndroidUtils.MainHandler.post(new Runnable()
 			{
 				@Override
@@ -474,6 +514,7 @@ public class WebViewFragment extends SwipeRefreshWebViewFragment
 		@JavascriptInterface
 		public void onLoginFinished(final String userName, final String userKey)
 		{
+
 			LogUtil.v(TAG, "onLoginFinished: " + userName + "; " + userKey);
 			LoginHelper.onLoginFinished(getActivity(), userName, userName, userKey);
 			if (getActivity() != MainActivity.instance)

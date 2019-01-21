@@ -393,33 +393,38 @@ Handler handler;
 	//获取toKen
 	public String getToken(){
 		handler=new Handler();
-				FormBody formBody=new FormBody.Builder().add("username",LoginHelper.getUserName(getContext())).add("password",LoginHelper.getUserPassword(getContext())).build();
-				Request request=new Request.Builder().url("https://api.zsa888.cn/login").addHeader("accept","application/vnd.zsmt.shop.v1+json").post(formBody).build();
-				OkHttpClient okHttpClient=new OkHttpClient();
-				okHttpClient.newCall(request).enqueue(new Callback() {
-					private String token;
 
-					@Override
-					public void onFailure(Call call, IOException e) {
-						System.out.println(e.getMessage());
-					}
+		FormBody formBody=new FormBody.Builder().add("username",LoginHelper.getUserName(getContext())).add("password",LoginHelper.getUserPassword(getContext())).build();
+		Request request=new Request.Builder().url("https://api.zsa888.cn/login").addHeader("accept","application/vnd.zsmt.shop.v1+json").post(formBody).build();
+		OkHttpClient okHttpClient=new OkHttpClient();
+		okHttpClient.newCall(request).enqueue(new Callback() {
+			private String token;
 
-					@Override
-					public void onResponse(Call call, Response response) throws IOException {
-						String all = response.body().string();
-						int i = all.indexOf("access_token");
-						int j = all.indexOf("token_type");
-						Log.d(TAG, "onResponse: all=" + all);
-						Log.d(TAG, "onResponse: i=" + i);
-						Log.d(TAG, "onResponse: j=" + j);
-						try {
-							token = all.substring(i + 15, j - 3);
-							handler.post(new Runnable() {
-                                @Override
-                                public void run() {
+			@Override
+			public void onFailure(Call call, IOException e) {
+				System.out.println(e.getMessage());
+			}
 
-									replace(instance, new MainWebFragment("http://www.zsa888.com/addons/ewei_shop/template/pad/default/shop/getToken.html?token="+token, 0), false);
-									replace(instance, new MainIndexFragment(), false);
+			@Override
+			public void onResponse(Call call, Response response) throws IOException {
+				String all = response.body().string();
+				int i = all.indexOf("access_token");
+				int j = all.indexOf("token_type");
+				Log.d(TAG, "onResponse: all=" + all);
+				Log.d(TAG, "onResponse: i=" + i);
+				Log.d(TAG, "onResponse: j=" + j);
+				try {
+					token = all.substring(i + 15, j - 3);
+					handler.post(new Runnable() {
+						@Override
+						public void run() {
+//									int id=ResourceUtil.getId(getContext(),"test_token");
+//									WebView webView=(WebView) getView().findViewById(id);
+//									webView.loadUrl("http://www.zsa888.com/addons/ewei_shop/template/pad/default/shop/getToken.html?token="+token);
+							Config.token=token;
+//									replace(instance, new MainWebFragment("http://www.zsa888.com/addons/ewei_shop/template/pad/default/shop/getToken.html?token="+token, 0,true), false);
+
+//									Log.d(TAG, "run: textToken="+textView.getText());
 //                                	OkHttpClient okHttpClient1=new OkHttpClient();
 //									FormBody formBody=new FormBody.Builder().add("token",token).build();
 //									final Request request=new Request.Builder().url("http://www.zsa888.com/addons/ewei_shop/template/pad/default/shop/getToken.html").post(formBody).build();
@@ -447,15 +452,15 @@ Handler handler;
 //											Log.d(TAG, "onReceiveValue: value="+value);
 //										}
 //									});
-                                }
-                            });
-						}catch (Exception e){
-							i=all.indexOf("data");
-							j=all.lastIndexOf("}");
-							token=all.substring(i+7,j-1);
 						}
-					}
-				});
+					});
+				}catch (Exception e){
+					i=all.indexOf("data");
+					j=all.lastIndexOf("}");
+					token=all.substring(i+7,j-1);
+				}
+			}
+		});
 //			RequestManager.getToken(getContext(), LoginHelper.getUserName(getCo ntext()), LoginHelper.getUserPassword(getContext()), new RequestCallback() {
 //				@Override
 //				public void onRequestError(int requestCode, long taskId, ErrorInfo error) {
@@ -471,8 +476,7 @@ Handler handler;
 //					Log.d(TAG, "onRequestResult: token="+token);
 //				}
 //			});
-		Log.d(TAG, "getToken1: token="+token);
-		return  token;
+		return  Config.token;
 	}
 	String url;
     private static long lastClickTime;
@@ -483,6 +487,15 @@ Handler handler;
 		// fragmentC.setVisibility(View.INVISIBLE);
 		// if (ProductDetailsFragment.instance != null)
 		// ProductDetailsFragment.instance.onBackPressed();
+        long curClickTime = System.currentTimeMillis();
+        Log.d(TAG, "run: curClickTime="+curClickTime);
+        Log.d(TAG, "run: lastClickTime="+lastClickTime);
+        if ((curClickTime - lastClickTime)>=72000000) {
+            Log.d(TAG, "run: 执行 LastTime="+lastClickTime);
+            getToken();
+            Log.d(TAG, "onLoginFinished: token="+getToken());
+            lastClickTime = curClickTime;
+        }
 		AndroidUtils.MainHandler.post(new Runnable() {
 			@Override
 			public void run() {
@@ -490,16 +503,7 @@ Handler handler;
 					AndroidUtils.MainHandler.postDelayed(this, 300L);
 					return;
 				}
-                long curClickTime = System.currentTimeMillis();
-				Log.d(TAG, "run: curClickTime="+curClickTime);
-				Log.d(TAG, "run: lastClickTime="+lastClickTime);
-				if ((curClickTime - lastClickTime)>=72000000) {
-					Log.d(TAG, "run: 执行 LastTime="+lastClickTime);
-					getToken();
 
-					Log.d(TAG, "onLoginFinished: token="+getToken());
-					lastClickTime = curClickTime;
-				}
 
 				switch (index) {
 					case 0:// 定制
@@ -520,6 +524,7 @@ Handler handler;
 
 						url="http://www.zsa888.com/addons/ewei_shop/template/pad/default/shop/new-cart.html";
 						replace(instance, new MainWebFragment(url, 0), false);
+
 						updateShoppingcartNum();
 
 //						int id=ResourceUtil.getId(getContext(),"test_token");
