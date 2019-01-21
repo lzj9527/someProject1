@@ -984,12 +984,14 @@ Handler handler;
 
 	public void addProductDetailFragmentToCurrent(String goodsId, String tag, boolean isShop, boolean hasModelInfo,
 												  boolean backToRoot,String url) {
+		Log.d(TAG, "addProductDetailFragmentToCurrent: 执行  tag="+tag);
 		if (isShop) {
 			mGoodsId = goodsId;
 			mGoodsTag = tag;
 		}
 		// mGoodsIsShop = isShop;
 		addFragmentToCurrent(new ProductDetailsFragment(tag, goodsId, isShop, hasModelInfo,url), backToRoot);
+		Log.d(TAG, "addProductDetailFragmentToCurrent: 执行完毕");
 	}
 
 	public void invalidateMenuBarOnce() {

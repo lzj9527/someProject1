@@ -71,6 +71,7 @@ public class ProductDetailsFragment extends BaseFragment implements OnModelLoadL
 	private View mProductDetails;
 	private View mDetailMiddleLayout;
 	 private View mDetailRightLayout;
+	 private View mCoupleRightLayout;
 
 
 	View product_photo;
@@ -79,6 +80,7 @@ public class ProductDetailsFragment extends BaseFragment implements OnModelLoadL
 	FrameLayout unity_container;
 	ImageView mUnityViewConver;
 	LinearLayout photo_show;
+    View product_details_tryon;
 
 	private boolean m3DShow = false;
 	MenuBar product_details_3d;
@@ -148,7 +150,7 @@ public class ProductDetailsFragment extends BaseFragment implements OnModelLoadL
 	public ProductDetailsFragment(String tag, String goodsId, boolean isShop, boolean hasModelInfo,
 								  float[] weightRange, int[] priceRange,String url)
 	{
-		LogUtil.d(TAG, "ProductDetailsFragment: " + tag + "; " + goodsId + "; " + isShop + "; " + hasModelInfo);
+		LogUtil.d(TAG, "ProductDetailsFragment: " + tag + "; " + goodsId + "; " + isShop + "; " + hasModelInfo+";url="+url);
 		LogUtil.v(TAG, "ProductDetailsFragment weightRange: "
 				+ (weightRange == null ? "null" : (weightRange[0] + "-" + weightRange[1])));
 		LogUtil.v(TAG, "ProductDetailsFragment priceRange: "
@@ -160,6 +162,7 @@ public class ProductDetailsFragment extends BaseFragment implements OnModelLoadL
 		this.weightRange = weightRange;
 		this.priceRange = priceRange;
 		this.url=url;
+        Log.d(TAG, "ProductDetailsFragment: url="+url);
 	}
 
 	public ProductDetailsFragment(String tag, String goodsId, boolean isShop, boolean hasModelInfo)
@@ -315,10 +318,10 @@ public class ProductDetailsFragment extends BaseFragment implements OnModelLoadL
 		fragmentC6 = mProductDetails.findViewById(fragmentC6ID);
 
 
+        Log.d(TAG, "onCreateView: mDetailRight="+mDetailRightLayout);
+        Log.d(TAG, "onCreateView: mCoupleRight="+mCoupleRightLayout);
 
-		replace(instance,ResourceUtil.getId(getContext(),"product_details_attribute"),new MainWebFragment(url,0),false);
-
-		ensureDetailsMiddle();
+        ensureDetailsMiddle();
 		ensureUnityPlayer();
 		if (tag.equals(Define.TAG_RING))
 			ensureDetailRight(0);
@@ -326,6 +329,7 @@ public class ProductDetailsFragment extends BaseFragment implements OnModelLoadL
 			ensureDetailRight(1);
 
 		loadProductDetailsData();
+//		replace(instance,ResourceUtil.getId(getContext(),"product_details_attribute"),new MainWebFragment(url,0),false);
 		return mProductDetails;
 	}
 
@@ -338,17 +342,25 @@ public class ProductDetailsFragment extends BaseFragment implements OnModelLoadL
 
 	private void ensureDetailRight(int index)
 	{
+        Log.d(TAG, "ensureDetailRight: 执行");
 		switch (index)
 		{
 			case 0:
+				Log.d(TAG, "ensureDetailRight: 执行单品");
 				if (mShopProductDetailsFragment == null)
-					mShopProductDetailsFragment = new ShopProductDetailsFragment(isShop);
+					mShopProductDetailsFragment = new ShopProductDetailsFragment(isShop,url);
+				mCoupleRightLayout.setVisibility(View.GONE);
+				mDetailRightLayout.setVisibility(View.VISIBLE);
 				replace(ProductDetailsFragment.instance, ProductDetailsFragment.instance.fragmentC6ID,
 						mShopProductDetailsFragment, false);
 				break;
 			case 1:
+				Log.d(TAG, "ensureDetailRight: 执行对戒");
+
 				if (mCoupleRingsDetailsFragment == null)
-					mCoupleRingsDetailsFragment = new CoupleRingsDetailsFragment();
+					mCoupleRingsDetailsFragment = new CoupleRingsDetailsFragment(url);
+				mDetailRightLayout.setVisibility(View.GONE);
+				mCoupleRightLayout.setVisibility(View.VISIBLE);
 				replace(ProductDetailsFragment.instance, ProductDetailsFragment.instance.fragmentC6ID,
 						mCoupleRingsDetailsFragment, false);
 				break;
@@ -522,6 +534,12 @@ public class ProductDetailsFragment extends BaseFragment implements OnModelLoadL
 		int id = ResourceUtil.getId(getContext(), "details_middle_layout");
 		mDetailMiddleLayout = mProductDetails.findViewById(id);
 
+		id=ResourceUtil.getId(getContext(),"details_right_layout");
+		mDetailRightLayout=mProductDetails.findViewById(id);
+
+		id=ResourceUtil.getId(getContext(),"couple_details_right_layout");
+		mCoupleRightLayout=mProductDetails.findViewById(id);
+
 		id = ResourceUtil.getId(getContext(), "unity_container");
 		unity_container = (FrameLayout)mDetailMiddleLayout.findViewById(id);
 
@@ -540,14 +558,15 @@ public class ProductDetailsFragment extends BaseFragment implements OnModelLoadL
 		arrow_right = mDetailMiddleLayout.findViewById(id);
 
 		id = ResourceUtil.getId(getActivity(), "product_details_tryon");
-		View product_details_tryon = mDetailMiddleLayout.findViewById(id);
+		product_details_tryon = mDetailMiddleLayout.findViewById(id);
 
 		id=ResourceUtil.getId(getActivity(),"photo_show");
 		photo_show= (LinearLayout) mDetailMiddleLayout.findViewById(id);
-		if (!isShop || !hasModelInfo)
+		if (!isShop || !hasModelInfo) {
 			product_details_tryon.setVisibility(View.GONE);
+			product_photo.setVisibility(View.VISIBLE);
 
-		else
+		}else
 		{
 			product_details_tryon.setVisibility(View.VISIBLE);
 			product_details_tryon.setOnClickListener(new View.OnClickListener()
@@ -570,6 +589,10 @@ public class ProductDetailsFragment extends BaseFragment implements OnModelLoadL
 					}
 					else
 					{
+						product_details_3d.setVisibility(View.GONE);
+						product_details_tryon.setVisibility(View.GONE);
+						product_photo.setVisibility(View.VISIBLE);
+						photo_show.setVisibility(View.GONE);
 						showToast("没有模型");
 					}
 					// doBackPressed(true);
@@ -611,6 +634,7 @@ public class ProductDetailsFragment extends BaseFragment implements OnModelLoadL
 		{
 			product_details_3d.setVisibility(View.GONE);
 			// material_menubar.setVisibility(View.GONE);
+			product_photo.setVisibility(View.VISIBLE);
 		}
 		else
 		{
@@ -771,7 +795,7 @@ public class ProductDetailsFragment extends BaseFragment implements OnModelLoadL
 		else
 		{
 			product_photo.setVisibility(View.VISIBLE);
-			unity_container.setVisibility(View.INVISIBLE);
+			unity_container.setVisibility(View.GONE);
 			m3DShow = false;
 //			product_details_photo.setSelected(true);
 			// product_details_3d.setSelected(false);
@@ -1048,6 +1072,10 @@ public class ProductDetailsFragment extends BaseFragment implements OnModelLoadL
 		if (datas.model_infos == null)
 		{
 			showToast("没有模型");
+			product_details_tryon.setVisibility(View.GONE);
+			product_details_3d.setVisibility(View.GONE);
+			product_photo.setVisibility(View.VISIBLE);
+			photo_show.setVisibility(View.GONE);
 			hideLoadingIndicator();
 			return;
 		}
@@ -1092,6 +1120,10 @@ public class ProductDetailsFragment extends BaseFragment implements OnModelLoadL
 		if (detail.model_info == null)
 		{
 			showToast("没有模型");
+			product_details_3d.setVisibility(View.GONE);
+            product_details_tryon.setVisibility(View.GONE);
+            product_photo.setVisibility(View.VISIBLE);
+            photo_show.setVisibility(View.GONE);
 			hideLoadingIndicator();
 			return;
 		}

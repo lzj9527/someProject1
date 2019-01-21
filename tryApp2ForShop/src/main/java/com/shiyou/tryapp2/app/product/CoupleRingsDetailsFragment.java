@@ -83,6 +83,7 @@ public class CoupleRingsDetailsFragment extends BaseFragment
 	private ViewPager mMenViewPager;
 	private BasePagerAdapter<AbsAdapterItem> mMenPagerAdapter;
 	private LinearLayout mMenDotContainer;
+	private String url;
 
 	private TextView wmen_product_number; // 货号
 	private TextView wmen_product_deputy_number; // 副石数量
@@ -107,6 +108,11 @@ public class CoupleRingsDetailsFragment extends BaseFragment
 
 	public CoupleRingsDetailsFragment()
 	{
+	}
+
+	public CoupleRingsDetailsFragment(String url)
+	{
+		this.url=url;
 	}
 
 	public CoupleRingsDetailsFragment(CoupleRingDetailResponse response)
@@ -203,15 +209,12 @@ public class CoupleRingsDetailsFragment extends BaseFragment
 				{
 					case 0:
 						Log.d(TAG, "onMenuSelected: menuIndex="+menuIndex);
-						replace(getActivity(),ResourceUtil.getId(getContext(),"product_couple_details_attribute"),new MainWebFragment("http://www.zsa888.com/addons/ewei_shop/template/pad/default/shop/new-doubleRingDetail.html",0),false);
-						men_product_layout.setVisibility(View.VISIBLE);
-						wmen_product_layout.setVisibility(View.GONE);
+
+
 						break;
 					case 1:
 						Log.d(TAG, "onMenuSelected: menuIndex="+menuIndex);
-						replace(getActivity(),ResourceUtil.getId(getContext(),"product_couple_details_attribute"),new MainWebFragment("http://www.zsa888.com/addons/ewei_shop/template/pad/default/shop/new-specialDoubleRingDetail.html",0),false);
-						men_product_layout.setVisibility(View.GONE);
-						wmen_product_layout.setVisibility(View.VISIBLE);
+
 						break;
 				}
 			}
@@ -381,7 +384,7 @@ public class CoupleRingsDetailsFragment extends BaseFragment
 
 		if (mCoupleRingDetailResponse != null)
 			updateCoupleRingDetailsResponse(mCoupleRingDetailResponse, weightRange, priceRange);
-
+		replace(getActivity(),ResourceUtil.getId(getContext(),"product_couple_details_attribute"),new MainWebFragment(url,0),false);
 		return mDetailRightLayout;
 	}
 

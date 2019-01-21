@@ -8,12 +8,12 @@
         "source": "D:\\TryApp2ForShop-master_test\\tryApp2ForShop\\src\\main\\res\\drawable-xhdpi\\confirm_shop_details_ring.png"
     },
     {
-        "merged": "D:\\TryApp2ForShop-master_test\\tryApp2ForShop\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi_tryon_cart_btn.png.flat",
-        "source": "D:\\TryApp2ForShop-master_test\\tryApp2ForShop\\src\\main\\res\\drawable-xxhdpi\\tryon_cart_btn.png"
-    },
-    {
         "merged": "D:\\TryApp2ForShop-master_test\\tryApp2ForShop\\build\\intermediates\\res\\merged\\debug\\drawable_selector_min_hand_man_sample1.xml.flat",
         "source": "D:\\TryApp2ForShop-master_test\\tryApp2ForShop\\src\\main\\res\\drawable\\selector_min_hand_man_sample1.xml"
+    },
+    {
+        "merged": "D:\\TryApp2ForShop-master_test\\tryApp2ForShop\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi_tryon_cart_btn.png.flat",
+        "source": "D:\\TryApp2ForShop-master_test\\tryApp2ForShop\\src\\main\\res\\drawable-xxhdpi\\tryon_cart_btn.png"
     },
     {
         "merged": "D:\\TryApp2ForShop-master_test\\tryApp2ForShop\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi_dot_container_bg1.png.flat",
@@ -216,12 +216,12 @@
         "source": "D:\\TryApp2ForShop-master_test\\tryApp2ForShop\\src\\main\\res\\drawable-xhdpi\\main_search.png"
     },
     {
-        "merged": "D:\\TryApp2ForShop-master_test\\tryApp2ForShop\\build\\intermediates\\res\\merged\\debug\\drawable_selector_product_details_photo.xml.flat",
-        "source": "D:\\TryApp2ForShop-master_test\\tryApp2ForShop\\src\\main\\res\\drawable\\selector_product_details_photo.xml"
-    },
-    {
         "merged": "D:\\TryApp2ForShop-master_test\\tryApp2ForShop\\build\\intermediates\\res\\merged\\debug\\drawable_designer.jpg.flat",
         "source": "D:\\TryApp2ForShop-master_test\\tryApp2ForShop\\src\\main\\res\\drawable\\designer.jpg"
+    },
+    {
+        "merged": "D:\\TryApp2ForShop-master_test\\tryApp2ForShop\\build\\intermediates\\res\\merged\\debug\\drawable_selector_product_details_photo.xml.flat",
+        "source": "D:\\TryApp2ForShop-master_test\\tryApp2ForShop\\src\\main\\res\\drawable\\selector_product_details_photo.xml"
     },
     {
         "merged": "D:\\TryApp2ForShop-master_test\\tryApp2ForShop\\build\\intermediates\\res\\merged\\debug\\layout_product_historylist_layout.xml.flat",
@@ -288,20 +288,20 @@
         "source": "D:\\TryApp2ForShop-master_test\\tryApp2ForShop\\src\\main\\res\\drawable\\selector_main_other.xml"
     },
     {
-        "merged": "D:\\TryApp2ForShop-master_test\\tryApp2ForShop\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi_min_hand_man_sample5.png.flat",
-        "source": "D:\\TryApp2ForShop-master_test\\tryApp2ForShop\\src\\main\\res\\drawable-xxhdpi\\min_hand_man_sample5.png"
-    },
-    {
         "merged": "D:\\TryApp2ForShop-master_test\\tryApp2ForShop\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi_btn_camera_switch.png.flat",
         "source": "D:\\TryApp2ForShop-master_test\\tryApp2ForShop\\src\\main\\res\\drawable-xhdpi\\btn_camera_switch.png"
     },
     {
-        "merged": "D:\\TryApp2ForShop-master_test\\tryApp2ForShop\\build\\intermediates\\res\\merged\\debug\\layout_pdfviewer_layout.xml.flat",
-        "source": "D:\\TryApp2ForShop-master_test\\tryApp2ForShop\\src\\main\\res\\layout\\pdfviewer_layout.xml"
+        "merged": "D:\\TryApp2ForShop-master_test\\tryApp2ForShop\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi_min_hand_man_sample5.png.flat",
+        "source": "D:\\TryApp2ForShop-master_test\\tryApp2ForShop\\src\\main\\res\\drawable-xxhdpi\\min_hand_man_sample5.png"
     },
     {
         "merged": "D:\\TryApp2ForShop-master_test\\tryApp2ForShop\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi_dot_container_bg.png.flat",
         "source": "D:\\TryApp2ForShop-master_test\\tryApp2ForShop\\src\\main\\res\\drawable-xhdpi\\dot_container_bg.png"
+    },
+    {
+        "merged": "D:\\TryApp2ForShop-master_test\\tryApp2ForShop\\build\\intermediates\\res\\merged\\debug\\layout_pdfviewer_layout.xml.flat",
+        "source": "D:\\TryApp2ForShop-master_test\\tryApp2ForShop\\src\\main\\res\\layout\\pdfviewer_layout.xml"
     },
     {
         "merged": "D:\\TryApp2ForShop-master_test\\tryApp2ForShop\\build\\intermediates\\res\\merged\\debug\\drawable_selector_min_hand_man_sample3.xml.flat",
@@ -368,12 +368,12 @@
         "source": "D:\\TryApp2ForShop-master_test\\tryApp2ForShop\\src\\main\\res\\drawable-xhdpi\\min_hand_man_sample4_s.png"
     },
     {
-        "merged": "D:\\TryApp2ForShop-master_test\\tryApp2ForShop\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi_min_hand_man_sample2_s.png.flat",
-        "source": "D:\\TryApp2ForShop-master_test\\tryApp2ForShop\\src\\main\\res\\drawable-xhdpi\\min_hand_man_sample2_s.png"
-    },
-    {
         "merged": "D:\\TryApp2ForShop-master_test\\tryApp2ForShop\\build\\intermediates\\res\\merged\\debug\\drawable_selector_min_hand_sample1.xml.flat",
         "source": "D:\\TryApp2ForShop-master_test\\tryApp2ForShop\\src\\main\\res\\drawable\\selector_min_hand_sample1.xml"
+    },
+    {
+        "merged": "D:\\TryApp2ForShop-master_test\\tryApp2ForShop\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi_min_hand_man_sample2_s.png.flat",
+        "source": "D:\\TryApp2ForShop-master_test\\tryApp2ForShop\\src\\main\\res\\drawable-xhdpi\\min_hand_man_sample2_s.png"
     },
     {
         "merged": "D:\\TryApp2ForShop-master_test\\tryApp2ForShop\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4_default_progress_bg.9.png.flat",
@@ -396,12 +396,12 @@
         "source": "D:\\TryApp2ForShop-master_test\\tryApp2ForShop\\src\\main\\res\\drawable-xhdpi\\product_details_3d_s.png"
     },
     {
-        "merged": "D:\\TryApp2ForShop-master_test\\tryApp2ForShop\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi_tryon_category_all.png.flat",
-        "source": "D:\\TryApp2ForShop-master_test\\tryApp2ForShop\\src\\main\\res\\drawable-xxhdpi\\tryon_category_all.png"
-    },
-    {
         "merged": "D:\\TryApp2ForShop-master_test\\tryApp2ForShop\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi_tryon_save_btn_s.png.flat",
         "source": "D:\\TryApp2ForShop-master_test\\tryApp2ForShop\\src\\main\\res\\drawable-xxhdpi\\tryon_save_btn_s.png"
+    },
+    {
+        "merged": "D:\\TryApp2ForShop-master_test\\tryApp2ForShop\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi_tryon_category_all.png.flat",
+        "source": "D:\\TryApp2ForShop-master_test\\tryApp2ForShop\\src\\main\\res\\drawable-xxhdpi\\tryon_category_all.png"
     },
     {
         "merged": "D:\\TryApp2ForShop-master_test\\tryApp2ForShop\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi_anim_loading.png.flat",
@@ -424,12 +424,12 @@
         "source": "D:\\TryApp2ForShop-master_test\\tryApp2ForShop\\src\\main\\res\\drawable-xhdpi\\product_new.png"
     },
     {
-        "merged": "D:\\TryApp2ForShop-master_test\\tryApp2ForShop\\build\\intermediates\\res\\merged\\debug\\layout_default_tab_frame_content.xml.flat",
-        "source": "D:\\TryApp2ForShop-master_test\\androidExtendLib2\\build\\intermediates\\packaged_res\\debug\\layout\\default_tab_frame_content.xml"
-    },
-    {
         "merged": "D:\\TryApp2ForShop-master_test\\tryApp2ForShop\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi_product_details_3d_kwhite.png.flat",
         "source": "D:\\TryApp2ForShop-master_test\\tryApp2ForShop\\src\\main\\res\\drawable-xxhdpi\\product_details_3d_kwhite.png"
+    },
+    {
+        "merged": "D:\\TryApp2ForShop-master_test\\tryApp2ForShop\\build\\intermediates\\res\\merged\\debug\\layout_default_tab_frame_content.xml.flat",
+        "source": "D:\\TryApp2ForShop-master_test\\androidExtendLib2\\build\\intermediates\\packaged_res\\debug\\layout\\default_tab_frame_content.xml"
     },
     {
         "merged": "D:\\TryApp2ForShop-master_test\\tryApp2ForShop\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi_product_details_3d.png.flat",
@@ -616,12 +616,12 @@
         "source": "D:\\TryApp2ForShop-master_test\\androidExtendLib2\\build\\intermediates\\packaged_res\\debug\\anim\\grow_fade_in.xml"
     },
     {
-        "merged": "D:\\TryApp2ForShop-master_test\\tryApp2ForShop\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi_login_bg.jpg.flat",
-        "source": "D:\\TryApp2ForShop-master_test\\tryApp2ForShop\\src\\main\\res\\drawable-xxhdpi\\login_bg.jpg"
-    },
-    {
         "merged": "D:\\TryApp2ForShop-master_test\\tryApp2ForShop\\build\\intermediates\\res\\merged\\debug\\drawable_selector_min_hand_man_sample5.xml.flat",
         "source": "D:\\TryApp2ForShop-master_test\\tryApp2ForShop\\src\\main\\res\\drawable\\selector_min_hand_man_sample5.xml"
+    },
+    {
+        "merged": "D:\\TryApp2ForShop-master_test\\tryApp2ForShop\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi_login_bg.jpg.flat",
+        "source": "D:\\TryApp2ForShop-master_test\\tryApp2ForShop\\src\\main\\res\\drawable-xxhdpi\\login_bg.jpg"
     },
     {
         "merged": "D:\\TryApp2ForShop-master_test\\tryApp2ForShop\\build\\intermediates\\res\\merged\\debug\\layout_default_fragment_layout.xml.flat",

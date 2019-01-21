@@ -50,6 +50,7 @@ public class ShopProductDetailsFragment extends BaseFragment
 	private boolean isShop;
 	private float[] weightRange;
 	private int[] priceRange;
+	private String url;
 
 	private FragmentContainer product_attribute;
 	// 添加购物车
@@ -134,6 +135,12 @@ public class ShopProductDetailsFragment extends BaseFragment
 		this.isShop = isShop;
 	}
 
+	public ShopProductDetailsFragment(boolean isShop,String url)
+	{
+		this.isShop = isShop;
+		this.url=url;
+	}
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
 	{
@@ -144,7 +151,7 @@ public class ShopProductDetailsFragment extends BaseFragment
 		int id=ResourceUtil.getId(getContext(),"product_details_attribute");
 		product_attribute= (FragmentContainer) mDetailRightLayout.findViewById(id);
 
-		replace(getActivity(),ResourceUtil.getId(getContext(),"product_details_attribute"),new MainWebFragment("http://www.zsa888.com/addons/ewei_shop/template/pad/default/shop/new-singleGoodsDetail.html",0),false);
+		replace(getActivity(),ResourceUtil.getId(getContext(),"product_details_attribute"),new MainWebFragment(url,0),false);
 
 		ViewTools.adapterAllViewMarginInChildren(mDetailRightLayout, MainActivity.scaled);
 		ViewTools.adapterAllViewPaddingInChildren(mDetailRightLayout, MainActivity.scaled);

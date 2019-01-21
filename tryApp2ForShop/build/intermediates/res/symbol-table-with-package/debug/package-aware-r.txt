@@ -330,6 +330,7 @@ id confirm
 id content
 id content_container
 id content_layout
+id couple_details_right_layout
 id couple_product_pirce
 id couple_rings_name
 id customize_layout
@@ -351,6 +352,7 @@ id flingRemove
 id fling_handle
 id flipper
 id fragment_container
+id fragment_container6
 id frame_layout
 id fullWebView
 id fullscreen_mask

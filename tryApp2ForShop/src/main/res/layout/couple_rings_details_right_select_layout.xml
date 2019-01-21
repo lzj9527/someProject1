@@ -7,7 +7,7 @@
         android:id="@+id/product_couple_details_attribute"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"/>
+        />
     <LinearLayout
         android:visibility="gone"
         android:layout_width="fill_parent"
