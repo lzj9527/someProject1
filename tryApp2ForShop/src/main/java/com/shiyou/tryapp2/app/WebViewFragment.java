@@ -53,6 +53,7 @@ import com.shiyou.tryapp2.app.login.LoginFragment;
 import com.shiyou.tryapp2.app.login.LoginHelper;
 import com.shiyou.tryapp2.app.product.ConfirmShopDetailsFragment;
 import com.shiyou.tryapp2.app.product.MainIndexFragment;
+import com.shiyou.tryapp2.app.product.MainWebFragment;
 import com.shiyou.tryapp2.app.product.PDFViewerFragment;
 import com.shiyou.tryapp2.app.product.SearchListFragment;
 import com.shiyou.tryapp2.data.FileInfo;
@@ -402,6 +403,12 @@ public class WebViewFragment extends SwipeRefreshWebViewFragment
 						case 10:// 分类选砖
 							MainFragment.instance.addWebFragmentToCurrent(actualUrl, false);
 							break;
+						case 20:
+							MainFragment.instance.addWebFragmentToCurrent(actualUrl, false);
+						break;
+						case 21:
+							replace(MainFragment.instance, new MainWebFragment("http://www.zsa888.com/addons/ewei_shop/template/pad/default/shop/new-cart.html", 0), false);
+							break;
 						case 18:// 分类选砖
 							MainFragment.instance.setCurrentMenu(4);
 							// MainActivity.backToHomepage(getActivity(), 3);
@@ -707,6 +714,8 @@ public class WebViewFragment extends SwipeRefreshWebViewFragment
 				}
 			});
 		}
+
+
 
 		// 注册
 		@JavascriptInterface

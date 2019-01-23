@@ -41,9 +41,12 @@ import org.apache.http.params.HttpProtocolParams;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.protocol.HttpContext;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.extend.BasicConfig;
+import android.os.Build;
 import android.text.TextUtils;
+import android.util.Log;
 import android.webkit.WebSettings;
 
 public class HttpUtils
@@ -267,8 +270,9 @@ public class HttpUtils
 		}
 	}
 
+	@TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
 	public static final HttpResponse doHttpRequest(Context context, String method, String url, HttpEntity entity,
-			List<Header> headers, HttpHost proxy) throws ClientProtocolException, SocketTimeoutException,
+												   List<Header> headers, HttpHost proxy) throws ClientProtocolException, SocketTimeoutException,
 			UnknownHostException, SocketException, IOException, Exception
 	{
 		LogUtil.d(TAG, "doHttpRequest: " + context + " " + method + " " + url + " " + entity + " " + headers + " "
@@ -328,6 +332,7 @@ public class HttpUtils
 		params.setParameter("Connection", "close");
 		httpRequest.setParams(params);
 		HttpResponse response = httpClient.execute(httpRequest);
+		Log.d(TAG, "doHttpRequest: response="+response.toString());
 		return response;
 	}
 

@@ -157,7 +157,5 @@
     <orderEntry type="library" name="Gradle: com.squareup.okio:okio:1.15.0@jar" level="project" />
     <orderEntry type="module" module-name="androidExtendLib2" />
     <orderEntry type="module" module-name="jPushSDK300" />
-    <orderEntry type="module" module-name="androidExtendLib2" />
-    <orderEntry type="module" module-name="jPushSDK300" />
   </component>
 </module>

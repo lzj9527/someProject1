@@ -145,6 +145,7 @@ public class BrowseHistoryDBHelper extends BaseDBHelper
 
 	private Object getGoodsDetail(Cursor cursor)
 	{
+
 		String json = cursor.getString(cursor.getColumnIndex(NAME_JSON));
 		LogUtil.v(TAG, "getGoodsDetail: " + json);
 		if (json.contains("model_infos"))

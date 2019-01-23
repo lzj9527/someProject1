@@ -165,12 +165,16 @@ public class CoupleRingsDetailsFragment extends BaseFragment
 		Log.d(TAG, "onCreateView: tagname="+mCoupleRingDetailResponse.datas.tagname);
 		mLayoutResID = ResourceUtil.getLayoutId(getContext(), "couple_rings_details_right_layout");
 		mDetailRightLayout = super.onCreateView(inflater, container, savedInstanceState);
+
+		replace(getActivity(),ResourceUtil.getId(getContext(),"product_couple_details_attribute"),new MainWebFragment(url,0),false);
+
 		((android.extend.widget.ExtendLinearLayout)mDetailRightLayout).setInterceptTouchEventToDownward(true);
 		ViewTools.adapterAllViewMarginInChildren(mDetailRightLayout, MainActivity.scaled);
 		ViewTools.adapterAllViewPaddingInChildren(mDetailRightLayout, MainActivity.scaled);
 		ViewTools.adapterAllTextViewTextSizeInChildren(mDetailRightLayout, MainActivity.fontScaled);
 
 		// productID = mCoupleRingDetailResponse.datas.id;
+
 
 		int id = ResourceUtil.getId(getContext(), "couple_rings_name");
 		productName = (TextView)mDetailRightLayout.findViewById(id);
@@ -382,9 +386,9 @@ public class CoupleRingsDetailsFragment extends BaseFragment
 		// }
 		// });
 
-		if (mCoupleRingDetailResponse != null)
-			updateCoupleRingDetailsResponse(mCoupleRingDetailResponse, weightRange, priceRange);
-		replace(getActivity(),ResourceUtil.getId(getContext(),"product_couple_details_attribute"),new MainWebFragment(url,0),false);
+//		if (mCoupleRingDetailResponse != null)
+//			updateCoupleRingDetailsResponse(mCoupleRingDetailResponse, weightRange, priceRange);
+
 		return mDetailRightLayout;
 	}
 

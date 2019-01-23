@@ -323,10 +323,11 @@ public class ProductDetailsFragment extends BaseFragment implements OnModelLoadL
 
         ensureDetailsMiddle();
 		ensureUnityPlayer();
-		if (tag.equals(Define.TAG_RING))
-			ensureDetailRight(0);
-		else
-			ensureDetailRight(1);
+//		if (tag.equals(Define.TAG_RING))
+//			ensureDetailRight(0);
+//		else
+//			ensureDetailRight(1);
+		ensureDetailRight();
 
 		loadProductDetailsData();
 //		replace(instance,ResourceUtil.getId(getContext(),"product_details_attribute"),new MainWebFragment(url,0),false);
@@ -356,15 +357,31 @@ public class ProductDetailsFragment extends BaseFragment implements OnModelLoadL
 				break;
 			case 1:
 				Log.d(TAG, "ensureDetailRight: 执行对戒");
+				if (mShopProductDetailsFragment == null)
+					mShopProductDetailsFragment = new ShopProductDetailsFragment(isShop,url);
+				mCoupleRightLayout.setVisibility(View.GONE);
+				mDetailRightLayout.setVisibility(View.VISIBLE);
+//				if (mCoupleRingsDetailsFragment == null)
+//					mCoupleRingsDetailsFragment = new CoupleRingsDetailsFragment(url);
+//				mDetailRightLayout.setVisibility(View.GONE);
+//				mCoupleRightLayout.setVisibility(View.VISIBLE);
+				mShopProductDetailsFragment = new ShopProductDetailsFragment(isShop,url);
+                mCoupleRightLayout.setVisibility(View.GONE);
+                mDetailRightLayout.setVisibility(View.VISIBLE);
 
-				if (mCoupleRingsDetailsFragment == null)
-					mCoupleRingsDetailsFragment = new CoupleRingsDetailsFragment(url);
-				mDetailRightLayout.setVisibility(View.GONE);
-				mCoupleRightLayout.setVisibility(View.VISIBLE);
 				replace(ProductDetailsFragment.instance, ProductDetailsFragment.instance.fragmentC6ID,
-						mCoupleRingsDetailsFragment, false);
+						mShopProductDetailsFragment, false);
 				break;
 		}
+	}
+
+	private void ensureDetailRight(){
+		if (mShopProductDetailsFragment == null)
+			mShopProductDetailsFragment = new ShopProductDetailsFragment(isShop,url);
+		mCoupleRightLayout.setVisibility(View.GONE);
+		mDetailRightLayout.setVisibility(View.VISIBLE);
+		replace(ProductDetailsFragment.instance, ProductDetailsFragment.instance.fragmentC6ID,
+				mShopProductDetailsFragment, false);
 	}
 
 	@Override

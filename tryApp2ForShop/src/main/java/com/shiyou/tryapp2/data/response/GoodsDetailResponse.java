@@ -13,6 +13,10 @@ public class GoodsDetailResponse extends BaseResponse
 
 	public static class GoodsDetail extends BaseData
 	{
+		@Override
+		public String toString() {
+			return "id="+id+"  title="+title+"  goodssn="+goodssn+"  tagname="+tagname+"  thumb="+thumb+"  thumb_url="+thumb_url+"  count="+count+"  gcate="+gcate+"  customization+"+customization+"  specialProcess="+specialProcess;
+		}
 		public String id;
 		public String title;
 		public String goodssn;
@@ -27,9 +31,14 @@ public class GoodsDetailResponse extends BaseResponse
 		public FileInfo model_info;// 模型文件
 		public boolean isShop;
 		public int issize;// 是否显示手寸
+		public int gcate;
+		public int customization;	//定制
+		public int specialProcess;	//特殊工艺对戒
+
 
 		public static String toJson(GoodsDetail info)
 		{
+
 			GsonBuilder gb = new GsonBuilder();
 			Gson gson = gb.create();
 			return gson.toJson(info);
@@ -41,6 +50,8 @@ public class GoodsDetailResponse extends BaseResponse
 			Gson gson = gb.create();
 			return gson.fromJson(json, GoodsDetail.class);
 		}
+
+
 	}
 
 	public static class ParamItem extends BaseData

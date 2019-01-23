@@ -20,10 +20,8 @@ import android.extend.loader.Loader.LoadParams;
 import android.extend.loader.UrlLoader;
 import android.extend.util.LogUtil;
 import android.extend.util.NetworkManager;
-import android.extend.util.ResourceUtil;
 import android.net.Uri;
 import android.text.TextUtils;
-import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -59,7 +57,6 @@ public class RequestManager
 	public static long login(Context context, String userName, String password, String deviceId, String pushRegId,
 			RequestCallback callback)
 	{
-
 		int requestCode = RequestCode.user_login;
 		String url = Config.LoginUrl;
 		BasicHttpLoadParams params = new BasicHttpLoadParams(true);

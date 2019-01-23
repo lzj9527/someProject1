@@ -296,7 +296,7 @@ public class LoginFragment extends BaseFragment
 
 
 		FormBody formBody=new FormBody.Builder().add("username",LoginHelper.getUserName(getContext())).add("password",LoginHelper.getUserPassword(getContext())).build();
-		Request request=new Request.Builder().url("https://api.zsa888.cn/login").addHeader("accept","application/vnd.zsmt.shop.v1+json").post(formBody).build();
+		Request request=new Request.Builder().url("https://api.zsa888.cn/login").addHeader("Accept","application/vnd.zsmt.shop.v1+json").post(formBody).build();
 		OkHttpClient okHttpClient=new OkHttpClient();
 		okHttpClient.newCall(request).enqueue(new Callback() {
 			private String token;

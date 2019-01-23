@@ -23,6 +23,9 @@ public class CoupleRingDetailResponse extends BaseResponse
 		public String w_sku;
 		public String marketprice;
 		public String tagname;// 分类标记
+		public int gcate;
+		public int customization;	//定制
+		public int specialProcess;	//特殊工艺对戒
 		public ImageInfo thumb;// 主图
 		public ImageInfo[] thumb_url;// 相册
 		public ParamItem[] param;// 商品属性

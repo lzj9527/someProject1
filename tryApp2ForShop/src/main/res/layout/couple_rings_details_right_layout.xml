@@ -6,10 +6,6 @@
     android:orientation="vertical"
     android:padding="10px" >
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical" >
         <include
             android:id="@+id/men_product_layout"
             android:layout_width="fill_parent"
@@ -22,8 +18,8 @@
             android:layout_height="match_parent"
             layout="@layout/couple_rings_details_right_select_layout"
             android:visibility="gone" />
-
         <TextView
+            android:visibility="gone"
             android:id="@+id/couple_rings_name"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -35,6 +31,7 @@
             android:textColor="@color/detail_title_font"
             android:textSize="40px" />
         <android.extend.widget.MenuBar
+            android:visibility="gone"
             android:id="@+id/menubar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
@@ -138,6 +135,7 @@
         </android.extend.widget.MenuBar>
 D
         <LinearLayout
+            android:visibility="gone"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal" >
@@ -181,7 +179,6 @@ D
 
 
 
-    </LinearLayout>
 
     <TextView
         android:visibility="gone"

@@ -2,11 +2,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:background="@color/detail_right_background"
+    android:orientation="vertical"
+    >
     <android.extend.widget.FragmentContainer
         android:id="@+id/product_couple_details_attribute"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:clipToPadding="true"
+        android:fitsSystemWindows="true"
         />
     <LinearLayout
         android:visibility="gone"

@@ -969,6 +969,16 @@ Handler handler;
 		addFragmentToCurrent(new ProductDetailsFragment(tag, goodsId, isShop, hasModelInfo, weightRange, priceRange),
 				backToRoot);
 	}
+	public void addProductDetailFragmentToCurrent(String goodsId, String tag, boolean isShop, boolean hasModelInfo,
+												  float[] weightRange, int[] priceRange, boolean backToRoot,String url) {
+		if (isShop) {
+			mGoodsId = goodsId;
+			mGoodsTag = tag;
+		}
+		// mGoodsIsShop = isShop;
+		addFragmentToCurrent(new ProductDetailsFragment(tag, goodsId, isShop, hasModelInfo, weightRange, priceRange,url),
+				backToRoot);
+	}
 
 
 
