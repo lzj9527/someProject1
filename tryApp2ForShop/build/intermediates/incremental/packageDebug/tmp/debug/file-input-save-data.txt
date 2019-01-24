@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Wed Jan 23 14:48:16 CST 2019
+#Wed Jan 23 18:06:36 CST 2019
 20.base=D\:\\TryApp2ForShop-master_test\\tryApp2ForShop\\build\\intermediates\\transforms\\mergeJniLibs\\debug\\0
 143.base=D\:\\TryApp2ForShop-master_test\\tryApp2ForShop\\build\\intermediates\\merged_assets\\debug\\mergeDebugAssets\\out
 237.path=bin/Data/29832c83b6843c34eaaf576b95c1c78e

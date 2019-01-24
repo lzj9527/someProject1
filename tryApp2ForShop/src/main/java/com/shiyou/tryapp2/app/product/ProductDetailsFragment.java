@@ -889,6 +889,7 @@ public class ProductDetailsFragment extends BaseFragment implements OnModelLoadL
 					public void onRequestResult(int requestCode, long taskId, BaseResponse response, DataFrom from)
 					{
 						hideLoadingIndicator();
+						Log.d(TAG, "onRequestResult: requestCode="+requestCode);
 						if (response.resultCode == BaseResponse.RESULT_OK)
 						{
 							mGDResponse = (GoodsDetailResponse)response;

@@ -19,6 +19,7 @@ import android.extend.loader.HttpLoader.HttpLoadParams;
 import android.extend.util.HttpUtils;
 import android.extend.util.LogUtil;
 import android.text.TextUtils;
+import android.util.Log;
 
 public class BasicHttpLoadParams extends HttpLoadParams
 {
@@ -64,6 +65,7 @@ public class BasicHttpLoadParams extends HttpLoadParams
 	@Override
 	public void addHeader(NameValuePair header)
 	{
+		Log.d(TAG, "addHeader: 执行 header="+header);
 		if (header != null)
 		{
 			for (NameValuePair pair : mHeaders)
@@ -98,7 +100,6 @@ public class BasicHttpLoadParams extends HttpLoadParams
 			{
 				if (pair.getName().equals(requestParam.getName()))
 				{
-					LogUtil.w(TAG, "the requestParam name " + requestParam.getName() + " has existed, exec remove.");
 					mRequestParams.remove(pair);
 					break;
 				}

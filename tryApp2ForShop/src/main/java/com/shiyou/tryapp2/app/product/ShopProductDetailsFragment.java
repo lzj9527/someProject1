@@ -22,6 +22,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -123,6 +124,7 @@ public class ShopProductDetailsFragment extends BaseFragment
 		this.productID = response.datas.id;
 		this.weightRange = weightRange;
 		this.priceRange = priceRange;
+		Log.d(TAG, "ShopProductDetailsFragment: response="+response.datas.toString());
 	}
 
 	public ShopProductDetailsFragment(GoodsDetailResponse response, boolean isShop)
