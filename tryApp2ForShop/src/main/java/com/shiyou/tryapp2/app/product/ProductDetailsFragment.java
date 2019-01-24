@@ -180,6 +180,7 @@ public class ProductDetailsFragment extends BaseFragment implements OnModelLoadL
 		this(tag, goodsId, isShop, hasModelInfo, null, null,type);
 	}
 
+
 	// public ProductDetailsFragment(int detailsIndex, String goosId, boolean flag) {
 	// this.detailsIndex = detailsIndex;
 	// this.goosId = goosId;
@@ -889,7 +890,6 @@ public class ProductDetailsFragment extends BaseFragment implements OnModelLoadL
 					public void onRequestResult(int requestCode, long taskId, BaseResponse response, DataFrom from)
 					{
 						hideLoadingIndicator();
-						Log.d(TAG, "onRequestResult: requestCode="+requestCode);
 						if (response.resultCode == BaseResponse.RESULT_OK)
 						{
 							mGDResponse = (GoodsDetailResponse)response;

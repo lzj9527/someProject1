@@ -12,7 +12,7 @@ public class Config
 	public static final String ServicePhone = "020-39991116";// 客服电话
 	public static final long newGoodsInterval = 3 * 24 * 60 * 60 * 1000;// 新商品间隔时间，3天内发布的商品为新商品
 	public static  String token;
-
+	public static String json;
 	// public static final String BaseUrl = "http://zsmt.tryapp.cn";// 正式版域名
 	public static final String BaseUrl = "http://www.zsmtvip.com";
 	public static final String BaseWebUrl = "file:///android_asset";// Web页面BaseUrl

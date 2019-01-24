@@ -15,7 +15,7 @@ public class GoodsDetailResponse extends BaseResponse
 	{
 		@Override
 		public String toString() {
-			return "id="+id+"  title="+title+"  goodssn="+goodssn+"  tagname="+tagname+"  thumb="+thumb+"  thumb_url="+thumb_url+"  count="+count+"  gcate="+gcate+"  customization+"+customization+"  specialProcess="+specialProcess;
+			return "id="+id+"  title="+title+"  goodssn="+goodssn+"  tagname="+tagname+"  thumb="+thumb+"  thumb_url="+thumb_url+"  count="+count+"  gcate="+gcate;
 		}
 		public String id;
 		public String title;

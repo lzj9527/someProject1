@@ -342,13 +342,12 @@ public class RequestManager
 			CacheMode cacheMode)
 	{
 		int requestCode = RequestCode.product_info;
-//		String url = Config.LoadGoodsDetailUrl;
-		String url = "https://api.zsa888.cn/goods/detail";
+		String url = Config.LoadGoodsDetailUrl;
+//		String url = "https://api.zsa888.cn/goods/detail";
 		BasicHttpLoadParams params = new BasicHttpLoadParams(false);
 		params.addRequestParam(new BasicNameValuePair("key", userKey));
 		params.addRequestParam(new BasicNameValuePair("id", goodsId));
-		params.addRequestParam(new BasicNameValuePair("token",Config.token));
-		params.addHeader(new BasicNameValuePair("Accept","application/vnd.zsmt.shop.v1+json"));
+//		params.addHeader(new BasicNameValuePair("Accept","application/vnd.zsmt.shop.v1+json"));
 
 		return UrlLoader.getDefault().startLoad(context, url, params,
 				new MyJsonParser<GoodsDetailResponse>(context, requestCode, callback, GoodsDetailResponse.class),
@@ -367,12 +366,11 @@ public class RequestManager
 			CacheMode cacheMode)
 	{
 		int requestCode = RequestCode.product_info;
-//		String url = Config.LoadGoodsDetailUrl;
-		String url = "https://api.zsa888.cn/goods/detail";
+		String url = Config.LoadGoodsDetailUrl;
+//		String url = "https://api.zsa888.cn/goods/detail";
 		BasicHttpLoadParams params = new BasicHttpLoadParams(false);
 		params.addRequestParam(new BasicNameValuePair("key", userKey));
 		params.addRequestParam(new BasicNameValuePair("id", goodsId));
-		params.addRequestParam(new BasicNameValuePair("token",Config.token));
 		params.addHeader(new BasicNameValuePair("Accept","application/vnd.zsmt.shop.v1+json"));
 		return UrlLoader.getDefault().startLoad(
 				context,

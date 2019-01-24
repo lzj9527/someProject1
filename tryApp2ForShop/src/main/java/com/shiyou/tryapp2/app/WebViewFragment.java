@@ -392,7 +392,7 @@ public class WebViewFragment extends SwipeRefreshWebViewFragment
 							MainFragment.instance.addWebFragmentToCurrent(actualUrl, false);
 							break;
 						case 7:// 分类进产品列表2
-							MainFragment.instance.addWebFragmentToCurrent(actualUrl, false);
+							MainFragment.instance.addWebFragmentToCurrent(url, false);
 							break;
 						case 11:// 搜索进产品列表1
 							// MainFragment.instance.addWebFragmentToMain(actualUrl, false);
@@ -404,10 +404,12 @@ public class WebViewFragment extends SwipeRefreshWebViewFragment
 							MainFragment.instance.addWebFragmentToCurrent(actualUrl, false);
 							break;
 						case 20:
-							MainFragment.instance.addWebFragmentToCurrent(actualUrl, false);
+							Log.d(TAG, "run: url="+url);
+							MainFragment.instance.addWebFragmentToCurrent(url, false);
 						break;
 						case 21:
 							replace(MainFragment.instance, new MainWebFragment("http://www.zsa888.com/addons/ewei_shop/template/pad/default/shop/new-cart.html", 0), false);
+
 							break;
 						case 18:// 分类选砖
 							MainFragment.instance.setCurrentMenu(4);
@@ -423,6 +425,12 @@ public class WebViewFragment extends SwipeRefreshWebViewFragment
 		public void openPopWindow(final int index, final String title, final String url)
 		{
 			LogUtil.v(TAG, "openPopWindow: " + index + "; " + title + "; " + url);
+
+		}
+
+		@JavascriptInterface
+		public void sendCartGoodsCount(final int num){
+			MainFragment.instance.updateShoppingcartNum(num);
 		}
 
 		// 打开详情页

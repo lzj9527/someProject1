@@ -306,6 +306,18 @@ public class MainFragment extends BaseFragment {
 			}
 		});
 	}
+	public void updateShoppingcartNum(final int num) {
+		AndroidUtils.MainHandler.post(new Runnable() {
+			@Override
+			public void run() {
+				if (isResumed()) {
+					LogUtil.d(TAG, "updateShoppingcartNum...");
+					updateShoppingcartNumText(num);
+				} else
+					AndroidUtils.MainHandler.postDelayed(this, 50L);
+			}
+		});
+	}
 
 	public void doRefresh() {
 		AndroidUtils.MainHandler.post(new Runnable() {
