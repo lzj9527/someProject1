@@ -3,6 +3,7 @@ package com.shiyou.tryapp2.app.product;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.extend.ErrorInfo;
 import android.extend.app.BaseFragment;
@@ -20,7 +21,9 @@ import android.extend.widget.MenuBar.OnMenuListener;
 import android.extend.widget.MenuView;
 import android.extend.widget.adapter.AbsAdapterItem;
 import android.extend.widget.adapter.BasePagerAdapter;
+import android.media.Image;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
@@ -54,8 +57,10 @@ import com.shiyou.tryapp2.data.db.BrowseHistoryDBHelper;
 import com.shiyou.tryapp2.data.response.BaseResponse;
 import com.shiyou.tryapp2.data.response.CoupleRingDetailResponse;
 import com.shiyou.tryapp2.data.response.GoodsDetailResponse;
-import com.shiyou.tryapp2.data.response.GoodsDetailResponse.GoodsDetail;
+//import com.shiyou.tryapp2.data.response.GoodsDetailResponse.GoodsDetail;
 import com.unity3d.player.UnityPlayer;
+
+import static java.security.AccessController.getContext;
 
 public class ProductDetailsFragment extends BaseFragment implements OnModelLoadListener
 {
@@ -170,7 +175,8 @@ public class ProductDetailsFragment extends BaseFragment implements OnModelLoadL
 		this(tag, goodsId, isShop, hasModelInfo, null, null);
 	}
 
-	public ProductDetailsFragment(String tag, String goodsId, boolean isShop, boolean hasModelInfo,String url)
+	@SuppressLint("ValidFragment")
+	public ProductDetailsFragment(String tag, String goodsId, boolean isShop, boolean hasModelInfo, String url)
 	{
 		this(tag, goodsId, isShop, hasModelInfo, null, null,url);
 	}
@@ -598,11 +604,11 @@ public class ProductDetailsFragment extends BaseFragment implements OnModelLoadL
 					MainFragment.instance.backToHomepage();
 					if (mGDResponse != null)
 					{
-						MainActivity.launchTryonScene(getActivity(), mGDResponse.datas, mSelectedMaterialTag);
+						MainActivity.launchTryonScene(getActivity(), mGDResponse, mSelectedMaterialTag);
 					}
 					else if (mCoupleRingDetailResponse != null)
 					{
-						MainActivity.launchTryonSceneWithCoupleRing(getActivity(), mCoupleRingDetailResponse.datas,
+						MainActivity.launchTryonSceneWithCoupleRing(getActivity(), mCoupleRingDetailResponse,
 								mSelectedMaterialTag);
 					}
 					else
@@ -617,8 +623,8 @@ public class ProductDetailsFragment extends BaseFragment implements OnModelLoadL
 				}
 			});
 		}
-		if (mGDResponse != null && mGDResponse.datas.tagname != null
-				&& mGDResponse.datas.tagname.contains(Define.TAGNAME_PENDANT))
+		if (mGDResponse != null && mGDResponse.tagname != null
+				&& mGDResponse.tagname.contains(Define.TAGNAME_PENDANT))
 			product_details_tryon.setVisibility(View.GONE);
 
 		id = ResourceUtil.getId(getActivity(), "middle_back");
@@ -854,11 +860,11 @@ public class ProductDetailsFragment extends BaseFragment implements OnModelLoadL
 		{
 			if (mGDResponse != null)
 			{
-				loadStartFrom(mGDResponse.datas);
+				loadStartFrom(mGDResponse);
 			}
 			if (mCoupleRingDetailResponse != null)
 			{
-				loadCoupleStartFrom(mCoupleRingDetailResponse.datas);
+				loadCoupleStartFrom(mCoupleRingDetailResponse);
 			}
 		}
 	}
@@ -883,46 +889,58 @@ public class ProductDetailsFragment extends BaseFragment implements OnModelLoadL
 	public void ShopProduct()
 	{
 		showLoadingIndicator();
-		RequestManager.loadGoodsDetail(getContext(), LoginHelper.getUserKey(getActivity()), goodsId,
+		RequestManager.loadGoodsDetail(getContext(),LoginHelper.getUserKey(getContext()),goodsId,
 				new RequestCallback()
 				{
 					@Override
 					public void onRequestResult(int requestCode, long taskId, BaseResponse response, DataFrom from)
 					{
 						hideLoadingIndicator();
-						if (response.resultCode == BaseResponse.RESULT_OK)
-						{
+//						if (response.resultCode == BaseResponse.RESULT_OK)
+//						{
+							GoodsDetailResponse goodsDetail=RequestManager.loadGoodsDetai(goodsId,GoodsDetailResponse.class);
+							Log.d(TAG, "onRequestResult: goodsDetails="+goodsDetail);
 							mGDResponse = (GoodsDetailResponse)response;
+//							mGDResponse=goodsDetail;
+							Log.d(TAG, "onRequestResult: gg="+goodsDetail.toString());
+//							mGDResponse.datas=goodsDetail;
 							if (mGDResponse != null)
 							{
-								BrowseHistoryDBHelper.getInstance().put(getContext(), mGDResponse.datas, isShop);
+								BrowseHistoryDBHelper.getInstance().put(getContext(), mGDResponse, isShop);
 								AndroidUtils.MainHandler.post(new Runnable()
 								{
 									@Override
 									public void run()
 									{
+									    mGDResponse.thumb_url2=new ImageInfo[mGDResponse.thumb_url.length];
+										for(int i=0;i<mGDResponse.thumb_url.length;i++) {
+										    mGDResponse.thumb_url2[i]=new ImageInfo();
+											mGDResponse.thumb_url2[i].url=mGDResponse.thumb_url[i];
+										}
 										if (isDetached())
 											return;
-										if (mGDResponse.datas.thumb_url != null)
+
+										if (mGDResponse.thumb_url2!= null)
 										{
-											productSelectedList(mGDResponse.datas.thumb_url);
+
+											productSelectedList(mGDResponse.thumb_url2);
 										}
 										if (mShopProductDetailsFragment != null)
 											mShopProductDetailsFragment.updateGoodsDetailResponse(mGDResponse,
 													weightRange, priceRange);
 										if (isShop && hasModelInfo)
-											loadStartFrom(mGDResponse.datas);
+											loadStartFrom(mGDResponse);
 									}
 								});
 							}
-						}
-						else
-						{
-							showToast(response.error);
-						}
+//						}
+//						else
+//						{
+//							showToast(response.error);
+//						}
 						// 更新缓存数据
 						if (from != DataFrom.SERVER)
-							RequestManager.loadGoodsDetail(getContext(), LoginHelper.getUserKey(getContext()), goodsId,
+							RequestManager.loadGoodsDetail(getContext(),LoginHelper.getUserKey(getContext()),Integer.parseInt(goodsId),
 									null, CacheMode.PERFER_NETWORK);
 					}
 
@@ -931,7 +949,7 @@ public class ProductDetailsFragment extends BaseFragment implements OnModelLoadL
 					{
 						hideLoadingIndicator();
 						showToast("网络错误: " + error.errorCode);
-						RequestManager.loadGoodsDetail(getContext(), LoginHelper.getUserKey(getContext()), goodsId,
+						RequestManager.loadGoodsDetail(getContext(), goodsId,
 								null, CacheMode.PERFER_NETWORK);
 					}
 				});
@@ -950,7 +968,7 @@ public class ProductDetailsFragment extends BaseFragment implements OnModelLoadL
 						if (response.resultCode == BaseResponse.RESULT_OK)
 						{
 							mCoupleRingDetailResponse = (CoupleRingDetailResponse)response;
-							BrowseHistoryDBHelper.getInstance().put(getContext(), mCoupleRingDetailResponse.datas,
+							BrowseHistoryDBHelper.getInstance().put(getContext(), mCoupleRingDetailResponse,
 									isShop);
 							if (mCoupleRingDetailResponse != null)
 							{
@@ -961,15 +979,15 @@ public class ProductDetailsFragment extends BaseFragment implements OnModelLoadL
 									{
 										if (isDetached())
 											return;
-										if (mCoupleRingDetailResponse.datas.thumb_url != null)
+										if (mCoupleRingDetailResponse.thumb_url != null)
 										{
-											productSelectedList(mCoupleRingDetailResponse.datas.thumb_url);
+											productSelectedList(mCoupleRingDetailResponse.thumb_url);
 										}
 										if (mCoupleRingsDetailsFragment != null)
 											mCoupleRingsDetailsFragment.updateCoupleRingDetailsResponse(
 													mCoupleRingDetailResponse, weightRange, priceRange);
 										if (isShop && hasModelInfo)
-											loadCoupleStartFrom(mCoupleRingDetailResponse.datas);
+											loadCoupleStartFrom(mCoupleRingDetailResponse);
 									}
 								});
 							}
@@ -981,7 +999,7 @@ public class ProductDetailsFragment extends BaseFragment implements OnModelLoadL
 						// 更新缓存数据
 						if (from != DataFrom.SERVER)
 							RequestManager.loadCoupleRingDetail(getContext(), LoginHelper.getUserKey(getContext()),
-									goodsId, null, CacheMode.PERFER_NETWORK);
+									Integer.parseInt(goodsId), null, CacheMode.PERFER_NETWORK);
 					}
 
 					@Override
@@ -990,7 +1008,7 @@ public class ProductDetailsFragment extends BaseFragment implements OnModelLoadL
 						hideLoadingIndicator();
 						showToast("网络错误: " + error.errorCode);
 						RequestManager.loadCoupleRingDetail(getContext(), LoginHelper.getUserKey(getContext()),
-								goodsId, null, CacheMode.PERFER_NETWORK);
+								Integer.parseInt(goodsId), null, CacheMode.PERFER_NETWORK);
 					}
 				});
 	}
@@ -1011,6 +1029,7 @@ public class ProductDetailsFragment extends BaseFragment implements OnModelLoadL
 		mPopupWindow = new ProductImagePopupWindow(getActivity(), mImageInfo);
 		ensureDots();
 	}
+
 
 	public class ProductImageList extends AbsAdapterItem
 	{
@@ -1085,7 +1104,7 @@ public class ProductDetailsFragment extends BaseFragment implements OnModelLoadL
 		UnityPlayer.UnitySendMessage("PlatformMessageHandler", "NotifyEnter3DShowScene", "");
 	}
 
-	private void loadCoupleStartFrom(com.shiyou.tryapp2.data.response.CoupleRingDetailResponse.GoodsDetail datas)
+	private void loadCoupleStartFrom(com.shiyou.tryapp2.data.response.CoupleRingDetailResponse datas)
 	{
 		if (datas.model_infos == null)
 		{
@@ -1132,7 +1151,7 @@ public class ProductDetailsFragment extends BaseFragment implements OnModelLoadL
 		}
 	}
 
-	private void loadStartFrom(GoodsDetail detail)
+	private void loadStartFrom(GoodsDetailResponse detail)
 	{
 		showLoadingIndicator();
 		if (detail.model_info == null)
@@ -1147,10 +1166,10 @@ public class ProductDetailsFragment extends BaseFragment implements OnModelLoadL
 		}
 		UnityModelInfo model = new UnityModelInfo(detail.model_info);
 		model.id = detail.id;
-		if (detail.tagname != null && detail.tagname.contains(Define.TAGNAME_PENDANT))
-			model.type = Config.Type_Necklace;
-		else
-			model.type = Config.Type_Ring;
+//		if (detail.tagname != null && detail.tagname.contains(Define.TAGNAME_PENDANT))
+//			model.type = Config.Type_Necklace;
+//		else
+//			model.type = Config.Type_Ring;
 		model.weight = 100;
 		List<UnityModelInfo> models = new ArrayList<UnityModelInfo>();
 		models.add(model);
@@ -1161,6 +1180,7 @@ public class ProductDetailsFragment extends BaseFragment implements OnModelLoadL
 		// UnityPlayer.UnitySendMessage("PlatformMessageHandler",
 		// "NotifyAddModel", modelJson);
 	}
+
 
 	private void startModelDownload(List<UnityModelInfo> models)
 	{

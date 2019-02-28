@@ -117,36 +117,36 @@
                             android:src="@drawable/selector_main_order"
                             />
                     </android.extend.widget.MenuView>
-                    <!--<android.extend.widget.MenuView-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="87dp"-->
-                        <!--android:background="@drawable/selector_main_menuitem"-->
-                        <!--android:clickable="true"-->
-                        <!--android:focusable="true"-->
-                        <!--&gt;-->
-                        <!--<ImageView-->
-                            <!--android:layout_width="fill_parent"-->
-                            <!--android:layout_height="fill_parent"-->
-                            <!--android:layout_gravity="center"-->
-                            <!--android:scaleType="fitCenter"-->
-                            <!--android:src="@drawable/selector_main_search"-->
-                             <!--/>-->
-                    <!--</android.extend.widget.MenuView>-->
-                    <!--<android.extend.widget.MenuView-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="87dp"-->
-                        <!--android:background="@drawable/selector_main_menuitem"-->
-                        <!--android:clickable="true"-->
-                        <!--android:focusable="true"-->
-                        <!--&gt;-->
+                    <android.extend.widget.MenuView
+                        android:layout_width="match_parent"
+                        android:layout_height="87dp"
+                        android:background="@drawable/selector_main_menuitem"
+                        android:clickable="true"
+                        android:focusable="true"
+                        >
+                        <ImageView
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_gravity="center"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/selector_main_search"
+                             />
+                    </android.extend.widget.MenuView>
+                    <android.extend.widget.MenuView
+                        android:layout_width="match_parent"
+                        android:layout_height="87dp"
+                        android:background="@drawable/selector_main_menuitem"
+                        android:clickable="true"
+                        android:focusable="true"
+                        >
 
-                        <!--<ImageView-->
-                            <!--android:layout_width="match_parent"-->
-                            <!--android:layout_height="match_parent"-->
-                            <!--android:layout_gravity="center"-->
-                            <!--android:scaleType="fitCenter"-->
-                            <!--android:src="@drawable/selector_main_history" />-->
-                    <!--</android.extend.widget.MenuView>-->
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/selector_main_history" />
+                    </android.extend.widget.MenuView>
                 </LinearLayout>
             </android.extend.widget.MenuBar>
         </ScrollView>

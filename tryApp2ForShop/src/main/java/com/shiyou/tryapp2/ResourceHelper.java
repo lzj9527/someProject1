@@ -20,6 +20,7 @@ import android.extend.util.FileUtils;
 import android.extend.util.LogUtil;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
+import android.util.Log;
 
 import com.shiyou.tryapp2.FileDownloadHelper.DownloadStatus;
 import com.shiyou.tryapp2.FileDownloadHelper.OnFileDownloadCallback;
@@ -402,7 +403,7 @@ public class ResourceHelper
 						void onResponseSuccess(BaseResponse response)
 						{
 							GoodsDetailResponse gdResponse = (GoodsDetailResponse)response;
-							AndroidUtils.MainHandler.post(new DownloadGoodsDetailResourceRunnable(gdResponse.datas,
+							AndroidUtils.MainHandler.post(new DownloadGoodsDetailResourceRunnable(gdResponse,
 									new OnResourceDownloadCallback()
 									{
 										@Override
@@ -427,7 +428,7 @@ public class ResourceHelper
 						void onResponseSuccess(BaseResponse response)
 						{
 							CoupleRingDetailResponse crdResponse = (CoupleRingDetailResponse)response;
-							AndroidUtils.MainHandler.post(new DownloadGoodsDetailResourceRunnable(crdResponse.datas,
+							AndroidUtils.MainHandler.post(new DownloadGoodsDetailResourceRunnable(crdResponse,
 									new OnResourceDownloadCallback()
 									{
 										@Override
@@ -456,19 +457,19 @@ public class ResourceHelper
 	// 下载单个商品相关资源
 	private class DownloadGoodsDetailResourceRunnable implements Runnable
 	{
-		GoodsDetailResponse.GoodsDetail goodsDetail;
-		CoupleRingDetailResponse.GoodsDetail coupleRingGoodsDetail;
+		GoodsDetailResponse goodsDetail;
+		CoupleRingDetailResponse coupleRingGoodsDetail;
 		OnResourceDownloadCallback callback;
 		int downloadStep = 0;
 
-		public DownloadGoodsDetailResourceRunnable(GoodsDetailResponse.GoodsDetail goodsDetail,
+		public DownloadGoodsDetailResourceRunnable(GoodsDetailResponse goodsDetail,
 				OnResourceDownloadCallback callback)
 		{
 			this.goodsDetail = goodsDetail;
 			this.callback = callback;
 		}
 
-		public DownloadGoodsDetailResourceRunnable(CoupleRingDetailResponse.GoodsDetail goodsDetail,
+		public DownloadGoodsDetailResourceRunnable(CoupleRingDetailResponse goodsDetail,
 				OnResourceDownloadCallback callback)
 		{
 			this.coupleRingGoodsDetail = goodsDetail;
@@ -486,55 +487,60 @@ public class ResourceHelper
 				{
 					case 0:// 下载商品首图
 						downloadStep++;
-						if (goodsDetail.thumb != null)
-						{
-							FileInfo fileInfo = goodsDetail.thumb;
-							fileInfo.path = getGoodsImageDirectory(mContext).getAbsolutePath() + File.separator
-									+ FileUtils.getFileName(fileInfo.url);
-							FileDownloadHelper.checkAndDownloadIfNeed(mContext, goodsDetail, fileInfo,
-									new OnFileDownloadCallback()
-									{
-										@Override
-										public void onDownloadStarted(Object tag, FileInfo fileInfo, String localPath)
-										{
-										}
-
-										@Override
-										public void onDownloadProgress(Object tag, FileInfo fileInfo, String localPath,
-												long count, long length, float speed)
-										{
-										}
-
-										@Override
-										public void onDownloadFinished(Object tag, FileInfo fileInfo, String localPath)
-										{
-											AndroidUtils.MainHandler.post(DownloadGoodsDetailResourceRunnable.this);
-										}
-
-										@Override
-										public void onDownloadFailed(Object tag, FileInfo fileInfo, ErrorInfo error)
-										{
-											AndroidUtils.MainHandler.post(DownloadGoodsDetailResourceRunnable.this);
-										}
-
-										@Override
-										public void onDownloadCanceled(Object tag, FileInfo fileInfo)
-										{
-										}
-									}, false);
-						}
-						else
-						{
-							AndroidUtils.MainHandler.post(DownloadGoodsDetailResourceRunnable.this);
-						}
+						AndroidUtils.MainHandler.post(DownloadGoodsDetailResourceRunnable.this);
 						break;
+//						if (goodsDetail.thumb != null)
+//						{
+//							FileInfo fileInfo = goodsDetail.thumb;
+//							fileInfo.path = getGoodsImageDirectory(mContext).getAbsolutePath() + File.separator
+//									+ FileUtils.getFileName(fileInfo.url);
+//							FileDownloadHelper.checkAndDownloadIfNeed(mContext, goodsDetail, fileInfo,
+//									new OnFileDownloadCallback()
+//									{
+//										@Override
+//										public void onDownloadStarted(Object tag, FileInfo fileInfo, String localPath)
+//										{
+//										}
+//
+//										@Override
+//										public void onDownloadProgress(Object tag, FileInfo fileInfo, String localPath,
+//												long count, long length, float speed)
+//										{
+//										}
+//
+//										@Override
+//										public void onDownloadFinished(Object tag, FileInfo fileInfo, String localPath)
+//										{
+//											AndroidUtils.MainHandler.post(DownloadGoodsDetailResourceRunnable.this);
+//										}
+//
+//										@Override
+//										public void onDownloadFailed(Object tag, FileInfo fileInfo, ErrorInfo error)
+//										{
+//											AndroidUtils.MainHandler.post(DownloadGoodsDetailResourceRunnable.this);
+//										}
+//
+//										@Override
+//										public void onDownloadCanceled(Object tag, FileInfo fileInfo)
+//										{
+//										}
+//									}, false);
+//						}
+//						else
+//						{
+//							AndroidUtils.MainHandler.post(DownloadGoodsDetailResourceRunnable.this);
+//						}
+//						break;
 					case 1:// 下载商品相册图
 						downloadStep++;
-						if (goodsDetail.thumb_url != null && goodsDetail.thumb_url.length > 0)
+						if (goodsDetail.thumb_url2 != null && goodsDetail.thumb_url2.length > 0)
 						{
-							FileInfo[] fileInfos = goodsDetail.thumb_url;
+							FileInfo[] fileInfos = goodsDetail.thumb_url2;
+							int index=0;
 							for (FileInfo fileInfo : fileInfos)
 							{
+								fileInfo.url=goodsDetail.thumb_url[index++];
+								Log.d(TAG, "run: url="+fileInfo.url);
 								fileInfo.path = getGoodsImageDirectory(mContext).getAbsolutePath() + File.separator
 										+ FileUtils.getFileName(fileInfo.url);
 							}

@@ -125,24 +125,24 @@ public class BrowseHistoryFragment extends BaseFragment
 				String tag = "";
 				boolean isShop = false;
 				boolean hasModleInfo = false;
-				if (goods instanceof GoodsDetailResponse.GoodsDetail)
+				if (goods instanceof GoodsDetailResponse)
 				{
-					GoodsDetailResponse.GoodsDetail detail = (GoodsDetailResponse.GoodsDetail)goods;
-					thumb = detail.thumb;
+					GoodsDetailResponse detail = (GoodsDetailResponse)goods;
+//					thumb = detail.thumb;
 					title = detail.title;
-					goodsId = detail.id;
+					goodsId = String.valueOf(detail.id);
 					tag = Define.TAG_RING;
-					isShop = detail.isShop;
+//					isShop = detail.isShop;
 					hasModleInfo = (detail.model_info != null);
 				}
-				else if (goods instanceof CoupleRingDetailResponse.GoodsDetail)
+				else if (goods instanceof CoupleRingDetailResponse)
 				{
-					CoupleRingDetailResponse.GoodsDetail detail = (CoupleRingDetailResponse.GoodsDetail)goods;
-					thumb = detail.thumb;
+					CoupleRingDetailResponse detail = (CoupleRingDetailResponse)goods;
+//					thumb = detail.thumb;
 					title = detail.title;
-					goodsId = detail.id;
+					goodsId = String.valueOf(detail.id);
 					tag = Define.TAG_COUPLE;
-					isShop = detail.isShop;
+//					isShop = detail.isShop;
 					if (detail.model_infos != null)
 					{
 						if (detail.model_infos.men != null || detail.model_infos.wmen != null)

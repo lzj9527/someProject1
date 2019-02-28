@@ -217,6 +217,7 @@ drawable product_new
 drawable pull_arrow_down
 drawable rotate_loading
 drawable rotate_refresh
+drawable search_all
 drawable selector_couple_rings_tabtitle
 drawable selector_main_history
 drawable selector_main_menuitem
@@ -329,6 +330,7 @@ id confirm
 id content
 id content_container
 id content_layout
+id couple_details_right_layout
 id couple_product_pirce
 id couple_rings_name
 id customize_layout
@@ -336,6 +338,7 @@ id data
 id date
 id delectprice
 id details_middle_layout
+id details_right_layout
 id divider
 id dot_container
 id drag_handle
@@ -437,11 +440,15 @@ id place_order
 id popLayoutId
 id position
 id product_3d
+id product_HadGia
+id product_all_number
+id product_couple_details_attribute
 id product_deputy_color
 id product_deputy_jingdu
 id product_deputy_number
 id product_deputy_weight
 id product_details_3d
+id product_details_attribute
 id product_details_button
 id product_details_selectprice_true
 id product_details_tryon
@@ -464,6 +471,8 @@ id product_name
 id product_number
 id product_photo
 id product_pirce
+id product_search
+id product_search_number
 id product_type
 id product_zs
 id progress
@@ -523,6 +532,7 @@ id start
 id sub_titlebar
 id swipe_refresh
 id tag_new
+id test_token
 id text
 id textView
 id title

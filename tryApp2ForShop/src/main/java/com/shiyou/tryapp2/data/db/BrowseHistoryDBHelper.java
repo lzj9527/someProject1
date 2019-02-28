@@ -13,7 +13,8 @@ import android.text.format.DateFormat;
 
 import com.shiyou.tryapp2.Config;
 import com.shiyou.tryapp2.data.response.CoupleRingDetailResponse;
-import com.shiyou.tryapp2.data.response.GoodsDetailResponse.GoodsDetail;
+import com.shiyou.tryapp2.data.response.GoodsDetailResponse;
+//import com.shiyou.tryapp2.data.response.GoodsDetailResponse.GoodsDetail;
 
 public class BrowseHistoryDBHelper extends BaseDBHelper
 {
@@ -95,16 +96,16 @@ public class BrowseHistoryDBHelper extends BaseDBHelper
 		return insert(context, values);
 	}
 
-	public synchronized long insert(Context context, GoodsDetail item, boolean isShop)
+	public synchronized long insert(Context context, GoodsDetailResponse item, boolean isShop)
 	{
-		item.isShop = isShop;
-		return insert(context, item.id, GoodsDetail.toJson(item));
+//		item.isShop = isShop;
+		return insert(context, String.valueOf(item.id), GoodsDetailResponse.toJson(item));
 	}
 
-	public synchronized long insert(Context context, CoupleRingDetailResponse.GoodsDetail item, boolean isShop)
+	public synchronized long insert(Context context, CoupleRingDetailResponse item, boolean isShop)
 	{
 		item.isShop = isShop;
-		return insert(context, item.id, CoupleRingDetailResponse.GoodsDetail.toJson(item));
+		return insert(context, String.valueOf(item.id), CoupleRingDetailResponse.toJson(item));
 	}
 
 	public synchronized int update(Context context, String id, String json)
@@ -115,29 +116,29 @@ public class BrowseHistoryDBHelper extends BaseDBHelper
 		return update(context, values, NAME_ID + '=' + id, null);
 	}
 
-	public synchronized int update(Context context, GoodsDetail item, boolean isShop)
+	public synchronized int update(Context context, GoodsDetailResponse item, boolean isShop)
 	{
-		item.isShop = isShop;
-		return update(context, item.id, GoodsDetail.toJson(item));
+//		item.isShop = isShop;
+		return update(context, String.valueOf(item.id), GoodsDetailResponse.toJson(item));
 	}
 
-	public synchronized int update(Context context, CoupleRingDetailResponse.GoodsDetail item, boolean isShop)
+	public synchronized int update(Context context, CoupleRingDetailResponse item, boolean isShop)
 	{
-		item.isShop = isShop;
-		return update(context, item.id, CoupleRingDetailResponse.GoodsDetail.toJson(item));
+//		item.isShop = isShop;
+		return update(context, String.valueOf(item.id), CoupleRingDetailResponse.toJson(item));
 	}
 
-	public synchronized long put(Context context, GoodsDetail item, boolean isShop)
+	public synchronized long put(Context context, GoodsDetailResponse item, boolean isShop)
 	{
-		if (hasRecord(context, item.id))
+		if (hasRecord(context, String.valueOf(item.id)))
 			return update(context, item, isShop);
 		else
 			return insert(context, item, isShop);
 	}
 
-	public synchronized long put(Context context, CoupleRingDetailResponse.GoodsDetail item, boolean isShop)
+	public synchronized long put(Context context, CoupleRingDetailResponse item, boolean isShop)
 	{
-		if (hasRecord(context, item.id))
+		if (hasRecord(context, String.valueOf(item.id)))
 			return update(context, item, isShop);
 		else
 			return insert(context, item, isShop);
@@ -149,9 +150,9 @@ public class BrowseHistoryDBHelper extends BaseDBHelper
 		String json = cursor.getString(cursor.getColumnIndex(NAME_JSON));
 		LogUtil.v(TAG, "getGoodsDetail: " + json);
 		if (json.contains("model_infos"))
-			return CoupleRingDetailResponse.GoodsDetail.fromJson(json);
+			return CoupleRingDetailResponse.fromJson(json);
 		else
-			return GoodsDetail.fromJson(json);
+			return GoodsDetailResponse.fromJson(json);
 	}
 
 	private String getDateString(Cursor cursor)

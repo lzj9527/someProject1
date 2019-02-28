@@ -32,7 +32,7 @@
     <color name="login_edittext_font">#a8606c</color>
     <color name="login_edittext_hint">#a8606c</color>
     <color name="login_hint">#737373</color>
-    <color name="main_menubar_background">#b1001d</color>
+    <color name="main_menubar_background">#B1003D </color>
     <color name="main_menubar_badge_background">#ffffff</color>
     <color name="main_menubar_badge_border">#b1001d</color>
     <color name="main_menubar_badge_font">#b1001d</color>
@@ -48,97 +48,6 @@
     <color name="spinner_font">#737373</color>
     <color name="spinner_item_background">#ffffff</color>
     <color name="spinner_item_focus_background">#b1001d</color>
-    <declare-styleable name="DragSortListView">
-    <attr format="dimension" name="collapsed_height"/>
-    <attr format="float" name="drag_scroll_start"/>
-    <attr format="float" name="max_drag_scroll_speed"/>
-    <attr format="color" name="float_background_color"/>
-    <attr name="remove_mode">
-      <enum name="clickRemove" value="0"/>
-      <enum name="flingRemove" value="1"/>
-    </attr>
-    <attr format="boolean" name="track_drag_sort"/>
-    <attr format="float" name="float_alpha"/>
-    <attr format="float" name="slide_shuffle_speed"/>
-    <attr format="integer" name="remove_animation_duration"/>
-    <attr format="integer" name="drop_animation_duration"/>
-    <attr format="boolean" name="drag_enabled"/>
-    <attr format="boolean" name="sort_enabled"/>
-    <attr format="boolean" name="remove_enabled"/>
-    <attr name="drag_start_mode">
-      <enum name="onDown" value="0"/>
-      <enum name="onMove" value="1"/>
-      <enum name="onLongPress" value="2"/>
-    </attr>
-    <attr format="integer" name="drag_handle_id"/>
-    <attr format="integer" name="fling_handle_id"/>
-    <attr format="integer" name="click_remove_id"/>
-    <attr format="boolean" name="use_default_controller"/>
-  </declare-styleable>
-    <declare-styleable name="ProgressBar">
-        <attr name="orientation">
-            <enum name="horizontal" value="0"/>
-            <enum name="vertical" value="1"/>
-        </attr>
-        <attr name="changeProgressMode">
-            <enum name="none" value="0"/>
-            <enum name="touch" value="1"/>
-            <enum name="slide" value="2"/>
-        </attr>
-    </declare-styleable>
-    <declare-styleable name="RecyclerView">
-        <!-- Class name of the Layout Manager to be used.
-        <p/>
-        The class must extend android.support.v7.widget.RecyclerView$LayoutManager
-        and have either a default constructor or constructor with the signature
-        (android.content.Context, android.util.AttributeSet, int, int).
-         <p/>
-         If the name starts with a '.', application package is prefixed.
-         Else, if the name contains a '.', the classname is assumed to be a full class name.
-         Else, the recycler view package name (android.support.v7.widget) is prefixed. -->
-        <attr format="string" name="layoutManager"/>
-
-        <!-- ============================= -->
-        <!-- Attributes for Layout Manager -->
-        <!-- ============================= -->
-        <eat-comment/>
-
-        <attr name="android:orientation"/>
-        <attr format="integer" name="spanCount"/>
-        <attr format="boolean" name="reverseLayout"/>
-        <attr format="boolean" name="stackFromEnd"/>
-    </declare-styleable>
-    <declare-styleable name="ShapeImageView">
-        <attr name="imageShape">
-            <enum name="circle" value="0"/>
-            <enum name="oval" value="1"/>
-            <enum name="roundRect" value="2"/>
-        </attr>
-        <attr name="clipType">
-            <enum name="start" value="0"/>
-            <enum name="center" value="1"/>
-            <enum name="end" value="2"/>
-        </attr>
-        <attr format="dimension" name="radiusX"/>
-        <attr format="dimension" name="radiusY"/>
-    </declare-styleable>
-    <declare-styleable name="SwipeLayout">
-        <attr name="drag_edge">
-            <flag name="left" value="1"/>
-            <flag name="right" value="2"/>
-            <flag name="top" value="4"/>
-            <flag name="bottom" value="8"/>
-        </attr>
-        <attr format="dimension" name="leftEdgeSwipeOffset"/>
-        <attr format="dimension" name="rightEdgeSwipeOffset"/>
-        <attr format="dimension" name="topEdgeSwipeOffset"/>
-        <attr format="dimension" name="bottomEdgeSwipeOffset"/>
-        <attr format="enum" name="show_mode">
-            <enum name="lay_down" value="0"/>
-            <enum name="pull_out" value="1"/>
-        </attr>
-        <attr format="boolean" name="clickToClose"/>
-    </declare-styleable>
     <dimen name="item_touch_helper_max_drag_scroll_per_frame">20dp</dimen>
     <dimen name="item_touch_helper_swipe_escape_max_velocity">800dp</dimen>
     <dimen name="item_touch_helper_swipe_escape_velocity">120dp</dimen>
@@ -260,4 +169,95 @@
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:backgroundDimEnabled">false</item>
     </style>
+    <declare-styleable name="DragSortListView">
+    <attr format="dimension" name="collapsed_height"/>
+    <attr format="float" name="drag_scroll_start"/>
+    <attr format="float" name="max_drag_scroll_speed"/>
+    <attr format="color" name="float_background_color"/>
+    <attr name="remove_mode">
+      <enum name="clickRemove" value="0"/>
+      <enum name="flingRemove" value="1"/>
+    </attr>
+    <attr format="boolean" name="track_drag_sort"/>
+    <attr format="float" name="float_alpha"/>
+    <attr format="float" name="slide_shuffle_speed"/>
+    <attr format="integer" name="remove_animation_duration"/>
+    <attr format="integer" name="drop_animation_duration"/>
+    <attr format="boolean" name="drag_enabled"/>
+    <attr format="boolean" name="sort_enabled"/>
+    <attr format="boolean" name="remove_enabled"/>
+    <attr name="drag_start_mode">
+      <enum name="onDown" value="0"/>
+      <enum name="onMove" value="1"/>
+      <enum name="onLongPress" value="2"/>
+    </attr>
+    <attr format="integer" name="drag_handle_id"/>
+    <attr format="integer" name="fling_handle_id"/>
+    <attr format="integer" name="click_remove_id"/>
+    <attr format="boolean" name="use_default_controller"/>
+  </declare-styleable>
+    <declare-styleable name="ProgressBar">
+        <attr name="orientation">
+            <enum name="horizontal" value="0"/>
+            <enum name="vertical" value="1"/>
+        </attr>
+        <attr name="changeProgressMode">
+            <enum name="none" value="0"/>
+            <enum name="touch" value="1"/>
+            <enum name="slide" value="2"/>
+        </attr>
+    </declare-styleable>
+    <declare-styleable name="RecyclerView">
+        <!-- Class name of the Layout Manager to be used.
+        <p/>
+        The class must extend android.support.v7.widget.RecyclerView$LayoutManager
+        and have either a default constructor or constructor with the signature
+        (android.content.Context, android.util.AttributeSet, int, int).
+         <p/>
+         If the name starts with a '.', application package is prefixed.
+         Else, if the name contains a '.', the classname is assumed to be a full class name.
+         Else, the recycler view package name (android.support.v7.widget) is prefixed. -->
+        <attr format="string" name="layoutManager"/>
+
+        <!-- ============================= -->
+        <!-- Attributes for Layout Manager -->
+        <!-- ============================= -->
+        <eat-comment/>
+
+        <attr name="android:orientation"/>
+        <attr format="integer" name="spanCount"/>
+        <attr format="boolean" name="reverseLayout"/>
+        <attr format="boolean" name="stackFromEnd"/>
+    </declare-styleable>
+    <declare-styleable name="ShapeImageView">
+        <attr name="imageShape">
+            <enum name="circle" value="0"/>
+            <enum name="oval" value="1"/>
+            <enum name="roundRect" value="2"/>
+        </attr>
+        <attr name="clipType">
+            <enum name="start" value="0"/>
+            <enum name="center" value="1"/>
+            <enum name="end" value="2"/>
+        </attr>
+        <attr format="dimension" name="radiusX"/>
+        <attr format="dimension" name="radiusY"/>
+    </declare-styleable>
+    <declare-styleable name="SwipeLayout">
+        <attr name="drag_edge">
+            <flag name="left" value="1"/>
+            <flag name="right" value="2"/>
+            <flag name="top" value="4"/>
+            <flag name="bottom" value="8"/>
+        </attr>
+        <attr format="dimension" name="leftEdgeSwipeOffset"/>
+        <attr format="dimension" name="rightEdgeSwipeOffset"/>
+        <attr format="dimension" name="topEdgeSwipeOffset"/>
+        <attr format="dimension" name="bottomEdgeSwipeOffset"/>
+        <attr format="enum" name="show_mode">
+            <enum name="lay_down" value="0"/>
+            <enum name="pull_out" value="1"/>
+        </attr>
+        <attr format="boolean" name="clickToClose"/>
+    </declare-styleable>
 </resources>

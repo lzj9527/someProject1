@@ -245,7 +245,7 @@ public class LoginFragment extends BaseFragment
 													{
 														if (item.tag.equals(Define.TAG_RING) && item.model_info != null)
 														{
-															id = item.id;
+															id = String.valueOf(item.id);
 															tag = item.tag;
 															break;
 														}

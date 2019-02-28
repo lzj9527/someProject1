@@ -1,5 +1,6 @@
 package com.shiyou.tryapp2;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,10 +19,12 @@ import android.extend.loader.HttpLoader.HttpLoadParams;
 import android.extend.loader.Loader.CacheMode;
 import android.extend.loader.Loader.LoadParams;
 import android.extend.loader.UrlLoader;
+import android.extend.util.AndroidUtils;
 import android.extend.util.LogUtil;
 import android.extend.util.NetworkManager;
 import android.net.Uri;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -44,6 +47,12 @@ import com.shiyou.tryapp2.data.response.ShopLogoAndADResponse;
 import com.shiyou.tryapp2.data.response.ShoppingcartListResponse;
 import com.shiyou.tryapp2.data.response.TokenResponse;
 import com.shiyou.tryapp2.data.response.UploadFileResponse;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class RequestManager
 {
@@ -338,7 +347,7 @@ public class RequestManager
 	/**
 	 * 获取商品详情
 	 * */
-	public static long loadGoodsDetail(Context context, String userKey, String goodsId, RequestCallback callback,
+	public static long loadGoodsDetail(Context context, String userKey, int goodsId, RequestCallback callback,
 			CacheMode cacheMode)
 	{
 		int requestCode = RequestCode.product_info;
@@ -346,23 +355,75 @@ public class RequestManager
 //		String url = "https://api.zsa888.cn/goods/detail";
 		BasicHttpLoadParams params = new BasicHttpLoadParams(false);
 		params.addRequestParam(new BasicNameValuePair("key", userKey));
+		params.addRequestParam(new BasicNameValuePair("id",Integer.toString(goodsId)));
+//		params.addHeader(new BasicNameValuePair("Accept","application/vnd.zsmt.shop.v1+json"));
+
+		return UrlLoader.getDefault().startLoad(context, url, params,
+				new MyJsonParser<GoodsDetailResponse>(context, requestCode, callback, GoodsDetailResponse.class,goodsId),
+				cacheMode);
+	}
+
+	public static long loadGoodsDetail(Context context, String goodsId, RequestCallback callback,
+									   CacheMode cacheMode)
+	{
+		int requestCode = RequestCode.product_info;
+//		String url = Config.LoadGoodsDetailUrl;
+		String url = "https://api.zsa888.cn/goods/detail";
+		BasicHttpLoadParams params = new BasicHttpLoadParams(false);
 		params.addRequestParam(new BasicNameValuePair("id", goodsId));
+		params.addRequestParam(new BasicNameValuePair("token",Config.token));
+		params.addHeader(new BasicNameValuePair("accept","application/vnd.zsmt.shop.v1+json"));
 //		params.addHeader(new BasicNameValuePair("Accept","application/vnd.zsmt.shop.v1+json"));
 
 		return UrlLoader.getDefault().startLoad(context, url, params,
 				new MyJsonParser<GoodsDetailResponse>(context, requestCode, callback, GoodsDetailResponse.class),
 				cacheMode);
 	}
+	public static String json;
+	public static GoodsDetailResponse loadGoodsDetai(String goodsid, Class<GoodsDetailResponse> type){
+		Request request=new Request.Builder().url("https://api.zsa888.cn/goods/detail?id="+goodsid+"&token="+Config.token).addHeader("accept","application/vnd.zsmt.shop.v1+json").get().build();
+//        Request request=new Request.Builder().url("http://www.zsmtvip.com/app/index.php?i=2&c=entry&do=goods_detail&m=test&id=2843"+"&key=").addHeader("accept","application/vnd.zsmt.shop.v1+json").get().build();
+		OkHttpClient okHttpClient=new OkHttpClient();
+
+		okHttpClient.newCall(request).enqueue(new Callback() {
+			@Override
+			public void onFailure(Call call, IOException e) {
+
+			}
+
+			@Override
+			public void onResponse(Call call, Response response) throws IOException {
+				String json =response.body().string();
+				int index=json.lastIndexOf("}");
+				Log.d("ProductDetailsFragment", "onResponse: json="+json.substring(17,index));
+                RequestManager.json=json.substring(17,index);
+			}
+		});
+        try {
+            Log.d("ProductDetailsFragment", "onRequestResult: 延迟1000毫米（1秒）");
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+		Log.d("ProductDetailsFragment", "loadGoodsDetai: 1000毫秒到了");
+        Gson gson = new Gson();
+        GoodsDetailResponse result = gson.fromJson(RequestManager.json, type);
+        return result;
+	}
 
 	public static long loadGoodsDetail(Context context, String userKey, String goodsId, RequestCallback callback)
 	{
-		return loadGoodsDetail(context, userKey, goodsId, callback, CacheMode.PERFER_FILECACHE);
+		return loadGoodsDetail(context, userKey,Integer.parseInt(goodsId), callback, CacheMode.PERFER_FILECACHE);
+	}
+	public static long loadGoodsDetail(Context context, String goodsId, RequestCallback callback)
+	{
+		return loadGoodsDetail(context, goodsId, callback, CacheMode.PERFER_FILECACHE);
 	}
 
 	/**
 	 * 获取对戒详情
 	 * */
-	public static long loadCoupleRingDetail(Context context, String userKey, String goodsId, RequestCallback callback,
+	public static long loadCoupleRingDetail(Context context, String userKey, int goodsId, RequestCallback callback,
 			CacheMode cacheMode)
 	{
 		int requestCode = RequestCode.product_info;
@@ -370,7 +431,7 @@ public class RequestManager
 //		String url = "https://api.zsa888.cn/goods/detail";
 		BasicHttpLoadParams params = new BasicHttpLoadParams(false);
 		params.addRequestParam(new BasicNameValuePair("key", userKey));
-		params.addRequestParam(new BasicNameValuePair("id", goodsId));
+		params.addRequestParam(new BasicNameValuePair("id", String.valueOf(goodsId)));
 		params.addHeader(new BasicNameValuePair("Accept","application/vnd.zsmt.shop.v1+json"));
 		return UrlLoader.getDefault().startLoad(
 				context,
@@ -382,7 +443,7 @@ public class RequestManager
 
 	public static long loadCoupleRingDetail(Context context, String userKey, String goodsId, RequestCallback callback)
 	{
-		return loadCoupleRingDetail(context, userKey, goodsId, callback, CacheMode.PERFER_FILECACHE);
+		return loadCoupleRingDetail(context, userKey, Integer.parseInt(goodsId), callback, CacheMode.PERFER_FILECACHE);
 	}
 
 	public static long loadGoodsErp(Context context, String userKey, String goodsId, RequestCallback callback,
@@ -427,8 +488,6 @@ public class RequestManager
 	 * 
 	 * @param userKey 用户登录后key
 	 * @param id 商品id
-	 * @param erpid erpid
-	 * @param size 戒指手寸
 	 * */
 	public static long appendShoppingcart(Context context, String userKey, String id, String[] erpids, int[] sizes,
 			RequestCallback callback)
@@ -461,7 +520,6 @@ public class RequestManager
 	 * 
 	 * @param userKey 用户登录后key
 	 * @param id 商品id
-	 * @param erpid erpid
 	 * @param size 戒指手寸
 	 * */
 	public static long appendGIAShoppingcart(Context context, String userKey, String id, String gia, String price,
@@ -493,7 +551,6 @@ public class RequestManager
 	 * 
 	 * @param userKey 用户登录后key
 	 * @param id 商品id
-	 * @param erpid erpid
 	 * @param size 戒指手寸
 	 * */
 	public static long appendGIAShoppingcart(Context context, String userKey, String id, String gia, String price,
@@ -626,6 +683,7 @@ public class RequestManager
 		private int mRequestCode;
 		private RequestCallback mCallback;
 		private Class<T> mClass;
+		private int mid;
 
 		// private String mCacheKey;
 		// private Map mCacheMap;
@@ -650,23 +708,68 @@ public class RequestManager
 			mClass = classz;
 		}
 
+		public MyJsonParser(Context context, int requestCode, RequestCallback callback, Class<T> classz,int id)
+		{
+			// this(context, requestCode, callback, classz, null, null);
+			super(context);
+			mRequestCode = requestCode;
+			mCallback = callback;
+			mClass = classz;
+			mid=id;
+		}
+
 		@Override
 		public void onJsonParse(String json, String url, String cacheKey, LoadParams params, DataFrom from)
 		{
 			LogUtil.i(TAG, "json: " + json);
 			GsonBuilder gb = new GsonBuilder();
 			Gson gson = gb.create();
-			T response = gson.fromJson(json, mClass);
-			// if (response.resultCode == BaseResponse.RESULT_OK && mCacheMap != null)
-			// {
-			// if (!TextUtils.isEmpty(mCacheKey))
-			// {
-			// mCacheMap.put(mCacheKey, response);
-			// }
-			// }
-			response.printData(TAG, 2);
-			if (mCallback != null)
-				mCallback.onRequestResult(mRequestCode, mTaskId, response, from);
+			if(mid!=0){
+				Request request=new Request.Builder().url("https://api.zsa888.cn/goods/detail?id="+mid+"&token="+Config.token).addHeader("accept","application/vnd.zsmt.shop.v1+json").get().build();
+//        Request request=new Request.Builder().url("http://www.zsmtvip.com/app/index.php?i=2&c=entry&do=goods_detail&m=test&id=2843"+"&key=").addHeader("accept","application/vnd.zsmt.shop.v1+json").get().build();
+				OkHttpClient okHttpClient=new OkHttpClient();
+
+				okHttpClient.newCall(request).enqueue(new Callback() {
+					@Override
+					public void onFailure(Call call, IOException e) {
+
+					}
+
+					@Override
+					public void onResponse(Call call, Response response) throws IOException {
+						String json =response.body().string();
+						int index=json.lastIndexOf("}");
+						Log.d("ProductDetailsFragment", "onResponse: json="+json.substring(17,index));
+
+						Gson gson = new Gson();
+						T response2 = gson.fromJson(json.substring(17,index), mClass);
+						// if (response.resultCode == BaseResponse.RESULT_OK && mCacheMap != null)
+						// {
+						// if (!TextUtils.isEmpty(mCacheKey))
+						// {
+						// mCacheMap.put(mCacheKey, response);
+						// }
+						// }
+
+						response2.printData(TAG, 2);
+						if (mCallback != null)
+							mCallback.onRequestResult(mRequestCode, mTaskId, response2, DataFrom.ASSET);
+					}
+				});
+			}else {
+				T response = gson.fromJson(json, mClass);
+				// if (response.resultCode == BaseResponse.RESULT_OK && mCacheMap != null)
+				// {
+				// if (!TextUtils.isEmpty(mCacheKey))
+				// {
+				// mCacheMap.put(mCacheKey, response);
+				// }
+				// }
+
+				response.printData(TAG, 2);
+				if (mCallback != null)
+					mCallback.onRequestResult(mRequestCode, mTaskId, response, from);
+			}
 		}
 
 		@Override

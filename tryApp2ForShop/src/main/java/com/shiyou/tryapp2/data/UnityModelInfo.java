@@ -14,7 +14,7 @@ public class UnityModelInfo extends FileInfo
 		super(tempFile);
 	}
 
-	public String id;// 商品id，唯一标识
+	public int id;// 商品id，唯一标识
 	public String typeName;// 商品试戴类型Name
 	public int type;// 模型类型
 	// public String faceTag;// 面向标记

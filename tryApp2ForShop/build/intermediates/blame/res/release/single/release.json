@@ -68,6 +68,10 @@
         "source": "D:\\TryApp2ForShop-master_test\\androidExtendLib2\\build\\intermediates\\packaged_res\\release\\anim\\slide_out_up.xml"
     },
     {
+        "merged": "D:\\TryApp2ForShop-master_test\\tryApp2ForShop\\build\\intermediates\\res\\merged\\release\\drawable_search_all.png.flat",
+        "source": "D:\\TryApp2ForShop-master_test\\tryApp2ForShop\\src\\main\\res\\drawable\\search_all.png"
+    },
+    {
         "merged": "D:\\TryApp2ForShop-master_test\\tryApp2ForShop\\build\\intermediates\\res\\merged\\release\\drawable_selector_product_details_3d_kred.xml.flat",
         "source": "D:\\TryApp2ForShop-master_test\\tryApp2ForShop\\src\\main\\res\\drawable\\selector_product_details_3d_kred.xml"
     },

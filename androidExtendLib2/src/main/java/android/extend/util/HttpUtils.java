@@ -275,7 +275,7 @@ public class HttpUtils
 												   List<Header> headers, HttpHost proxy) throws ClientProtocolException, SocketTimeoutException,
 			UnknownHostException, SocketException, IOException, Exception
 	{
-		LogUtil.d(TAG, "doHttpRequest: " + context + " " + method + " " + url + " " + entity + " " + headers + " "
+		LogUtil.d(TAG, "测试1：doHttpRequest: " + context + " " + method + " " + url + " " + entity + " " + headers + " "
 				+ proxy);
 		releaseInvalidConnections();
 		boolean isPost = false;

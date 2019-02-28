@@ -584,7 +584,7 @@ public class WebViewFragment extends SwipeRefreshWebViewFragment
 										{
 											if (item.tag.equals(Define.TAG_RING))
 											{
-												id = item.id;
+												id = String.valueOf(item.id);
 												tag = item.tag;
 												break;
 											}

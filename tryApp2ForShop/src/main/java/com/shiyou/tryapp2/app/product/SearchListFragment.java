@@ -208,8 +208,8 @@ public class SearchListFragment extends BaseFragment
 					else if (mGoodsItem.model_infos != null)
 						if (mGoodsItem.model_infos.men != null || mGoodsItem.model_infos.wmen != null)
 							hasModelInfo = true;
-					boolean isShop = (mGoodsItem.isshop == 1);
-					MainFragment.instance.addProductDetailFragmentToCurrent(mGoodsItem.id, mGoodsItem.tag, isShop,
+					boolean isShop = true;
+					MainFragment.instance.addProductDetailFragmentToCurrent(String.valueOf(mGoodsItem.id), mGoodsItem.tag, isShop,
 							hasModelInfo, false);
 					// else
 					// MainFragment.instance.addProductDetailFragmentToCurrent(mGoodsItem.id, mGoodsItem.tag, isShop,
@@ -232,32 +232,37 @@ public class SearchListFragment extends BaseFragment
 
 			id = ResourceUtil.getId(getActivity(), "num");
 			TextView num = (TextView)view.findViewById(id);
-			if (mGoodsItem.count > 0)
-			{
-				num.setText("共" + mGoodsItem.count + "件");
-			}
+//			if (mGoodsItem.count > 0)
+//			{
+//				num.setText("共" + mGoodsItem.count + "件");
+//			}
 			// else
 			// {
 			num.setVisibility(View.INVISIBLE);
 			// }
 			long currentTime = System.currentTimeMillis();
 			// LogUtil.v(TAG, "currentTime=" + currentTime + "; createtime=" + mGoodsItem.createtime);
-			if (mGoodsItem.createtime > 0 && (currentTime - mGoodsItem.createtime * 1000 < Config.newGoodsInterval))
-			{
-				id = ResourceUtil.getId(getContext(), "tag_new");
-				View tag_new = view.findViewById(id);
-				tag_new.setVisibility(View.VISIBLE);
-			}
+//			if (mGoodsItem.createtime > 0 && (currentTime - mGoodsItem.createtime * 1000 < Config.newGoodsInterval))
+//			{
+//				id = ResourceUtil.getId(getContext(), "tag_new");
+//				View tag_new = view.findViewById(id);
+//				tag_new.setVisibility(View.VISIBLE);
+//			}
 		}
 
-		@Override
-		public void onViewAttachedToWindow(BaseViewHolder holder, View view)
-		{
-			int id = ResourceUtil.getId(getActivity(), "image");
-			ExtendImageView image = (ExtendImageView)view.findViewById(id);
-			if (mGoodsItem != null && mGoodsItem.thumb != null)
-				image.setImageDataSource(mGoodsItem.thumb.url, mGoodsItem.thumb.filemtime, DecodeMode.FIT_WIDTH);
-			image.startImageLoad(false);
-		}
+        @Override
+        public void onViewAttachedToWindow(BaseViewHolder holder, View view) {
+
+        }
+//
+//		@Override
+//		public void onViewAttachedToWindow(BaseViewHolder holder, View view)
+//		{
+//			int id = ResourceUtil.getId(getActivity(), "image");
+//			ExtendImageView image = (ExtendImageView)view.findViewById(id);
+//			if (mGoodsItem != null && mGoodsItem.thumb != null)
+//				image.setImageDataSource(mGoodsItem.thumb.url, mGoodsItem.thumb.filemtime, DecodeMode.FIT_WIDTH);
+//			image.startImageLoad(false);
+//		}
 	}
 }

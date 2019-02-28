@@ -232,7 +232,7 @@ public class ConfirmShopDetailsFragment extends BaseFragment
 		ensureDetailsMiddle();
 		ensureDetailsRing();
 		giaParse();
-		ProductDetailsData();
+//		ProductDetailsData();
 
 		return ConfirmDetails;
 	}
@@ -476,151 +476,151 @@ public class ConfirmShopDetailsFragment extends BaseFragment
 		});
 	}
 
-	public void ProductDetailsData()
-	{
-		showLoadingIndicator();
-		RequestManager.loadGoodsDetail(getContext(), LoginHelper.getUserKey(getActivity()), goodsId,
-				new RequestCallback()
-				{
-					@Override
-					public void onRequestResult(int requestCode, long taskId, BaseResponse response, DataFrom from)
-					{
-						hideLoadingIndicator();
-						if (response.resultCode == BaseResponse.RESULT_OK)
-						{
-							mGDResponse = (GoodsDetailResponse)response;
-							if (mGDResponse.datas.param[2].value2 == null)
-							{
-								showLoadingIndicator();
-								RequestManager.loadGoodsDetail(getContext(), LoginHelper.getUserKey(getContext()),
-										goodsId, this, CacheMode.PERFER_NETWORK);
-								return;
-							}
-							if (mGDResponse != null && mGDResponse.datas != null)
-							{
-								AndroidUtils.MainHandler.post(new Runnable()
-								{
-									@Override
-									public void run()
-									{
-										productID = mGDResponse.datas.id;
-										productName.setText(mGDResponse.datas.title);
-
-										if (mGDResponse.datas.param != null && mGDResponse.datas.param.length > 0)
-										{
-											product_number.setText(mGDResponse.datas.sku);
-
-											product_material_menubar.setOnMenuListener(new OnMenuListener()
-											{
-												@Override
-												public void onMenuUnSelected(MenuBar menuBar, MenuView menuView,
-														int menuIndex)
-												{
-												}
-
-												@Override
-												public void onMenuSelected(MenuBar menuBar, MenuView menuView,
-														int menuIndex)
-												{
-													float a = 0f, b, c = 0f, d;
-													switch (menuIndex)
-													{
-														case 0:
-														case 1:
-														case 2:
-															ringPriceText.setText("￥"
-																	+ mGDResponse.datas.param[2].value);
-															giaData.careprice = mGDResponse.datas.param[2].value;
-															giaData.carechangeprice = mGDResponse.datas.param[2].value2;
-															giaData.carematerial = Define.getMaterialList().get(
-																	menuIndex);
-															if (!TextUtils.isEmpty(mGDResponse.datas.param[2].value))
-															{
-																a = Float.parseFloat(mGDResponse.datas.param[2].value);
-																c = Float.parseFloat(mGDResponse.datas.param[2].value2);
-															}
-															break;
-														default:
-															ringPriceText.setText("￥"
-																	+ mGDResponse.datas.param[3].value);
-															giaData.careprice = mGDResponse.datas.param[3].value;
-															giaData.carechangeprice = mGDResponse.datas.param[3].value2;
-															giaData.carematerial = Define.getMaterialList().get(
-																	menuIndex);
-															if (!TextUtils.isEmpty(mGDResponse.datas.param[3].value))
-															{
-																a = Float.parseFloat(mGDResponse.datas.param[3].value);
-																c = Float.parseFloat(mGDResponse.datas.param[3].value2);
-															}
-															break;
-													}
-													b = Float.parseFloat(giapirce);
-													d = Float.parseFloat(giasrcprice);
-													productPirce.setText("￥" + (b + a));
-													allpirce = (a + b) + "";
-													srcprice = (c + d) + "";
-													LogUtil.i(TAG, "allpirce: " + allpirce + "; srcprice: " + srcprice);
-												}
-											});
-											product_material_menubar.setCurrentMenu(0);
-										}
-
-										if (mGDResponse.datas.tagname != null
-												&& mGDResponse.datas.tagname.contains(Define.TAGNAME_PENDANT))
-										{
-											product_type.setText("空托");
-											ringsize_select_layout.setVisibility(View.GONE);
-										}
-										else
-										{
-											product_type.setText("戒托");
-											ringsize_select_layout.setVisibility(View.VISIBLE);
-											FlowLayout menuGroup = (FlowLayout)ringsize_menubar.getMenuGroup();
-											float scaled = MainActivity.scaled;
-											float fontScaled = MainActivity.fontScaled;
-											menuGroup.setVerticalDividerWidth((int)(20 * scaled));
-											menuGroup.setHorizontalDividerHeight((int)(20 * scaled));
-											ringsize_menubar.removeAllMenus();
-											if ((mGDResponse.datas.tagname != null && mGDResponse.datas.tagname
-													.contains(Define.TAGNAME_MAN)))
-											{
-												ringsizeList = Define.getMaleRingsizeList();
-											}
-											else
-											{
-												ringsizeList = Define.getFemaleRingsizeList();
-											}
-											int layout = ResourceUtil.getLayoutId(getContext(), "ringsize_select_item");
-											int id = ResourceUtil.getId(getContext(), "textView");
-											for (String size : ringsizeList)
-											{
-												View view = View.inflate(getContext(), layout, null);
-												TextView textView = (TextView)view.findViewById(id);
-												textView.setText(size);
-												ViewTools.adapterAllTextViewTextSizeInChildren(view, fontScaled);
-												ringsize_menubar.addMenu((MenuView)view);
-											}
-											ringsize_menubar.setCurrentMenu(0);
-										}
-
-										productSelectedList(mGDResponse.datas.thumb_url);
-									}
-								});
-							}
-						}
-						else
-						{
-							showToast(response.error);
-						}
-					}
-
-					@Override
-					public void onRequestError(int requestCode, long taskId, ErrorInfo error)
-					{
-						showToast("网络错误: " + error.errorCode);
-					}
-				});
-	}
+//	public void ProductDetailsData()
+//	{
+//		showLoadingIndicator();
+//		RequestManager.loadGoodsDetail(getContext(), LoginHelper.getUserKey(getActivity()), goodsId,
+//				new RequestCallback()
+//				{
+//					@Override
+//					public void onRequestResult(int requestCode, long taskId, BaseResponse response, DataFrom from)
+//					{
+//						hideLoadingIndicator();
+//						if (response.resultCode == BaseResponse.RESULT_OK)
+//						{
+//							mGDResponse = (GoodsDetailResponse)response;
+//							if (mGDResponse.datas.param[2].value2 == null)
+//							{
+//								showLoadingIndicator();
+//								RequestManager.loadGoodsDetail(getContext(), LoginHelper.getUserKey(getContext()),
+//										goodsId, this, CacheMode.PERFER_NETWORK);
+//								return;
+//							}
+//							if (mGDResponse != null && mGDResponse.datas != null)
+//							{
+//								AndroidUtils.MainHandler.post(new Runnable()
+//								{
+//									@Override
+//									public void run()
+//									{
+//										productID = String.valueOf(mGDResponse.datas.id);
+//										productName.setText(mGDResponse.datas.title);
+//
+//										if (mGDResponse.datas.param != null && mGDResponse.datas.param.length > 0)
+//										{
+//											product_number.setText(mGDResponse.datas.sku);
+//
+//											product_material_menubar.setOnMenuListener(new OnMenuListener()
+//											{
+//												@Override
+//												public void onMenuUnSelected(MenuBar menuBar, MenuView menuView,
+//														int menuIndex)
+//												{
+//												}
+//
+//												@Override
+//												public void onMenuSelected(MenuBar menuBar, MenuView menuView,
+//														int menuIndex)
+//												{
+//													float a = 0f, b, c = 0f, d;
+//													switch (menuIndex)
+//													{
+//														case 0:
+//														case 1:
+//														case 2:
+//															ringPriceText.setText("￥"
+//																	+ mGDResponse.datas.param[2].value);
+//															giaData.careprice = mGDResponse.datas.param[2].value;
+//															giaData.carechangeprice = mGDResponse.datas.param[2].value2;
+//															giaData.carematerial = Define.getMaterialList().get(
+//																	menuIndex);
+//															if (!TextUtils.isEmpty(mGDResponse.datas.param[2].value))
+//															{
+//																a = Float.parseFloat(mGDResponse.datas.param[2].value);
+//																c = Float.parseFloat(mGDResponse.datas.param[2].value2);
+//															}
+//															break;
+//														default:
+//															ringPriceText.setText("￥"
+//																	+ mGDResponse.datas.param[3].value);
+//															giaData.careprice = mGDResponse.datas.param[3].value;
+//															giaData.carechangeprice = mGDResponse.datas.param[3].value2;
+//															giaData.carematerial = Define.getMaterialList().get(
+//																	menuIndex);
+//															if (!TextUtils.isEmpty(mGDResponse.datas.param[3].value))
+//															{
+//																a = Float.parseFloat(mGDResponse.datas.param[3].value);
+//																c = Float.parseFloat(mGDResponse.datas.param[3].value2);
+//															}
+//															break;
+//													}
+//													b = Float.parseFloat(giapirce);
+//													d = Float.parseFloat(giasrcprice);
+//													productPirce.setText("￥" + (b + a));
+//													allpirce = (a + b) + "";
+//													srcprice = (c + d) + "";
+//													LogUtil.i(TAG, "allpirce: " + allpirce + "; srcprice: " + srcprice);
+//												}
+//											});
+//											product_material_menubar.setCurrentMenu(0);
+//										}
+//
+//										if (mGDResponse.datas.tagname != null
+//												&& mGDResponse.datas.tagname.contains(Define.TAGNAME_PENDANT))
+//										{
+//											product_type.setText("空托");
+//											ringsize_select_layout.setVisibility(View.GONE);
+//										}
+//										else
+//										{
+//											product_type.setText("戒托");
+//											ringsize_select_layout.setVisibility(View.VISIBLE);
+//											FlowLayout menuGroup = (FlowLayout)ringsize_menubar.getMenuGroup();
+//											float scaled = MainActivity.scaled;
+//											float fontScaled = MainActivity.fontScaled;
+//											menuGroup.setVerticalDividerWidth((int)(20 * scaled));
+//											menuGroup.setHorizontalDividerHeight((int)(20 * scaled));
+//											ringsize_menubar.removeAllMenus();
+//											if ((mGDResponse.datas.tagname != null && mGDResponse.datas.tagname
+//													.contains(Define.TAGNAME_MAN)))
+//											{
+//												ringsizeList = Define.getMaleRingsizeList();
+//											}
+//											else
+//											{
+//												ringsizeList = Define.getFemaleRingsizeList();
+//											}
+//											int layout = ResourceUtil.getLayoutId(getContext(), "ringsize_select_item");
+//											int id = ResourceUtil.getId(getContext(), "textView");
+//											for (String size : ringsizeList)
+//											{
+//												View view = View.inflate(getContext(), layout, null);
+//												TextView textView = (TextView)view.findViewById(id);
+//												textView.setText(size);
+//												ViewTools.adapterAllTextViewTextSizeInChildren(view, fontScaled);
+//												ringsize_menubar.addMenu((MenuView)view);
+//											}
+//											ringsize_menubar.setCurrentMenu(0);
+//										}
+//
+//										productSelectedList(mGDResponse.datas.thumb_url);
+//									}
+//								});
+//							}
+//						}
+//						else
+//						{
+//							showToast(response.error);
+//						}
+//					}
+//
+//					@Override
+//					public void onRequestError(int requestCode, long taskId, ErrorInfo error)
+//					{
+//						showToast("网络错误: " + error.errorCode);
+//					}
+//				});
+//	}
 
 	public void productSelectedList(ImageInfo[] mImageInfo)
 	{

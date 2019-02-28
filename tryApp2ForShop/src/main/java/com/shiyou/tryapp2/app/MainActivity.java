@@ -2306,7 +2306,7 @@ public class MainActivity extends BaseAppActivity
 				UnityModelInfo model = models.get(i);
 				if (status[i] == null || status[i] != DownloadStatus.FINISHED)
 				{
-					String id = model.id;
+					String id = String.valueOf(model.id);
 					if (mSelectedId != null && mSelectedId.equals(id))
 						mSelectedId = null;
 					mCheckedGoodsList.remove(ensureId(id));
@@ -2362,7 +2362,7 @@ public class MainActivity extends BaseAppActivity
 		LogUtil.d(TAG, "addModel:");
 		item.printData(TAG, 0);
 
-		mSelectedGoodsId = item.id;
+		mSelectedGoodsId = String.valueOf(item.id);
 		mSelectedGoodsTag = item.tag;
 
 		if (mCheckedGoodsList.contains(item.id))
@@ -2375,9 +2375,9 @@ public class MainActivity extends BaseAppActivity
 			}
 			else if (Define.TAG_COUPLE.equals(item.tag))
 			{
-				String value = ensureMaleRingId(item.id) + "@" + Boolean.toString(true);
+				String value = ensureMaleRingId(String.valueOf(item.id)) + "@" + Boolean.toString(true);
 				UnityPlayer.UnitySendMessage("PlatformMessageHandler", "NotifySetModelVisible", value);
-				value = ensureFemaleRingId(item.id) + "@" + Boolean.toString(true);
+				value = ensureFemaleRingId(String.valueOf(item.id)) + "@" + Boolean.toString(true);
 				UnityPlayer.UnitySendMessage("PlatformMessageHandler", "NotifySetModelVisible", value);
 			}
 			return;
@@ -2508,9 +2508,9 @@ public class MainActivity extends BaseAppActivity
 			startModelDownload(models);
 
 			// if (!mGoodsItemMap.containsKey(item.id))
-			mGoodsItemMap.put(item.id, item);
+			mGoodsItemMap.put(String.valueOf(item.id), item);
 			if (!mCheckedGoodsList.contains(item.id))
-				mCheckedGoodsList.add(item.id);
+				mCheckedGoodsList.add(String.valueOf(item.id));
 		}
 		else if (Define.TAG_COUPLE.equals(item.tag))
 		{
@@ -2607,11 +2607,11 @@ public class MainActivity extends BaseAppActivity
 				switch (i)
 				{
 					case 0:
-						model.id = ensureMaleRingId(item.id);
+						model.id = Integer.parseInt(ensureMaleRingId(Integer.toString(item.id)));
 						model.type = Config.Type_CoupleRing_Male;
 						break;
 					case 1:
-						model.id = ensureFemaleRingId(item.id);
+						model.id = Integer.parseInt(ensureFemaleRingId(String.valueOf(item.id)));
 						model.type = Config.Type_CoupleRing_FeMale;
 						break;
 				}
@@ -2622,9 +2622,9 @@ public class MainActivity extends BaseAppActivity
 				modelList.add(model);
 			}
 			startModelDownload(modelList);
-			mGoodsItemMap.put(item.id, item);
+			mGoodsItemMap.put(String.valueOf(item.id), item);
 			if (!mCheckedGoodsList.contains(item.id))
-				mCheckedGoodsList.add(item.id);
+				mCheckedGoodsList.add(String.valueOf(item.id));
 		}
 		else
 		{
@@ -2898,18 +2898,18 @@ public class MainActivity extends BaseAppActivity
 			switch (mStartFrom)
 			{
 				case WomanRing:
-					item.copyFrom((GoodsDetailResponse.GoodsDetail)mStartFromData);
+					item.copyFrom((GoodsDetailResponse)mStartFromData);
 					item.tagname = Define.TAGNAME_WOMAN;
 					break;
 				case ManRing:
-					item.copyFrom((GoodsDetailResponse.GoodsDetail)mStartFromData);
+					item.copyFrom((GoodsDetailResponse)mStartFromData);
 					item.tagname = Define.TAGNAME_MAN;
 					break;
 				case CoupleRing:
-					item.copeFrom((CoupleRingDetailResponse.GoodsDetail)mStartFromData);
+					item.copeFrom((CoupleRingDetailResponse)mStartFromData);
 					break;
 				case Necklace:
-					item.copyFrom((GoodsDetailResponse.GoodsDetail)mStartFromData);
+					item.copyFrom((GoodsDetailResponse)mStartFromData);
 					item.tagname = Define.TAGNAME_PENDANT;
 					break;
 			}
@@ -3132,7 +3132,7 @@ public class MainActivity extends BaseAppActivity
 							model = info;
 							model.copyFrom(item.model_info);
 							model.needReadRecord = 1;
-							model.id = ensureMaleRingId(item.id);
+							model.id = Integer.parseInt(ensureMaleRingId(String.valueOf(item.id)));
 							UnityPlayer.UnitySendMessage("PlatformMessageHandler", "NotifyUpdataModelData",
 									UnityModelInfo.toJson(model));
 						}
@@ -3141,7 +3141,7 @@ public class MainActivity extends BaseAppActivity
 							model = info;
 							model.copyFrom(item.model_info);
 							model.needReadRecord = 1;
-							model.id = ensureFemaleRingId(item.id);
+							model.id = Integer.parseInt(ensureFemaleRingId(String.valueOf(item.id)));
 							UnityPlayer.UnitySendMessage("PlatformMessageHandler", "NotifyUpdataModelData",
 									UnityModelInfo.toJson(model));
 						}
@@ -3263,7 +3263,7 @@ public class MainActivity extends BaseAppActivity
 	}
 
 	/** 进入试衣间 */
-	public static void launchTryonScene(Activity activity, GoodsDetailResponse.GoodsDetail detail, String materialTag)
+	public static void launchTryonScene(Activity activity, GoodsDetailResponse detail, String materialTag)
 	{
 		if (detail == null)
 		{
@@ -3299,7 +3299,7 @@ public class MainActivity extends BaseAppActivity
 		if (!TextUtils.isEmpty(goodsId))
 		{
 			((IActivityExtend)activity).showLoadingIndicator();
-			RequestManager.loadGoodsDetail(activity, LoginHelper.getUserKey(activity), goodsId, new RequestCallback()
+			RequestManager.loadGoodsDetail(activity, LoginHelper.getUserKey(activity), Integer.parseInt(goodsId), new RequestCallback()
 			{
 				@Override
 				public void onRequestResult(int requestCode, long taskId, BaseResponse response, DataFrom from)
@@ -3308,7 +3308,7 @@ public class MainActivity extends BaseAppActivity
 					if (response.resultCode == BaseResponse.RESULT_OK)
 					{
 						GoodsDetailResponse gdResponse = (GoodsDetailResponse)response;
-						launchTryonScene(activity, gdResponse.datas, materialTag);
+						launchTryonScene(activity, gdResponse, materialTag);
 					}
 					else
 					{
@@ -3337,7 +3337,7 @@ public class MainActivity extends BaseAppActivity
 	}
 
 	/** 进入试衣间 */
-	public static void launchTryonSceneWithCoupleRing(Activity activity, CoupleRingDetailResponse.GoodsDetail detail,
+	public static void launchTryonSceneWithCoupleRing(Activity activity, CoupleRingDetailResponse detail,
 			String materialTag)
 	{
 		if (detail == null)
@@ -3364,7 +3364,7 @@ public class MainActivity extends BaseAppActivity
 		if (!TextUtils.isEmpty(goodsId))
 		{
 			((IActivityExtend)activity).showLoadingIndicator();
-			RequestManager.loadCoupleRingDetail(activity, LoginHelper.getUserKey(activity), goodsId,
+			RequestManager.loadCoupleRingDetail(activity, LoginHelper.getUserKey(activity), Integer.parseInt(goodsId),
 					new RequestCallback()
 					{
 						@Override
@@ -3374,7 +3374,7 @@ public class MainActivity extends BaseAppActivity
 							if (response.resultCode == BaseResponse.RESULT_OK)
 							{
 								CoupleRingDetailResponse crdResponse = (CoupleRingDetailResponse)response;
-								launchTryonSceneWithCoupleRing(activity, crdResponse.datas, materialTag);
+								launchTryonSceneWithCoupleRing(activity, crdResponse, materialTag);
 							}
 							else
 							{
@@ -3488,9 +3488,9 @@ public class MainActivity extends BaseAppActivity
 			int id = ResourceUtil.getId(getApplicationContext(), "image");
 			ExtendImageView image = (ExtendImageView)view.findViewById(id);
 			// mItem.printData(TAG, 0);
-			if (mItem != null && mItem.thumb != null)
-				image.setImageDataSource(mItem.thumb.url, mItem.thumb.filemtime, DecodeMode.FIT_WIDTH);
-			image.startImageLoad(false);
+//			if (mItem != null && mItem.thumb != null)
+//				image.setImageDataSource(mItem.thumb.url, mItem.thumb.filemtime, DecodeMode.FIT_WIDTH);
+//			image.startImageLoad(false);
 
 			id = ResourceUtil.getId(getApplicationContext(), "name");
 			TextView name = (TextView)view.findViewById(id);
